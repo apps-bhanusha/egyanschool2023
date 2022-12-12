@@ -1,9 +1,9 @@
 
-import 'package:ecom_desgin/Pages/Calendar.dart';
-import 'package:ecom_desgin/Pages/HomeScreen.dart';
-import 'package:ecom_desgin/Pages/Loginscreen.dart';
-import 'package:ecom_desgin/Pages/drawer.dart';
-import 'package:ecom_desgin/Pages/gridview.dart';
+import 'package:ecom_desgin/view/calender/Calendar.dart';
+import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
+import 'package:ecom_desgin/view/login/Loginscreen.dart';
+import 'package:ecom_desgin/view/dashboard/drawer.dart';
+import 'package:ecom_desgin/view/dashboard/dashboard.dart';
 
 import 'package:flutter/material.dart';
 

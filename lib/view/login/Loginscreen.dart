@@ -1,25 +1,22 @@
-import 'package:ecom_desgin/Pages/HomeScreen.dart';
+import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
+import 'package:ecom_desgin/view/children/Student_Login.dart';
+import 'package:ecom_desgin/view/teacher/Teacher_Login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
-class TeacherLogin extends StatefulWidget {
-  const TeacherLogin({super.key});
 
+class SimpleLogin extends StatefulWidget {
   @override
-  _TeacherLoginState createState() => _TeacherLoginState();
+  _SimpleLoginState createState() => _SimpleLoginState();
 }
 
-class _TeacherLoginState extends State<TeacherLogin> {
-  TextEditingController _controller = new TextEditingController();
-  bool _enabled = false;
-  final _formkey = GlobalKey<FormState>();
-  bool _isHidden = true;
+class _SimpleLoginState extends State<SimpleLogin> {
   int _radioSelected = 0;
-  late String _radioVal;
-  int rediobutton = 0;
+  late String _radioVal="";
+int rediobutton = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +30,8 @@ class _TeacherLoginState extends State<TeacherLogin> {
                   child:Container(
                     child: Column(),
                     width: MediaQuery.of(context).size.width,
-                    height: 0.44.sh,
-                    decoration: BoxDecoration(
+                    height: 0.50.sh,
+                    decoration: const BoxDecoration(
                         color: Colors.blue
 
                     ),
@@ -45,20 +42,20 @@ class _TeacherLoginState extends State<TeacherLogin> {
                 child: Container(
                   child: Column(   children: <Widget>[
                     SizedBox(
-                      height: 0.020.sh,
+                      height: 0.040.sh,
                     ),
                     Container(
                       child: CircleAvatar(
                         maxRadius: MediaQuery.of(context).size.width -
                             MediaQuery.of(context).size.width +
-                            46,
+                            52,
                         backgroundImage:
                         AssetImage("assets/images/appstore.png"),
                         // radius: 220,
                       ),
                     ),
                     SizedBox(
-                      height: 0.020.sh,
+                      height: 0.030.sh,
                     ),
                     Text(
                       "Egyan",
@@ -72,7 +69,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
                   ],
                   ),
                   width: MediaQuery.of(context).size.width,
-                  height: 0.43.sh,
+                  height: 0.50.sh,
 
                   decoration: BoxDecoration(
                       color: Colors.lightBlue
@@ -85,7 +82,9 @@ class _TeacherLoginState extends State<TeacherLogin> {
             ],
           ),
 
-
+          SizedBox(
+            height: 0.040.sh,
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 32).r,
             child: Material(
@@ -94,12 +93,12 @@ class _TeacherLoginState extends State<TeacherLogin> {
               child: TextField(
                 onChanged: (String value) {},
                 cursorColor: Color.fromRGBO(32,64,81,1.0),
-
+keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
-                  hintText: " UserName",
+                  hintText: " School Id",
 
                   prefixIcon: Material(
-                    elevation: 2,
+                    elevation: 0,
                     borderRadius: BorderRadius.all(Radius.circular(30)),
                     child: Icon(
                       Icons.account_circle_rounded,
@@ -113,50 +112,60 @@ class _TeacherLoginState extends State<TeacherLogin> {
             ),
           ),
           SizedBox(
-            height: 0.015.sh,
+            height: 0.035.sh,
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32).r,
-            child: Material(
-              elevation: 2.0,
-              borderRadius: BorderRadius.all(Radius.circular(30)),
-              child: TextFormField(
-                obscureText: _isHidden,
-                onChanged: (String value) {},
-                cursorColor: Color.fromRGBO(32,64,81,1.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Teachers",
+                style: GoogleFonts.dmSans(
+                  fontStyle: FontStyle.normal,
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
 
-                decoration: InputDecoration(
-                  hintText: "Password",
+                ),),
 
-                  prefixIcon: Material(
-                    elevation: 2,
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    child: Icon(
-                      Icons.account_circle_rounded,
-                      color:  Color.fromRGBO(32,64,81,1.0),
-                    ),
-                  ),
-                  suffix: InkWell(
-                    onTap: _togglePasswordView,
-                    child: Icon( Icons.visibility),
-                  ),
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(horizontal: 25,vertical: 13),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Password  cannot be empty";
-                  } else if (value.length < 6) {
-                    return "Password length should be atleast 6";
-                  }
-                  return null;
+          Radio(
+            value: 1,
+            groupValue: _radioSelected,
+            activeColor: Colors.blue,
+            onChanged: (value) {
+              setState(() {
+                _radioSelected=value!;
+                _radioVal="Teacher";
+                print(value);
+                rediobutton=value;
+              });
+            },
+          ),
+              Text("Parrents/Students",
+                style: GoogleFonts.dmSans(
+                  fontStyle: FontStyle.normal,
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+
+                ),),
+              Radio(
+                value: 2,
+                groupValue: _radioSelected,
+                activeColor: Colors.pink,
+                onChanged: (value) {
+                  setState(() {
+
+                    _radioVal="Student";
+                    _radioSelected=value!;
+
+                    print(value);
+                    rediobutton=value;
+
+                  });
+
                 },
-              ),
-            ),
+              )
+            ],
           ),
-
           SizedBox(
-            height: 0.015.sh,
+            height: 0.045.sh,
           ),
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 32).r,
@@ -181,67 +190,19 @@ class _TeacherLoginState extends State<TeacherLogin> {
                     backgroundColor: Colors.blue,
                   ),
                   onPressed: () {
-
-                    Get.to(HomeScreen());
-
+                    if (_radioVal=="Student") {
+                      print("student");
+                        Get.to (() => StudentLogin());
+                    }
+                    if(_radioVal=="Teacher"){
+                      Get.to (() => TeacherLogin());
+                      print("teacher");
+                    }
                   },
                 ),
               )),
+          SizedBox(height:0.05.sh),
 
-          Align(
-            alignment: Alignment.topRight,
-            child:   Container(
-              margin: const EdgeInsets.only(right: 30).r,
-              child: Text("Forget PassWord",style: GoogleFonts.dmSans(
-                fontStyle: FontStyle.normal,
-                fontSize: 15.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey,
-              ),),
-
-
-
-
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0).r,
-            child: Align(
-              alignment: Alignment.center,
-              child: Container(
-
-                child: Text("EGYAN Demo School",style: GoogleFonts.dmSans(
-                  fontStyle: FontStyle.normal,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.lightBlue,
-                ),),
-
-
-
-
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0).r,
-            child: Align(
-              alignment: Alignment.center,
-              child: Container(
-
-                child: Text("Change School",style: GoogleFonts.dmSans(
-                  fontStyle: FontStyle.normal,
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.red,
-                ),),
-
-
-
-
-              ),
-            ),
-          ),
 
         ],
 
@@ -256,11 +217,6 @@ class _TeacherLoginState extends State<TeacherLogin> {
         ),
       ),
     );
-  }
-  void _togglePasswordView() {
-    setState(() {
-      _isHidden = !_isHidden;
-    });
   }
 }
 
@@ -310,12 +266,10 @@ class WaveClipper3 extends CustomClipper<Path> {
     path.lineTo(size.width, 0);
     path.close();
     return path;
-
   }
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) {
     return false;
   }
-
 }

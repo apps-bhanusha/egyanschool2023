@@ -1,5 +1,5 @@
-import 'package:ecom_desgin/Pages/drawer.dart';
-import 'package:ecom_desgin/Pages/gridview.dart';
+import 'package:ecom_desgin/view/dashboard/drawer.dart';
+import 'package:ecom_desgin/view/dashboard/dashboard.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,41 +54,35 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         iconTheme: IconThemeData(color: Colors.black),
         title: Row(
           children: [
-            Container(
-              child: Text(
-                'EGYAN Demo school',
-                style: GoogleFonts.dmSans(
-                  fontStyle: FontStyle.normal,
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.redAccent,
-                ),
+            Text(
+              'EGYAN Demo school',
+              style: GoogleFonts.dmSans(
+                fontStyle: FontStyle.normal,
+                fontSize: 15.sp,
+                fontWeight: FontWeight.bold,
+                color: Colors.redAccent,
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 26).r,
               child: Column(
                 children: [
-                  Container(
-                    child: Text(
-                      'Session',
-                      style: GoogleFonts.dmSans(
-                        fontStyle: FontStyle.normal,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+                  Text(
+                    'Session',
+                    style: GoogleFonts.dmSans(
+                      fontStyle: FontStyle.normal,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
                   ),
-                  Container(
-                    child: Text(
-                      '2020-21',
-                      style: GoogleFonts.dmSans(
-                        fontStyle: FontStyle.normal,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+                  Text(
+                    '2020-21',
+                    style: GoogleFonts.dmSans(
+                      fontStyle: FontStyle.normal,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
                   ),
                 ],
@@ -100,8 +94,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           PopupMenuButton<int>(
             itemBuilder: (context) {
               return <PopupMenuEntry<int>>[
-                const PopupMenuItem(child: Text('0'), value: 0),
-                const PopupMenuItem(child: Text('1'), value: 1),
+                const PopupMenuItem(child: Text('detial'), value: 0),
+                const PopupMenuItem(child: Text('about'), value: 1),
               ];
             },
           ),
@@ -138,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           color: Colors.white,
                           elevation: 2,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(10),
                                   topLeft: Radius.circular(10),
                                   bottomRight: Radius.circular(10),

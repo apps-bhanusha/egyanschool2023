@@ -1,11 +1,11 @@
 
-import 'package:ecom_desgin/Pages/Calendar.dart';
+import 'package:ecom_desgin/view/calender/Calendar.dart';
 
-import 'package:ecom_desgin/Pages/HomeScreen.dart';
-import 'package:ecom_desgin/Pages/calendar%20_4s.dart';
-import 'package:ecom_desgin/Pages/child_total.dart';
+import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
+import 'package:ecom_desgin/view/calender/calendar%20_4s.dart';
+import 'package:ecom_desgin/view/children/child_total.dart';
 
-import 'package:ecom_desgin/Pages/gridview.dart';
+import 'package:ecom_desgin/view/dashboard/dashboard.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:ecom_desgin/Pages/HomeScreen.dart';
+import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';

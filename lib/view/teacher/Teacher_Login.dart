@@ -1,22 +1,25 @@
-import 'package:ecom_desgin/Pages/HomeScreen.dart';
-import 'package:ecom_desgin/Pages/Student_Login.dart';
-import 'package:ecom_desgin/Pages/Teacher_Login.dart';
+import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+class TeacherLogin extends StatefulWidget {
+  const TeacherLogin({super.key});
 
-class SimpleLogin extends StatefulWidget {
   @override
-  _SimpleLoginState createState() => _SimpleLoginState();
+  _TeacherLoginState createState() => _TeacherLoginState();
 }
 
-class _SimpleLoginState extends State<SimpleLogin> {
+class _TeacherLoginState extends State<TeacherLogin> {
+  TextEditingController _controller = new TextEditingController();
+  bool _enabled = false;
+  final _formkey = GlobalKey<FormState>();
+  bool _isHidden = true;
   int _radioSelected = 0;
   late String _radioVal;
-int rediobutton = 0;
+  int rediobutton = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +33,7 @@ int rediobutton = 0;
                   child:Container(
                     child: Column(),
                     width: MediaQuery.of(context).size.width,
-                    height: 0.50.sh,
+                    height: 0.44.sh,
                     decoration: BoxDecoration(
                         color: Colors.blue
 
@@ -42,20 +45,20 @@ int rediobutton = 0;
                 child: Container(
                   child: Column(   children: <Widget>[
                     SizedBox(
-                      height: 0.040.sh,
+                      height: 0.020.sh,
                     ),
                     Container(
                       child: CircleAvatar(
                         maxRadius: MediaQuery.of(context).size.width -
                             MediaQuery.of(context).size.width +
-                            52,
+                            46,
                         backgroundImage:
                         AssetImage("assets/images/appstore.png"),
                         // radius: 220,
                       ),
                     ),
                     SizedBox(
-                      height: 0.030.sh,
+                      height: 0.020.sh,
                     ),
                     Text(
                       "Egyan",
@@ -69,7 +72,7 @@ int rediobutton = 0;
                   ],
                   ),
                   width: MediaQuery.of(context).size.width,
-                  height: 0.50.sh,
+                  height: 0.43.sh,
 
                   decoration: BoxDecoration(
                       color: Colors.lightBlue
@@ -82,9 +85,7 @@ int rediobutton = 0;
             ],
           ),
 
-          SizedBox(
-            height: 0.040.sh,
-          ),
+
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 32).r,
             child: Material(
@@ -93,12 +94,12 @@ int rediobutton = 0;
               child: TextField(
                 onChanged: (String value) {},
                 cursorColor: Color.fromRGBO(32,64,81,1.0),
-keyboardType: TextInputType.number,
+
                 decoration: const InputDecoration(
-                  hintText: " School Id",
+                  hintText: " UserName",
 
                   prefixIcon: Material(
-                    elevation: 0,
+                    elevation: 2,
                     borderRadius: BorderRadius.all(Radius.circular(30)),
                     child: Icon(
                       Icons.account_circle_rounded,
@@ -112,60 +113,50 @@ keyboardType: TextInputType.number,
             ),
           ),
           SizedBox(
-            height: 0.035.sh,
+            height: 0.015.sh,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Teachers",
-                style: GoogleFonts.dmSans(
-                  fontStyle: FontStyle.normal,
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.bold,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 32).r,
+            child: Material(
+              elevation: 2.0,
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              child: TextFormField(
+                obscureText: _isHidden,
+                onChanged: (String value) {},
+                cursorColor: Color.fromRGBO(32,64,81,1.0),
 
-                ),),
+                decoration: InputDecoration(
+                  hintText: "Password",
 
-          Radio(
-            value: 1,
-            groupValue: _radioSelected,
-            activeColor: Colors.blue,
-            onChanged: (value) {
-              setState(() {
-                _radioSelected=value!;
-                _radioVal="Teacher";
-                print(value);
-                rediobutton=value;
-              });
-            },
-          ),
-              Text("Parrents/Students",
-                style: GoogleFonts.dmSans(
-                  fontStyle: FontStyle.normal,
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.bold,
-
-                ),),
-              Radio(
-                value: 2,
-                groupValue: _radioSelected,
-                activeColor: Colors.pink,
-                onChanged: (value) {
-                  setState(() {
-
-                    _radioVal="Student";
-                    _radioSelected=value!;
-
-                    print(value);
-                    rediobutton=value;
-
-                  });
-
+                  prefixIcon: Material(
+                    elevation: 2,
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    child: Icon(
+                      Icons.account_circle_rounded,
+                      color:  Color.fromRGBO(32,64,81,1.0),
+                    ),
+                  ),
+                  suffix: InkWell(
+                    onTap: _togglePasswordView,
+                    child: Icon( Icons.visibility),
+                  ),
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 25,vertical: 13),
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Password  cannot be empty";
+                  } else if (value.length < 6) {
+                    return "Password length should be atleast 6";
+                  }
+                  return null;
                 },
-              )
-            ],
+              ),
+            ),
           ),
+
           SizedBox(
-            height: 0.045.sh,
+            height: 0.015.sh,
           ),
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 32).r,
@@ -190,19 +181,67 @@ keyboardType: TextInputType.number,
                     backgroundColor: Colors.blue,
                   ),
                   onPressed: () {
-                    if (_radioVal=="Student") {
-                      print("student");
-                        Get.to (() => StudentLogin());
-                    }
-                    if(_radioVal=="Teacher"){
-                      Get.to (() => TeacherLogin());
-                      print("teacher");
-                    }
+
+                    Get.to(HomeScreen());
+
                   },
                 ),
               )),
-          SizedBox(height:0.05.sh),
 
+          Align(
+            alignment: Alignment.topRight,
+            child:   Container(
+              margin: const EdgeInsets.only(right: 30).r,
+              child: Text("Forget PassWord",style: GoogleFonts.dmSans(
+                fontStyle: FontStyle.normal,
+                fontSize: 15.sp,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey,
+              ),),
+
+
+
+
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0).r,
+            child: Align(
+              alignment: Alignment.center,
+              child: Container(
+
+                child: Text("EGYAN Demo School",style: GoogleFonts.dmSans(
+                  fontStyle: FontStyle.normal,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.lightBlue,
+                ),),
+
+
+
+
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0).r,
+            child: Align(
+              alignment: Alignment.center,
+              child: Container(
+
+                child: Text("Change School",style: GoogleFonts.dmSans(
+                  fontStyle: FontStyle.normal,
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                ),),
+
+
+
+
+              ),
+            ),
+          ),
 
         ],
 
@@ -217,6 +256,11 @@ keyboardType: TextInputType.number,
         ),
       ),
     );
+  }
+  void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
   }
 }
 
@@ -266,10 +310,12 @@ class WaveClipper3 extends CustomClipper<Path> {
     path.lineTo(size.width, 0);
     path.close();
     return path;
+
   }
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) {
     return false;
   }
+
 }
