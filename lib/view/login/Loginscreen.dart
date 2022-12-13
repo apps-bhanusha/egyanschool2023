@@ -1,3 +1,5 @@
+import 'package:ecom_desgin/controller/school_id_controller.dart';
+
 import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
 import 'package:ecom_desgin/view/children/Student_Login.dart';
 import 'package:ecom_desgin/view/teacher/Teacher_Login.dart';
@@ -7,6 +9,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'dart:convert';
+
+
+import 'package:http/http.dart' as http;
+
+import '../../controller/school_id_controller.dart';
 
 class SimpleLogin extends StatefulWidget {
   @override
@@ -14,9 +22,65 @@ class SimpleLogin extends StatefulWidget {
 }
 
 class _SimpleLoginState extends State<SimpleLogin> {
+
+  SchoolIdController  all=SchoolIdController();
+
+ List <SchoolIdController> _dataset=[];
   int _radioSelected = 0;
   late String _radioVal="";
 int rediobutton = 0;
+
+
+  @override
+  void initState() {
+    print("44444444444444422222222555ssssss222222444444444444");
+    print(_dataset);
+    print(_dataset.toString());
+    all.postData();
+
+    print("44444444499999999999999999999999911119999994444");
+
+    allset();
+print(_dataset);
+
+    super.initState();
+
+  }
+  void allset(){
+    print("5555555555555555555555555ddddd");
+    print(_dataset);
+  }
+  // List  SchoolIdControllerList = [];
+
+  // Future<void> postData() async {
+  // print("fdddddddddddddddddddd44444444444444555555555555555555444");
+  // //    var headers = {
+  // //   'Content-Type': 'text/plain',
+  // //   'Cookie': 'ci_session=72ad09608320993a07938376d6296f08fb88ea49'
+  // // };
+  // var request = http.Request('POST', Uri.parse('https://e-gyan.co.in/api/parentwebservices/getProjectKey'));
+  // request.body = '''{\n    "school_id":"5"\n}''';
+  // // request.headers.addAll(headers);
+  //
+  // http.StreamedResponse response = await request.send();
+  //
+  // if (response.statusCode == 200) {
+  // final _model=await response.stream.bytesToString();
+  // print( _model);
+  //
+  // SchoolIdControllerList.add(5);
+  //
+  //
+  // print("777777777777777777777777777");
+  // print(SchoolIdControllerList);
+  // // print(await response.stream.bytesToString());
+  //
+  // }
+  // else {
+  // print(response.reasonPhrase);
+  // }
+  //
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
