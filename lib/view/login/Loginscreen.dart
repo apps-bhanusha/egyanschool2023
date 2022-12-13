@@ -1,55 +1,54 @@
 import 'package:ecom_desgin/controller/school_id_controller.dart';
 
-import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
 import 'package:ecom_desgin/view/children/Student_Login.dart';
 import 'package:ecom_desgin/view/teacher/Teacher_Login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
-import 'dart:convert';
 
 
-import 'package:http/http.dart' as http;
 
-import '../../controller/school_id_controller.dart';
+
+
+
 
 class SimpleLogin extends StatefulWidget {
   @override
+
   _SimpleLoginState createState() => _SimpleLoginState();
 }
 
 class _SimpleLoginState extends State<SimpleLogin> {
 
-  SchoolIdController  all=SchoolIdController();
+  TextEditingController id = new TextEditingController();
+  SchoolIdController all = SchoolIdController();
 
- List <SchoolIdController> _dataset=[];
+  List <SchoolIdController> _dataset = [];
   int _radioSelected = 0;
-  late String _radioVal="";
-int rediobutton = 0;
+  late String _radioVal = "";
+  int rediobutton = 0;
 
 
   @override
   void initState() {
-    print("44444444444444422222222555ssssss222222444444444444");
-    print(_dataset);
-    print(_dataset.toString());
-    all.postData();
+    // Get.toNamed(
+    //   'SimpleLogin',
+    //   arguments: _radioVal,
+    // );
 
-    print("44444444499999999999999999999999911119999994444");
-
-    allset();
-print(_dataset);
-
+    // Get.off(()=>SchoolIdController( _radioVal,));
     super.initState();
 
   }
-  void allset(){
-    print("5555555555555555555555555ddddd");
-    print(_dataset);
+  @override
+  void dispose() {
+
+    super.dispose();
   }
+
   // List  SchoolIdControllerList = [];
 
   // Future<void> postData() async {
@@ -108,21 +107,32 @@ print(_dataset);
                     SizedBox(
                       height: 0.040.sh,
                     ),
-                    Container(
-                      child: CircleAvatar(
-                        maxRadius: MediaQuery.of(context).size.width -
-                            MediaQuery.of(context).size.width +
-                            52,
-                        backgroundImage:
-                        AssetImage("assets/images/appstore.png"),
-                        // radius: 220,
+                    InkWell(
+                      child: Container(
+                        child: CircleAvatar(
+                          maxRadius: MediaQuery.of(context).size.width -
+                              MediaQuery.of(context).size.width +
+                              52,
+                          backgroundImage:
+                          AssetImage("assets/images/appstore.png"),
+                          // radius: 220,
+                        ),
                       ),
+                      // onTap:() {
+                      //   setState(() {
+                      //     all.apicall(5);
+                      //     print("545445545444444444445555555555555");
+                      //     print(all.SchoolIdControllerList);
+                      //     // print(all.SchoolIdControllerList[0]["company_key"]);
+                      //
+                      //   });
+                      // },
                     ),
                     SizedBox(
                       height: 0.030.sh,
                     ),
                     Text(
-                      "Egyan",
+                    "EGYAN",
                       style: GoogleFonts.dmSans(
                         fontStyle: FontStyle.normal,
                         fontSize: 35.sp,
@@ -155,11 +165,15 @@ print(_dataset);
               elevation: 2.0,
               borderRadius: BorderRadius.all(Radius.circular(30)),
               child: TextField(
-                onChanged: (String value) {},
+    controller:id,
+                onChanged: (String value) {
+
+                },
                 cursorColor: Color.fromRGBO(32,64,81,1.0),
 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: " School Id",
+
 
                   prefixIcon: Material(
                     elevation: 0,
@@ -254,14 +268,22 @@ keyboardType: TextInputType.number,
                     backgroundColor: Colors.blue,
                   ),
                   onPressed: () {
-                    if (_radioVal=="Student") {
-                      print("student");
-                        Get.to (() => StudentLogin());
-                    }
-                    if(_radioVal=="Teacher"){
-                      Get.to (() => TeacherLogin());
-                      print("teacher");
-                    }
+
+                    all.apicall( id.text,_radioVal);
+                    //    if (all.SchoolIdControllerList[0]["status"]==true) {
+                    //       if(_radioVal=="Student" ){
+                    //         all.apicall( id.text,_radioVal);
+                    //       }else {
+                    //         print("invalid id");
+                    //       }
+                    //    } else {
+                    //      print("School ID Invailid");
+                    //    }
+                    // if(_radioVal=="Teacher"){
+                    //   all.apicall(id.text,_radioVal);
+                    //   print("teacher");
+                    //   // all.apicall(id.text);
+                    // }
                   },
                 ),
               )),

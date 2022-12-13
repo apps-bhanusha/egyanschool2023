@@ -61,7 +61,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
                       height: 0.020.sh,
                     ),
                     Text(
-                      "Egyan",
+                      "Egyan Teacher",
                       style: GoogleFonts.dmSans(
                         fontStyle: FontStyle.normal,
                         fontSize: 35.sp,

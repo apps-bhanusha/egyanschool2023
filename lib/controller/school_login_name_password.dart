@@ -8,14 +8,14 @@ import 'package:http/http.dart' as http;
 
 
 
- class SchoolIdController {
+class UserNameController {
 
   List SchoolIdControllerList = [];
 
   // ignore: no_leading_underscores_for_local_identifiers
 
 
-  Future<List<SchoolIdController>?> apicall(id ,_radioVal) async {
+  Future<List<UserNameController>?> apicall(id ,_radioVal) async {
     var body = json.encode({
       "school_id": id,
     });
@@ -31,15 +31,15 @@ import 'package:http/http.dart' as http;
       // SchoolIdModel.fromJson(sdata);
       if (sdata["status"] == true) {
 
-if(_radioVal=="Student" ) {
-  Get.to(() => StudentLogin());
-  print("Student" );
-}
-            if(_radioVal=="Teacher"){
-              Get.to (() => TeacherLogin());
-              print("teacher");
-              // all.apicall(id.text);
-            }
+        if(_radioVal=="Student" ) {
+          Get.to(() => StudentLogin());
+          print("Student" );
+        }
+        if(_radioVal=="Teacher"){
+          Get.to (() => TeacherLogin());
+          print("teacher");
+          // all.apicall(id.text);
+        }
       } else {
         print("invalid id");
       }
@@ -47,7 +47,7 @@ if(_radioVal=="Student" ) {
       print("School ID Invailid");
     }
   }
- }
+}
 // void postData(id) async {
 //     print("fdddddddddddddddddddd44444444444444555555555555555555444");
 //     //    var headers = {

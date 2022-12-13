@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/controller/school_login_name_password.dart';
 import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,13 +14,31 @@ class StudentLogin extends StatefulWidget {
 }
 
 class _StudentLoginState extends State<StudentLogin> {
+  TextEditingController id = new TextEditingController();
+  UserNameController all = UserNameController();
+
+  List <UserNameController> _dataset = [];
+  int _radioSelected = 0;
+  late String _radioVal = "";
+  int rediobutton = 0;
+
+
+  @override
+  void initState() {
+    // Get.toNamed(
+    //   'SimpleLogin',
+    //   arguments: _radioVal,
+    // );
+
+    // Get.off(()=>SchoolIdController( _radioVal,));
+    super.initState();
+
+  }
   TextEditingController _controller = new TextEditingController();
   bool _enabled = false;
   final _formkey = GlobalKey<FormState>();
   bool _isHidden = true;
-  int _radioSelected = 0;
-  late String _radioVal;
-  int rediobutton = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +80,7 @@ class _StudentLoginState extends State<StudentLogin> {
                       height: 0.020.sh,
                     ),
                     Text(
-                      "Egyan",
+                      "Egyan Student",
                       style: GoogleFonts.dmSans(
                         fontStyle: FontStyle.normal,
                         fontSize: 35.sp,
