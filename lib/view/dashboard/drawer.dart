@@ -6,6 +6,7 @@ import 'package:ecom_desgin/view/calender/calendar%20_4s.dart';
 import 'package:ecom_desgin/view/children/child_total.dart';
 
 import 'package:ecom_desgin/view/dashboard/dashboard.dart';
+import 'package:ecom_desgin/view/examination/Exam_time_table.dart';
 import 'package:ecom_desgin/view/home_work/home_work.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
@@ -286,6 +287,7 @@ color: Colors.lightBlueAccent,
                     SizedBox(
                       height: 0.042.sh,
                       child: ListTile(
+                         onTap: () => Get.to(const ExamTimeTable()),
                         leading: const Icon(
                           Icons.logout,
                           color: Colors.lightBlueAccent,
