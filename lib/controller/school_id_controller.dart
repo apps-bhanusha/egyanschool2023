@@ -2,11 +2,12 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:ecom_desgin/view/children/Student_Login.dart';
 import 'package:ecom_desgin/view/teacher/Teacher_Login.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:http/http.dart' as http;
-
-
-
 
  class SchoolIdController {
 
@@ -15,7 +16,7 @@ import 'package:http/http.dart' as http;
   // ignore: no_leading_underscores_for_local_identifiers
 
 
-  Future<List<SchoolIdController>?> apicall(id ,_radioVal) async {
+  Future<List<SchoolIdController>?> apicall(id ,_radioVal,context) async {
     var body = json.encode({
       "school_id": id,
     });
@@ -30,24 +31,31 @@ import 'package:http/http.dart' as http;
 
       // SchoolIdModel.fromJson(sdata);
       if (sdata["status"] == true) {
-
-if(_radioVal=="Student" ) {
-  Get.to(() => StudentLogin());
-  print("Student" );
-}
-            if(_radioVal=="Teacher"){
-              Get.to (() => TeacherLogin());
-              print("teacher");
-              // all.apicall(id.text);
-            }
+        if (_radioVal == "Student") {
+          Get.to(() => StudentLogin());
+          print("Student");
+        }
+        if (_radioVal == "Teacher") {
+          Get.to(() => TeacherLogin());
+          print("teacher");
+          // all.apicall(id.text);
+        }
       } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(sdata["message"], style: GoogleFonts.dmSans(
+            fontStyle: FontStyle.normal,
+            fontSize: 15.sp,
+            fontWeight: FontWeight.bold,
+            color: Colors.red,
+          ),
+          ),
+            backgroundColor: Colors.white,
+          ),
+        );
         print("invalid id");
       }
-    } else {
-      print("School ID Invailid");
     }
-  }
- }
+  }}
 // void postData(id) async {
 //     print("fdddddddddddddddddddd44444444444444555555555555555555444");
 //     //    var headers = {

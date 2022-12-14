@@ -1,4 +1,5 @@
-import 'package:ecom_desgin/controller/school_login_name_password.dart';
+
+import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+
 class StudentLogin extends StatefulWidget {
   const StudentLogin({super.key});
 
@@ -14,14 +16,14 @@ class StudentLogin extends StatefulWidget {
 }
 
 class _StudentLoginState extends State<StudentLogin> {
-  TextEditingController id = new TextEditingController();
-  UserNameController all = UserNameController();
+  TextEditingController usersname = TextEditingController();
+  TextEditingController password = TextEditingController();
+  UserNameController allset = UserNameController();
 
-  List <UserNameController> _dataset = [];
+  List<UserNameController> _dataset = [];
   int _radioSelected = 0;
   late String _radioVal = "";
   int rediobutton = 0;
-
 
   @override
   void initState() {
@@ -32,8 +34,8 @@ class _StudentLoginState extends State<StudentLogin> {
 
     // Get.off(()=>SchoolIdController( _radioVal,));
     super.initState();
-
   }
+
   TextEditingController _controller = new TextEditingController();
   bool _enabled = false;
   final _formkey = GlobalKey<FormState>();
@@ -49,84 +51,75 @@ class _StudentLoginState extends State<StudentLogin> {
             children: <Widget>[
               ClipPath(
                   clipper: WaveClipper2(),
-                  child:Container(
+                  child: Container(
                     child: Column(),
                     width: MediaQuery.of(context).size.width,
                     height: 0.44.sh,
-                    decoration: BoxDecoration(
-                        color: Colors.blue
-
-                    ),
-                  )
-              ),
+                    decoration: BoxDecoration(color: Colors.blue),
+                  )),
               ClipPath(
                 clipper: WaveClipper3(),
                 child: Container(
-                  child: Column(   children: <Widget>[
-                    SizedBox(
-                      height: 0.020.sh,
-                    ),
-                    Container(
-                      child: CircleAvatar(
-                        maxRadius: MediaQuery.of(context).size.width -
-                            MediaQuery.of(context).size.width +
-                            46,
-                        backgroundImage:
-                        AssetImage("assets/images/appstore.png"),
-                        // radius: 220,
+                  // ignore: sort_child_properties_last
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 0.020.sh,
                       ),
-                    ),
-                    SizedBox(
-                      height: 0.020.sh,
-                    ),
-                    Text(
-                      "Egyan Student",
-                      style: GoogleFonts.dmSans(
-                        fontStyle: FontStyle.normal,
-                        fontSize: 35.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                      Container(
+                        child: CircleAvatar(
+                          maxRadius: MediaQuery.of(context).size.width -
+                              MediaQuery.of(context).size.width +
+                              46,
+                          backgroundImage:
+                          AssetImage("assets/images/appstore.png"),
+                          // radius: 220,
+                        ),
                       ),
-                    ),
-                  ],
+                      SizedBox(
+                        height: 0.020.sh,
+                      ),
+                      Text(
+                        "Egyan Student",
+                        style: GoogleFonts.dmSans(
+                          fontStyle: FontStyle.normal,
+                          fontSize: 35.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
                   width: MediaQuery.of(context).size.width,
                   height: 0.43.sh,
 
-                  decoration: BoxDecoration(
-                      color: Colors.lightBlue
-                  ),
+                  decoration: const BoxDecoration(color: Colors.lightBlue),
                 ),
               ),
-
-
-
             ],
           ),
-
-
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 32).r,
             child: Material(
               elevation: 2.0,
               borderRadius: BorderRadius.all(Radius.circular(30)),
               child: TextField(
+                controller: usersname,
                 onChanged: (String value) {},
-                cursorColor: Color.fromRGBO(32,64,81,1.0),
-
+                cursorColor: Color.fromRGBO(32, 64, 81, 1.0),
                 decoration: const InputDecoration(
                   hintText: " UserName",
-
                   prefixIcon: Material(
                     elevation: 2,
                     borderRadius: BorderRadius.all(Radius.circular(30)),
                     child: Icon(
                       Icons.account_circle_rounded,
-                      color:  Color.fromRGBO(32,64,81,1.0),
+                      color: Color.fromRGBO(32, 64, 81, 1.0),
                     ),
                   ),
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(horizontal: 25,vertical: 13),
+                  contentPadding:
+                  EdgeInsets.symmetric(horizontal: 25, vertical: 13),
                 ),
               ),
             ),
@@ -140,27 +133,27 @@ class _StudentLoginState extends State<StudentLogin> {
               elevation: 2.0,
               borderRadius: BorderRadius.all(Radius.circular(30)),
               child: TextFormField(
+                controller: password,
                 obscureText: _isHidden,
                 onChanged: (String value) {},
-                cursorColor: Color.fromRGBO(32,64,81,1.0),
-
+                cursorColor: Color.fromRGBO(32, 64, 81, 1.0),
                 decoration: InputDecoration(
                   hintText: "Password",
-
-                  prefixIcon: Material(
+                  prefixIcon: const Material(
                     elevation: 2,
                     borderRadius: BorderRadius.all(Radius.circular(30)),
                     child: Icon(
                       Icons.account_circle_rounded,
-                      color:  Color.fromRGBO(32,64,81,1.0),
+                      color: Color.fromRGBO(32, 64, 81, 1.0),
                     ),
                   ),
                   suffix: InkWell(
                     onTap: _togglePasswordView,
-                    child: Icon( Icons.visibility),
+                    child: Icon(Icons.visibility),
                   ),
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(horizontal: 25,vertical: 13),
+                  contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 25, vertical: 13),
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -173,20 +166,19 @@ class _StudentLoginState extends State<StudentLogin> {
               ),
             ),
           ),
-
           SizedBox(
             height: 0.015.sh,
           ),
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 32).r,
-
               child: Container(
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(100)),
                   // color:  Colors.blue
                 ),
                 child: ElevatedButton(
-                  child:  Text(
+                  // ignore: sort_child_properties_last
+                  child: Text(
                     "Login",
                     style: GoogleFonts.dmSans(
                       fontStyle: FontStyle.normal,
@@ -194,77 +186,65 @@ class _StudentLoginState extends State<StudentLogin> {
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
-
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                   ),
                   onPressed: () {
-
-                    Get.to(HomeScreen());
-
+                    allset.apicallpost(usersname.text,password.text,context);
                   },
                 ),
               )),
-
-Align(
-  alignment: Alignment.topRight,
-  child:   Container(
-  margin: const EdgeInsets.only(right: 30).r,
-  child: Text("Forget PassWord",style: GoogleFonts.dmSans(
-    fontStyle: FontStyle.normal,
-    fontSize: 15.sp,
-    fontWeight: FontWeight.bold,
-    color: Colors.grey,
-  ),),
-
-
-
-
-  ),
-),
-          Padding(
-            padding: const EdgeInsets.all(8.0).r,
-            child: Align(
-              alignment: Alignment.center,
-              child: Container(
-
-                child: Text("EGYAN Demo School",style: GoogleFonts.dmSans(
-                  fontStyle: FontStyle.normal,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.lightBlue,
-                ),),
-
-
-
-
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0).r,
-            child: Align(
-              alignment: Alignment.center,
-              child: Container(
-
-                child: Text("Change School",style: GoogleFonts.dmSans(
+          Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              margin: const EdgeInsets.only(right: 30).r,
+              child: Text(
+                "Forget PassWord",
+                style: GoogleFonts.dmSans(
                   fontStyle: FontStyle.normal,
                   fontSize: 15.sp,
                   fontWeight: FontWeight.bold,
-                  color: Colors.red,
-                ),),
-
-
-
-
+                  color: Colors.grey,
+                ),
               ),
             ),
           ),
-
+          Padding(
+            padding: const EdgeInsets.all(8.0).r,
+            child: Align(
+              alignment: Alignment.center,
+              child: Container(
+                child: Text(
+                  "EGYAN Demo School",
+                  style: GoogleFonts.dmSans(
+                    fontStyle: FontStyle.normal,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.lightBlue,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0).r,
+            child: Align(
+              alignment: Alignment.center,
+              child: Container(
+                child: Text(
+                  "Change School",
+                  style: GoogleFonts.dmSans(
+                    fontStyle: FontStyle.normal,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
-
-
       ),
       bottomNavigationBar: Container(
         color: Colors.lightBlue,
@@ -276,13 +256,14 @@ Align(
       ),
     );
   }
+
+
   void _togglePasswordView() {
     setState(() {
       _isHidden = !_isHidden;
     });
   }
 }
-
 
 class WaveClipper2 extends CustomClipper<Path> {
   @override
@@ -310,6 +291,7 @@ class WaveClipper2 extends CustomClipper<Path> {
     return false;
   }
 }
+
 class WaveClipper3 extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
@@ -329,12 +311,10 @@ class WaveClipper3 extends CustomClipper<Path> {
     path.lineTo(size.width, 0);
     path.close();
     return path;
-
   }
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) {
     return false;
   }
-
 }

@@ -1,3 +1,4 @@
+
 import 'package:ecom_desgin/view/dashboard/drawer.dart';
 import 'package:ecom_desgin/view/dashboard/dashboard.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
   late AnimationController _controller1;
@@ -20,6 +22,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee4444444433333333333333333333333222222222211111111111");
+
     _controller = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
@@ -256,7 +260,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       const EdgeInsets.only(right: 10).r,
                                       child: TextField(
                                         decoration: InputDecoration(
-                                            labelText: 'Fees Due',
+                                            labelText: 'UpComing Exam',
                                             contentPadding:
                                             EdgeInsets.all(5).r,
                                             labelStyle: TextStyle(
@@ -302,9 +306,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     child: Column(
                       children: [
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+      },
                           child: Text(
-                            "Anil sharma",
+                           "mohan sherma",
                             style: GoogleFonts.dmSans(
                                 fontStyle: FontStyle.normal,
                                 fontSize: 15.sp,

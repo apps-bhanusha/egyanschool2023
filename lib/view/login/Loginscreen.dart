@@ -9,12 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
-
-
-
-
-
-
 class SimpleLogin extends StatefulWidget {
   @override
 
@@ -269,7 +263,8 @@ keyboardType: TextInputType.number,
                   ),
                   onPressed: () {
 
-                    all.apicall( id.text,_radioVal);
+                    all.apicall( id.text,_radioVal,context);
+
                     //    if (all.SchoolIdControllerList[0]["status"]==true) {
                     //       if(_radioVal=="Student" ){
                     //         all.apicall( id.text,_radioVal);
