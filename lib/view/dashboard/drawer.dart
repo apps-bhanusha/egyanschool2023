@@ -6,9 +6,13 @@ import 'package:ecom_desgin/view/calender/calendar%20_4s.dart';
 import 'package:ecom_desgin/view/children/child_total.dart';
 
 import 'package:ecom_desgin/view/dashboard/dashboard.dart';
+import 'package:ecom_desgin/view/examination/Exam_time_table.dart';
+import 'package:ecom_desgin/view/home_work/home_work.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -263,6 +267,7 @@ color: Colors.lightBlueAccent,
                 SizedBox(
                   height: 0.042.sh,
                   child: ListTile(
+                    onTap: () => Get.to(const HomeWork()),
                     leading: const Icon(
                   Icons.logout,
                       color: Colors.lightBlueAccent,
@@ -282,6 +287,7 @@ color: Colors.lightBlueAccent,
                     SizedBox(
                       height: 0.042.sh,
                       child: ListTile(
+                         onTap: () => Get.to(const ExamTimeTable()),
                         leading: const Icon(
                           Icons.logout,
                           color: Colors.lightBlueAccent,
