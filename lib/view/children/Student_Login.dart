@@ -18,8 +18,8 @@ class StudentLogin extends StatefulWidget {
 class _StudentLoginState extends State<StudentLogin> {
   TextEditingController usersname = TextEditingController();
   TextEditingController password = TextEditingController();
-  UserNameController allset = UserNameController();
-
+  // UserNameController allset = UserNameController();
+  final UserNameController _allsetController =Get.put( UserNameController());
   List<UserNameController> _dataset = [];
   int _radioSelected = 0;
   late String _radioVal = "";
@@ -191,7 +191,9 @@ class _StudentLoginState extends State<StudentLogin> {
                     backgroundColor: Colors.blue,
                   ),
                   onPressed: () {
-                    allset.apicallpost(usersname.text,password.text,context);
+                    _allsetController.apicallpost(usersname.text,password.text,context);
+
+
                   },
                 ),
               )),

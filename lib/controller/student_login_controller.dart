@@ -4,15 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
-import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
-import 'package:ecom_desgin/view/children/Student_Login.dart';
-import 'package:ecom_desgin/view/teacher/Teacher_Login.dart';
+
 
 import 'package:http/http.dart' as http;
 
-class UserNameController {
-  List SchoolIdControllerList = [];
+class UserNameController extends GetxController {
+  List  SchoolIdControllerList = [].obs;
 
 
   Future<List<UserNameController>?> apicallpost(password, username,context) async {
@@ -29,8 +28,8 @@ class UserNameController {
       var sdata = jsonDecode(response.body);
       print("fddddddddddddddddddd33333333333333333333");
       print(sdata);
-      SchoolIdControllerList.add(sdata);
-      print(SchoolIdControllerList);
+  SchoolIdControllerList.add(sdata);
+print(SchoolIdControllerList);
       // SchoolIdModel.fromJson(sdata);
       if (sdata["status"] == true) {
            return Get.to(() => HomeScreen());

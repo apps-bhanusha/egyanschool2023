@@ -11,10 +11,7 @@ import 'package:http/http.dart' as http;
 
  class SchoolIdController {
 
-  List SchoolIdControllerList = [];
-
-  // ignore: no_leading_underscores_for_local_identifiers
-
+  List SchoolIdControllerList2 = [];
 
   Future<List<SchoolIdController>?> apicall(id ,_radioVal,context) async {
     var body = json.encode({
@@ -27,7 +24,7 @@ import 'package:http/http.dart' as http;
       var sdata = jsonDecode(response.body);
       print("fddddddddddddddddddd33333333333333333333");
       print(sdata);
-      SchoolIdControllerList.add(sdata);
+      SchoolIdControllerList2.add(sdata);
 
       // SchoolIdModel.fromJson(sdata);
       if (sdata["status"] == true) {

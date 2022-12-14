@@ -182,7 +182,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
                   ),
                   onPressed: () {
 
-                    Get.to(HomeScreen());
+                    // Get.to(HomeScreen());
 
                   },
                 ),

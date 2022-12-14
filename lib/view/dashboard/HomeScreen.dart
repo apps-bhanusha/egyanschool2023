@@ -1,20 +1,24 @@
 
+import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/view/dashboard/drawer.dart';
 import 'package:ecom_desgin/view/dashboard/dashboard.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+
+
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-
+  final UserNameController _allsetController =Get.put( UserNameController());
+  List <UserNameController> dataModel=[];
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
   late AnimationController _controller1;
@@ -22,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
     print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee4444444433333333333333333333333222222222211111111111");
 
     _controller = AnimationController(
@@ -307,27 +312,34 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       children: [
                         InkWell(
                           onTap: () {
+                            setState(() {
+                              print("555fdddddddddddddddddddddddddddd33333333333d2");
+                              print(_allsetController.SchoolIdControllerList);
+                            });
+
+                            // print(allset.SchoolIdControllerList[0]["response"].toString());
+
       },
-                          child: Text(
-                           "mohan sherma",
+                          child:
+                            Obx(() => Text(_allsetController.SchoolIdControllerList[0][0]["name"].toString(),
                             style: GoogleFonts.dmSans(
                                 fontStyle: FontStyle.normal,
                                 fontSize: 15.sp,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
                           ),
-                        ),
+                        ),),
                         Padding(
                           padding: const EdgeInsets.all(8.0).r,
                           child: InkWell(
                             onTap: () {},
-                            child: Text(
-                              "8357875895",
+                            child:    Obx(() => Text(_allsetController.SchoolIdControllerList[0][0]["name"].toString(),
                               style: GoogleFonts.dmSans(
                                   fontStyle: FontStyle.normal,
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
+                            ),
                             ),
                           ),
                         ),

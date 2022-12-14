@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
+
 class SimpleLogin extends StatefulWidget {
   @override
 
@@ -25,7 +26,11 @@ class _SimpleLoginState extends State<SimpleLogin> {
   late String _radioVal = "";
   int rediobutton = 0;
 
+  String? string; // Nullable String
 
+  void main() {
+    var len = string!.length; // Runtime error: Null check operator used on a null value
+  }
   @override
   void initState() {
     // Get.toNamed(
