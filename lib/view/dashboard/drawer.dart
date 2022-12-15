@@ -1,4 +1,4 @@
-
+import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/calender/Calendar.dart';
 
 import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
 
@@ -22,123 +23,101 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
-
-  int _index=0;
-  int s=0;
+  int _index = 0;
+  int s = 0;
   @override
   Widget build(BuildContext context) {
     // final imageUrl = Image.asset('assets/images/BeatsPro');
 
     return Drawer(
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              children: [
+                Container(
+                  color: Colors.lightBlueAccent,
+                  child: Column(children: [
+                    Container(
+                      height: 0.15.sh,
+                      width: 0.25.sw,
+                      // decoration:
 
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView(
+                      // BoxDecoration(color: Color.fromARGB(255, 244, 60, 54)),
+                      child: Transform.scale(
+                        scale: s == _index ? 0.9 : 0.9,
+                        // transform: Matrix4.identity(),
 
-                children: [
-
-                  Container(
-color: Colors.lightBlueAccent,
-                    child: Column(
-
-                        children: [
-                          Container(
-                            height:0.15.sh,
-                            width: 0.25.sw,
-                            // decoration:
-
-                            // BoxDecoration(color: Color.fromARGB(255, 244, 60, 54)),
-                            child:Transform.scale(
-                              scale: s == _index ?  0.9 :0.9,
-                              // transform: Matrix4.identity(),
-
-                              child:  CircleAvatar(
-                                maxRadius: MediaQuery.of(context).size.width -
-                                    MediaQuery.of(context).size.width +
-                                    22,
-                                backgroundImage  : AssetImage("assets/images/i1.jpeg"),
-
-
-                              ),
-                            ),
-
-                          ),
-
-                          Text(
-                            "EGYAN Demo School",
-
-                            style: GoogleFonts.dmSans(
-                                fontStyle: FontStyle.normal,
-                                fontSize:20.sp,
-                                fontWeight: FontWeight.bold,
-                              color: Colors.white
-                            ),
-
-                          ),]
-
+                        child: CircleAvatar(
+                          maxRadius: MediaQuery.of(context).size.width -
+                              MediaQuery.of(context).size.width +
+                              22,
+                          backgroundImage: AssetImage("assets/images/i1.jpeg"),
+                        ),
+                      ),
                     ),
-
-                  ),
-
+                    Text(
+                      "EGYAN Demo School",
+                      style: GoogleFonts.dmSans(
+                          fontStyle: FontStyle.normal,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ]),
+                ),
                 Column(
-
                   children: [
-                    Container(color: Colors.lightBlueAccent,
-                      height: 0.0020.sh,),
+                    Container(
+                      color: Colors.lightBlueAccent,
+                      height: 0.0020.sh,
+                    ),
                     SizedBox(
                       height: 0.042.sh,
-                      child:  ListTile(
-
+                      child: ListTile(
                         leading: const Icon(
                           CupertinoIcons.house_fill,
                           color: Colors.lightBlueAccent,
                         ),
-
                         title: Text(
                           "Home",
                           textScaleFactor: 1.2,
-
                           style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize:12.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.lightBlueAccent,
-
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.lightBlueAccent,
                           ),
                         ),
-                        onTap: (){
+                        onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => GridViewall(),
-                            ),);
+                            ),
+                          );
                         },
                       ),
                     ),
-
-
-                SizedBox(
-                  height: 0.042.sh,
-                  child:  ListTile(
-                    leading: const Icon(
-                  Icons.heart_broken_rounded,
-                      color: Colors.lightBlueAccent,
-                    ),
-                    title: Text(
-                  "Profile",
-                  textScaleFactor: 1.2,
-                      style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize:12.sp,
-                          fontWeight: FontWeight.bold,
-                        color: Colors.lightBlueAccent,
+                    SizedBox(
+                      height: 0.042.sh,
+                      child: ListTile(
+                        leading: const Icon(
+                          Icons.heart_broken_rounded,
+                          color: Colors.lightBlueAccent,
+                        ),
+                        title: Text(
+                          "Profile",
+                          textScaleFactor: 1.2,
+                          style: GoogleFonts.dmSans(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.lightBlueAccent,
+                          ),
+                        ),
                       ),
                     ),
-
-
-                  ),
-                ),
                     SizedBox(
                       height: 0.042.sh,
                       child: ListTile(
@@ -148,27 +127,27 @@ color: Colors.lightBlueAccent,
                         ),
                         title: Text(
                           "Attendance",
-
                           textScaleFactor: 1.2,
                           style: GoogleFonts.dmSans(
                             fontStyle: FontStyle.normal,
-                            fontSize:12.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.bold,
                             color: Colors.lightBlueAccent,
                           ),
                         ),
-                        onTap: (){
+                        onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>  CalendarShow(),
-                            ),);
+                              builder: (context) => CalendarShow(),
+                            ),
+                          );
                         },
                       ),
                     ),
                     SizedBox(
                       height: 0.042.sh,
-                      child:  ListTile(
+                      child: ListTile(
                         leading: const Icon(
                           Icons.heart_broken_rounded,
                           color: Colors.lightBlueAccent,
@@ -177,117 +156,113 @@ color: Colors.lightBlueAccent,
                           "Fees",
                           textScaleFactor: 1.2,
                           style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize:12.sp,
-                              fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
                             color: Colors.lightBlueAccent,
                           ),
                         ),
-                        onTap: (){
+                        onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => ChildTotal(),
-                            ),);
+                            ),
+                          );
                         },
-
                       ),
                     ),
-
-
-                SizedBox(
-                  height: 0.042.sh,
-                  child: InkWell(
-                    onTap:(){ Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MyDrawer(),
-                      ),); },
-                    child: ListTile(
-                      leading: const Icon(
-                    CupertinoIcons.profile_circled,
-                        color: Colors.lightBlueAccent,
-                      ),
-                      title: Text(
-                    "Class Time Table",
-                    textScaleFactor: 1.2,
-                        style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize:12.sp,
-                            fontWeight: FontWeight.bold,
-                          color: Colors.lightBlueAccent,
+                    SizedBox(
+                      height: 0.042.sh,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MyDrawer(),
+                            ),
+                          );
+                        },
+                        child: ListTile(
+                          leading: const Icon(
+                            CupertinoIcons.profile_circled,
+                            color: Colors.lightBlueAccent,
+                          ),
+                          title: Text(
+                            "Class Time Table",
+                            textScaleFactor: 1.2,
+                            style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.lightBlueAccent,
+                            ),
+                          ),
                         ),
                       ),
-
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: 0.042.sh,
-                  child:  ListTile(
-                    leading: const Icon(
-                  CupertinoIcons.rectangle_stack_badge_plus,
-                      color: Colors.lightBlueAccent,
-                    ),
-                    title: Text(
-                  "Lession Plan",
-                  textScaleFactor: 1.2,
-                      style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize:12.sp,
-                          fontWeight: FontWeight.bold,
-                        color: Colors.lightBlueAccent,
-                      ),
-                    ),
-
-
-                  ),
-                ),
-                SizedBox(
-                  height: 0.042.sh,
-                  child: ListTile(
-                    leading: const Icon(
-                  Icons.help_outlined,
-                      color: Colors.lightBlueAccent,
-                    ),
-                    title:  Text(
-                  "Syllabus",
-                  textScaleFactor: 1.2,
-                      style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize:12.sp,
-                          fontWeight: FontWeight.bold,
-                        color: Colors.lightBlueAccent,
-                      ),
-                    ),
-
-
-                  ),
-                ),
-                SizedBox(
-                  height: 0.042.sh,
-                  child: ListTile(
-                    onTap: () => Get.to(const HomeWork()),
-                    leading: const Icon(
-                  Icons.logout,
-                      color: Colors.lightBlueAccent,
-                    ),
-                    title: Text(
-                  "Home Work",
-                  textScaleFactor: 1.2,
-                      style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize:12.sp,
-                          fontWeight: FontWeight.bold,
-                        color: Colors.lightBlueAccent,
-                      ),
-                    ),
-                  ),
-                ),
                     SizedBox(
                       height: 0.042.sh,
                       child: ListTile(
-                         onTap: () => Get.to(const ExamTimeTable()),
+                        leading: const Icon(
+                          CupertinoIcons.rectangle_stack_badge_plus,
+                          color: Colors.lightBlueAccent,
+                        ),
+                        title: Text(
+                          "Lession Plan",
+                          textScaleFactor: 1.2,
+                          style: GoogleFonts.dmSans(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.lightBlueAccent,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 0.042.sh,
+                      child: ListTile(
+                        leading: const Icon(
+                          Icons.help_outlined,
+                          color: Colors.lightBlueAccent,
+                        ),
+                        title: Text(
+                          "Syllabus",
+                          textScaleFactor: 1.2,
+                          style: GoogleFonts.dmSans(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.lightBlueAccent,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 0.042.sh,
+                      child: ListTile(
+                        onTap: () => Get.toNamed(RoutesName.homeWork),
+                        leading: const Icon(
+                          Icons.logout,
+                          color: Colors.lightBlueAccent,
+                        ),
+                        title: Text(
+                          "Home Work",
+                          textScaleFactor: 1.2,
+                          style: GoogleFonts.dmSans(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.lightBlueAccent,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 0.042.sh,
+                      child: ListTile(
+                        onTap: () => Get.toNamed(RoutesName.examination),
                         leading: const Icon(
                           Icons.logout,
                           color: Colors.lightBlueAccent,
@@ -296,9 +271,9 @@ color: Colors.lightBlueAccent,
                           "Examination",
                           textScaleFactor: 1.2,
                           style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize:12.sp,
-                              fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
                             color: Colors.lightBlueAccent,
                           ),
                         ),
@@ -315,9 +290,9 @@ color: Colors.lightBlueAccent,
                           "Leave Status",
                           textScaleFactor: 1.2,
                           style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize:12.sp,
-                              fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
                             color: Colors.lightBlueAccent,
                           ),
                         ),
@@ -334,9 +309,9 @@ color: Colors.lightBlueAccent,
                           "Teacher Review",
                           textScaleFactor: 1.2,
                           style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize:12.sp,
-                              fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
                             color: Colors.lightBlueAccent,
                           ),
                         ),
@@ -354,7 +329,7 @@ color: Colors.lightBlueAccent,
                           textScaleFactor: 1.2,
                           style: GoogleFonts.dmSans(
                             fontStyle: FontStyle.normal,
-                            fontSize:12.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.bold,
                             color: Colors.lightBlueAccent,
                           ),
@@ -373,7 +348,7 @@ color: Colors.lightBlueAccent,
                           textScaleFactor: 1.2,
                           style: GoogleFonts.dmSans(
                             fontStyle: FontStyle.normal,
-                            fontSize:12.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.bold,
                             color: Colors.lightBlueAccent,
                           ),
@@ -392,55 +367,45 @@ color: Colors.lightBlueAccent,
                           textScaleFactor: 1.2,
                           style: GoogleFonts.dmSans(
                             fontStyle: FontStyle.normal,
-                            fontSize:10.sp,
+                            fontSize: 10.sp,
                             fontWeight: FontWeight.bold,
                             color: Colors.lightBlueAccent,
                           ),
                         ),
                       ),
                     ),
-
                   ],
-
-
-              ),
-
-
-
-     ],
-
-    ),
+                ),
+              ],
             ),
-
-  Container(
-            color:  Color.fromARGB(255, 218, 214, 182),
+          ),
+          Container(
+            color: const Color.fromARGB(255, 218, 214, 182),
             height: 0.080.sh,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-
               children: [
                 Container(
-                  child: Text("Powered by",
+                  child: Text(
+                    "Powered by",
                     style: GoogleFonts.dmSans(
                       fontStyle: FontStyle.normal,
-                      fontSize:15.sp,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.bold,
                       color: Colors.lightBlueAccent,
                     ),
                   ),
-
                 ),
-                Image.asset("assets/images/b.png",
+                Image.asset(
+                  "assets/images/b.png",
                   height: 0.13.sh,
-                  width: 0.35.sw,),
+                  width: 0.35.sw,
+                ),
               ],
             ),
           ),
-          ],
-        ),
-
-
+        ],
+      ),
     );
-
   }
 }

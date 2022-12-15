@@ -1,4 +1,5 @@
 
+import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/calender/Calendar.dart';
 import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
 import 'package:ecom_desgin/view/login/Loginscreen.dart';
@@ -21,6 +22,8 @@ Future<void> main(List<String> args) async {
       useMaterial3: true,
     ),
     home: const SplashScreen(),
+    initialRoute: RoutesName.splashScreen,
+    getPages: getpages,
   ));
 }
 

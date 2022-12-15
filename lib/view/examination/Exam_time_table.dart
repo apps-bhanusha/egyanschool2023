@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/examination/ExamTimeDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,7 @@ class ExamTimeTable extends StatelessWidget {
             for (int i = 0; i <= 3; i++)
               Center(
                 child: InkWell(
-                  onTap: () => Get.to(ExamTimeDetail()),
+                  onTap: () => Get.toNamed(RoutesName.examiTimeDetial),
                   child: Card(
                     elevation: 10,
                     child: Container(

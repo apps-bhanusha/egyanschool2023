@@ -13,7 +13,7 @@ import 'package:http/http.dart' as http;
  class SchoolIdController {
 
   List SchoolIdControllerList2 = [];
-
+   
   Future<List<SchoolIdController>?> apicall(id ,_radioVal,context) async {
     var body = json.encode({
       "school_id": id,
