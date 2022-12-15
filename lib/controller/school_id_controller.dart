@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:get/get.dart';
 import 'package:ecom_desgin/view/children/Student_Login.dart';
 import 'package:ecom_desgin/view/teacher/Teacher_Login.dart';
@@ -18,7 +19,7 @@ import 'package:http/http.dart' as http;
       "school_id": id,
     });
     final urlapi =
-    Uri.parse("https://e-gyan.co.in/api/parentwebservices/getProjectKey");
+    Uri.parse(ApiUrl.baseUrl+ApiUrl.schollIdUrl);
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
       var sdata = jsonDecode(response.body);

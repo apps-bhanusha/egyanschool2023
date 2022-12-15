@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class UserNameController extends GetxController {
     });
     print("465555555555555555555555555544444444");
     print(body);
-    final urlapi = Uri.parse("https://e-gyan.co.in/api/parentwebservices/studentlogin");
+    final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.studentLoginUrl);
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
       var sdata = jsonDecode(response.body);
