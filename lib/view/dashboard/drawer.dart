@@ -90,12 +90,7 @@ class _MyDrawerState extends State<MyDrawer> {
                           ),
                         ),
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => GridViewall(),
-                            ),
-                          );
+                         Get.toNamed(RoutesName.dashboard);
                         },
                       ),
                     ),
@@ -136,12 +131,7 @@ class _MyDrawerState extends State<MyDrawer> {
                           ),
                         ),
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CalendarShow(),
-                            ),
-                          );
+                          Get.toNamed(RoutesName.attendance);
                         },
                       ),
                     ),
@@ -163,12 +153,7 @@ class _MyDrawerState extends State<MyDrawer> {
                           ),
                         ),
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChildTotal(),
-                            ),
-                          );
+                          Get.toNamed(RoutesName.fees);
                         },
                       ),
                     ),

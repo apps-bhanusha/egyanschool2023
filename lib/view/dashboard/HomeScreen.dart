@@ -1,5 +1,6 @@
 
 import 'package:ecom_desgin/controller/student_login_controller.dart';
+import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/dashboard/drawer.dart';
 import 'package:ecom_desgin/view/dashboard/dashboard.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -315,13 +316,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             setState(() {
                               print("555fdddddddddddddddddddddddddddd33333333333d2");
                               print(_allsetController.SchoolIdControllerList);
+                              print(_allsetController.SchoolIdControllerList[0]["response"]);
+                              print(_allsetController.SchoolIdControllerList[0]["response"]);
                             });
 
                             // print(allset.SchoolIdControllerList[0]["response"].toString());
 
       },
                           child:
-                            Obx(() => Text(_allsetController.SchoolIdControllerList[0][0]["name"].toString(),
+                            Obx(() => Text(_allsetController.SchoolIdControllerList[0]["response"][0]["name"].toString(),
                             style: GoogleFonts.dmSans(
                                 fontStyle: FontStyle.normal,
                                 fontSize: 15.sp,
@@ -333,7 +336,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           padding: const EdgeInsets.all(8.0).r,
                           child: InkWell(
                             onTap: () {},
-                            child:    Obx(() => Text(_allsetController.SchoolIdControllerList[0][0]["name"].toString(),
+                            child:    Obx(() => Text(_allsetController.SchoolIdControllerList[0]["response"][0]["name"].toString(),
                               style: GoogleFonts.dmSans(
                                   fontStyle: FontStyle.normal,
                                   fontSize: 15.sp,
@@ -424,7 +427,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             top: 0.025.sh,
                             child: GestureDetector(
                               onTap: () =>  {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => GridViewall())),
+                              Get.toNamed(RoutesName.dashboard),
                               },
                               child: Container(
                                 child: Text(
