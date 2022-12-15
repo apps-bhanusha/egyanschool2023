@@ -1,5 +1,6 @@
 
 import 'package:ecom_desgin/controller/student_login_controller.dart';
+import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +17,7 @@ class StudentLogin extends StatefulWidget {
 }
 
 class _StudentLoginState extends State<StudentLogin> {
+
   TextEditingController usersname = TextEditingController();
   TextEditingController password = TextEditingController();
   // UserNameController allset = UserNameController();
@@ -25,15 +27,20 @@ class _StudentLoginState extends State<StudentLogin> {
   late String _radioVal = "";
   int rediobutton = 0;
 
+
+
   @override
   void initState() {
-    // Get.toNamed(
-    //   'SimpleLogin',
-    //   arguments: _radioVal,
-    // );
 
-    // Get.off(()=>SchoolIdController( _radioVal,));
     super.initState();
+    // _allsetController.SchoolIdControllerList(
+    //         (user) {
+    //       if (user != null) {
+    //        Get.toNamed(RoutesName.home);
+    //       }
+    //       else {
+    //         //force to login page
+    //       } });
   }
 
   TextEditingController _controller = new TextEditingController();

@@ -1,10 +1,11 @@
+import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/calender/Calendar.dart';
 
 import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
 import 'package:ecom_desgin/view/calender/calendar%20_4s.dart';
 import 'package:ecom_desgin/view/children/child_total.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecom_desgin/view/dashboard/dashboard.dart';
 import 'package:ecom_desgin/view/examination/Exam_time_table.dart';
 import 'package:ecom_desgin/view/home_work/home_work.dart';
@@ -23,6 +24,7 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
+  final UserNameController _allsetController =Get.put( UserNameController());
   int _index = 0;
   int s = 0;
   @override
@@ -48,11 +50,14 @@ class _MyDrawerState extends State<MyDrawer> {
                         scale: s == _index ? 0.9 : 0.9,
                         // transform: Matrix4.identity(),
 
-                        child: CircleAvatar(
-                          maxRadius: MediaQuery.of(context).size.width -
+                        child: CachedNetworkImage(
+
+                          placeholder:  (context, url) => CircleAvatar( maxRadius: MediaQuery.of(context).size.width -
                               MediaQuery.of(context).size.width +
                               22,
-                          backgroundImage: AssetImage("assets/images/i1.jpeg"),
+                              backgroundImage: AssetImage("assets/images/user1.png")),
+
+                          imageUrl: _allsetController.SchoolIdControllerList[0]["response"][0]["profileimage"].toString(),
                         ),
                       ),
                     ),

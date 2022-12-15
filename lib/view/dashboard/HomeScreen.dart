@@ -3,12 +3,14 @@ import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/dashboard/drawer.dart';
 import 'package:ecom_desgin/view/dashboard/dashboard.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 class HomeScreen extends StatefulWidget {
 
 
@@ -18,12 +20,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+
   final UserNameController _allsetController =Get.put( UserNameController());
   List <UserNameController> dataModel=[];
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
   late AnimationController _controller1;
   late Animation<Offset> _Animation;
+
+
   @override
   void initState() {
     super.initState();
@@ -131,158 +136,229 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                       Container(
                         color: Colors.lightBlue,
-                        height: 0.250.sh,
+                        height: 0.270.sh,
                       ),
                       SizedBox(
                         height: 0.010.sh,
                       ),
                       Container(
-                        height: 0.35.sh,
-                        child: Card(
-                          color: Colors.white,
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(10),
-                                  topLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-                                  topRight: Radius.circular(10)),
-                              side: BorderSide(
-                                  width: 0.001.sw, color: Colors.white)),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right: 200).r,
-                                child: Container(
+
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 0.072.sh,
+                                width: 0.99.sw,
+
+                                child:Card(
+                                  color: Colors.lightBlueAccent,
+                            child:  Container(
+                              child: Center(
+                                child: ScrollLoopAutoScroll(
                                   child: Text(
-                                    'Children Details 1/1',
+                                    'Notice board',
                                     style: GoogleFonts.dmSans(
                                       fontStyle: FontStyle.normal,
                                       fontSize: 15.sp,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.black,
+                                      color: Colors.white,
                                     ),
                                   ),
+                                  scrollDirection: Axis.horizontal,
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 10, right: 10),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                      labelText: 'Notice board',
-                                      contentPadding: EdgeInsets.all(5),
-                                      labelStyle: TextStyle(
-                                        color: Colors.grey[400],
-                                      )),
-                                  style: GoogleFonts.dmSans(
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                            ),
+                            )),
+                            Container(
+                              height: 0.25.sh,
+                              child: Card(
+                                color: Colors.white70,
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: const BorderRadius.only(
+                                        bottomLeft: Radius.circular(10),
+                                        topLeft: Radius.circular(10),
+                                        bottomRight: Radius.circular(10),
+                                        topRight: Radius.circular(10)),
+                                    side: BorderSide(
+                                        width: 0.001.sw, color: Colors.white)),
+                                child: Column(
+                                  children: [
+
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        // mainAxisAlignment:
+                                        // MainAxisAlignment.start,
+                                        // crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Fees",
+
+                                                  style: GoogleFonts.dmSans(
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 15.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey[600],
+
+                                                  ),
+
+                                                ),
+                                                Text(
+                                                    _allsetController.SchoolIdControllerList[0]["response"][0]["fee"]["total_amount"].toString(),
+
+                                                  style: GoogleFonts.dmSans(
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 15.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey[600],
+
+                                                  ),
+
+                                                ),
+                                                SizedBox(height: 0.010.sh),
+                                                Container(color:Colors.black,height:0.001.sh,width: 0.40.sw,),
+                                              ],
+                                            ),
+                                          ),
+
+                                          SizedBox(width: 0.090.sw),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Fees Due",
+
+                                                  style: GoogleFonts.dmSans(
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 15.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey[600],
+
+                                                  ),
+
+                                                ),
+                                                Text(
+                                                  _allsetController.SchoolIdControllerList[0]["response"][0]["fee"]["total_balance_amount"].toString(),
+
+                                                  style: GoogleFonts.dmSans(
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 15.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey[600],
+
+                                                  ),
+
+                                                ),
+                                                SizedBox(height: 0.010.sh),
+                                                Container(color:Colors.black,height:0.001.sh,width: 0.40.sw,),
+                                              ],
+                                            ),
+                                          ),
+
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Attendance",
+
+                                                  style: GoogleFonts.dmSans(
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 15.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey[600],
+
+                                                  ),
+
+                                                ),
+                                                Text(
+                                                  _allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"].toString(),
+
+                                                  style: GoogleFonts.dmSans(
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 15.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey[600],
+
+                                                  ),
+
+                                                ),
+                                                SizedBox(height: 0.010.sh),
+                                                Container(color:Colors.black,height:0.001.sh,width: 0.40.sw,),
+                                              ],
+                                            ),
+                                          ),
+
+                                          SizedBox(width: 0.090.sw),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "UpComing Exam",
+
+                                                  style: GoogleFonts.dmSans(
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 15.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey[600],
+
+                                                  ),
+
+                                                ),
+                                                Text(
+                                                  'UpComing Exam',
+
+                                                  style: GoogleFonts.dmSans(
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 15.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey[600],
+
+                                                  ),
+
+                                                ),
+                                                SizedBox(height: 0.010.sh),
+                                                Container(color:Colors.black,height:0.001.sh,width: 0.40.sw,),
+                                              ],
+                                            ),
+                                          ),
+
+                                        ],
+                                      ),
+                                    ),
+
+                                  ],
                                 ),
                               ),
-                              SizedBox(height: 0.010.sh),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Expanded(
-                                    // optional flex property if flex is 1 because the default flex is 1
-                                    flex: 1,
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.only(left: 10).r,
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                            labelText: 'Fees',
-                                            contentPadding:
-                                            EdgeInsets.all(5).r,
-                                            labelStyle: TextStyle(
-                                                color: Colors.grey[400])),
-                                        style: GoogleFonts.dmSans(
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 15.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: 0.090.sw),
-                                  Expanded(
-                                    // optional flex property if flex is 1 because the default flex is 1
-                                    flex: 1,
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.only(right: 10).r,
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                          labelText: 'Fees Due',
-                                          contentPadding: EdgeInsets.all(5).r,
-                                          labelStyle: TextStyle(
-                                              color: Colors.grey[400]),
-                                        ),
-                                        style: GoogleFonts.dmSans(
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 15.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Expanded(
-                                    // optional flex property if flex is 1 because the default flex is 1
-                                    flex: 1,
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.only(left: 10).r,
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                            labelText: 'Attendance',
-                                            contentPadding:
-                                            EdgeInsets.all(5).r,
-                                            labelStyle: TextStyle(
-                                                color: Colors.grey[400])),
-                                        style: GoogleFonts.dmSans(
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 15.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: 0.090.sw),
-                                  Expanded(
-                                    // optional flex property if flex is 1 because the default flex is 1
-                                    flex: 1,
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.only(right: 10).r,
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                            labelText: 'UpComing Exam',
-                                            contentPadding:
-                                            EdgeInsets.all(5).r,
-                                            labelStyle: TextStyle(
-                                                color: Colors.grey[400])),
-                                        style: GoogleFonts.dmSans(
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 15.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -295,13 +371,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       child: Container(
                         height: 0.150.sh,
                         width: 0.22.sw,
-                        child: CircleAvatar(
-                          maxRadius: MediaQuery.of(context).size.width -
+                        child: CachedNetworkImage(
+
+                          placeholder:  (context, url) => CircleAvatar( maxRadius: MediaQuery.of(context).size.width -
                               MediaQuery.of(context).size.width +
-                              22,
-                          backgroundImage:
-                          AssetImage("assets/images/i1.jpeg"),
-                          // radius: 220,
+                              22,backgroundImage: AssetImage("assets/images/user1.png")),
+
+                          imageUrl: _allsetController.SchoolIdControllerList[0]["response"][0]["profileimage"].toString(),
                         ),
                       ),
                     ),
@@ -312,17 +388,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     child: Column(
                       children: [
                         InkWell(
-                          onTap: () {
-                            setState(() {
-                              print("555fdddddddddddddddddddddddddddd33333333333d2");
-                              print(_allsetController.SchoolIdControllerList);
-                              print(_allsetController.SchoolIdControllerList[0]["response"]);
-                              print(_allsetController.SchoolIdControllerList[0]["response"]);
-                            });
-
-                            // print(allset.SchoolIdControllerList[0]["response"].toString());
-
-      },
+                          onTap: () {},
                           child:
                             Obx(() => Text(_allsetController.SchoolIdControllerList[0]["response"][0]["name"].toString(),
                             style: GoogleFonts.dmSans(
@@ -336,7 +402,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           padding: const EdgeInsets.all(8.0).r,
                           child: InkWell(
                             onTap: () {},
-                            child:    Obx(() => Text(_allsetController.SchoolIdControllerList[0]["response"][0]["name"].toString(),
+                            child:    Obx(() => Text(_allsetController.SchoolIdControllerList[0]['parent_info']["mobileno"].toString(),
                               style: GoogleFonts.dmSans(
                                   fontStyle: FontStyle.normal,
                                   fontSize: 15.sp,
@@ -387,7 +453,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ),
 
                   Positioned(
-                    bottom: 0.36.sh,
+                    bottom: 0.331.sh,
                     child: Container(
                       color: Colors.black26,
                       height: 0.080.sh,
@@ -465,4 +531,5 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       drawer: MyDrawer(),
     );
   }
+
 }
