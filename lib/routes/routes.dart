@@ -4,6 +4,7 @@ import 'package:ecom_desgin/view/children/Student_Login.dart';
 import 'package:ecom_desgin/view/children/child_total.dart';
 import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
 import 'package:ecom_desgin/view/dashboard/dashboard.dart';
+import 'package:ecom_desgin/view/download/download_all.dart';
 import 'package:ecom_desgin/view/examination/ExamTimeDetail.dart';
 import 'package:ecom_desgin/view/examination/Exam_time_table.dart';
 import 'package:ecom_desgin/view/home_work/home_work.dart';
@@ -25,6 +26,7 @@ class RoutesName{
   static String homeWork = '/homeWork';
   static String examination = '/examination';
   static String examiTimeDetial = '/examiTimeDetial';
+  static String downloadAll = '/downloadAll';
   
 }
 
@@ -38,6 +40,7 @@ final getpages=[
  GetPage(name: RoutesName.homeWork, page: () =>  const HomeWork()),
  GetPage(name: RoutesName.examination, page: () =>  const ExamTimeTable()),
  GetPage(name: RoutesName.examiTimeDetial, page: () =>  const ExamTimeDetail()),
+ GetPage(name: RoutesName.downloadAll, page: () =>  const DownloadAll()),
 
  
 ];

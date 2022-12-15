@@ -14,6 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
+
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
@@ -25,6 +26,7 @@ Future<void> main(List<String> args) async {
     initialRoute: RoutesName.splashScreen,
     getPages: getpages,
   ));
+
 }
 
 class SplashScreen extends StatefulWidget {
