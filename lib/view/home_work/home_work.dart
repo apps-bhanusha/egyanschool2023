@@ -304,11 +304,20 @@ class _HomeWorkState extends State<HomeWork> {
                                     width: 1,
                                   ),
                                 ),
-                                const Text("Download",
+                                InkWell(
+                                  onTap: (){
+                                    
+                                  },
+                                  child: Row(
+                                    children: const[
+                                       Text("Download",
                                     style: TextStyle(
                                         color: Color.fromARGB(255, 255, 255, 255),
                                         fontSize: 15)),
                                 Icon(Icons.download)
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
                           ),
