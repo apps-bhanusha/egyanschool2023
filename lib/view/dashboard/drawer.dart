@@ -264,6 +264,26 @@ class _MyDrawerState extends State<MyDrawer> {
                         ),
                       ),
                     ),
+                      SizedBox(
+                      height: 0.042.sh,
+                      child: ListTile(
+                         onTap: () => Get.toNamed(RoutesName.downloadAll),
+                        leading: const Icon(
+                          Icons.logout,
+                          color: Colors.lightBlueAccent,
+                        ),
+                        title: Text(
+                          "Download",
+                          textScaleFactor: 1.2,
+                          style: GoogleFonts.dmSans(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.lightBlueAccent,
+                          ),
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       height: 0.042.sh,
                       child: ListTile(

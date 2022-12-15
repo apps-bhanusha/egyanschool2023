@@ -1,9 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ecom_desgin">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
+   
    <application
         android:label="ecom_desgin"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        android:requestLegacyExternalStorage="true"
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -30,5 +36,6 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+      
     </application>
 </manifest>

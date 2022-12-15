@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;  
 class HomeWorkController extends GetxController {
   RxBool isloading =false.obs;
+  RxBool isdownloadin=true.obs;
   List homeWorkControllerList =[].obs;
 
   void homeworkapi() async {
@@ -20,4 +21,10 @@ class HomeWorkController extends GetxController {
       } else {print("invalid id");}
     } else {print("errror");}
   }
+
+  void isdownloadinmethod(){
+        isdownloadin.value=false;
+       
+      
+   }
 }
