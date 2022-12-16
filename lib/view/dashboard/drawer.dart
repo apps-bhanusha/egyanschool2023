@@ -188,6 +188,10 @@ class _MyDrawerState extends State<MyDrawer> {
                               color: Colors.lightBlueAccent,
                             ),
                           ),
+                            onTap: () {
+                              Get.toNamed(RoutesName.timetable);
+                            },
+
                         ),
                       ),
                     ),

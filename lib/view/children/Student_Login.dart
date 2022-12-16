@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
+
 class StudentLogin extends StatefulWidget {
   const StudentLogin({super.key});
 
@@ -20,18 +21,18 @@ class _StudentLoginState extends State<StudentLogin> {
 
   TextEditingController usersname = TextEditingController();
   TextEditingController password = TextEditingController();
+
   // UserNameController allset = UserNameController();
-  final UserNameController _allsetController =Get.put( UserNameController());
+  static final UserNameController _allsetController = Get.put(
+      UserNameController());
   List<UserNameController> _dataset = [];
   int _radioSelected = 0;
   late String _radioVal = "";
   int rediobutton = 0;
 
 
-
   @override
   void initState() {
-
     super.initState();
     // _allsetController.SchoolIdControllerList(
     //         (user) {
@@ -41,6 +42,7 @@ class _StudentLoginState extends State<StudentLogin> {
     //       else {
     //         //force to login page
     //       } });
+
   }
 
   TextEditingController _controller = new TextEditingController();
@@ -60,7 +62,10 @@ class _StudentLoginState extends State<StudentLogin> {
                   clipper: WaveClipper2(),
                   child: Container(
                     child: Column(),
-                    width: MediaQuery.of(context).size.width,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width,
                     height: 0.44.sh,
                     decoration: BoxDecoration(color: Colors.blue),
                   )),
@@ -75,8 +80,14 @@ class _StudentLoginState extends State<StudentLogin> {
                       ),
                       Container(
                         child: CircleAvatar(
-                          maxRadius: MediaQuery.of(context).size.width -
-                              MediaQuery.of(context).size.width +
+                          maxRadius: MediaQuery
+                              .of(context)
+                              .size
+                              .width -
+                              MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width +
                               46,
                           backgroundImage:
                           AssetImage("assets/images/appstore.png"),
@@ -97,7 +108,10 @@ class _StudentLoginState extends State<StudentLogin> {
                       ),
                     ],
                   ),
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
                   height: 0.43.sh,
 
                   decoration: const BoxDecoration(color: Colors.lightBlue),
@@ -106,7 +120,9 @@ class _StudentLoginState extends State<StudentLogin> {
             ],
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32).r,
+            padding: EdgeInsets
+                .symmetric(horizontal: 32)
+                .r,
             child: Material(
               elevation: 2.0,
               borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -135,7 +151,9 @@ class _StudentLoginState extends State<StudentLogin> {
             height: 0.015.sh,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32).r,
+            padding: EdgeInsets
+                .symmetric(horizontal: 32)
+                .r,
             child: Material(
               elevation: 2.0,
               borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -177,7 +195,9 @@ class _StudentLoginState extends State<StudentLogin> {
             height: 0.015.sh,
           ),
           Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32).r,
+              padding: EdgeInsets
+                  .symmetric(horizontal: 32)
+                  .r,
               child: Container(
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(100)),
@@ -197,10 +217,9 @@ class _StudentLoginState extends State<StudentLogin> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                   ),
-                  onPressed: () {
-                    _allsetController.apicallpost(usersname.text,password.text,context);
-
-
+                  onPressed: () async {
+                    _allsetController.apicallpost(
+                        usersname.text, password.text, context);
                   },
                 ),
               )),
@@ -259,7 +278,10 @@ class _StudentLoginState extends State<StudentLogin> {
         color: Colors.lightBlue,
         child: Image.asset(
           "assets/images/b.png",
-          width: MediaQuery.of(context).size.width,
+          width: MediaQuery
+              .of(context)
+              .size
+              .width,
           height: 0.070.sh,
         ),
       ),
@@ -272,7 +294,10 @@ class _StudentLoginState extends State<StudentLogin> {
       _isHidden = !_isHidden;
     });
   }
+
+
 }
+
 
 class WaveClipper2 extends CustomClipper<Path> {
   @override

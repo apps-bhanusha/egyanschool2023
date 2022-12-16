@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
-import 'package:flutter_session_manager/flutter_session_manager.dart';
+
 import 'package:get/get.dart';
 
 
