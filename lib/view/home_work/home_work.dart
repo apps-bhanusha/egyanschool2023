@@ -1,3 +1,4 @@
+
 import 'package:ecom_desgin/controller/home_word_controller.dart';
 import 'package:ecom_desgin/controller/school_id_controller.dart';
 import 'package:ecom_desgin/main.dart';
@@ -9,7 +10,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -22,7 +22,7 @@ class HomeWork extends StatefulWidget {
 
 class _HomeWorkState extends State<HomeWork> {
   final HomeWorkController _homeWorkController = Get.put(HomeWorkController());
-  
+
   String _selectdrop = "select";
   List<String> dropdata = ["hindi", "math"];
   bool uploadDone = false;
@@ -38,7 +38,6 @@ class _HomeWorkState extends State<HomeWork> {
     _homeWorkController.homeworkapi();
     super.initState();
   }
-
 
   Future download(Dio dio, String Path, String savePath) async {
     try {
@@ -370,17 +369,21 @@ class _HomeWorkState extends State<HomeWork> {
                                       ),
                                       InkWell(
                                         onTap: () async {
-                                          // Get.to( PdfViewerPage(_homeWorkController.homeWorkControllerList[i][0]["document"]));
                                           _homeWorkController
                                               .isdownloadinmethod();
-                                        
-                                              Directory dir = Directory('/storage/emulated/0/Download');
+
+                                          Directory dir = Directory(
+                                              '/storage/emulated/0/Download');
                                           download(
                                               Dio(),
                                               _homeWorkController
                                                       .homeWorkControllerList[i]
-                                                  [0]["document"],dir.path+'data.pdf'
-                                              );
+                                                  [0]["document"],
+                                              dir.path + 'data.pdf');
+                                            
+                                          // Get.to( PdfViewerPage(_homeWorkController.homeWorkControllerList[i][0]["document"]));
+
+
                                         },
                                         child: _homeWorkController
                                                 .isdownloadin.value
@@ -401,9 +404,7 @@ class _HomeWorkState extends State<HomeWork> {
                                                 children: [
                                                   InkWell(
                                                     onTap: () async {
-                                                      var tempDir =
-                                                          await getTemporaryDirectory();
-
+                                                    
                                                       // ignore: use_build_context_synchronously
                                                       // Navigator.push(
                                                       //   context,

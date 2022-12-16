@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:get/get.dart';
-import 'package:ecom_desgin/view/children/Student_Login.dart';
+import 'package:ecom_desgin/view/login/Student_Login.dart';
 import 'package:ecom_desgin/view/teacher/Teacher_Login.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';

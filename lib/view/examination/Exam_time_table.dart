@@ -17,6 +17,7 @@ class ExamTimeTable extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Examination"),
+          
         ),
         body: Column(
           children: [

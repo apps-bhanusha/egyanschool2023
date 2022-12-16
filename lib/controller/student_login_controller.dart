@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
 
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 
 
 import 'package:http/http.dart' as http;
@@ -40,7 +41,9 @@ class UserNameController extends GetxController {
 print(SchoolIdControllerList);
 
       if (sdata["status"] == true) {
-
+      var box = Hive.box("schoolData");
+      box.put("username",username);
+      box.put("password",password);
            return Get.to(() => HomeScreen());
       }
 
