@@ -2,16 +2,15 @@
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/dashboard/drawer.dart';
-import 'package:ecom_desgin/view/dashboard/dashboard.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
 
 
 
@@ -126,14 +125,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   // background image and bottom contents
                   Column(
                     children: <Widget>[
-                      SizedBox(
-                        height: 0.188.sh,
-                        width: MediaQuery.of(context).size.width,
-                        child: Image.asset(
-                          "assets/images/all4.jpeg",
-                          fit: BoxFit.fill,
-                        ),
-                      ),
+                      // SizedBox(
+                      //   height: 0.188.sh,
+                      //   width: MediaQuery.of(context).size.width,
+                      //   child: Image.asset(
+                      //     "assets/images/all4.jpeg",
+                      //     fit: BoxFit.fill,
+                      //   ),
+                      // ),
                       Container(
                         color: Colors.lightBlue,
                         height: 0.270.sh,
@@ -154,6 +153,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             child:  Container(
                               child: Center(
                                 child: ScrollLoopAutoScroll(
+                                  scrollDirection: Axis.horizontal,
                                   child: Text(
                                     'Notice board',
                                     style: GoogleFonts.dmSans(
@@ -163,7 +163,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       color: Colors.white,
                                     ),
                                   ),
-                                  scrollDirection: Axis.horizontal,
                                 ),
                               ),
                             ),
@@ -368,18 +367,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     top: 0.20.sw,
                     child: Align(
                       alignment: Alignment.center,
-                      child: Container(
-                        height: 0.150.sh,
-                        width: 0.22.sw,
-                        child: CachedNetworkImage(
+                      child:Text("data")
+                      //  Container(
+                      //   height: 0.150.sh,
+                      //   width: 0.22.sw,
+                      //   child: CachedNetworkImage(
 
-                          placeholder:  (context, url) => CircleAvatar( maxRadius: MediaQuery.of(context).size.width -
-                              MediaQuery.of(context).size.width +
-                              22,backgroundImage: AssetImage("assets/images/user1.png")),
+                      //     placeholder:  (context, url) => CircleAvatar( maxRadius: MediaQuery.of(context).size.width -
+                      //         MediaQuery.of(context).size.width +
+                      //         22,backgroundImage: AssetImage("assets/images/user1.png")),
 
-                          imageUrl: _allsetController.SchoolIdControllerList[0]["response"][0]["profileimage"].toString(),
-                        ),
-                      ),
+                      //     imageUrl: _allsetController.SchoolIdControllerList[0]["response"][0]["profileimage"].toString(),
+                      //   ),
+                      // ),
                     ),
                   ),
 

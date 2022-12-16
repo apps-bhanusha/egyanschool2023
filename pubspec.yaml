@@ -42,6 +42,10 @@ dependencies:
   flutter_clean_calendar: ^1.1.0
   flutter_calendar_carousel: ^2.4.1
   http: ^0.13.5
+  flutter_session_manager: ^1.0.3
+  dio: ^4.0.6
+  cached_network_image: ^3.2.3
+  scroll_loop_auto_scroll: ^0.0.5
 
 dev_dependencies:
   flutter_test:

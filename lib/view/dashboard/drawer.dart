@@ -1,19 +1,11 @@
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
-import 'package:ecom_desgin/view/calender/Calendar.dart';
 
-import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
-import 'package:ecom_desgin/view/calender/calendar%20_4s.dart';
-import 'package:ecom_desgin/view/children/child_total.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecom_desgin/view/dashboard/dashboard.dart';
-import 'package:ecom_desgin/view/examination/Exam_time_table.dart';
-import 'package:ecom_desgin/view/home_work/home_work.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -40,27 +32,27 @@ class _MyDrawerState extends State<MyDrawer> {
                 Container(
                   color: Colors.lightBlueAccent,
                   child: Column(children: [
-                    Container(
-                      height: 0.15.sh,
-                      width: 0.25.sw,
-                      // decoration:
+                    // Container(
+                    //   height: 0.15.sh,
+                    //   width: 0.25.sw,
+                    //   // decoration:
 
-                      // BoxDecoration(color: Color.fromARGB(255, 244, 60, 54)),
-                      child: Transform.scale(
-                        scale: s == _index ? 0.9 : 0.9,
-                        // transform: Matrix4.identity(),
+                    //   // BoxDecoration(color: Color.fromARGB(255, 244, 60, 54)),
+                    //   child: Transform.scale(
+                    //     scale: s == _index ? 0.9 : 0.9,
+                    //     // transform: Matrix4.identity(),
 
-                        child: CachedNetworkImage(
+                    //     child: CachedNetworkImage(
 
-                          placeholder:  (context, url) => CircleAvatar( maxRadius: MediaQuery.of(context).size.width -
-                              MediaQuery.of(context).size.width +
-                              22,
-                              backgroundImage: AssetImage("assets/images/user1.png")),
+                    //       placeholder:  (context, url) => CircleAvatar( maxRadius: MediaQuery.of(context).size.width -
+                    //           MediaQuery.of(context).size.width +
+                    //           22,
+                    //           backgroundImage: AssetImage("assets/images/user1.png")),
 
-                          imageUrl: _allsetController.SchoolIdControllerList[0]["response"][0]["profileimage"].toString(),
-                        ),
-                      ),
-                    ),
+                    //       imageUrl: _allsetController.SchoolIdControllerList[0]["response"][0]["profileimage"].toString(),
+                    //     ),
+                    //   ),
+                    // ),
                     Text(
                       "EGYAN Demo School",
                       style: GoogleFonts.dmSans(
