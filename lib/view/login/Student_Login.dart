@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class StudentLogin extends StatefulWidget {
   const StudentLogin({super.key});
@@ -198,7 +199,10 @@ class _StudentLoginState extends State<StudentLogin> {
                     backgroundColor: Colors.blue,
                   ),
                   onPressed: () {
-                    _allsetController.apicallpost(usersname.text,password.text,context);
+                     var box = Hive.box("schoolData");
+                    var userName= box.get("username");
+var password= box.get("password");
+                    _allsetController.apicallpost(userName,password,context);
 
 
                   },

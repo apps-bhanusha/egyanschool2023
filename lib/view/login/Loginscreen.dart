@@ -1,6 +1,6 @@
 import 'package:ecom_desgin/controller/school_id_controller.dart';
 
-import 'package:ecom_desgin/view/children/Student_Login.dart';
+import 'package:ecom_desgin/view/login/Student_Login.dart';
 import 'package:ecom_desgin/view/teacher/Teacher_Login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

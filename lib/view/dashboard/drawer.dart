@@ -16,7 +16,7 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
-  final UserNameController _allsetController =Get.put( UserNameController());
+  final UserNameController _allsetController = Get.put(UserNameController());
   int _index = 0;
   int s = 0;
   @override
@@ -87,7 +87,7 @@ class _MyDrawerState extends State<MyDrawer> {
                           ),
                         ),
                         onTap: () {
-                         Get.toNamed(RoutesName.dashboard);
+                          Get.toNamed(RoutesName.dashboard);
                         },
                       ),
                     ),
@@ -261,10 +261,44 @@ class _MyDrawerState extends State<MyDrawer> {
                         ),
                       ),
                     ),
-                      SizedBox(
+                    ExpansionTile(
+                      title: Text(
+                        "Examination",
+                        textScaleFactor: 1.2,
+                        style: GoogleFonts.dmSans(
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.lightBlueAccent,
+                        ),
+                      ),
+                      leading: const Icon(
+                        Icons.logout,
+                        color: Colors.lightBlueAccent,
+                      ), //add icon
+                      childrenPadding:
+                          EdgeInsets.only(left: 60), //children padding
+                      children: [
+                        ListTile(
+                          title: const Text("Exam Time Table"),
+                          onTap: () => Get.toNamed(RoutesName.examination),
+                        ),
+
+                        ListTile(
+                          title: const Text("Result"),
+                          onTap: () {
+                            onTap:
+                            () => Get.toNamed(RoutesName.examResult);
+                          },
+                        ),
+
+                        //more child menu
+                      ],
+                    ),
+                    SizedBox(
                       height: 0.042.sh,
                       child: ListTile(
-                         onTap: () => Get.toNamed(RoutesName.downloadAll),
+                        onTap: () => Get.toNamed(RoutesName.downloadAll),
                         leading: const Icon(
                           Icons.logout,
                           color: Colors.lightBlueAccent,

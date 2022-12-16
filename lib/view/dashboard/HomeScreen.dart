@@ -32,7 +32,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee4444444433333333333333333333333222222222211111111111");
 
     _controller = AnimationController(
       duration: const Duration(milliseconds: 500),

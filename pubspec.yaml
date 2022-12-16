@@ -46,6 +46,8 @@ dependencies:
   dio: ^4.0.6
   cached_network_image: ^3.2.3
   scroll_loop_auto_scroll: ^0.0.5
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:
