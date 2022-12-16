@@ -204,6 +204,9 @@ class _MyDrawerState extends State<MyDrawer> {
                             color: Colors.lightBlueAccent,
                           ),
                         ),
+                        onTap: () {
+                          Get.toNamed(RoutesName.feesgraff);
+                        },
                       ),
                     ),
                     SizedBox(
@@ -223,6 +226,9 @@ class _MyDrawerState extends State<MyDrawer> {
                             color: Colors.lightBlueAccent,
                           ),
                         ),
+                        onTap: () {
+                          Get.toNamed(RoutesName.syllabus);
+                        },
                       ),
                     ),
                     SizedBox(
@@ -290,10 +296,10 @@ class _MyDrawerState extends State<MyDrawer> {
 
                         ListTile(
                           title: const Text("Result"),
-                          onTap: () {
-                            onTap:
-                            () => Get.toNamed(RoutesName.examResult);
-                          },
+                          // onTap: () {
+                          //   onTap:
+                          //   () => Get.toNamed(RoutesName.examResult);
+                          // },
                         ),
 
                         //more child menu

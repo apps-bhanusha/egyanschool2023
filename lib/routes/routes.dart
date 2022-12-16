@@ -1,6 +1,6 @@
 
 import 'package:ecom_desgin/main.dart';
-import 'package:ecom_desgin/view/children/Student_Login.dart';
+
 import 'package:ecom_desgin/view/children/child_total.dart';
 import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
 import 'package:ecom_desgin/view/dashboard/dashboard.dart';
@@ -9,6 +9,10 @@ import 'package:ecom_desgin/view/examination/ExamTimeDetail.dart';
 import 'package:ecom_desgin/view/examination/Exam_time_table.dart';
 import 'package:ecom_desgin/view/home_work/home_work.dart';
 import 'package:ecom_desgin/view/login/Loginscreen.dart';
+import 'package:ecom_desgin/view/login/Student_Login.dart';
+import 'package:ecom_desgin/view/syllabus/feesgraff.dart';
+import 'package:ecom_desgin/view/syllabus/syllabus.dart';
+import 'package:ecom_desgin/view/time_table/time_table.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
@@ -27,7 +31,9 @@ class RoutesName{
   static String examination = '/examination';
   static String examiTimeDetial = '/examiTimeDetial';
   static String downloadAll = '/downloadAll';
-  
+  static String timetable = '/time_table';
+  static String syllabus = '/syllabus';
+  static String feesgraff = '/fesesgraff';
 }
 
 final getpages=[
@@ -41,6 +47,7 @@ final getpages=[
  GetPage(name: RoutesName.examination, page: () =>  const ExamTimeTable()),
  GetPage(name: RoutesName.examiTimeDetial, page: () =>  const ExamTimeDetail()),
  GetPage(name: RoutesName.downloadAll, page: () =>  const DownloadAll()),
-
- 
+ GetPage(name: RoutesName.timetable, page: () =>  TimeTable()),
+ GetPage(name: RoutesName.syllabus, page: () =>  const Syllabus()),
+ GetPage(name: RoutesName.feesgraff, page: () =>  const FeesGraff()),
 ];
