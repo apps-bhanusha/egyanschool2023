@@ -633,16 +633,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children:  [
-              CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 22.0,
-                
-                child: Image.asset("assets/images/user1.png"),
+              Center(
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 22.0,
+                  
+                  child: Image.asset("assets/images/user1.png"),
+                ),
               ),
               SizedBox(height: 16.0),
-              Text(
-                "Hello, John Doe",
-                style: TextStyle(color: Colors.white),
+              Center(
+                child: Text(
+                  "Hello, John Doe",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
               SizedBox(height: 20.0),
             ],
@@ -763,7 +767,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           // padding: EdgeInsets.zero,
         ),
          Container(
-          color: const Color.fromARGB(255, 218, 214, 182),
+          color: Colors.white,
           height: 0.080.sh,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -775,7 +779,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     fontStyle: FontStyle.normal,
                     fontSize: 15.sp,
                     fontWeight: FontWeight.bold,
-                    color: Colors.lightBlueAccent,
+                    color: Colors.blue,
                   ),
                 ),
               ),
