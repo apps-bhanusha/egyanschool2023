@@ -50,6 +50,8 @@ dependencies:
   percent_indicator: ^4.2.2
   pie_chart: ^5.3.2
   shrink_sidemenu: ^2.0.0+2-null-safety
+  permission_handler: ^10.2.0
+  downloads_path_provider_28: ^0.1.2
 
 
 dev_dependencies:

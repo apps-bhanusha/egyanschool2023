@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     super.initState();
     Future.delayed(
-        const Duration(seconds: 7),
+        const Duration(seconds: 8),
             () => Get.toNamed(RoutesName.schoolId),
     );
   }
