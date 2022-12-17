@@ -114,8 +114,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
+      body:SafeArea (
+        child: SingleChildScrollView(
           child: Column(
             children: [
               Stack(
