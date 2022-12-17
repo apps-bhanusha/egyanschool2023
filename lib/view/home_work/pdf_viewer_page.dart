@@ -1,5 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 class PdfViewerPage extends StatefulWidget {
    String padfpath;
  PdfViewerPage(this.padfpath,{super.key});
@@ -9,76 +14,63 @@ class PdfViewerPage extends StatefulWidget {
 } 
 
 class _PdfViewerPageState extends State<PdfViewerPage> {
-  // late PDFDocument document=document;
-  @override
-  void initState() {
-   
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    // print(loaddpf());
-    });
-  }
-// loaddpf() async {
-//     document = await PDFDocument.fromURL(widget.padfpath);
-//    setState(() {
-//     document=document;
-//    });
-//     document;
-// }
-
+ 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title:  Text(widget.padfpath.characters.last.toString())),
-    body: Text("")
-      // PDFViewer(
-      //           document: document,
-      //           lazyLoad: false,
-      //           zoomSteps: 1,
-      //           numberPickerConfirmWidget: const Text(
-      //             "Confirm",
-      //           ),
-      //           //uncomment below line to preload all pages
-      //           // lazyLoad: false,
-      //           // uncomment below line to scroll vertically
-      //           // scrollDirection: Axis.vertical,
+         resizeToAvoidBottomInset: false,
+         appBar: AppBar(
+            title: Text("Download File from URL"),
+            backgroundColor: Colors.deepPurpleAccent,
+         ),
+          body: Container(
+             margin: EdgeInsets.only(top:50),
+             child: Column(
+                 children: [
+                      Text("File URL: ${widget.padfpath}"),
+                      Divider(),
+                      ElevatedButton(
+                         onPressed: () async {
+                            Map<Permission, PermissionStatus> statuses = await [
+                                Permission.storage, 
+                                //add more permission to request here.
+                            ].request();
 
-      //           //uncomment below code to replace bottom navigation with your own
-      //           /* navigationBuilder:
-      //                 (context, page, totalPages, jumpToPage, animateToPage) {
-      //               return ButtonBar(
-      //                 alignment: MainAxisAlignment.spaceEvenly,
-      //                 children: <Widget>[
-      //                   IconButton(
-      //                     icon: Icon(Icons.first_page),
-      //                     onPressed: () {
-      //                       jumpToPage()(page: 0);
-      //                     },
-      //                   ),
-      //                   IconButton(
-      //                     icon: Icon(Icons.arrow_back),
-      //                     onPressed: () {
-      //                       animateToPage(page: page - 2);
-      //                     },
-      //                   ),
-      //                   IconButton(
-      //                     icon: Icon(Icons.arrow_forward),
-      //                     onPressed: () {
-      //                       animateToPage(page: page);
-      //                     },
-      //                   ),
-      //                   IconButton(
-      //                     icon: Icon(Icons.last_page),
-      //                     onPressed: () {
-      //                       jumpToPage(page: totalPages - 1);
-      //                     },
-      //                   ),
-      //                 ],
-      //               );
-      //             }, */
-      //         ),
-    );
-  
+                            if(statuses[Permission.storage]!.isGranted){ 
+                                var dir = await DownloadsPathProvider.downloadsDirectory;
+                                if(dir != null){
+                                      String savename = "file.pdf";
+                                      String savePath = dir.path + "/$savename";
+                                      print(savePath);
+                                      //output:  /storage/emulated/0/Download/banner.png
+
+                                      try {
+                                          await Dio().download(
+                                             widget.padfpath, 
+                                              savePath,
+                                              onReceiveProgress: (received, total) {
+                                                  if (total != -1) {
+                                                      print((received / total * 100).toStringAsFixed(0) + "%");
+                                                      //you can build progressbar feature too
+                                                  }
+                                                });
+                                           print("File is saved to download folder.");  
+                                     } on DioError catch (e) {
+                                       print(e.message);
+                                     }
+                                }
+                            }else{
+                               print("No permission to read and write.");
+                            }
+
+                         },
+                         child: Text("Download File."),
+                      )
+
+                 ],
+             ),
+          )
+      );
   }
 }

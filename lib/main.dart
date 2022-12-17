@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     super.initState();
     Future.delayed(
-        const Duration(seconds: 4),
+        const Duration(seconds: 8),
             () => Get.toNamed(RoutesName.schoolId),
     );
   }
@@ -71,15 +71,12 @@ class _SplashScreenState extends State<SplashScreen> {
         builder: (context, child) {
           return Scaffold(
               backgroundColor:  Colors.white,
-              body: Center(
-                child: SizedBox(
-                    height: 400, //double.infinity
-                    width: 500, //double.infinity
-                    child: Image.asset(
-                      'assets/images/appstore.png',
-                      gaplessPlayback: true,
-                      fit: BoxFit.contain,
-                    )),
+              body: Image.asset(
+                'assets/images/splashscreen.gif',
+                gaplessPlayback: true,
+                fit: BoxFit.fitHeight,
+                width: w,
+                height: h,
               ));
 
         }

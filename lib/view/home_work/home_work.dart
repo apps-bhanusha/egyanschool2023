@@ -1,4 +1,3 @@
-
 import 'package:ecom_desgin/controller/home_word_controller.dart';
 import 'package:ecom_desgin/controller/school_id_controller.dart';
 import 'package:ecom_desgin/main.dart';
@@ -12,6 +11,9 @@ import 'package:get/get.dart';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomeWork extends StatefulWidget {
   const HomeWork({super.key});
@@ -69,6 +71,45 @@ class _HomeWorkState extends State<HomeWork> {
         progressString = (progress * 100).toStringAsFixed(0) + '% done.';
       }
     });
+  }
+
+//pdf dwonlad work it
+  pdfDownload(pdfurl) async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.storage,
+      //add more permission to request here.
+    ].request();
+    int i=0;
+    i++;
+    if (statuses[Permission.storage]!.isGranted) {
+      var dir = await DownloadsPathProvider.downloadsDirectory;
+      if (dir != null) {
+        String savename = "file$i.pdf";
+        String savePath = dir.path + "/$savename";
+        print(savePath);
+        //output:  /storage/emulated/0/Download/banner.png
+
+        try {
+          await Dio().download(pdfurl, savePath,
+              onReceiveProgress: (received, total) {
+            if (total != -1) {
+              print((received / total * 100).toStringAsFixed(0) + "%");
+                 setState(() {
+  progressString = (received / total * 100).toStringAsFixed(0) + "%";
+                   
+                 });
+              //you can build progressbar feature too
+            }
+          });
+          Get.snackbar(
+              "download Succesfull", "File is saved to download folder");
+        } on DioError catch (e) {
+          print(e.message);
+        }
+      }
+    } else {
+      print("No permission to read and write.");
+    }
   }
 
   ////
@@ -372,18 +413,18 @@ class _HomeWorkState extends State<HomeWork> {
                                           _homeWorkController
                                               .isdownloadinmethod();
 
-                                          Directory dir = Directory(
-                                              '/storage/emulated/0/Download');
-                                          download(
-                                              Dio(),
-                                              _homeWorkController
-                                                      .homeWorkControllerList[i]
-                                                  [0]["document"],
-                                              dir.path + 'data.pdf');
-                                            
-                                          // Get.to( PdfViewerPage(_homeWorkController.homeWorkControllerList[i][0]["document"]));
+                                          // Directory dir = Directory(
+                                          //     '/storage/emulated/0/Download');
+                                          // download(
+                                          //     Dio(),
+                                          //     _homeWorkController
+                                          //             .homeWorkControllerList[i]
+                                          //         [0]["document"],
+                                          //     dir.path);
 
-
+                                          pdfDownload(_homeWorkController
+                                                  .homeWorkControllerList[i][0]
+                                              ["document"]);
                                         },
                                         child: _homeWorkController
                                                 .isdownloadin.value
@@ -404,7 +445,6 @@ class _HomeWorkState extends State<HomeWork> {
                                                 children: [
                                                   InkWell(
                                                     onTap: () async {
-                                                    
                                                       // ignore: use_build_context_synchronously
                                                       // Navigator.push(
                                                       //   context,

@@ -1,7 +1,8 @@
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
-
+import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecom_desgin/view/examination/Exam_result.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -128,7 +129,7 @@ class _MyDrawerState extends State<MyDrawer> {
                           ),
                         ),
                         onTap: () {
-                          Get.toNamed(RoutesName.attendance);
+                          
                         },
                       ),
                     ),
@@ -296,10 +297,11 @@ class _MyDrawerState extends State<MyDrawer> {
 
                         ListTile(
                           title: const Text("Result"),
-                          // onTap: () {
-                          //   onTap:
-                          //   () => Get.toNamed(RoutesName.examResult);
-                          // },
+                          onTap: () {
+                            onTap:
+                         
+                         Get.to(ExamResult());
+                          },
                         ),
 
                         //more child menu
