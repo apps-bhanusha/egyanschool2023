@@ -84,7 +84,7 @@ class _HomeWorkState extends State<HomeWork> {
     if (statuses[Permission.storage]!.isGranted) {
       var dir = await DownloadsPathProvider.downloadsDirectory;
       if (dir != null) {
-        String savename = "file.pdf$i";
+        String savename = "file$i.pdf";
         String savePath = dir.path + "/$savename";
         print(savePath);
         //output:  /storage/emulated/0/Download/banner.png
