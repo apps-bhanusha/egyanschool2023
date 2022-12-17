@@ -169,14 +169,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         // background image and bottom contents
                         Column(
                           children: <Widget>[
-                            // SizedBox(
-                            //   height: 0.188.sh,
-                            //   width: MediaQuery.of(context).size.width,
-                            //   child: Image.asset(
-                            //     "assets/images/all4.jpeg",
-                            //     fit: BoxFit.fill,
-                            //   ),
-                            // ),
+                            SizedBox(
+                              height: 0.188.sh,
+                              width: MediaQuery.of(context).size.width,
+                              child: Image.asset(
+                                "assets/images/all4.jpeg",
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                             Container(
                               color: Colors.lightBlue,
                               height: 0.270.sh,
@@ -449,19 +449,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         Positioned(
                           top: 0.20.sw,
                           child: Align(
-                              alignment: Alignment.center, child: Text("data")
-                              //  Container(
-                              //   height: 0.150.sh,
-                              //   width: 0.22.sw,
-                              //   child: CachedNetworkImage(
+                              alignment: Alignment.center, child:
+                               Container(
+                                height: 0.150.sh,
+                                width: 0.22.sw,
+                                child: CachedNetworkImage(
 
-                              //     placeholder:  (context, url) => CircleAvatar( maxRadius: MediaQuery.of(context).size.width -
-                              //         MediaQuery.of(context).size.width +
-                              //         22,backgroundImage: AssetImage("assets/images/user1.png")),
+                                  placeholder:  (context, url) => CircleAvatar( maxRadius: MediaQuery.of(context).size.width -
+                                      MediaQuery.of(context).size.width +
+                                      22,backgroundImage: AssetImage("assets/images/user1.png")),
 
-                              //     imageUrl: _allsetController.SchoolIdControllerList[0]["response"][0]["profileimage"].toString(),
-                              //   ),
-                              // ),
+                                  imageUrl: _allsetController.SchoolIdControllerList[0]["response"][0]["profileimage"].toString(),
+                                ),
+                              ),
                               ),
                         ),
 
