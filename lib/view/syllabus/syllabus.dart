@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,10 +12,36 @@ class Syllabus extends StatefulWidget {
 }
 
 class _SyllabusState extends State<Syllabus> {
+  int totalSecs = 90;
+  int secsRemaining = 90;
+  double progressFraction = 0.6;
+  int percentage = 0;
+  late Timer timer;
+
+  get progress => progressFraction;
+
+  @override
+  void initState() {
+    timer = Timer.periodic(Duration(milliseconds: 20), (_) {
+      if(secsRemaining == 40){
+        return;
+      }
+      setState(() {
+        secsRemaining -= 1;
+        progressFraction = (totalSecs - secsRemaining) / totalSecs;
+        percentage = (progressFraction*100).floor();
+
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: true,
+        backgroundColor: Color(0xff8DD0E5),
         title: Text("Syllabus Status"),
       ),
 
@@ -27,13 +55,16 @@ class _SyllabusState extends State<Syllabus> {
               child: CircularPercentIndicator(
                 radius: 90.0,
                 lineWidth: 35.0,
-                backgroundColor: Colors.lightBlue,
-                percent: 0.5,
-                animateFromLastPercent: true,
-                circularStrokeCap: CircularStrokeCap.butt,
 
+                reverse: true,
+                // backgroundColor: Colors.grey,
+                percent: progress,
+                animateFromLastPercent: true,
+                circularStrokeCap: CircularStrokeCap.round,
+addAutomaticKeepAlive: true,
                 animation: true,
                 animationDuration: 1000,
+
                   center: Container(
 
 
@@ -56,7 +87,7 @@ class _SyllabusState extends State<Syllabus> {
 radius: 45,
                     backgroundColor: Colors.white,
 
-                    child: Text("50%",  style: GoogleFonts.dmSans(
+                    child: Text('$percentage%',  style: GoogleFonts.dmSans(
                       fontStyle: FontStyle.normal,
                       fontSize: 30.sp,
                       fontWeight: FontWeight.bold,
@@ -64,7 +95,7 @@ radius: 45,
                     ),),
                   ),
                 ),
-                progressColor: Colors.grey[300],
+                progressColor: Colors.blue,
 
               ),
             ),
@@ -224,4 +255,10 @@ radius: 45,
       ),
     );
   }
+  @override
+  void dispose(){
+    timer.cancel();
+    super.dispose();
+  }
+
 }
