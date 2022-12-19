@@ -453,14 +453,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                Container(
                                 height: 0.150.sh,
                                 width: 0.22.sw,
-                                child: CachedNetworkImage(
+                                 child: Text("image comment")
+                                // CachedNetworkImage(
 
-                                  placeholder:  (context, url) => CircleAvatar( maxRadius: MediaQuery.of(context).size.width -
-                                      MediaQuery.of(context).size.width +
-                                      22,backgroundImage: AssetImage("assets/images/user1.png")),
+                                //   placeholder:  (context, url) => CircleAvatar( maxRadius: MediaQuery.of(context).size.width -
+                                //       MediaQuery.of(context).size.width +
+                                //       22,backgroundImage: AssetImage("assets/images/user1.png")),
 
-                                  imageUrl: _allsetController.SchoolIdControllerList[0]["response"][0]["profileimage"].toString(),
-                                ),
+                                //   imageUrl: _allsetController.SchoolIdControllerList[0]["response"][0]["profileimage"].toString(),
+                                // ),
                               ),
                               ),
                         ),
