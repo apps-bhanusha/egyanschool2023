@@ -124,6 +124,7 @@ class _HomeWorkState extends State<HomeWork> {
         return Center(
           child: Container(
             height: 0.61.sh,
+            
             margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -369,7 +370,7 @@ class _HomeWorkState extends State<HomeWork> {
                                 color: Colors.blueAccent,
                                 height: 0.05.sh,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(0),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -383,7 +384,11 @@ class _HomeWorkState extends State<HomeWork> {
                                                 255, 255, 255, 255),
                                             fontSize: 20),
                                       ),
-                                      const Spacer(),
+                                     
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 10),
+                                      child: IconButton(onPressed: (){}, icon: Icon(Icons.visibility)),
+                                    ),
                                       InkWell(
                                         onTap: () => showCustomDialog(context),
                                         child: SizedBox(
@@ -633,6 +638,7 @@ class _HomeWorkState extends State<HomeWork> {
                 child: CircularProgressIndicator(
                   color: Colors.blue,
                 ),
-              )));
+              ))
+              );
   }
 }
