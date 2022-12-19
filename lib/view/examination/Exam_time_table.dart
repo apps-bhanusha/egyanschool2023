@@ -25,39 +25,43 @@ class ExamTimeTable extends StatelessWidget {
               Center(
                 child: InkWell(
                   onTap: () => Get.toNamed(RoutesName.examiTimeDetial),
-                  child: Card(
-                    elevation: 10,
-                    child: Container(
-                      width: 0.8.sw,
-                      height: 0.1.sh,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                      ),
-                      child: Column(
-                        // ignore: prefer_const_literals_to_create_immutables
-                        children: [
-                          Container(
+                  child: Column(
+                    // ignore: prefer_const_literals_to_create_immutables
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          color: Colors.blue,
+                          child: Container(
+                            
                             width: double.infinity,
-                            color: Colors.blueAccent,
-                            height: 0.04.sh,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children:  [
-                                Text(
-                                  "Unit Test:-$i",
-                                  style: const TextStyle(
-                                      color:
-                                          Color.fromARGB(255, 255, 255, 255),
-                                      fontSize: 20),
-                                ),
-                              ],
+                              decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10),
+                                            
+                                          ),
+                            height: 0.15.sh,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children:  [
+                                      Text("Unit Test:-$i",style: TextStyle(color: Colors.white), ),
+                                      Text("Unit Test:-$i",style: TextStyle(color: Colors.white), ),
+                                      
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  IconButton(onPressed: (){}, icon: Icon(Icons.arrow_right_outlined,size: 50,color: Colors.white,))
+                                ],
+                              ),
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               )
