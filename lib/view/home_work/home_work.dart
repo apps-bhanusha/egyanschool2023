@@ -79,7 +79,7 @@ class _HomeWorkState extends State<HomeWork> {
       Permission.storage,
       //add more permission to request here.
     ].request();
-    int i=0;
+    int i = 0;
     i++;
     if (statuses[Permission.storage]!.isGranted) {
       var dir = await DownloadsPathProvider.downloadsDirectory;
@@ -94,10 +94,10 @@ class _HomeWorkState extends State<HomeWork> {
               onReceiveProgress: (received, total) {
             if (total != -1) {
               print((received / total * 100).toStringAsFixed(0) + "%");
-                 setState(() {
-  progressString = (received / total * 100).toStringAsFixed(0) + "%";
-                   
-                 });
+              setState(() {
+                progressString =
+                    (received / total * 100).toStringAsFixed(0) + "%";
+              });
               //you can build progressbar feature too
             }
           });
@@ -124,7 +124,6 @@ class _HomeWorkState extends State<HomeWork> {
         return Center(
           child: Container(
             height: 0.61.sh,
-            
             margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -357,276 +356,405 @@ class _HomeWorkState extends State<HomeWork> {
                         elevation: 10,
                         child: Container(
                           width: 0.95.sw,
-                          height: 0.13.sh,
+                          height: 0.15.sh,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Color.fromARGB(255, 255, 255, 255),
                           ),
-                          child: Column(
-                            // ignore: prefer_const_literals_to_create_immutables
+                          child: Row(
+                            /////////////////////////////////////////////////////////////////////////////////                          // ignore: prefer_const_literals_to_create_immutables
                             children: [
                               Container(
-                                width: double.infinity,
-                                color: Colors.blueAccent,
-                                height: 0.05.sh,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text(
-                                        _homeWorkController
-                                                .homeWorkControllerList[i][0]
-                                            ["name"],
-                                        style: const TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255),
-                                            fontSize: 20),
-                                      ),
-                                     
-                                    Padding(
-                                      padding: const EdgeInsets.only(bottom: 10),
-                                      child: IconButton(onPressed: (){}, icon: Icon(Icons.visibility)),
-                                    ),
-                                      InkWell(
-                                        onTap: () => showCustomDialog(context),
-                                        child: SizedBox(
-                                          child: Row(
-                                            children: const [
-                                              Text("Upload",
-                                                  style: TextStyle(
-                                                      color: Color.fromARGB(
-                                                          255, 255, 255, 255),
-                                                      fontSize: 15)),
-                                              Icon(Icons.upload),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 3, right: 3),
-                                        child: Container(
-                                          color: Color.fromARGB(255, 204, 0, 0),
-                                          height: 40,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () async {
-                                          _homeWorkController
-                                              .isdownloadinmethod();
-
-                                          // Directory dir = Directory(
-                                          //     '/storage/emulated/0/Download');
-                                          // download(
-                                          //     Dio(),
-                                          //     _homeWorkController
-                                          //             .homeWorkControllerList[i]
-                                          //         [0]["document"],
-                                          //     dir.path);
-
-                                          pdfDownload(_homeWorkController
-                                                  .homeWorkControllerList[i][0]
-                                              ["document"]);
-                                        },
-                                        child: _homeWorkController
-                                                .isdownloadin.value
-                                            ? Row(
-                                                children: const [
-                                                  Text("Download",
-                                                      style: TextStyle(
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              255,
-                                                              255,
-                                                              255),
-                                                          fontSize: 15)),
-                                                  Icon(Icons.download)
-                                                ],
-                                              )
-                                            : Row(
-                                                children: [
-                                                  InkWell(
-                                                    onTap: () async {
-                                                      // ignore: use_build_context_synchronously
-                                                      // Navigator.push(
-                                                      //   context,
-                                                      //   MaterialPageRoute(
-                                                      //     builder: (context) =>
-                                                      //         PdfViewerPage(
-                                                      //             tempDir.path),
-                                                      //   ),
-                                                      // );
-                                                    },
-                                                    child: SizedBox(
-                                                      width: 150,
-                                                      child: Text(
-                                                          "Download: $progressString",
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: const TextStyle(
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      255,
-                                                                      255,
-                                                                      255),
-                                                              fontSize: 15)),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                      )
-                                    ],
-                                  ),
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      bottomLeft: Radius.circular(10)),
+                                  color: Colors.red,
                                 ),
+                                width: 15,
+                                height: 0.15.sh,
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          const Text("Start Date:-",
-                                              style: TextStyle(
-                                                  color: Color.fromARGB(
-                                                      255, 0, 0, 0),
-                                                  fontSize: 15)),
-                                          Obx(() => Text(
-                                              _homeWorkController
-                                                      .homeWorkControllerList[i]
-                                                  [0]["homework_date"],
-                                              style: const TextStyle(
-                                                  color: Color.fromARGB(
-                                                      255, 0, 0, 0),
-                                                  fontSize: 15))),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          // ignore: prefer_const_constructors
-                                          Text("Submit Date:-",
-                                              style: const TextStyle(
-                                                  color: Color.fromARGB(
-                                                      255, 0, 0, 0),
-                                                  fontSize: 15)),
-                                          Obx(
-                                            () => Text(
-                                                _homeWorkController
-                                                        .homeWorkControllerList[
-                                                    i][0]["submit_date"],
-                                                style: const TextStyle(
-                                                    color: Color.fromARGB(
-                                                        255, 0, 0, 0),
-                                                    fontSize: 15)),
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          const Text("Evulationdate:-",
-                                              style: TextStyle(
-                                                  color: Color.fromARGB(
-                                                      255, 0, 0, 0),
-                                                  fontSize: 15)),
-                                          Obx(
-                                            () => Text(
-                                                _homeWorkController
-                                                        .homeWorkControllerList[
-                                                    i][0]["evaluation_date"],
-                                                style: const TextStyle(
-                                                    color: Color.fromARGB(
-                                                        255, 0, 0, 0),
-                                                    fontSize: 15)),
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
                                   Container(
-                                    color: Color.fromARGB(255, 199, 0, 0),
-                                    height: 47,
-                                    width: 1,
+                                    width: 0.9.sw,
+                                    height: 2,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.red,
+                                    ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 0.01.sw,
-                                        right: 0.01.sw,
-                                        bottom: 0.01.sh),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Row(
+                                      // ignore: prefer_const_literals_to_create_immutables
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Row(
-                                          children: [
-                                            uploadDone == true && i == 3
-                                                ? InkWell(
-                                                    onTap: () => setState(() {
-                                                      uploadDone = false;
-                                                    }),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                                  7.4)
-                                                              .r,
-                                                      child: Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        width: 0.2.sw,
-                                                        height: 0.05.sh,
-                                                        color: Colors.green,
-                                                        child: const Text(
-                                                          "Complate",
+                                        const Text(
+                                          "Pending",
+                                          style: TextStyle(
+                                              color: Colors.red, fontSize: 23),
+                                        ),
+                                        SizedBox(width: 0.35.sw,),
+                                          Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 20),
+                                          child: InkWell(
+                                            onTap: () async {
+                                              _homeWorkController
+                                                  .isdownloadinmethod();
+
+                                              // Directory dir = Directory(
+                                              //     '/storage/emulated/0/Download');
+                                              // download(
+                                              //     Dio(),
+                                              //     _homeWorkController
+                                              //             .homeWorkControllerList[i]
+                                              //         [0]["document"],
+                                              //     dir.path);
+
+                                              pdfDownload(_homeWorkController
+                                                      .homeWorkControllerList[i]
+                                                  [0]["document"]);
+                                            },
+                                            child: _homeWorkController
+                                                    .isdownloadin.value
+                                                ? Row(
+                                                    children: const [
+                                                      Text("Download",
                                                           style: TextStyle(
-                                                              color:
-                                                                  Colors.white),
+                                                              color: Color
+                                                                  .fromARGB(255,
+                                                                      0, 0, 0),
+                                                              fontSize: 15)),
+                                                      Icon(Icons.download)
+                                                    ],
+                                                  )
+                                                : Row(
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: () async {
+                                                          // ignore: use_build_context_synchronously
+                                                          // Navigator.push(
+                                                          //   context,
+                                                          //   MaterialPageRoute(
+                                                          //     builder: (context) =>
+                                                          //         PdfViewerPage(
+                                                          //             tempDir.path),
+                                                          //   ),
+                                                          // );
+                                                        },
+                                                        child: SizedBox(
+                                                          width: 150,
+                                                          child: Text(
+                                                              "Download: $progressString",
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: const TextStyle(
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                                  fontSize:
+                                                                      15)),
                                                         ),
                                                       ),
-                                                    ),
-                                                  )
-                                                : Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                                7.4)
-                                                            .r,
-                                                    child: InkWell(
-                                                      onTap: () => setState(() {
-                                                        uploadDone = true;
-                                                      }),
-                                                      child: Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        width: 0.23.sw,
-                                                        height: 0.05.sh,
-                                                        color: Colors.red,
-                                                        child: const Text(
-                                                            "Incomplate",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white)),
-                                                      ),
-                                                    ),
-                                                  )
-                                          ],
+                                                    ],
+                                                  ),
+                                          ),
                                         )
                                       ],
                                     ),
-                                  )
-                                ],
+                                  ),
+                                   Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Row(
+                                      // ignore: prefer_const_literals_to_create_immutables
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(
+                                      _homeWorkController
+                                          .homeWorkControllerList[i][0]["name"],
+                                      style: const TextStyle(
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                          fontSize: 25),
+                                    ),
+                                 SizedBox(width: 0.02.sw,),
+                                        
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: Icon(Icons.visibility_outlined)),
+                                 SizedBox(width: 0.28.sw,),
+                                   InkWell(
+                                     onTap: () => showCustomDialog(context),
+                                     child: SizedBox(
+                                       child: Row(
+                                         mainAxisAlignment: MainAxisAlignment.start,
+                                         crossAxisAlignment: CrossAxisAlignment.start,
+                                         children:  [
+                                           Text("Upload",
+                                               style: TextStyle(
+                                                   color: Color.fromARGB(
+                                                       255, 0, 0, 0),
+                                                   fontSize: 15)),
+                                                        SizedBox(width: 0.05.sw,),
+                                           Icon(Icons.upload),
+                                         ],
+                                       ),
+                                     ),
+                                   ),
+                                      ],
+                                    ),
+                                  ),
+                             SizedBox(
+                              height: 0.05.sw,
+                             ),
+                             Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    const Text("Evulationdate:-",
+                                        style: TextStyle(
+                                            color: Color.fromARGB(255, 0, 0, 0),
+                                            fontSize: 11)),
+                                    Obx(
+                                      () => Text(
+                                          _homeWorkController
+                                                  .homeWorkControllerList[i][0]
+                                              ["evaluation_date"],
+                                          style: const TextStyle(
+                                              color:
+                                                  Color.fromARGB(255, 0, 0, 0),
+                                              fontSize: 11)),
+                                    ),
+                                    SizedBox(
+                                    width: 0.02.sw,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                    
+                                        // ignore: prefer_const_constructors
+                                        Text("submission Date:-",
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                                fontSize: 11)),
+                                        Obx(
+                                          () => Text(
+                                              _homeWorkController
+                                                      .homeWorkControllerList[i]
+                                                  [0]["submit_date"],
+                                              style: const TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                  fontSize: 11)),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               )
+                                ],
+                              ),
+                              // Column(
+                              //   children: [
+                              //     Container(
+                              //       width: double.infinity,
+                              //       height: 2,
+                              //       decoration: BoxDecoration(
+                              //         borderRadius: BorderRadius.circular(20),
+                              //         color: Colors.red,
+                              //       ),
+                              //     ),
+                              //     Padding(
+                              //       padding: const EdgeInsets.all(0),
+                              //       child: Row(
+                              //         mainAxisAlignment:
+                              //             MainAxisAlignment.start,
+                              //         children: [
+                              //           const Spacer(),
+                              //           Padding(
+                              //             padding:
+                              //                 const EdgeInsets.only(right: 20),
+                              //             child: InkWell(
+                              //               onTap: () async {
+                              //                 _homeWorkController
+                              //                     .isdownloadinmethod();
+
+                              //                 // Directory dir = Directory(
+                              //                 //     '/storage/emulated/0/Download');
+                              //                 // download(
+                              //                 //     Dio(),
+                              //                 //     _homeWorkController
+                              //                 //             .homeWorkControllerList[i]
+                              //                 //         [0]["document"],
+                              //                 //     dir.path);
+
+                              //                 pdfDownload(_homeWorkController
+                              //                         .homeWorkControllerList[i]
+                              //                     [0]["document"]);
+                              //               },
+                              //               child: _homeWorkController
+                              //                       .isdownloadin.value
+                              //                   ? Row(
+                              //                       children: const [
+                              //                         Text("Download",
+                              //                             style: TextStyle(
+                              //                                 color: Color
+                              //                                     .fromARGB(255,
+                              //                                         0, 0, 0),
+                              //                                 fontSize: 15)),
+                              //                         Icon(Icons.download)
+                              //                       ],
+                              //                     )
+                              //                   : Row(
+                              //                       children: [
+                              //                         InkWell(
+                              //                           onTap: () async {
+                              //                             // ignore: use_build_context_synchronously
+                              //                             // Navigator.push(
+                              //                             //   context,
+                              //                             //   MaterialPageRoute(
+                              //                             //     builder: (context) =>
+                              //                             //         PdfViewerPage(
+                              //                             //             tempDir.path),
+                              //                             //   ),
+                              //                             // );
+                              //                           },
+                              //                           child: SizedBox(
+                              //                             width: 150,
+                              //                             child: Text(
+                              //                                 "Download: $progressString",
+                              //                                 overflow:
+                              //                                     TextOverflow
+                              //                                         .ellipsis,
+                              //                                 style: const TextStyle(
+                              //                                     color: Color
+                              //                                         .fromARGB(
+                              //                                             255,
+                              //                                             0,
+                              //                                             0,
+                              //                                             0),
+                              //                                     fontSize:
+                              //                                         15)),
+                              //                           ),
+                              //                         ),
+                              //                       ],
+                              //                     ),
+                              //             ),
+                              //           )
+                              //         ],
+                              //       ),
+                              //     ),
+                              //   ],
+                            //   // ),
+                            //  Column(
+                            //     mainAxisAlignment:
+                            //         MainAxisAlignment.spaceEvenly,
+                            //     children: [
+                            //       Padding(
+                            //         padding: const EdgeInsets.only(
+                            //           left: 10,
+                            //         ),
+                            //         child: Text(
+                            //           _homeWorkController
+                            //               .homeWorkControllerList[i][0]["name"],
+                            //           style: const TextStyle(
+                            //               color: Color.fromARGB(255, 0, 0, 0),
+                            //               fontSize: 20),
+                            //         ),
+                            //       ),
+
+                            //       Padding(
+                            //         padding: const EdgeInsets.only(left: 10),
+                            //         child: IconButton(
+                            //             onPressed: () {},
+                            //             icon: Icon(Icons.visibility_outlined)),
+                            //       ),
+                            //       Spacer(),
+                                 
+
+                              //     // Container(
+                              //     //   color: Color.fromARGB(255, 199, 0, 0),
+                              //     //   height: 47,
+                              //     //   width: 1,
+                              //     // ),
+                              //     // Padding(
+                              //     //   padding: EdgeInsets.only(
+                              //     //       left: 0.01.sw,
+                              //     //       right: 0.01.sw,
+                              //     //       bottom: 0.01.sh),
+                              //     //   child: Column(
+                              //     //     mainAxisAlignment:
+                              //     //         MainAxisAlignment.spaceEvenly,
+                              //     //     children: [
+                              //     //       Row(
+                              //     //         children: [
+                              //     //           uploadDone == true && i == 3
+                              //     //               ? InkWell(
+                              //     //                   onTap: () => setState(() {
+                              //     //                     uploadDone = false;
+                              //     //                   }),
+                              //     //                   child: Padding(
+                              //     //                     padding:
+                              //     //                         const EdgeInsets.all(
+                              //     //                                 7.4)
+                              //     //                             .r,
+                              //     //                     child: Container(
+                              //     //                       alignment:
+                              //     //                           Alignment.center,
+                              //     //                       width: 0.2.sw,
+                              //     //                       height: 0.05.sh,
+                              //     //                       color: Colors.green,
+                              //     //                       child: const Text(
+                              //     //                         "Complate",
+                              //     //                         style: TextStyle(
+                              //     //                             color:
+                              //     //                                 Colors.white),
+                              //     //                       ),
+                              //     //                     ),
+                              //     //                   ),
+                              //     //                 )
+                              //     //               : Padding(
+                              //     //                   padding:
+                              //     //                       const EdgeInsets.all(
+                              //     //                               7.4)
+                              //     //                           .r,
+                              //     //                   child: InkWell(
+                              //     //                     onTap: () => setState(() {
+                              //     //                       uploadDone = true;
+                              //     //                     }),
+                              //     //                     child: Container(
+                              //     //                       alignment:
+                              //     //                           Alignment.center,
+                              //     //                       width: 0.23.sw,
+                              //     //                       height: 0.05.sh,
+                              //     //                       color: Colors.red,
+                              //     //                       child: const Text(
+                              //     //                           "Incomplate",
+                              //     //                           style: TextStyle(
+                              //     //                               color: Colors
+                              //     //                                   .white)),
+                              //     //                     ),
+                              //     //                   ),
+                              //     //                 )
+                              //     //         ],
+                              //     //       )
+                              //     //     ],
+                              //     //   ),
+                              //     // )
+                              //   ],
+                              // ),
+                              
                             ],
                           ),
                         ),
@@ -638,7 +766,6 @@ class _HomeWorkState extends State<HomeWork> {
                 child: CircularProgressIndicator(
                   color: Colors.blue,
                 ),
-              ))
-              );
+              )));
   }
 }
