@@ -627,8 +627,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     child: Image.asset("assets/images/user1.png"),
                   ),
                 ),
-                SizedBox(height: 16.0),
-                Center(
+                const SizedBox(height: 16.0),
+                const Center(
                   child: Text(
                     "Hello, John Doe",
                     style: TextStyle(color: Colors.white),
