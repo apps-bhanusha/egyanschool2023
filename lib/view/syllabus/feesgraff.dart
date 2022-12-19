@@ -54,7 +54,7 @@ class _FeesGraffState extends State<FeesGraff> {
   bool _showGradientColors = false;
 
 
-  LegendPosition? _legendPosition = LegendPosition.bottom;
+LegendPosition? _legendPosition = LegendPosition.bottom;
 
   int key = 0;
  final index=0;
