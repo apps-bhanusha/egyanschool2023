@@ -8,7 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
-
+import 'package:hive/hive.dart';
+import 'package:http/http.dart';
 class StudentLogin extends StatefulWidget {
   const StudentLogin({super.key});
 
@@ -31,6 +32,14 @@ class _StudentLoginState extends State<StudentLogin> {
 
   @override
   void initState() {
+     var box = Hive.box('schoolData');
+                   var user= box.get("username");
+                  var pass=  box.get("password");
+                   if(user==null){
+                     _allsetController.apicallpost(usersname.text,password.text,context);
+                   }else{
+                     _allsetController.apicallpost(user,pass,context);
+                   }
 
     super.initState();
     // _allsetController.SchoolIdControllerList(
@@ -198,7 +207,14 @@ class _StudentLoginState extends State<StudentLogin> {
                     backgroundColor: Colors.blue,
                   ),
                   onPressed: () {
-                    _allsetController.apicallpost(usersname.text,password.text,context);
+                    var box = Hive.box('schoolData');
+                   var user= box.get("username");
+                  var pass=  box.get("password");
+                   if(user==null){
+                     _allsetController.apicallpost(usersname.text,password.text,context);
+                   }else{
+                     _allsetController.apicallpost(user,pass,context);
+                   }
 
 
                   },
