@@ -386,11 +386,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                       CrossAxisAlignment
                                                           .start,
                                                   children: [
-                                                    Text(
-                                                      "UpComing Exam",
-                                                      style:
-                                                          GoogleFonts.dmSans(
-                                                        fontStyle:
+                                                    Text("UpComing Exam", style: GoogleFonts.dmSans(fontStyle:
                                                             FontStyle.normal,
                                                         fontSize: 15.sp,
                                                         fontWeight:
