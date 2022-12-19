@@ -39,7 +39,7 @@ class ExamTimeTable extends StatelessWidget {
                                             borderRadius: BorderRadius.circular(10),
                                             
                                           ),
-                            height: 0.15.sh,
+                            height: 0.10.sh,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -48,14 +48,19 @@ class ExamTimeTable extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children:  [
-                                      Text("Unit Test:-$i",style: TextStyle(color: Colors.white), ),
-                                      Text("Unit Test:-$i",style: TextStyle(color: Colors.white), ),
+                                      Text("Unit Test:-$i",style: const TextStyle(color: Colors.white), ),
+                                      Text("Unit Test:-$i",style: const TextStyle(color: Colors.white), ),
                                       
                                     ],
                                   ),
-                                  Spacer(),
-                                  Image.asset("assets/images/arr.png",width: 30,height: 40,),
-                                  // IconButton(onPressed: (){}, icon: Icon(Icons.arrow_right_outlined,size: 50,color: Colors.white,))
+                                  const Spacer(),
+                                  Opacity(
+                            opacity: 0.5,
+                             child: Image.asset("assets/images/arr.png",width: 30,height: 40,)
+                               )
+                                 
+                                   
+                                                                      // IconButton(onPressed: (){}, icon: Icon(Icons.arrow_right_outlined,size: 50,color: Colors.white,))
                                 ],
                               ),
                             ),
