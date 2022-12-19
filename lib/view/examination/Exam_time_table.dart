@@ -29,7 +29,7 @@ class ExamTimeTable extends StatelessWidget {
                     // ignore: prefer_const_literals_to_create_immutables
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(2.0),
                         child: Card(
                           color: Colors.blue,
                           child: Container(
