@@ -54,7 +54,8 @@ class ExamTimeTable extends StatelessWidget {
                                     ],
                                   ),
                                   Spacer(),
-                                  IconButton(onPressed: (){}, icon: Icon(Icons.arrow_right_outlined,size: 50,color: Colors.white,))
+                                  Image.asset("assets/images/arr.png",width: 30,height: 40,),
+                                  // IconButton(onPressed: (){}, icon: Icon(Icons.arrow_right_outlined,size: 50,color: Colors.white,))
                                 ],
                               ),
                             ),
