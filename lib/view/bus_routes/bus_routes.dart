@@ -66,13 +66,13 @@ class _BusRouteState extends State<BusRoute> {
                       ],
                     ),
                   ),
-                  Divider(),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  const Divider(),
+                const  Padding(
+                    padding:  EdgeInsets.all(8.0),
                     child: Text("Pickup Drop Locations",style: TextStyle(color: Colors.black54),),
                   ),
-                  Text("bangali square",style: TextStyle(color: Colors.black54,fontWeight: FontWeight.w800),),
-                  Divider(),
+                  const Text("bangali square",style: TextStyle(color: Colors.black54,fontWeight: FontWeight.w800),),
+                  const Divider(),
                Padding(
                  padding: const EdgeInsets.all(10.0),
                  child: Container(
