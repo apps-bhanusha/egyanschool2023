@@ -5,9 +5,23 @@ class NotificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(title: Text("Notification"),),
-      body: Center(child: Text("data")),
+    return Scaffold(
+
+      appBar: AppBar(title: const Text("Notification"),
+      
+
+      ),
+      body: Column(
+        children:   [
+          for(int i=0;i<=5;i++)
+         const ListTile(
+          title:Text("Noise "),
+          subtitle: Text("price 3999"),
+          leading: Icon(Icons.notifications),
+          trailing: Text("buy"),
+         )
+        ],
+      ),
     );
   }
 }

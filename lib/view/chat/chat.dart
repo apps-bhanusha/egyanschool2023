@@ -40,7 +40,10 @@ class _ChatPageState extends State<ChatPage> {
         body: Container(
           color: Colors.blue,
           child: Chat(
-             
+             theme:  const DefaultChatTheme(
+            backgroundColor: Color.fromARGB(255, 231, 227, 255),
+        inputBackgroundColor: Colors.blue,
+      ),
             messages: _messages,
             onAttachmentPressed: _handleAttachmentPressed,
             onMessageTap: _handleMessageTap,
