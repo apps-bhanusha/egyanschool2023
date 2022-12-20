@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 
 class GridViewall extends StatefulWidget {
@@ -158,13 +159,7 @@ class _GridViewallState extends State<GridViewall>
     ),
   ];
 
-  // Future<double> _updateState()  {
-  //   setState(() {
-  //     _width=400;
-  //     _height=400;
-  //   });
-  // }
-// This widget is the root of your application
+
 
   @override
   Widget build(BuildContext context) {
@@ -172,234 +167,235 @@ class _GridViewallState extends State<GridViewall>
       background: Colors.blue,
       key: _sideMenuKey,
       menu: buildMenu(),
+      
       type: SideMenuType.shrikNRotate,
       onChange: (isOpened) {
         setState(() => isOpened = isOpened);
       },
       child: IgnorePointer(
         ignoring: isOpened,
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: Scaffold(
-            backgroundColor: Color.fromRGBO(194, 222, 211, 1.0),
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              iconTheme: IconThemeData(color: Colors.black),
-              title: Row(
-                children: [
-                  const Text(
-                    'EGYAN Demo school',
-                    style: TextStyle(
-                      color: Colors.blueAccent,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.0,
-                    ),
+        child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            leading: IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () => toggleMenu(),
+            ),
+           backgroundColor: Colors.white,
+            iconTheme: IconThemeData(color: Colors.black),
+            title: Row(
+              children: [
+                Text(
+                  'EGYAN Demo school',
+                  style: GoogleFonts.dmSans(
+                    fontStyle: FontStyle.normal,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.redAccent,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 26).r,
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Text(
-                            'Session',
-                            style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 26).r,
+                  child: Column(
+                    children: [
+                      Text(
+                        'Session',
+                        style: GoogleFonts.dmSans(
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
-                        Container(
-                          child: Text(
-                            '2020-21',
-                            style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
+                      ),
+                      Text(
+                        '2020-21',
+                        style: GoogleFonts.dmSans(
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              actions: [
-                PopupMenuButton<int>(
-                  itemBuilder: (context) {
-                    return <PopupMenuEntry<int>>[
-                      const PopupMenuItem(child: Text('0'), value: 0),
-                      const PopupMenuItem(child: Text('1'), value: 1),
-                    ];
-                  },
                 ),
               ],
             ),
-            body: Padding(
-              padding: const EdgeInsets.only(top: 10, left: 25, right: 25).r,
-              child: GridView(
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200.0,
-                  crossAxisSpacing: 3.0,
-                  childAspectRatio: 1.1,
-                ),
-                children: List.generate(8, (index) {
-                  return Padding(
-                    padding:
-                        const EdgeInsets.only(left: 1, right: 1, bottom: 5),
-                    child: ScaleTransition(
-                      scale: Tween(begin: 0.9, end: 1.0).animate(
-                        CurvedAnimation(
-                            parent: _controller, curve: Curves.linear),
-                      ),
-                      child: Card(
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                            side: BorderSide(
-                              width: 5,
-                              color: color2[index],
-                            )),
-                        color: color2[index],
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              onTap: () {},
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: (color1[index]),
-                                    borderRadius: BorderRadius.circular(25)),
-                                width: 0.13.sw,
-                                height: 0.063.sh,
-    
-                                // backgroundColor: Colors.amberAccent,
-    
-                                child: (icons1[index]),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0).r,
-                              child: Container(
-                                child: Text(
-                                  trailing[index],
-                                  style: GoogleFonts.dmSans(
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                }),
+            actions: [
+              PopupMenuButton<int>(
+                itemBuilder: (context) {
+                  return <PopupMenuEntry<int>>[
+                    const PopupMenuItem(child: Text('detial'), value: 0),
+                    const PopupMenuItem(child: Text('about'), value: 1),
+                  ];
+                },
               ),
+            ],
+          ),
+         
+          
+          body: Padding(
+                         padding: const EdgeInsets.only(top: 10, left: 25, right: 25).r,
+                         child: GridView(
+                           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                             maxCrossAxisExtent: 200.0,
+                             crossAxisSpacing: 3.0,
+                             childAspectRatio: 1.1,
+                           ),
+                           children: List.generate(8, (index) {
+                             return Padding(
+                               padding:
+                                   const EdgeInsets.only(left: 1, right: 1, bottom: 5),
+                               child: ScaleTransition(
+                                 scale: Tween(begin: 0.9, end: 1.0).animate(
+                                   CurvedAnimation(
+                                       parent: _controller, curve: Curves.linear),
+                                 ),
+                                 child: Card(
+                                   elevation: 10,
+                                   shape: RoundedRectangleBorder(
+                                       borderRadius: const BorderRadius.only(
+                                           topLeft: Radius.circular(10),
+                                           bottomLeft: Radius.circular(10),
+                                           bottomRight: Radius.circular(10),
+                                           topRight: Radius.circular(10)),
+                                       side: BorderSide(
+                                         width: 5,
+                                         color: color2[index],
+                                       )),
+                                   color: color2[index],
+                                   child: Column(
+                                     mainAxisAlignment: MainAxisAlignment.center,
+                                     children: [
+                                       InkWell(
+                                         onTap: () {},
+                                         child: Container(
+                                           decoration: BoxDecoration(
+                                               color: (color1[index]),
+                                               borderRadius: BorderRadius.circular(25)),
+                                           width: 0.13.sw,
+                                           height: 0.063.sh,
+                                
+                                           // backgroundColor: Colors.amberAccent,
+                                
+                                           child: (icons1[index]),
+                                         ),
+                                       ),
+                                       Padding(
+                                         padding: const EdgeInsets.all(8.0).r,
+                                         child: Container(
+                                           child: Text(
+                                             trailing[index],
+                                             style: GoogleFonts.dmSans(
+                                               fontStyle: FontStyle.normal,
+                                               fontSize: 15.sp,
+                                               fontWeight: FontWeight.bold,
+                                               color: Colors.white,
+                                             ),
+                                           ),
+                                         ),
+                                       ),
+                                     ],
+                                   ),
+                                 ),
+                               ),
+                             );
+                           }),
+                         ),
+                         ),
+          bottomNavigationBar: Container(
+            color: Colors.lightBlue,
+            child: Image.asset(
+              "assets/images/b.png",
+              width: MediaQuery.of(context).size.width,
+              height: 0.070.sh,
             ),
           ),
         ),
       ),
     );
   }
-}
 
-Widget buildMenu() {
-  return SingleChildScrollView(
-    scrollDirection: Axis.vertical,
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 22.0,
-                  child: Image.asset("assets/images/user1.png"),
+  Widget buildMenu() {
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children:  [
+                Center(
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 22.0,
+                    
+                    child: Image.asset("assets/images/user1.png"),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16.0),
-              const Center(
-                child: Text(
-                  "Hello, John Doe",
-                  style: TextStyle(color: Colors.white),
+                const SizedBox(height: 16.0),
+                const Center(
+                  child: Text(
+                    "Hello, John Doe",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
-              ),
-              SizedBox(height: 20.0),
-            ],
+                SizedBox(height: 20.0), 
+              ],  
+            ),  
+          ),        
+          ListTile(
+             onTap: () {
+                          Get.toNamed(RoutesName.dashboard);
+                        },
+            leading: const Icon(Icons.home, size: 20.0, color: Colors.white),
+            title: const Text("Home"),
+            textColor: Colors.white,
+            dense: true,
           ),
-        ),
-        ListTile(
-          onTap: () {
-            Get.toNamed(RoutesName.dashboard);
-          },
-          leading: const Icon(Icons.home, size: 20.0, color: Colors.white),
-          title: const Text("Home"),
-          textColor: Colors.white,
-          dense: true,
-        ),
-        ListTile(
-          onTap: () {},
-          leading:
-              const Icon(Icons.verified_user, size: 20.0, color: Colors.white),
-          title: const Text("Profile"),
-          textColor: Colors.white,
-          dense: true,
-  
-          // padding: EdgeInsets.zero,
-        ),
-        ListTile(
-          onTap: () {
-            Get.toNamed(RoutesName.attendance);
-          },
-          leading:
-              const Icon(Icons.present_to_all, size: 20.0, color: Colors.white),
-          title: const Text("Attendance"),
-          textColor: Colors.white,
-          dense: true,
-
-  
-          // padding: EdgeInsets.zero,
-        ),
-        ListTile(
-          onTap: () {
-            Get.toNamed(RoutesName.feesgraff);
-          },
-          leading:
-              const Icon(Icons.monetization_on, size: 20.0, color: Colors.white),
-          title: const Text("Fees"),
-          textColor: Colors.white,
-          dense: true,
-  
-          // padding: EdgeInsets.zero,
-        ),
-        ListTile(
-          onTap: () {
-            Get.toNamed(RoutesName.timetable);
-          },
-          leading:
-              const Icon(Icons.av_timer_rounded, size: 20.0, color: Colors.white),
-          title: const Text("Class Time Table"),
-          textColor: Colors.white,
-          dense: true,
-  
-          // padding: EdgeInsets.zero,
-        ),
-        ListTile(
+          ListTile(
+            onTap: () {},
+            leading: const Icon(Icons.verified_user,
+                size: 20.0, color: Colors.white),
+            title: const Text("Profile"),
+            textColor: Colors.white,
+            dense: true,
+    
+            // padding: EdgeInsets.zero,
+          ),
+          ListTile(
+            onTap: () {Get.toNamed(RoutesName.attendance);},
+            leading: const Icon(Icons.present_to_all,
+                size: 20.0, color: Colors.white),
+            title: const Text("Attendance"),
+            textColor: Colors.white,
+            dense: true,
+    
+            // padding: EdgeInsets.zero,
+          ),
+          ListTile(
+            onTap: () {Get.toNamed(RoutesName.feesgraff);},
+            leading: const Icon(Icons.monetization_on,
+                size: 20.0, color: Colors.white),
+            title: const Text("Fees"),
+            textColor: Colors.white,
+            dense: true,
+    
+            // padding: EdgeInsets.zero,
+          ),
+          ListTile(
+            onTap: () { Get.toNamed(RoutesName.timetable);},
+            leading:
+                const Icon(Icons.av_timer_rounded, size: 20.0, color: Colors.white),
+            title: const Text("Class Time Table"),
+            textColor: Colors.white,
+            dense: true,
+    
+            // padding: EdgeInsets.zero,
+          ),
+          ListTile(
           onTap: () {
             Get.toNamed(RoutesName.lession);
           },
@@ -411,92 +407,132 @@ Widget buildMenu() {
   
           // padding: EdgeInsets.zero,
         ),
-        ListTile(
-          onTap: () {
-            Get.toNamed(RoutesName.syllabus);
-          },
-          leading: const Icon(Icons.play_lesson_outlined,
-              size: 20.0, color: Colors.white),
-          title: const Text("Syllabus"),
-          textColor: Colors.white,
-          dense: true,
-  
-          // padding: EdgeInsets.zero,
-        ),
-        ListTile(
-          onTap: () => Get.toNamed(RoutesName.homeWork),
-          leading: const Icon(Icons.play_lesson_outlined,
-              size: 20.0, color: Colors.white),
-          title: const Text("Home Work"),
-          textColor: Colors.white,
-          dense: true,
-  
-          // padding: EdgeInsets.zero,
-        ),
-        ExpansionTile(
-          collapsedIconColor: Colors.white,
-          textColor: Colors.white,
-          title: const Text(
-            "Exmaination",
-            style: TextStyle(color: Colors.white),
+           ListTile(
+            onTap: () { Get.toNamed(RoutesName.syllabus);},
+            leading:
+                const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
+            title: const Text("Syllabus"),
+            textColor: Colors.white,
+            dense: true,
+    
+            // padding: EdgeInsets.zero,
           ),
-          leading: const Icon(Icons.play_lesson_outlined,
-              size: 20.0, color: Colors.white), //add icon
-          childrenPadding: EdgeInsets.only(left: 60), //children padding
-          children: [
-            ListTile(
-              title: const Text("Exam Time Table",
-                  style: TextStyle(color: Colors.white)),
-              onTap: () => Get.toNamed(RoutesName.examination),
-            ),
-  
-            ListTile(
-              title: const Text("Result", style: TextStyle(color: Colors.white)),
-              onTap: () {
-                onTap:
-                Get.to(ExamResult());
-              },
-            ),
-  
-            //more child menu
-          ],
-        ),
-        ListTile(
-          onTap: () => Get.toNamed(RoutesName.downloadAll),
-          leading: const Icon(Icons.play_lesson_outlined,
-              size: 20.0, color: Colors.white),
-          title: const Text("Download"),
-          textColor: Colors.white,
-          dense: true,
-  
-          // padding: EdgeInsets.zero,
-        ),
-        Container(
-          color: Colors.white,
-          height: 0.080.sh,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                child: Text(
-                  "Powered by",
-                  style: GoogleFonts.dmSans(
-                    fontStyle: FontStyle.normal,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
+           ListTile(
+           onTap: () => Get.toNamed(RoutesName.homeWork),
+            leading:
+                const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
+            title: const Text("Home Work"),
+            textColor: Colors.white,
+            dense: true,
+    
+            // padding: EdgeInsets.zero,
+          ),
+           ExpansionTile(
+            collapsedIconColor: Colors.white,
+            textColor: Colors.white,
+                      title: const Text("Exmaination",style:TextStyle(color: Colors.white),),
+                      leading: const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white), //add icon
+                      childrenPadding:
+                          EdgeInsets.only(left: 60), //children padding
+                      children: [
+                        ListTile(
+                          title: const Text("Exam Time Table",style:TextStyle(color: Colors.white)),
+                          onTap: () => Get.toNamed(RoutesName.examination),
+                        ),
+    
+                        ListTile(
+                          title: const Text("Result",style:TextStyle(color: Colors.white)),
+                          onTap: () {
+                            onTap:
+                         
+                         Get.to(ExamResult());
+                          },
+                        ),
+    
+                        //more child menu
+                      ],
+                    ),
+           ListTile(
+            onTap: () => Get.toNamed(RoutesName.downloadAll),
+            leading:
+                const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
+            title: const Text("Download"),
+            textColor: Colors.white,
+            dense: true,
+    
+            // padding: EdgeInsets.zero,
+          ),
+           ListTile(
+            onTap: () => Get.toNamed(RoutesName.downloadAll),
+            leading:
+                const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
+            title: const Text("Bus Route"),
+            textColor: Colors.white,
+            dense: true,
+    
+            // padding: EdgeInsets.zero,
+          ),
+           ListTile(
+            onTap: () => Get.toNamed(RoutesName.downloadAll),
+            leading:
+                const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
+            title: const Text("Chat"),
+            textColor: Colors.white,
+            dense: true,
+    
+            // padding: EdgeInsets.zero,
+          ),
+           ListTile(
+            onTap: () => Get.toNamed(RoutesName.downloadAll),
+            leading:
+                const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
+            title: const Text("Notification"),
+            textColor: Colors.white,
+            dense: true,
+    
+            // padding: EdgeInsets.zero,
+          ),
+          
+           SizedBox(
+            height: 0.05.sh,
+          ),
+           Container(
+            color: Colors.white,
+            height: 0.080.sh,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child: Text(
+                    "Powered by",
+                    style: GoogleFonts.dmSans(
+                      fontStyle: FontStyle.normal,
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                    ),
                   ),
                 ),
-              ),
-              Image.asset(
-                "assets/images/b.png",
-                height: 0.13.sh,
-                width: 0.35.sw,
-              ),
-            ],
+                
+                Image.asset(
+                  "assets/images/b.png",
+                  height: 0.13.sh,
+                  width: 0.35.sw,
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
-    ),
-  );
+        ],
+      ),
+    );
+  }
 }
+
+
+
+
+
+
+
+
+
