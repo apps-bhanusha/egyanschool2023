@@ -5,7 +5,7 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
-
+import 'package:rive/rive.dart';
 class BusRoute extends StatefulWidget {
   const BusRoute({super.key});
 
@@ -122,30 +122,20 @@ static const _heightPercentages = [
                           ),
                         ),
                       ),
-                    )
+                    ),
+                    
                   ],
                 ),
               ),
             ),
+const Expanded(
+                      child: RiveAnimation.network(
+                        
+                      'https://cdn.rive.app/animations/vehicles.riv',
+                    ),
+                    )
 
 
-// Container(
-//   width: 50,
-//                   height: 48,
-//                   child: WaveWidget(
-//                     config: CustomConfig(
-//                       colors: [
-                       
-//                         Colors.indigo[200]!,
-//                         Colors.indigo[100]!
-//                       ],
-//                       durations: [18000, 8000,],
-//                       heightPercentages: [0.65, 0.66,],
-//                     ),
-//                     size: Size(double.infinity, double.infinity),
-//                     waveAmplitude: 0,
-//                   ),
-//                 ),
           ],
         ));
   }
