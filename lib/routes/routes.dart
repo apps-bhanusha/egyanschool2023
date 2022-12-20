@@ -1,6 +1,7 @@
 
 import 'package:ecom_desgin/main.dart';
 import 'package:ecom_desgin/notification/notification.dart';
+import 'package:ecom_desgin/profile/profile.dart';
 import 'package:ecom_desgin/view/bus_routes/bus_routes.dart';
 import 'package:ecom_desgin/view/calender/calendar%20_4s.dart';
 import 'package:ecom_desgin/view/chat/chat.dart';
@@ -65,4 +66,5 @@ final getpages=[
  GetPage(name: RoutesName.attendance, page: () =>   CalendarShow()),
  GetPage(name: RoutesName.busRoute, page: () =>   BusRoute()),
  GetPage(name: RoutesName.notification, page: () =>   NotificationPage()),
+ GetPage(name: RoutesName.profile, page: () =>  Profile()),
 ];

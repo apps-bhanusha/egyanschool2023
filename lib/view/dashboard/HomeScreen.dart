@@ -648,7 +648,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             dense: true,
           ),
           ListTile(
-            onTap: () {},
+                        onTap: () {Get.toNamed(RoutesName.profile);},
+
             leading: const Icon(Icons.verified_user,
                 size: 20.0, color: Colors.white),
             title: const Text("Profile"),
