@@ -371,7 +371,7 @@ class _HomeWorkState extends State<HomeWork> {
                                       bottomLeft: Radius.circular(10)),
                                   color: Colors.red,
                                 ),
-                                width: 15,
+                                width: 0.05.sw,
                                 height: 0.15.sh,
                               ),
                               Column(
@@ -380,7 +380,7 @@ class _HomeWorkState extends State<HomeWork> {
                                 children: [
                                   Container(
                                     width: 0.9.sw,
-                                    height: 2,
+                                    height: 0.02.sh,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       color: Colors.red,
