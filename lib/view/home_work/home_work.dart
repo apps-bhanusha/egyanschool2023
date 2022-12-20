@@ -1,18 +1,10 @@
 import 'package:ecom_desgin/controller/home_word_controller.dart';
-import 'package:ecom_desgin/controller/school_id_controller.dart';
-import 'package:ecom_desgin/main.dart';
-import 'package:ecom_desgin/view/home_work/Download_home_work.dart';
-import 'package:ecom_desgin/view/home_work/pdf_viewer_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
-import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class HomeWork extends StatefulWidget {
@@ -371,7 +363,7 @@ class _HomeWorkState extends State<HomeWork> {
                                       bottomLeft: Radius.circular(10)),
                                   color: Colors.red,
                                 ),
-                                width: 0.05.sw,
+                                width: 0.04.sw,
                                 height: 0.15.sh,
                               ),
                               Column(
@@ -380,14 +372,14 @@ class _HomeWorkState extends State<HomeWork> {
                                 children: [
                                   Container(
                                     width: 0.9.sw,
-                                    height: 0.02.sh,
+                                    height: 2,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
+                                      borderRadius: BorderRadius.circular(20).r,
                                       color: Colors.red,
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 10),
+                                    padding: const EdgeInsets.only(left: 10).r,
                                     child: Row(
                                       // ignore: prefer_const_literals_to_create_immutables
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -447,7 +439,7 @@ class _HomeWorkState extends State<HomeWork> {
                                                           // );
                                                         },
                                                         child: SizedBox(
-                                                          width: 150,
+                                                          width: 0.1.sw,
                                                           child: Text(
                                                               "Download: $progressString",
                                                               overflow:
@@ -497,13 +489,13 @@ class _HomeWorkState extends State<HomeWork> {
                                          mainAxisAlignment: MainAxisAlignment.start,
                                          crossAxisAlignment: CrossAxisAlignment.start,
                                          children:  [
-                                           Text("Upload",
+                                           const Text("Upload",
                                                style: TextStyle(
                                                    color: Color.fromARGB(
                                                        255, 0, 0, 0),
                                                    fontSize: 15)),
                                                         SizedBox(width: 0.05.sw,),
-                                           Icon(Icons.upload),
+                                           const Icon(Icons.upload),
                                          ],
                                        ),
                                      ),
