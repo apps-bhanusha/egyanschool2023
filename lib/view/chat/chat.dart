@@ -37,16 +37,20 @@ class _ChatPageState extends State<ChatPage> {
     appBar: AppBar(
       title: const Text("Chat"),
     ),
-        body: Chat(
-      
-          messages: _messages,
-          onAttachmentPressed: _handleAttachmentPressed,
-          onMessageTap: _handleMessageTap,
-          onPreviewDataFetched: _handlePreviewDataFetched,
-          onSendPressed: _handleSendPressed,
-          showUserAvatars: true,
-          showUserNames: true,
-          user: _user,
+        body: Container(
+          color: Colors.blue,
+          child: Chat(
+             
+            messages: _messages,
+            onAttachmentPressed: _handleAttachmentPressed,
+            onMessageTap: _handleMessageTap,
+            onPreviewDataFetched: _handlePreviewDataFetched,
+            onSendPressed: _handleSendPressed,
+            showUserAvatars: true,
+            showUserNames: true,
+            user: _user,
+            
+          ),
         ),
       );
 
@@ -60,8 +64,8 @@ class _ChatPageState extends State<ChatPage> {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) => SafeArea(
-        child: Container(
-          color: Colors.blue,
+        child: SizedBox(
+        
           height: 144,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
