@@ -1,5 +1,6 @@
 
 import 'package:ecom_desgin/main.dart';
+import 'package:ecom_desgin/view/chat/chat.dart';
 
 import 'package:ecom_desgin/view/children/child_total.dart';
 import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
@@ -36,6 +37,7 @@ class RoutesName{
   static String syllabus = '/syllabus';
   static String feesgraff = '/fesesgraff';
   static String lession = '/lession';
+  static String chatPage = '/ChatPage';
 }
 
 final getpages=[
@@ -50,7 +52,9 @@ final getpages=[
  GetPage(name: RoutesName.examiTimeDetial, page: () =>  const ExamTimeDetail()),
  GetPage(name: RoutesName.downloadAll, page: () =>  const DownloadAll()),
  GetPage(name: RoutesName.timetable, page: () =>  TimeTable()),
+ GetPage(name: RoutesName.timetable, page: () =>  TimeTable()),
  GetPage(name: RoutesName.syllabus, page: () =>  const Syllabus()),
  GetPage(name: RoutesName.feesgraff, page: () =>  const FeesGraff()),
  GetPage(name: RoutesName.lession, page: () =>  const SubjectLession()),
+ GetPage(name: RoutesName.chatPage, page: () =>  const ChatPage()),
 ];

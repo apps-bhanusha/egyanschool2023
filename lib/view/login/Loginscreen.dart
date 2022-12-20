@@ -254,7 +254,7 @@ keyboardType: TextInputType.number,
                 ),
                 child: ElevatedButton(
                   child:  Text(
-                    "Login",
+                    "Next",
                     style: GoogleFonts.dmSans(
                       fontStyle: FontStyle.normal,
                       fontSize: 18.sp,

@@ -473,7 +473,7 @@ class _GridViewallState extends State<GridViewall>
             // padding: EdgeInsets.zero,
           ),
            ListTile(
-            onTap: () => Get.toNamed(RoutesName.downloadAll),
+            onTap: () => Get.toNamed(RoutesName.chatPage),
             leading:
                 const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
             title: const Text("Chat"),
