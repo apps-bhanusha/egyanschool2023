@@ -58,6 +58,10 @@ dependencies:
   image_picker: ^0.8.6
   mime: ^1.0.3
   open_filex: ^4.3.2
+  wave: ^0.2.2
+  floating_action_bubble: ^1.1.4
+  # add this line to your dependencies
+  custom_floating_action_button: ^0.0.3
 
 
 
