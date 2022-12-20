@@ -709,16 +709,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     
             // padding: EdgeInsets.zero,
           ),
-           ListTile(
-           onTap: () => Get.toNamed(RoutesName.homeWork),
-            leading:
-                const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
-            title: const Text("Home Work"),
-            textColor: Colors.white,
-            dense: true,
+          //  ListTile(
+          //  onTap: () => Get.toNamed(RoutesName.homeWork),
+          //   leading:
+          //       const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
+          //   title: const Text("Home Work"),
+          //   textColor: Colors.white,
+          //   dense: true,
     
-            // padding: EdgeInsets.zero,
-          ),
+          //   // padding: EdgeInsets.zero,
+          // ),
            ExpansionTile(
             collapsedIconColor: Colors.white,
             textColor: Colors.white,

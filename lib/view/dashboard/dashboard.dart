@@ -407,16 +407,16 @@ class _GridViewallState extends State<GridViewall>
   
           // padding: EdgeInsets.zero,
         ),
-           ListTile(
-            onTap: () { Get.toNamed(RoutesName.syllabus);},
-            leading:
-                const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
-            title: const Text("Syllabus"),
-            textColor: Colors.white,
-            dense: true,
+          //  ListTile(
+          //   onTap: () { Get.toNamed(RoutesName.syllabus);},
+          //   leading:
+          //       const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
+          //   title: const Text("Syllabus"),
+          //   textColor: Colors.white,
+          //   dense: true,
     
-            // padding: EdgeInsets.zero,
-          ),
+          //   // padding: EdgeInsets.zero,
+          // ),
            ListTile(
            onTap: () => Get.toNamed(RoutesName.homeWork),
             leading:
