@@ -102,7 +102,7 @@ class _GridViewallState extends State<GridViewall>
     "Examination",
     "HomeWork",
     "Download",
-    "Homework",
+    "Time Table",
     "Download center",
     "Chat"
   ];
@@ -251,51 +251,62 @@ class _GridViewallState extends State<GridViewall>
                                    CurvedAnimation(
                                        parent: _controller, curve: Curves.linear),
                                  ),
-                                 child: Card(
-                                   elevation: 10,
-                                   shape: RoundedRectangleBorder(
-                                       borderRadius: const BorderRadius.only(
-                                           topLeft: Radius.circular(10),
-                                           bottomLeft: Radius.circular(10),
-                                           bottomRight: Radius.circular(10),
-                                           topRight: Radius.circular(10)),
-                                       side: BorderSide(
-                                         width: 5,
-                                         color: color2[index],
-                                       )),
-                                   color: color2[index],
-                                   child: Column(
-                                     mainAxisAlignment: MainAxisAlignment.center,
-                                     children: [
-                                       InkWell(
-                                         onTap: () {},
-                                         child: Container(
+                                 child: InkWell(
+                                         onTap: () { 
+                                          print(index);               
+                                          if(index==0){Get.toNamed(RoutesName.home);}
+                                          if(index==1){Get.toNamed(RoutesName.profile);}
+                                          if(index==2){Get.toNamed(RoutesName.attendance);}
+                                          if(index==3){Get.toNamed(RoutesName.fees);}
+                                          if(index==4){Get.toNamed(RoutesName.examination);}
+                                          if(index==5){Get.toNamed(RoutesName.homeWork);}
+                                          if(index==6){Get.toNamed(RoutesName.downloadAll);}
+                                          if(index==7){Get.toNamed(RoutesName.timetable);}
+
+                                         },
+                                   child: Card(
+                                     elevation: 10,
+                                     shape: RoundedRectangleBorder(
+                                         borderRadius: const BorderRadius.only(
+                                             topLeft: Radius.circular(10),
+                                             bottomLeft: Radius.circular(10),
+                                             bottomRight: Radius.circular(10),
+                                             topRight: Radius.circular(10)),
+                                         side: BorderSide(
+                                           width: 5,
+                                           color: color2[index],
+                                         )),
+                                     color: color2[index],
+                                     child: Column(
+                                       mainAxisAlignment: MainAxisAlignment.center,
+                                       children: [
+                                         Container(
                                            decoration: BoxDecoration(
                                                color: (color1[index]),
                                                borderRadius: BorderRadius.circular(25)),
                                            width: 0.13.sw,
                                            height: 0.063.sh,
-                                
+                                                                 
                                            // backgroundColor: Colors.amberAccent,
-                                
+                                                                 
                                            child: (icons1[index]),
                                          ),
-                                       ),
-                                       Padding(
-                                         padding: const EdgeInsets.all(8.0).r,
-                                         child: Container(
-                                           child: Text(
-                                             trailing[index],
-                                             style: GoogleFonts.dmSans(
-                                               fontStyle: FontStyle.normal,
-                                               fontSize: 15.sp,
-                                               fontWeight: FontWeight.bold,
-                                               color: Colors.white,
+                                         Padding(
+                                           padding: const EdgeInsets.all(8.0).r,
+                                           child: Container(
+                                             child: Text(
+                                               trailing[index],
+                                               style: GoogleFonts.dmSans(
+                                                 fontStyle: FontStyle.normal,
+                                                 fontSize: 15.sp,
+                                                 fontWeight: FontWeight.bold,
+                                                 color: Colors.white,
+                                               ),
                                              ),
                                            ),
                                          ),
-                                       ),
-                                     ],
+                                       ],
+                                     ),
                                    ),
                                  ),
                                ),
