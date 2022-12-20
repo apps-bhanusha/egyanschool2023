@@ -713,7 +713,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
            ListTile(
            onTap: () => Get.toNamed(RoutesName.homeWork),
             leading:
-                const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
+                const Icon(Icons.home_work, size: 20.0, color: Colors.white),
             title: const Text("Home Work"),
             textColor: Colors.white,
             dense: true,
@@ -724,7 +724,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             collapsedIconColor: Colors.white,
             textColor: Colors.white,
                       title: const Text("Exmaination",style:TextStyle(color: Colors.white),),
-                      leading: const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white), //add icon
+                      leading: const Icon(Icons.book_outlined, size: 20.0, color: Colors.white), //add icon
                       childrenPadding:
                           EdgeInsets.only(left: 60), //children padding
                       children: [
@@ -748,7 +748,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
            ListTile(
             onTap: () => Get.toNamed(RoutesName.downloadAll),
             leading:
-                const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
+                const Icon(Icons.download, size: 20.0, color: Colors.white),
             title: const Text("Download"),
             textColor: Colors.white,
             dense: true,
@@ -758,7 +758,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
            ListTile(
             onTap: () => Get.toNamed(RoutesName.busRoute),
             leading:
-                const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
+                const Icon(Icons.route, size: 20.0, color: Colors.white),
             title: const Text("Bus Route"),
             textColor: Colors.white,
             dense: true,
@@ -768,7 +768,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
            ListTile(
             onTap: () => Get.toNamed(RoutesName.chatPage),
             leading:
-                const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
+                const Icon(Icons.chat, size: 20.0, color: Colors.white),
             title: const Text("Chat"),
             textColor: Colors.white,
             dense: true,
@@ -778,7 +778,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
            ListTile(
             onTap: () => Get.toNamed(RoutesName.notification),
             leading:
-                const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
+                const Icon(Icons.notifications, size: 20.0, color: Colors.white),
             title: const Text("Notification"),
             textColor: Colors.white,
             dense: true,

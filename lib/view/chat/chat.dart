@@ -38,6 +38,7 @@ class _ChatPageState extends State<ChatPage> {
       title: const Text("Chat"),
     ),
         body: Chat(
+      
           messages: _messages,
           onAttachmentPressed: _handleAttachmentPressed,
           onMessageTap: _handleMessageTap,
@@ -59,7 +60,8 @@ class _ChatPageState extends State<ChatPage> {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) => SafeArea(
-        child: SizedBox(
+        child: Container(
+          color: Colors.blue,
           height: 144,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -131,6 +133,7 @@ class _ChatPageState extends State<ChatPage> {
 
       final message = types.ImageMessage(
         author: _user,
+
         createdAt: DateTime.now().millisecondsSinceEpoch,
         height: image.height.toDouble(),
         id: const Uuid().v4(),
