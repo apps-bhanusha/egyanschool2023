@@ -1,5 +1,8 @@
 
 import 'package:ecom_desgin/main.dart';
+import 'package:ecom_desgin/notification/notification.dart';
+import 'package:ecom_desgin/view/bus_routes/bus_routes.dart';
+import 'package:ecom_desgin/view/calender/calendar%20_4s.dart';
 import 'package:ecom_desgin/view/chat/chat.dart';
 
 import 'package:ecom_desgin/view/children/child_total.dart';
@@ -38,6 +41,8 @@ class RoutesName{
   static String feesgraff = '/fesesgraff';
   static String lession = '/lession';
   static String chatPage = '/ChatPage';
+  static String busRoute = '/busroute';
+  static String notification = '/notification';
 }
 
 final getpages=[
@@ -57,4 +62,7 @@ final getpages=[
  GetPage(name: RoutesName.feesgraff, page: () =>  const FeesGraff()),
  GetPage(name: RoutesName.lession, page: () =>  const SubjectLession()),
  GetPage(name: RoutesName.chatPage, page: () =>  const ChatPage()),
+ GetPage(name: RoutesName.attendance, page: () =>   CalendarShow()),
+ GetPage(name: RoutesName.busRoute, page: () =>   BusRoute()),
+ GetPage(name: RoutesName.notification, page: () =>   NotificationPage()),
 ];

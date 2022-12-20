@@ -699,26 +699,26 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   
           // padding: EdgeInsets.zero,
         ),
-           ListTile(
-            onTap: () { Get.toNamed(RoutesName.syllabus);},
-            leading:
-                const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
-            title: const Text("Syllabus"),
-            textColor: Colors.white,
-            dense: true,
-    
-            // padding: EdgeInsets.zero,
-          ),
           //  ListTile(
-          //  onTap: () => Get.toNamed(RoutesName.homeWork),
+          //   onTap: () { Get.toNamed(RoutesName.syllabus);},
           //   leading:
           //       const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
-          //   title: const Text("Home Work"),
+          //   title: const Text("Syllabus"),
           //   textColor: Colors.white,
           //   dense: true,
     
           //   // padding: EdgeInsets.zero,
           // ),
+           ListTile(
+           onTap: () => Get.toNamed(RoutesName.homeWork),
+            leading:
+                const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
+            title: const Text("Home Work"),
+            textColor: Colors.white,
+            dense: true,
+    
+            // padding: EdgeInsets.zero,
+          ),
            ExpansionTile(
             collapsedIconColor: Colors.white,
             textColor: Colors.white,
@@ -755,7 +755,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             // padding: EdgeInsets.zero,
           ),
            ListTile(
-            onTap: () => Get.toNamed(RoutesName.downloadAll),
+            onTap: () => Get.toNamed(RoutesName.busRoute),
             leading:
                 const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
             title: const Text("Bus Route"),
@@ -775,7 +775,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             // padding: EdgeInsets.zero,
           ),
            ListTile(
-            onTap: () => Get.toNamed(RoutesName.downloadAll),
+            onTap: () => Get.toNamed(RoutesName.notification),
             leading:
                 const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
             title: const Text("Notification"),

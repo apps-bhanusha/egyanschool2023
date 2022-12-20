@@ -463,7 +463,7 @@ class _GridViewallState extends State<GridViewall>
             // padding: EdgeInsets.zero,
           ),
            ListTile(
-            onTap: () => Get.toNamed(RoutesName.downloadAll),
+            onTap: () => Get.toNamed(RoutesName.busRoute),
             leading:
                 const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
             title: const Text("Bus Route"),
@@ -483,7 +483,7 @@ class _GridViewallState extends State<GridViewall>
             // padding: EdgeInsets.zero,
           ),
            ListTile(
-            onTap: () => Get.toNamed(RoutesName.downloadAll),
+            onTap: () => Get.toNamed(RoutesName.notification),
             leading:
                 const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
             title: const Text("Notification"),
