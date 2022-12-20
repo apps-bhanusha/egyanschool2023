@@ -688,15 +688,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             // padding: EdgeInsets.zero,
           ),
           ListTile(
-            onTap: () {Get.toNamed(RoutesName.feesgraff);},
-            leading:
-                const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
-            title: const Text("Lession Plan"),
-            textColor: Colors.white,
-            dense: true,
-    
-            // padding: EdgeInsets.zero,
-          ),
+          onTap: () {
+            Get.toNamed(RoutesName.lession);
+          },
+          leading: const Icon(Icons.play_lesson_outlined,
+              size: 20.0, color: Colors.white),
+          title: const Text("Lession Plan"),
+          textColor: Colors.white,
+          dense: true,
+  
+          // padding: EdgeInsets.zero,
+        ),
            ListTile(
             onTap: () { Get.toNamed(RoutesName.syllabus);},
             leading:

@@ -11,6 +11,7 @@ import 'package:ecom_desgin/view/home_work/home_work.dart';
 import 'package:ecom_desgin/view/login/Loginscreen.dart';
 import 'package:ecom_desgin/view/login/Student_Login.dart';
 import 'package:ecom_desgin/view/syllabus/feesgraff.dart';
+import 'package:ecom_desgin/view/syllabus/subject.dart';
 import 'package:ecom_desgin/view/syllabus/syllabus.dart';
 import 'package:ecom_desgin/view/time_table/time_table.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,7 @@ class RoutesName{
   static String timetable = '/time_table';
   static String syllabus = '/syllabus';
   static String feesgraff = '/fesesgraff';
+  static String lession = '/lession';
 }
 
 final getpages=[
@@ -50,4 +52,5 @@ final getpages=[
  GetPage(name: RoutesName.timetable, page: () =>  TimeTable()),
  GetPage(name: RoutesName.syllabus, page: () =>  const Syllabus()),
  GetPage(name: RoutesName.feesgraff, page: () =>  const FeesGraff()),
+ GetPage(name: RoutesName.lession, page: () =>  const SubjectLession()),
 ];

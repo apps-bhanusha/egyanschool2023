@@ -401,7 +401,7 @@ Widget buildMenu() {
         ),
         ListTile(
           onTap: () {
-            Get.toNamed(RoutesName.feesgraff);
+            Get.toNamed(RoutesName.lession);
           },
           leading: const Icon(Icons.play_lesson_outlined,
               size: 20.0, color: Colors.white),

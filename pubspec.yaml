@@ -52,6 +52,7 @@ dependencies:
   shrink_sidemenu: ^2.0.0+2-null-safety
   permission_handler: ^10.2.0
   downloads_path_provider_28: ^0.1.2
+  rive: ^0.9.0
 
 
 
