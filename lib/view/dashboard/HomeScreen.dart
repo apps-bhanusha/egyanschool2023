@@ -1,3 +1,5 @@
+// ignore_for_file: sort_child_properties_last
+
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/dashboard/drawer.dart';
@@ -9,6 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
+import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,6 +27,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late Animation<Offset> _offsetAnimation;
   late AnimationController _controller1;
   late Animation<Offset> _Animation;
+double percent = 10.0;
+
 
   @override
   void initState() {
@@ -52,7 +57,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     // _controller =  AnimationController(vsync: this, duration: Duration(seconds: 6));
     // colorAnimation = ColorTween(begin: Colors.blue, end: Colors.yellow).animate(controller);
     // sizeAnimation = Tween<double>(begin: 400.0, end: 400.0).animate(controller);
-  }
+
+
+ }
 
 @override
   void dispose(){
@@ -84,6 +91,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
     return SideMenu(
       background: Colors.blue,
       key: _sideMenuKey,
@@ -95,499 +103,305 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       },
       child: IgnorePointer(
         ignoring: isOpened,
-        child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            leading: IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () => toggleMenu(),
-            ),
-           backgroundColor: Colors.white,
-            iconTheme: IconThemeData(color: Colors.black),
-            title: Row(
-              children: [
-                Text(
-                  'EGYAN Demo school',
-                  style: GoogleFonts.dmSans(
-                    fontStyle: FontStyle.normal,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.redAccent,
+        child:Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              leading: IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () => toggleMenu(),
+              ),
+              backgroundColor: Colors.white,
+              iconTheme: IconThemeData(color: Colors.black),
+              title: Row(
+                children: [
+                  Text(
+                    'EGYAN Demo school',
+                    style: GoogleFonts.dmSans(
+                      fontStyle: FontStyle.normal,
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.redAccent,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 26).r,
-                  child: Column(
-                    children: [
-                      Text(
-                        'Session',
-                        style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 26).r,
+                    child: Column(
+                      children: [
+                        Text(
+                          'Session',
+                          style: GoogleFonts.dmSans(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
-                      Text(
-                        '2020-21',
-                        style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                        Text(
+                          '2020-21',
+                          style: GoogleFonts.dmSans(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
+                ],
+              ),
+              actions: [
+                PopupMenuButton<int>(
+                  itemBuilder: (context) {
+                    return <PopupMenuEntry<int>>[
+                      const PopupMenuItem(child: Text('detial'), value: 0),
+                      const PopupMenuItem(child: Text('about'), value: 1),
+                    ];
+                  },
                 ),
               ],
             ),
-            actions: [
-              PopupMenuButton<int>(
-                itemBuilder: (context) {
-                  return <PopupMenuEntry<int>>[
-                    const PopupMenuItem(child: Text('detial'), value: 0),
-                    const PopupMenuItem(child: Text('about'), value: 1),
-                  ];
-                },
-              ),
-            ],
-          ),
-         
-          
-          body: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Stack(
-                    alignment: Alignment.center,
-                    children: <Widget>[
-                      // background image and bottom contents
-                      Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 0.188.sh,
-                            width: MediaQuery.of(context).size.width,
-                            child: Image.asset(
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Stack(children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 0, right: 0).r,
+                        child: ClipPath(
+                          clipper: ClipPathClass(),
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 0.280.sh,
+                            child: 
+                            Image.asset(
                               "assets/images/all4.jpeg",
                               fit: BoxFit.fill,
                             ),
                           ),
-                          Container(
-                            color: Colors.lightBlue,
-                            height: 0.270.sh,
-                          ),
-                          SizedBox(
-                            height: 0.010.sh,
-                          ),
-                          Container(
-                            child: Column(
-                              children: [
-                                Container(
-                                    height: 0.072.sh,
-                                    width: 0.99.sw,
-                                    child: Card(
-                                      color: Colors.lightBlueAccent,
-                                      child: Container(
-                                        child: Center(
-                                          child: ScrollLoopAutoScroll(
-                                            scrollDirection: Axis.horizontal,
-                                            child: Text(
-                                              'Notice board',
-                                              style: GoogleFonts.dmSans(
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                        const EdgeInsets.only(left: 27, right: 15, top: 100.0)
+                            .r,
+                        child: Container(
+                          child: Stack(
+                            children: <Widget>[
+                              Card(
+                                child: Container(
+                                  height: 0.180.sh,
+                                  width: 0.85.sw,
+                                ),
+                              ),
+                              Positioned(
+                                top: 0.001.sh,
+                                left: 0.35.sw,
+                                child: FractionalTranslation(
+                                  translation: Offset(0.0, -0.5),
+                                  child: ClipOval(
+                                    child: Align(
+                                      child: CachedNetworkImage(
+                                        placeholder: (context, url) =>
+                                            CircleAvatar(
+                                                maxRadius: MediaQuery.of(context)
+                                                    .size
+                                                    .width -
+                                                    MediaQuery.of(context)
+                                                        .size
+                                                        .width +
+                                                    22,
+                                                backgroundImage: const AssetImage(
+                                                    "assets/images/user1.png")),
+                                        imageUrl:"https://source.unsplash.com/user/c_v_r/100x100" 
+                                        // _allsetController
+                                        //     .SchoolIdControllerList[0]["response"]
+                                        // [0]["profileimage"]
+                                        //     .toString(),
+                                      ),
+                                      alignment: FractionalOffset(0.5, 0.0),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                left: 0.30.sw,
+                                top: 0.090.sh,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Obx(
+                                            () => Text(
+                                          _allsetController
+                                              .SchoolIdControllerList[0]
+                                          ["response"][0]["name"]
+                                              .toString(),
+                                          style: GoogleFonts.dmSans(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15.sp,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0).r,
+                                      child: InkWell(
+                                        onTap: () {},
+                                        child: Obx(
+                                              () => Text(
+                                            _allsetController
+                                                .SchoolIdControllerList[0]
+                                            ['parent_info']["mobileno"]
+                                                .toString(),
+                                            style: GoogleFonts.dmSans(
                                                 fontStyle: FontStyle.normal,
                                                 fontSize: 15.sp,
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                              ),
-                                            ),
+                                                color: Colors.black),
                                           ),
                                         ),
                                       ),
-                                    )),
-                                Container(
-                                  height: 0.25.sh,
-                                  child: Card(
-                                    color: Colors.white70,
-                                    elevation: 2,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: const BorderRadius.only(
-                                            bottomLeft: Radius.circular(10),
-                                            topLeft: Radius.circular(10),
-                                            bottomRight: Radius.circular(10),
-                                            topRight: Radius.circular(10)),
-                                        side: BorderSide(
-                                            width: 0.001.sw,
-                                            color: Colors.white)),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            // mainAxisAlignment:
-                                            // MainAxisAlignment.start,
-                                            // crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Expanded(
-                                                flex: 1,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
-                                                  children: [
-                                                    Text(
-                                                      "Fees",
-                                                      style:
-                                                          GoogleFonts.dmSans(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 15.sp,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color:
-                                                            Colors.grey[600],
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "",
-                                                      style:
-                                                          GoogleFonts.dmSans(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 15.sp,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color:
-                                                            Colors.grey[600],
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                        height: 0.010.sh),
-                                                    Container(
-                                                      color: Colors.black,
-                                                      height: 0.001.sh,
-                                                      width: 0.40.sw,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(width: 0.090.sw),
-                                              Expanded(
-                                                flex: 1,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
-                                                  children: [
-                                                    Text(
-                                                      "Fees Due",
-                                                      style:
-                                                          GoogleFonts.dmSans(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 15.sp,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color:
-                                                            Colors.grey[600],
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "",
-                                                      style:
-                                                          GoogleFonts.dmSans(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 15.sp,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color:
-                                                            Colors.grey[600],
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                        height: 0.010.sh),
-                                                    Container(
-                                                      color: Colors.black,
-                                                      height: 0.001.sh,
-                                                      width: 0.40.sw,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: <Widget>[
-                                              Expanded(
-                                                flex: 1,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
-                                                  children: [
-                                                    Text(
-                                                      "Attendance",
-                                                      style:
-                                                          GoogleFonts.dmSans(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 15.sp,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color:
-                                                            Colors.grey[600],
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      _allsetController
-                                                          .SchoolIdControllerList[
-                                                              0]["response"]
-                                                              [0]
-                                                              ["attandance"]
-                                                              ["present"]
-                                                          .toString(),
-                                                      style:
-                                                          GoogleFonts.dmSans(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 15.sp,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color:
-                                                            Colors.grey[600],
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                        height: 0.010.sh),
-                                                    Container(
-                                                      color: Colors.black,
-                                                      height: 0.001.sh,
-                                                      width: 0.40.sw,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(width: 0.090.sw),
-                                              Expanded(
-                                                flex: 1,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
-                                                  children: [
-                                                    Text("UpComing Exam", style: GoogleFonts.dmSans(fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 15.sp,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color:
-                                                            Colors.grey[600],
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'UpComing Exam',
-                                                      style:
-                                                          GoogleFonts.dmSans(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 15.sp,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color:
-                                                            Colors.grey[600],
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                        height: 0.010.sh),
-                                                    Container(
-                                                      color: Colors.black,
-                                                      height: 0.001.sh,
-                                                      width: 0.40.sw,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-    
-                      Positioned(
-                        top: 0.20.sw,
-                        child: Align(
-                            alignment: Alignment.center, child:
-                             SizedBox(
-                              height: 0.150.sh,
-                              width: 0.22.sw,
-                               child: const Text("image comment")
-                              // CachedNetworkImage(
-    
-                              //   placeholder:  (context, url) => CircleAvatar( maxRadius: MediaQuery.of(context).size.width -
-                              //       MediaQuery.of(context).size.width +
-                              //       22,backgroundImage: AssetImage("assets/images/user1.png")),
-    
-                              //   imageUrl: _allsetController.SchoolIdControllerList[0]["response"][0]["profileimage"].toString(),
-                              // ),
-                            ),
-                            ),
-                      ),
-    
-                      Positioned(
-                        top: 165,
-                        child: Column(
-                          children: [
-                            InkWell(
-                              onTap: () {},
-                              child: Obx(
-                                () => Text(
-                                  _allsetController.SchoolIdControllerList[0]
-                                          ["response"][0]["name"]
-                                      .toString(),
-                                  style: GoogleFonts.dmSans(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0).r,
-                              child: InkWell(
-                                onTap: () {},
-                                child: Obx(
-                                  () => Text(
-                                    _allsetController
-                                        .SchoolIdControllerList[0]
-                                            ['parent_info']["mobileno"]
-                                        .toString(),
-                                    style: GoogleFonts.dmSans(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
                         ),
                       ),
-    
-                      Positioned(
-                        bottom: 0.76.sh,
-                        child: Row(
+                    ]),
+                                    SizedBox(height: 0.015.sh,),
+
+                    Positioned(
+                      child: Container(
+                        color: Colors.blue,
+                        height: 0.080.sh,
+                        width: MediaQuery.of(context).size.width,
+                        child: Stack(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 60).r,
-                              child: InkWell(
-                                onTap: () {},
-                                child: Text(
-                                  "Communication",
-                                  style: GoogleFonts.dmSans(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.yellow),
+                            Positioned(
+                              top: 0.001.sh,
+                              left: 0.06.sw,
+                              child: SlideTransition(
+                                position: _offsetAnimation,
+                                child: Icon(
+                                  Icons.arrow_right,
+                                  color: Colors.lightBlue,
+                                  size: 52.sp,
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 60).r,
-                              child: InkWell(
-                                onTap: () {},
-                                child: Text(
-                                  "attendance",
-                                  style: GoogleFonts.dmSans(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.yellow),
+                            Positioned(
+                              left: 0.10.sw,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: 0.50.sh,
                                 ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-    
-                      Positioned(
-                        bottom: 0.331.sh,
-                        child: Container(
-                          color: Colors.black26,
-                          height: 0.080.sh,
-                          width: MediaQuery.of(context).size.width,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                top: 0.001.sh,
-                                left: 0.06.sw,
                                 child: SlideTransition(
-                                  position: _offsetAnimation,
+                                  position: _Animation,
                                   child: Icon(
                                     Icons.arrow_right,
                                     color: Colors.lightBlue,
-                                    size: 52.sp,
+                                    size: 55.sp,
                                   ),
                                 ),
                               ),
-                              Positioned(
-                                left: 0.10.sw,
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                    bottom: 0.50.sh,
-                                  ),
-                                  child: SlideTransition(
-                                    position: _Animation,
-                                    child: Icon(
-                                      Icons.arrow_right,
-                                      color: Colors.lightBlue,
-                                      size: 55.sp,
+                            ),
+                            Positioned(
+                              left: 0.22.sw,
+                              top: 0.025.sh,
+                              child: GestureDetector(
+                                onTap: () => {
+                                  Get.toNamed(RoutesName.dashboard),
+                                },
+                                child: Container(
+                                  child: Text(
+                                    "Tap Here For E-GYAN Services",
+                                    style: GoogleFonts.dmSans(
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
                               ),
-                              Positioned(
-                                left: 0.22.sw,
-                                top: 0.025.sh,
-                                child: GestureDetector(
-                                  onTap: () => {
-                                    Get.toNamed(RoutesName.dashboard),
-                                  },
-                                  child: Container(
-                                    child: Text(
-                                      "Tap Here For E-GYAN Services",
-                                      style: GoogleFonts.dmSans(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 0.010.sh,
+                    ),
+                    Container(
+                        height: 0.072.sh,
+                        width: 0.99.sw,
+                        child: Card(
+                          color: Color.fromARGB(255, 134, 217, 248),
+                          child: Container(
+                            child: Center(
+                              child: ScrollLoopAutoScroll(
+                                scrollDirection: Axis.horizontal,
+                                child: Text(
+                                  'Notice board',
+                                  style: GoogleFonts.dmSans(
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )),
+                                    SizedBox(height: 0.01.sh,),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Card(
+                          color: Color.fromARGB(255, 134, 217, 248),
+                          elevation: 10,
+                          child: Column(
+                            children: [
+                              Text(
+                                "Total Fees",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 0.15.sh,
+                                width: 0.30.sw,
+                                child: LiquidLinearProgressIndicator(
+                                  value: 0.5, // Defaults to 0.5.
+                                  valueColor: const AlwaysStoppedAnimation(Color.fromARGB(
+                                      255, 124, 200,
+                                      241),), // Defaults to the current Theme's accentColor.
+                                  backgroundColor: const Color.fromARGB(255, 246, 243,
+                                      243), // Defaults to the current Theme's backgroundColor.
+                                  borderColor: Colors.red,
+                                  borderWidth: 0.0,
+                                  borderRadius: 12.0,
+
+                                  direction: Axis.vertical,
+                                  // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
+                                  center: Text(
+                                    "$percent%",
+                                    style: GoogleFonts.dmSans(
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
                                     ),
                                   ),
                                 ),
@@ -595,22 +409,147 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             ],
                           ),
                         ),
+                        Card(
+                          color: const Color.fromARGB(255, 134, 217, 248),
+                          elevation: 10,
+                          child: Column(
+                            children: [
+                              Text(
+                                "Due Fees",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 0.15.sh,
+                                width: 0.30.sw,
+                                child: LiquidLinearProgressIndicator(
+                                  value: 0.5, // Defaults to 0.5.
+                                  valueColor: const AlwaysStoppedAnimation(Color.fromARGB(
+                                      255, 124, 200,
+                                      241), ), // Defaults to the current Theme's accentColor.
+                                  backgroundColor: const Color.fromARGB(255, 246, 243,
+                                      243), // Defaults to the current Theme's backgroundColor.
+                                  borderColor: Colors.red,
+                                  borderWidth: 0.0,
+                                  borderRadius: 12.0,
+
+                                  direction: Axis.vertical,
+                                  // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
+                                  center: Text(
+                                    "$percent",
+                                    style: GoogleFonts.dmSans(
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Card(
+                          color: const Color.fromARGB(255, 134, 217, 248),
+                          elevation: 10,
+                          child: Column(
+                            children: [
+                              Text(
+                                "Attendance",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 0.15.sh,
+                                width: 0.30.sw,
+                                child: LiquidLinearProgressIndicator(
+                                  value: 0.5, // Defaults to 0.5.
+                                  valueColor: const AlwaysStoppedAnimation(Color.fromARGB(255, 124, 200,241)), // Defaults to the current Theme's accentColor.
+                                  backgroundColor: const Color.fromARGB(255, 246, 243,
+                                      243), // Defaults to the current Theme's backgroundColor.
+                                  borderColor: Colors.red,
+                                  borderWidth: 0.0,
+                                  borderRadius: 12.0,
+
+                                  direction: Axis.vertical,
+                                  // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
+                                  center: Text(
+                                    "$percent%",
+                                    style: GoogleFonts.dmSans(
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          for(var i=0; i<3; i++)
+                            Card(
+
+                              elevation: 10,
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Mid Sem  Winter Exam",
+                                      style: GoogleFonts.dmSans(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    SizedBox(height: 0.015.sh,),
+                                    Text(
+                                      "20 to 27 March",
+                                      style: GoogleFonts.dmSans(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.lightBlue,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                        ],
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            bottomNavigationBar: Container(
+              color: Colors.lightBlue,
+              child: Image.asset(
+                "assets/images/b.png",
+                width: MediaQuery.of(context).size.width,
+                height: 0.070.sh,
               ),
             ),
           ),
-          bottomNavigationBar: Container(
-            color: Colors.lightBlue,
-            child: Image.asset(
-              "assets/images/b.png",
-              width: MediaQuery.of(context).size.width,
-              height: 0.070.sh,
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -827,5 +766,31 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
     );
   }
+}
+
+class ClipPathClass extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    path.lineTo(10.0, size.height - 30);
+
+    var firstControlPoint = Offset(size.width / 4, size.height);
+    var firstPoint = Offset(size.width / 2, size.height);
+    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
+        firstPoint.dx, firstPoint.dy);
+
+    var secondControlPoint = Offset(size.width - (size.width / 4), size.height);
+    var secondPoint = Offset(size.width, size.height - 30);
+    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
+        secondPoint.dx, secondPoint.dy);
+
+    path.lineTo(size.width, 0.0);
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }
 

@@ -62,6 +62,7 @@ dependencies:
   floating_action_bubble: ^1.1.4
   # add this line to your dependencies
   custom_floating_action_button: ^0.0.3
+  liquid_progress_indicator: ^0.4.0
 
 
 
