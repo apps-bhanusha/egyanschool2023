@@ -405,7 +405,7 @@ Container(child: Text("Record Not available", style: GoogleFonts.dmSans(
             ],
           ),
         ),
-    drawer: MyDrawer(),
+   
     );
   }
 }

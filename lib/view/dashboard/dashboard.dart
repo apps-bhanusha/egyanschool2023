@@ -388,7 +388,7 @@ class _GridViewallState extends State<GridViewall>
             // padding: EdgeInsets.zero,
           ),
           ListTile(
-            onTap: () {Get.toNamed(RoutesName.feesgraff);},
+            onTap: () {Get.toNamed(RoutesName.fees);},
             leading: const Icon(Icons.monetization_on,
                 size: 20.0, color: Colors.white),
             title: const Text("Fees"),

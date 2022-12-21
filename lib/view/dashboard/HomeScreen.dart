@@ -28,6 +28,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late AnimationController _controller1;
   late Animation<Offset> _Animation;
 double percent = 10.0;
+ bool dueFees=false;
+ 
+
+
 
 
   @override
@@ -164,6 +168,7 @@ double percent = 10.0;
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Column(
+           
                   children: [
                     Stack(children: [
                       Container(
@@ -183,61 +188,80 @@ double percent = 10.0;
                       ),
                       Padding(
                         padding:
-                        const EdgeInsets.only(left: 27, right: 15, top: 100.0)
+                        const EdgeInsets.only(left: 27, right: 15, top: 130.0)
                             .r,
-                        child: Container(
-                          child: Stack(
-                            children: <Widget>[
-                              Card(
-                                child: Container(
-                                  height: 0.180.sh,
-                                  width: 0.85.sw,
-                                ),
+                        child: Stack(
+                          children: <Widget>[
+                            Card(
+                              child: SizedBox(
+                                height: 0.155.sh,
+                                width: 0.85.sw,
                               ),
-                              Positioned(
-                                top: 0.001.sh,
-                                left: 0.35.sw,
-                                child: FractionalTranslation(
-                                  translation: Offset(0.0, -0.5),
-                                  child: ClipOval(
-                                    child: Align(
-                                      child: CachedNetworkImage(
-                                        placeholder: (context, url) =>
-                                            CircleAvatar(
-                                                maxRadius: MediaQuery.of(context)
-                                                    .size
-                                                    .width -
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .width +
-                                                    22,
-                                                backgroundImage: const AssetImage(
-                                                    "assets/images/user1.png")),
-                                        imageUrl:"https://source.unsplash.com/user/c_v_r/100x100" 
-                                        // _allsetController
-                                        //     .SchoolIdControllerList[0]["response"]
-                                        // [0]["profileimage"]
-                                        //     .toString(),
-                                      ),
-                                      alignment: FractionalOffset(0.5, 0.0),
+                            ),
+                            Positioned(
+                              top: 0.002.sh,
+                              left: 0.33.sw,
+                              right: 0.31.sw,
+                              child: FractionalTranslation(
+                                translation: Offset(0.0, -0.5),
+                                child: ClipOval(
+                                  child: Align(
+                                    child: CachedNetworkImage(
+                                      placeholder: (context, url) =>
+                                          CircleAvatar(
+                                              maxRadius: MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                                  MediaQuery.of(context)
+                                                      .size
+                                                      .width +
+                                                  26,
+                                              backgroundImage: const AssetImage(
+                                                  "assets/images/user1.png",),),
+                                      imageUrl:"https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80," ,
+                                      // _allsetController
+                                      //     .SchoolIdControllerList[0]["response"]
+                                      // [0]["profileimage"]
+                                      //     .toString(),
                                     ),
+                                    alignment: FractionalOffset(0.5, 0.0),
                                   ),
                                 ),
                               ),
-                              Positioned(
-                                left: 0.30.sw,
-                                top: 0.090.sh,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    InkWell(
+                            ),
+                            Positioned(
+                              left: 0.30.sw,
+                              top: 0.070.sh,
+                              
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {},
+                                    child: Obx(
+                                          () => Text(
+                                        _allsetController
+                                            .SchoolIdControllerList[0]
+                                        ["response"][0]["name"]
+                                            .toString(),
+                                        style: GoogleFonts.dmSans(
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0).r,
+                                    child: InkWell(
                                       onTap: () {},
                                       child: Obx(
                                             () => Text(
                                           _allsetController
                                               .SchoolIdControllerList[0]
-                                          ["response"][0]["name"]
+                                          ['parent_info']["mobileno"]
                                               .toString(),
                                           style: GoogleFonts.dmSans(
                                               fontStyle: FontStyle.normal,
@@ -247,30 +271,11 @@ double percent = 10.0;
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0).r,
-                                      child: InkWell(
-                                        onTap: () {},
-                                        child: Obx(
-                                              () => Text(
-                                            _allsetController
-                                                .SchoolIdControllerList[0]
-                                            ['parent_info']["mobileno"]
-                                                .toString(),
-                                            style: GoogleFonts.dmSans(
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 15.sp,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ]),
@@ -396,7 +401,7 @@ double percent = 10.0;
                                   direction: Axis.vertical,
                                   // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
                                   center: Text(
-                                    "$percent%",
+                                    "",
                                     style: GoogleFonts.dmSans(
                                       fontStyle: FontStyle.normal,
                                       fontSize: 15.sp,
@@ -428,9 +433,7 @@ double percent = 10.0;
                                 width: 0.30.sw,
                                 child: LiquidLinearProgressIndicator(
                                   value: 0.5, // Defaults to 0.5.
-                                  valueColor: const AlwaysStoppedAnimation(Color.fromARGB(
-                                      255, 124, 200,
-                                      241), ), // Defaults to the current Theme's accentColor.
+                                  valueColor: AlwaysStoppedAnimation(dueFees?Color.fromARGB(255, 91, 167, 230):Color.fromARGB(255, 228, 97, 87), ), // Defaults to the current Theme's accentColor.
                                   backgroundColor: const Color.fromARGB(255, 246, 243,
                                       243), // Defaults to the current Theme's backgroundColor.
                                   borderColor: Colors.red,
@@ -440,7 +443,7 @@ double percent = 10.0;
                                   direction: Axis.vertical,
                                   // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
                                   center: Text(
-                                    "$percent",
+                                    "",
                                     style: GoogleFonts.dmSans(
                                       fontStyle: FontStyle.normal,
                                       fontSize: 15.sp,
@@ -472,7 +475,7 @@ double percent = 10.0;
                                 width: 0.30.sw,
                                 child: LiquidLinearProgressIndicator(
                                   value: 0.5, // Defaults to 0.5.
-                                  valueColor: const AlwaysStoppedAnimation(Color.fromARGB(255, 124, 200,241)), // Defaults to the current Theme's accentColor.
+                                  valueColor: const AlwaysStoppedAnimation(Color.fromARGB(255, 144, 212, 146)), // Defaults to the current Theme's accentColor.
                                   backgroundColor: const Color.fromARGB(255, 246, 243,
                                       243), // Defaults to the current Theme's backgroundColor.
                                   borderColor: Colors.red,
@@ -480,9 +483,9 @@ double percent = 10.0;
                                   borderRadius: 12.0,
 
                                   direction: Axis.vertical,
-                                  // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
+                                  // The directioncent% the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
                                   center: Text(
-                                    "$percent%",
+                                    "",
                                     style: GoogleFonts.dmSans(
                                       fontStyle: FontStyle.normal,
                                       fontSize: 15.sp,
@@ -500,41 +503,44 @@ double percent = 10.0;
 
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          for(var i=0; i<3; i++)
-                            Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Row(
+                          children: [
+                            for(var i=0; i<3; i++)
+                              Card(
 
-                              elevation: 10,
-                              child: Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Mid Sem  Winter Exam",
-                                      style: GoogleFonts.dmSans(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
+                                elevation: 10,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Mid Sem  Winter Exam",
+                                        style: GoogleFonts.dmSans(
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 15.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(height: 0.015.sh,),
-                                    Text(
-                                      "20 to 27 March",
-                                      style: GoogleFonts.dmSans(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.lightBlue,
+                                      SizedBox(height: 0.015.sh,),
+                                      Text(
+                                        "20 to 27 March",
+                                        style: GoogleFonts.dmSans(
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.lightBlue,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -615,7 +621,7 @@ double percent = 10.0;
             // padding: EdgeInsets.zero,
           ),
           ListTile(
-            onTap: () {Get.toNamed(RoutesName.feesgraff);},
+            onTap: () {Get.toNamed(RoutesName.fees);},
             leading: const Icon(Icons.monetization_on,
                 size: 20.0, color: Colors.white),
             title: const Text("Fees"),
@@ -772,7 +778,7 @@ class ClipPathClass extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     var path = Path();
-    path.lineTo(10.0, size.height - 30);
+    path.lineTo(0.0, size.height - 30);
 
     var firstControlPoint = Offset(size.width / 4, size.height);
     var firstPoint = Offset(size.width / 2, size.height);
