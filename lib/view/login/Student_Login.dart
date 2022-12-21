@@ -32,15 +32,6 @@ class _StudentLoginState extends State<StudentLogin> {
 
   @override
   void initState() {
-     var box = Hive.box('schoolData');
-                   var user= box.get("username");
-                  var pass=  box.get("password");
-                   if(user==null){
-                     _allsetController.apicallpost(usersname.text,password.text,context);
-                   }else{
-                     _allsetController.apicallpost(user,pass,context);
-                   }
-
     super.initState();
     // _allsetController.SchoolIdControllerList(
     //         (user) {
@@ -207,14 +198,7 @@ class _StudentLoginState extends State<StudentLogin> {
                     backgroundColor: Colors.blue,
                   ),
                   onPressed: () {
-                    var box = Hive.box('schoolData');
-                   var user= box.get("username");
-                  var pass=  box.get("password");
-                   if(user==null){
-                     _allsetController.apicallpost(usersname.text,password.text,context);
-                   }else{
-                     _allsetController.apicallpost(user,pass,context);
-                   }
+                 _allsetController.apicallpost(usersname.text,password.text,context);
 
 
                   },

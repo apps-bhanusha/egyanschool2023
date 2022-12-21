@@ -195,7 +195,7 @@ class _GridViewallState extends State<GridViewall>
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 26).r,
+                  padding: const EdgeInsets.only(left: 45).r,
                   child: Column(
                     children: [
                       Text(
@@ -225,7 +225,7 @@ class _GridViewallState extends State<GridViewall>
               PopupMenuButton<int>(
                 itemBuilder: (context) {
                   return <PopupMenuEntry<int>>[
-                    const PopupMenuItem(child: Text('detial'), value: 0),
+                    const PopupMenuItem(child: Text('logout'), value: 0),
                     const PopupMenuItem(child: Text('about'), value: 1),
                   ];
                 },

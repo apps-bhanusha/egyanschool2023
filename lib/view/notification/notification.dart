@@ -15,10 +15,10 @@ class NotificationPage extends StatelessWidget {
         children:   [
           for(int i=0;i<=5;i++)
          const ListTile(
-          title:Text("Noise "),
-          subtitle: Text("price 3999"),
+          title:Text("student "),
+          subtitle: Text("sharma"),
           leading: Icon(Icons.notifications),
-          trailing: Text("buy"),
+          trailing: Text("notifiacation"),
          )
         ],
       ),

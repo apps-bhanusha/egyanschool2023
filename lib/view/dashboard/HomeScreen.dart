@@ -128,7 +128,7 @@ double percent = 10.0;
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 26).r,
+                    padding: const EdgeInsets.only(left: 45).r,
                     child: Column(
                       children: [
                         Text(
@@ -158,7 +158,7 @@ double percent = 10.0;
                 PopupMenuButton<int>(
                   itemBuilder: (context) {
                     return <PopupMenuEntry<int>>[
-                      const PopupMenuItem(child: Text('detial'), value: 0),
+                      const PopupMenuItem(child: Text('Logout'), value: 0),
                       const PopupMenuItem(child: Text('about'), value: 1),
                     ];
                   },
@@ -388,7 +388,7 @@ double percent = 10.0;
                                 height: 0.15.sh,
                                 width: 0.30.sw,
                                 child: LiquidLinearProgressIndicator(
-                                  value: 0.5, // Defaults to 0.5.
+                                  value: 1, // Defaults to 0.5.
                                   valueColor: const AlwaysStoppedAnimation(Color.fromARGB(
                                       255, 124, 200,
                                       241),), // Defaults to the current Theme's accentColor.
@@ -432,7 +432,7 @@ double percent = 10.0;
                                 height: 0.15.sh,
                                 width: 0.30.sw,
                                 child: LiquidLinearProgressIndicator(
-                                  value: 0.5, // Defaults to 0.5.
+                                  value: 0.3, // Defaults to 0.5.
                                   valueColor: AlwaysStoppedAnimation(dueFees?Color.fromARGB(255, 91, 167, 230):Color.fromARGB(255, 228, 97, 87), ), // Defaults to the current Theme's accentColor.
                                   backgroundColor: const Color.fromARGB(255, 246, 243,
                                       243), // Defaults to the current Theme's backgroundColor.
@@ -474,7 +474,7 @@ double percent = 10.0;
                                 height: 0.15.sh,
                                 width: 0.30.sw,
                                 child: LiquidLinearProgressIndicator(
-                                  value: 0.5, // Defaults to 0.5.
+                                  value: 0.7, // Defaults to 0.5.
                                   valueColor: const AlwaysStoppedAnimation(Color.fromARGB(255, 144, 212, 146)), // Defaults to the current Theme's accentColor.
                                   backgroundColor: const Color.fromARGB(255, 246, 243,
                                       243), // Defaults to the current Theme's backgroundColor.

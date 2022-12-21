@@ -88,7 +88,7 @@ late Animation<double> _animation;
             color: Colors.blue,
             child: Chat(
                theme:  const DefaultChatTheme(
-              backgroundColor: Color.fromARGB(255, 231, 227, 255),
+              backgroundColor: Color.fromARGB(255, 252, 251, 255),
           inputBackgroundColor: Colors.blue,
         ),
               messages: _messages,
