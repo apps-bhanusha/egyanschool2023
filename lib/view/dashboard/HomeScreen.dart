@@ -54,6 +54,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     // sizeAnimation = Tween<double>(begin: 400.0, end: 400.0).animate(controller);
   }
 
+@override
+  void dispose(){
+  _controller.dispose();
+  _controller1.dispose();
+  super.dispose();
+}
+
   bool isOpened = false;
   final GlobalKey<SideMenuState> _sideMenuKey = GlobalKey<SideMenuState>();
   final GlobalKey<SideMenuState> _endSideMenuKey = GlobalKey<SideMenuState>();
@@ -435,10 +442,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         top: 0.20.sw,
                         child: Align(
                             alignment: Alignment.center, child:
-                             Container(
+                             SizedBox(
                               height: 0.150.sh,
                               width: 0.22.sw,
-                               child: Text("image comment")
+                               child: const Text("image comment")
                               // CachedNetworkImage(
     
                               //   placeholder:  (context, url) => CircleAvatar( maxRadius: MediaQuery.of(context).size.width -

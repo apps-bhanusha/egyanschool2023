@@ -1,14 +1,10 @@
 import 'package:ecom_desgin/routes/routes.dart';
-import 'package:ecom_desgin/view/dashboard/drawer.dart';
 import 'package:ecom_desgin/view/examination/Exam_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 
 class GridViewall extends StatefulWidget {
@@ -64,7 +60,11 @@ class _GridViewallState extends State<GridViewall>
     // colorAnimation = ColorTween(begin: Colors.blue, end: Colors.yellow).animate(controller);
     // sizeAnimation = Tween<double>(begin: 400.0, end: 400.0).animate(controller);
   }
-
+@override
+  void dispose(){
+  _controller.dispose();
+  super.dispose();
+}
   //  double _width=500;
   //  double _height=500;
   // final Tween<double> _scaleTween=Tween<double>(begin:1,end:2);
@@ -521,7 +521,7 @@ class _GridViewallState extends State<GridViewall>
                       fontStyle: FontStyle.normal,
                       fontSize: 15.sp,
                       fontWeight: FontWeight.bold,
-        color: Color.fromARGB(255, 196, 236, 255),
+        color: const Color.fromARGB(255, 196, 236, 255),
             
                     ),
                   ),
