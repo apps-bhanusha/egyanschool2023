@@ -24,6 +24,8 @@ class _HomeWorkState extends State<HomeWork> {
   double progress = 0;
 
   bool didDownloadPDF = false;
+  bool isdownloadin = true;
+
 
   String progressString = 'Error.';
 
@@ -67,6 +69,9 @@ class _HomeWorkState extends State<HomeWork> {
 
 //pdf dwonlad work it
   pdfDownload(pdfurl) async {
+    setState(() {
+      isdownloadin=false;
+    });
     Map<Permission, PermissionStatus> statuses = await [
       Permission.storage,
       //add more permission to request here.
@@ -85,10 +90,10 @@ class _HomeWorkState extends State<HomeWork> {
           await Dio().download(pdfurl, savePath,
               onReceiveProgress: (received, total) {
             if (total != -1) {
-              print((received / total * 100).toStringAsFixed(0) + "%");
+              print((received / total * 100).toStringAsFixed(0) +"%");
               setState(() {
                 progressString =
-                    (received / total * 100).toStringAsFixed(0) + "%";
+                    (received / total * 100).toStringAsFixed(0) +"%";
               });
               //you can build progressbar feature too
             }
@@ -392,7 +397,7 @@ class _HomeWorkState extends State<HomeWork> {
                                         SizedBox(width: 0.35.sw,),
                                           Padding(
                                           padding:
-                                              const EdgeInsets.only(right: 20),
+                                              const EdgeInsets.only(right: 18),
                                           child: InkWell(
                                             onTap: () async {
                                               _homeWorkController
@@ -407,12 +412,15 @@ class _HomeWorkState extends State<HomeWork> {
                                               //         [0]["document"],
                                               //     dir.path);
 
+                                              setState(() {
+                                                
+                                              });
+
                                               pdfDownload(_homeWorkController
                                                       .homeWorkControllerList[i]
                                                   [0]["document"]);
                                             },
-                                            child: _homeWorkController
-                                                    .isdownloadin.value
+                                            child: isdownloadin
                                                 ? Row(
                                                     children: const [
                                                       Text("Download",
@@ -439,9 +447,9 @@ class _HomeWorkState extends State<HomeWork> {
                                                           // );
                                                         },
                                                         child: SizedBox(
-                                                          width: 0.1.sw,
+                                                          width: 100,
                                                           child: Text(
-                                                              "Download: $progressString",
+                                                              "Download:$progressString",
                                                               overflow:
                                                                   TextOverflow
                                                                       .ellipsis,

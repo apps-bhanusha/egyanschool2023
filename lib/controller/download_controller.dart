@@ -10,7 +10,7 @@ class DownloadAllController extends GetxController{
   List<String> Syllebus = ["english", "hindi","math","computer"].obs;
   List<String> other = ["envent", "hollyday","othe program","meeting"].obs;
   RxList showDataList = [].obs;
-  RxString selectDrop = "select Download Section".obs;
+  RxString selectDrop = "Download Section".obs;
     
   
 

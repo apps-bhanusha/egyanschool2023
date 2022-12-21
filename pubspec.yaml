@@ -63,6 +63,7 @@ dependencies:
   # add this line to your dependencies
   custom_floating_action_button: ^0.0.3
   liquid_progress_indicator: ^0.4.0
+  syncfusion_flutter_charts: ^20.3.61
 
 
 
