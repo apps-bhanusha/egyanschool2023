@@ -30,7 +30,6 @@ class _SyllabusState extends State<Syllabus> {
         secsRemaining -= 1;
         progressFraction = (totalSecs - secsRemaining) / totalSecs;
         percentage = (progressFraction*100).floor();
-
       });
     });
     super.initState();
