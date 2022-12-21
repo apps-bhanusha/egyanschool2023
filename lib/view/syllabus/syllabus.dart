@@ -139,18 +139,14 @@ radius: 45,
                         children: [
                           Column(
                             children: [
-                              Container(
-              
-              
-                                child: Text(
-                                  "1. happy Three little child",
-                                  style: GoogleFonts.dmSans(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
-                                ),
-                                ),
+                              Text(
+                                "1. happy Three little child",
+                                style: GoogleFonts.dmSans(
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              ),
               
                             ],
                           ),
@@ -181,33 +177,55 @@ radius: 45,
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(left: 10).r,
-                            child: Container(
-              
-              
-                              child: Text(
-                                "1.1  Read Lession",
-              
-                                style: GoogleFonts.dmSans(
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              ),
-                            ),
-                          ),
-              
-                          Container(
-              
-              
-              
                             child: Text(
-                              "55% Completed",
+                              "1.1  Read Lession",
+              
                               style: GoogleFonts.dmSans(
                                   fontStyle: FontStyle.normal,
-                                  fontSize: 13.sp,
+                                  fontSize: 14.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black),
                             ),
+                          ),
+              
+                          Text(
+                            "55% Completed",
+                            style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+              
+                        ],
+                      ),
+                    ),
+
+                      Padding(
+                      padding: const EdgeInsets.only(left: 8.0,right: 8.0).r,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10).r,
+                            child: Text(
+                              "1.2  Read Lession",
+              
+                              style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ),
+                          ),
+              
+                          Text(
+                            "30% Completed",
+                            style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
                           ),
               
                         ],
@@ -219,11 +237,40 @@ radius: 45,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
+                          Text(
+                            "2. Qustaion and Answer",
               
-              
+                            style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 30).r,
                             child: Text(
-                              "1. Qustaion and Answer",
+                              "5% Completed",
+                              style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+              
+                            ),
+                          ),
+              
+                        ],
+                      ),
+                    ),
+                      Padding(
+                      padding: const EdgeInsets.only(left: 8.0,right: 8.0).r,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10).r,
+                            child: Text(
+                              "2.1  Read Lession",
               
                               style: GoogleFonts.dmSans(
                                   fontStyle: FontStyle.normal,
@@ -232,20 +279,44 @@ radius: 45,
                                   color: Colors.black),
                             ),
                           ),
+              
+                          Text(
+                            "40% Completed",
+                            style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+              
+                        ],
+                      ),
+                    ),
+                      Padding(
+                      padding: const EdgeInsets.only(left: 8.0,right: 8.0).r,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 30).r,
-                            child: Container(
+                            padding: const EdgeInsets.only(left: 10).r,
+                            child: Text(
+                              "2.2  Read Lession",
               
-                              child: Text(
-                                "5% Completed",
-                                style: GoogleFonts.dmSans(
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-              
-                              ),
+                              style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
                             ),
+                          ),
+              
+                          Text(
+                            "30% Completed",
+                            style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
                           ),
               
                         ],
