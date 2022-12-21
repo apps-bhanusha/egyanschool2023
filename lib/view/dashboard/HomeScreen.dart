@@ -128,36 +128,36 @@ double percent = 10.0;
                         color: Colors.redAccent,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 45).r,
-                      child: Column(
-                        children: [
-                          Text(
-                            'Session',
-                            style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Text(
-                            '2020-21',
-                            style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(left: 45).r,
+                    //   child: Column(
+                    //     children: [
+                    //       Text(
+                    //         'Session',
+                    //         style: GoogleFonts.dmSans(
+                    //           fontStyle: FontStyle.normal,
+                    //           fontSize: 12.sp,
+                    //           fontWeight: FontWeight.bold,
+                    //           color: Colors.black,
+                    //         ),
+                    //       ),
+                    //       Text(
+                    //         '2020-21',
+                    //         style: GoogleFonts.dmSans(
+                    //           fontStyle: FontStyle.normal,
+                    //           fontSize: 12.sp,
+                    //           fontWeight: FontWeight.bold,
+                    //           color: Colors.black,
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                   ],
                 ),
                 actions: [
                   Padding(
-                      padding: const EdgeInsets.only(left: 0).r,
+                      padding: const EdgeInsets.only(left: 0,top: 10).r,
                       child: Column(
                         children: [
                           Text(
@@ -427,7 +427,7 @@ double percent = 10.0;
                                   direction: Axis.vertical,
                                   // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
                                   center: Text(
-                                    "",
+                                    "100",
                                     style: GoogleFonts.dmSans(
                                       fontStyle: FontStyle.normal,
                                       fontSize: 15.sp,
@@ -469,7 +469,7 @@ double percent = 10.0;
                                   direction: Axis.vertical,
                                   // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
                                   center: Text(
-                                    "",
+                                    "40",
                                     style: GoogleFonts.dmSans(
                                       fontStyle: FontStyle.normal,
                                       fontSize: 15.sp,
@@ -511,7 +511,7 @@ double percent = 10.0;
                                   direction: Axis.vertical,
                                   // The directioncent% the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
                                   center: Text(
-                                    "",
+                                    "70",
                                     style: GoogleFonts.dmSans(
                                       fontStyle: FontStyle.normal,
                                       fontSize: 15.sp,
@@ -573,7 +573,7 @@ double percent = 10.0;
                 ),
               ),
               bottomNavigationBar: Container(
-                color: Colors.lightBlue,
+                   color: Color.fromARGB(255, 196, 236, 255),
                 child: Image.asset(
                   "assets/images/b.png",
                   width: MediaQuery.of(context).size.width,
