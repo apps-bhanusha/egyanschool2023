@@ -295,7 +295,7 @@ keyboardType: TextInputType.number,
 
       ),
       bottomNavigationBar: Container(
-        color: Colors.lightBlue,
+        color: Color.fromARGB(255, 196, 236, 255),
         child: Image.asset(
           "assets/images/b.png",
           width: MediaQuery.of(context).size.width,

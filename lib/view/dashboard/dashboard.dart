@@ -521,7 +521,8 @@ class _GridViewallState extends State<GridViewall>
                       fontStyle: FontStyle.normal,
                       fontSize: 15.sp,
                       fontWeight: FontWeight.bold,
-                      color: Colors.blue,
+        color: Color.fromARGB(255, 196, 236, 255),
+            
                     ),
                   ),
                 ),

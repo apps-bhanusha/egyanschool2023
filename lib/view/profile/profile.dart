@@ -12,8 +12,9 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Profile"),),
-      body: ClipOval(  
-        child: Image.asset("assets/images/girls.png"),)
+      body: ClipOval(
+
+        child: Image.asset("assets/images/girls.png",width: 80,height: 80,),)
       );
     
   }
