@@ -4,4 +4,5 @@ class ApiUrl{
  static const String studentLoginUrl="/parentwebservices/studentlogin";
  static const String teacherLoginUrl="https://e-gyan.co.in/api";
  static const String homeWorkUrl="/parentwebservices/student_homework";
+ static const String getschoolsettingUrl="/parentwebservices/getschoolsetting";
 }
