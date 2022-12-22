@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
@@ -24,7 +24,7 @@ class _StudentLoginState extends State<StudentLogin> {
   TextEditingController password = TextEditingController();
   // UserNameController allset = UserNameController();
   final UserNameController _allsetController =Get.put( UserNameController());
-  final GetSchoolSettingController _allgetController =Get.put( GetSchoolSettingController());
+  final GetSchoolSettingController _schoolsetting =Get.put(GetSchoolSettingController());
   List<UserNameController> _dataset = [];
   int _radioSelected = 0;
   late String _radioVal = "";
@@ -35,8 +35,14 @@ class _StudentLoginState extends State<StudentLogin> {
   @override
   void initState() {
     super.initState();
-    print("sjamo4733333333333333333333333333333333333333333333311111111111111111111");
-// print(_allgetController.GetSchoolSettingControllerList[0]["response"]["name"].toString());
+    // _allsetController.SchoolIdControllerList(
+    //         (user) {
+    //       if (user != null) {
+    //        Get.toNamed(RoutesName.home);
+    //       }
+    //       else {
+    //         //force to login page
+    //       } });
   }
 
   TextEditingController _controller = new TextEditingController();
@@ -62,60 +68,18 @@ class _StudentLoginState extends State<StudentLogin> {
                   )),
               ClipPath(
                 clipper: WaveClipper3(),
-                child:Obx(() =>_allgetController.loadingimage.value ?
-                  Container(
-                    // ignore: sort_child_properties_last
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 0.020.sh,
-                        ),
-    //                     FractionalTranslation(
-    //                       translation: Offset(0.0, -0.1),
-    //                       child: ClipOval(
-    //                         child: Align(
-    //                           child:  Obx(
-    //                         () => CachedNetworkImage(
-    //                               placeholder: (context, url) =>
-    //                                   CircleAvatar(
-    //                                     maxRadius: MediaQuery.of(context).size.width -
-    //                                         MediaQuery.of(context).size.width +
-    //                                         52,
-    //                                     backgroundImage:  AssetImage(
-    //                                       "assets/images/user1.png",)),
-    //                               imageUrl:_allgetController.GetSchoolSettingControllerList[0]["response"]["image"].toString(),
-    //                           height: MediaQuery.of(context).size.width -
-    //                               MediaQuery.of(context).size.width +
-    //                               102,
-    // ),
-    //                           ),
-    //                           alignment: FractionalOffset(0.5, 0.0),
-    //                         ),
-    //                       ),
-    //                     ),
-
-    Obx(
-    () =>
-                          Text(_allgetController.GetSchoolSettingControllerList[0]["response"]["name"].toString(),
-
-
-                            style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize: 22.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    width: MediaQuery.of(context).size.width,
-                    height: 0.43.sh,
-
-                    decoration: const BoxDecoration(color: Colors.lightBlue),
-                  ):Text("ddddd")
-                ),
-              ),
+                child: Container(
+                  // ignore: sort_child_properties_last
+                  child: Column(
+                    children: <Widget>[SizedBox(height: 0.020.sh,),
+                      Obx(()=> _schoolsetting.loadingimage.value?Image.network(_schoolsetting.GetSchoolSettingControllerList[0]["response"]["image"],width: 100,height: 100,):CircularProgressIndicator()),
+                      SizedBox(height: 0.020.sh,),
+                      Obx(() => _schoolsetting.loadingimage.value? Text(_schoolsetting.GetSchoolSettingControllerList[0]["response"]["name"],style: GoogleFonts.dmSans(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 35.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),):const Text("")),],),width: MediaQuery.of(context).size.width,height: 0.43.sh,decoration: const BoxDecoration(color: Colors.lightBlue),),),
             ],
           ),
           Padding(
