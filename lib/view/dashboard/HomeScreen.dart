@@ -96,83 +96,112 @@ double percent = 10.0;
   @override
   Widget build(BuildContext context) {
 
-    return SideMenu(
-      background: Colors.blue,
-      key: _sideMenuKey,
-      menu: buildMenu(),
-      
-      type: SideMenuType.shrikNRotate,
-      onChange: (isOpened) {
-        setState(() => isOpened = isOpened);
-      },
-      child: IgnorePointer(
-        ignoring: isOpened,
-        child:Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              leading: IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () => toggleMenu(),
-              ),
-              backgroundColor: Colors.white,
-              iconTheme: IconThemeData(color: Colors.black),
-              title: Row(
-                children: [
-                  Text(
-                    'EGYAN Demo school',
-                    style: GoogleFonts.dmSans(
-                      fontStyle: FontStyle.normal,
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
+    return SafeArea(
+      child: SideMenu(
+        background: Colors.blue,
+        key: _sideMenuKey,
+        menu: buildMenu(),
+        
+        type: SideMenuType.shrikNRotate,
+        onChange: (isOpened) {
+          setState(() => isOpened = isOpened);
+        },
+        child: IgnorePointer(
+          ignoring: isOpened,
+          child:Scaffold(
+              appBar: AppBar(
+                centerTitle: true,
+                leading: IconButton(
+                  icon: const Icon(Icons.menu),
+                  onPressed: () => toggleMenu(),
+                ),
+                backgroundColor: Colors.white,
+                iconTheme: IconThemeData(color: Colors.black),
+                title: Row(
+                  children: [
+                    Text(
+                      'EGYAN Demo school',
+                      style: GoogleFonts.dmSans(
+                        fontStyle: FontStyle.normal,
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.redAccent,
+                      ),
                     ),
-                  ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(left: 45).r,
+                    //   child: Column(
+                    //     children: [
+                    //       Text(
+                    //         'Session',
+                    //         style: GoogleFonts.dmSans(
+                    //           fontStyle: FontStyle.normal,
+                    //           fontSize: 12.sp,
+                    //           fontWeight: FontWeight.bold,
+                    //           color: Colors.black,
+                    //         ),
+                    //       ),
+                    //       Text(
+                    //         '2020-21',
+                    //         style: GoogleFonts.dmSans(
+                    //           fontStyle: FontStyle.normal,
+                    //           fontSize: 12.sp,
+                    //           fontWeight: FontWeight.bold,
+                    //           color: Colors.black,
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                  ],
+                ),
+                actions: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 45).r,
-                    child: Column(
-                      children: [
-                        Text(
-                          'Session',
-                          style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                      padding: const EdgeInsets.only(left: 0,top: 10).r,
+                      child: Column(
+                        children: [
+                          Text(
+                            'Session',
+                            style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                        Text(
-                          '2020-21',
-                          style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                          Text(
+                            '2020-21',
+                            style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
+                  PopupMenuButton<int>(
+                    itemBuilder: (context) {
+                      return <PopupMenuEntry<int>>[
+                        const PopupMenuItem(child: Text('Logout'), value: 0),
+                        const PopupMenuItem(child: Text('about'), value: 1),
+                      ];
+                    },
                   ),
                 ],
               ),
-              actions: [
-                PopupMenuButton<int>(
-                  itemBuilder: (context) {
-                    return <PopupMenuEntry<int>>[
-                      const PopupMenuItem(child: Text('Logout'), value: 0),
-                      const PopupMenuItem(child: Text('about'), value: 1),
-                    ];
-                  },
-                ),
-              ],
-            ),
-            body: SafeArea(
-              child: SingleChildScrollView(
+              body: SingleChildScrollView(
                 child: Column(
-           
+                       
                   children: [
-                    Stack(children: [
+              
+                    Stack(
+                      
+                                
+                      children: [
                       Container(
-                        margin: EdgeInsets.only(left: 0, right: 0).r,
+                        margin: const EdgeInsets.only(left: 0, right: 0).r,
                         child: ClipPath(
                           clipper: ClipPathClass(),
                           child: SizedBox(
@@ -280,70 +309,67 @@ double percent = 10.0;
                       ),
                     ]),
                                     SizedBox(height: 0.015.sh,),
-
-                    Positioned(
-                      child: Container(
-                        color: Colors.blue,
-                        height: 0.080.sh,
-                        width: MediaQuery.of(context).size.width,
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              top: 0.001.sh,
-                              left: 0.06.sw,
+              
+                    Container(
+                      color: Colors.blue,
+                      height: 0.080.sh,
+                      width: MediaQuery.of(context).size.width,
+                      child: Stack(
+                       
+                        children: [
+                          Positioned(
+                            top: 0.001.sh,
+                            left: 0.06.sw,
+                            child: SlideTransition(
+                              position: _offsetAnimation,
+                              child: Icon(
+                                Icons.arrow_right,
+                                color: Colors.lightBlue,
+                                size: 52.sp,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            left: 0.10.sw,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: 0.50.sh,
+                              ),
                               child: SlideTransition(
-                                position: _offsetAnimation,
+                                position: _Animation,
                                 child: Icon(
                                   Icons.arrow_right,
                                   color: Colors.lightBlue,
-                                  size: 52.sp,
+                                  size: 55.sp,
                                 ),
                               ),
                             ),
-                            Positioned(
-                              left: 0.10.sw,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  bottom: 0.50.sh,
-                                ),
-                                child: SlideTransition(
-                                  position: _Animation,
-                                  child: Icon(
-                                    Icons.arrow_right,
-                                    color: Colors.lightBlue,
-                                    size: 55.sp,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 0.22.sw,
-                              top: 0.025.sh,
-                              child: GestureDetector(
-                                onTap: () => {
-                                  Get.toNamed(RoutesName.dashboard),
-                                },
-                                child: Container(
-                                  child: Text(
-                                    "Tap Here For E-GYAN Services",
-                                    style: GoogleFonts.dmSans(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                  ),
+                          ),
+                          Positioned(
+                            left: 0.22.sw,
+                            top: 0.025.sh,
+                            child: GestureDetector(
+                              onTap: () => {
+                                Get.toNamed(RoutesName.dashboard),
+                              },
+                              child: Text(
+                                "Tap Here For E-GYAN Services",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                     SizedBox(
                       height: 0.010.sh,
                     ),
-                    Container(
+                    SizedBox(
                         height: 0.072.sh,
                         width: 0.99.sw,
                         child: Card(
@@ -366,7 +392,7 @@ double percent = 10.0;
                           ),
                         )),
                                     SizedBox(height: 0.01.sh,),
-
+              
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -397,11 +423,11 @@ double percent = 10.0;
                                   borderColor: Colors.red,
                                   borderWidth: 0.0,
                                   borderRadius: 12.0,
-
+              
                                   direction: Axis.vertical,
                                   // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
                                   center: Text(
-                                    "",
+                                    "100",
                                     style: GoogleFonts.dmSans(
                                       fontStyle: FontStyle.normal,
                                       fontSize: 15.sp,
@@ -439,11 +465,11 @@ double percent = 10.0;
                                   borderColor: Colors.red,
                                   borderWidth: 0.0,
                                   borderRadius: 12.0,
-
+              
                                   direction: Axis.vertical,
                                   // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
                                   center: Text(
-                                    "",
+                                    "40",
                                     style: GoogleFonts.dmSans(
                                       fontStyle: FontStyle.normal,
                                       fontSize: 15.sp,
@@ -481,11 +507,11 @@ double percent = 10.0;
                                   borderColor: Colors.red,
                                   borderWidth: 0.0,
                                   borderRadius: 12.0,
-
+              
                                   direction: Axis.vertical,
                                   // The directioncent% the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
                                   center: Text(
-                                    "",
+                                    "70",
                                     style: GoogleFonts.dmSans(
                                       fontStyle: FontStyle.normal,
                                       fontSize: 15.sp,
@@ -500,7 +526,7 @@ double percent = 10.0;
                         ),
                       ],
                     ),
-
+              
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Padding(
@@ -509,7 +535,7 @@ double percent = 10.0;
                           children: [
                             for(var i=0; i<3; i++)
                               Card(
-
+              
                                 elevation: 10,
                                 child: Padding(
                                   padding: const EdgeInsets.all(20.0),
@@ -546,16 +572,16 @@ double percent = 10.0;
                   ],
                 ),
               ),
-            ),
-            bottomNavigationBar: Container(
-              color: Colors.lightBlue,
-              child: Image.asset(
-                "assets/images/b.png",
-                width: MediaQuery.of(context).size.width,
-                height: 0.070.sh,
+              bottomNavigationBar: Container(
+                   color: Color.fromARGB(255, 196, 236, 255),
+                child: Image.asset(
+                  "assets/images/b.png",
+                  width: MediaQuery.of(context).size.width,
+                  height: 0.070.sh,
+                ),
               ),
             ),
-          ),
+        ),
       ),
     );
   }

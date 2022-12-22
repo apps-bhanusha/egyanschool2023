@@ -194,34 +194,59 @@ class _GridViewallState extends State<GridViewall>
                     color: Colors.redAccent,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 45).r,
-                  child: Column(
-                    children: [
-                      Text(
-                        'Session',
-                        style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Text(
-                        '2020-21',
-                        style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 45).r,
+                //   child: Column(
+                //     children: [
+                //       Text(
+                //         'Session',
+                //         style: GoogleFonts.dmSans(
+                //           fontStyle: FontStyle.normal,
+                //           fontSize: 12.sp,
+                //           fontWeight: FontWeight.bold,
+                //           color: Colors.black,
+                //         ),
+                //       ),
+                //       Text(
+                //         '2020-21',
+                //         style: GoogleFonts.dmSans(
+                //           fontStyle: FontStyle.normal,
+                //           fontSize: 12.sp,
+                //           fontWeight: FontWeight.bold,
+                //           color: Colors.black,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
             actions: [
+               Padding(
+                      padding: const EdgeInsets.only(left: 0,top: 10).r,
+                      child: Column(
+                        children: [
+                          Text(
+                            'Session',
+                            style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Text(
+                            '2020-21',
+                            style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
               PopupMenuButton<int>(
                 itemBuilder: (context) {
                   return <PopupMenuEntry<int>>[
@@ -315,7 +340,7 @@ class _GridViewallState extends State<GridViewall>
                          ),
                          ),
           bottomNavigationBar: Container(
-            color: Colors.lightBlue,
+              color: Color.fromARGB(255, 196, 236, 255),
             child: Image.asset(
               "assets/images/b.png",
               width: MediaQuery.of(context).size.width,

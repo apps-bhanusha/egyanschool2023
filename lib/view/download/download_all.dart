@@ -32,6 +32,7 @@ class _DownloadAllState extends State<DownloadAll> {
                     child: Column(
                       children: [
                         DropdownButton<String>(
+                          autofocus: true,
                           isExpanded: true,
                           hint: Obx(
                             () => Text(
