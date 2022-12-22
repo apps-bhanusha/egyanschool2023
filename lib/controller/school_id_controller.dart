@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:ecom_desgin/constant/api_url.dart';
+import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:get/get.dart';
 import 'package:ecom_desgin/view/login/Student_Login.dart';
 import 'package:ecom_desgin/view/teacher/Teacher_Login.dart';
@@ -11,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
  class SchoolIdController {
+  final GetSchoolSettingController _schoolsetting =Get.put(GetSchoolSettingController());
 
   List SchoolIdControllerList2 = [];
    
@@ -25,10 +27,12 @@ import 'package:http/http.dart' as http;
       var sdata = jsonDecode(response.body);
       print("fddddddddddddddddddd33333333333333333333");
       print(sdata);
+      SchoolIdControllerList2=[];
       SchoolIdControllerList2.add(sdata);
 
       // SchoolIdModel.fromJson(sdata);
       if (sdata["status"] == true) {
+        _schoolsetting.GetSchoolSettingapi(SchoolIdControllerList2[0]["response"]["company_key"]);
         if (_radioVal == "Student") {
           Get.to(() => StudentLogin());
           print("Student");

@@ -32,7 +32,7 @@ print(GetSchoolSettingControllerList[0]["response"]["name"]);
         print("massage");
       }
       else  {
-        print("invalid id");
+        print("invalid cccid");
       } }
     else {
 
