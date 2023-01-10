@@ -1,14 +1,15 @@
 import 'package:ecom_desgin/controller/school_id_controller.dart';
-
+import 'package:ecom_desgin/main.dart';
+import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/login/Student_Login.dart';
 import 'package:ecom_desgin/view/teacher/Teacher_Login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
-
 
 class SimpleLogin extends StatefulWidget {
   @override
@@ -33,6 +34,7 @@ class _SimpleLoginState extends State<SimpleLogin> {
   }
   @override
   void initState() {
+
     // Get.toNamed(
     //   'SimpleLogin',
     //   arguments: _radioVal,
@@ -42,43 +44,33 @@ class _SimpleLoginState extends State<SimpleLogin> {
     super.initState();
 
   }
+  // Future<void>data() async {
+  //
+  //   var passward=await SessionManager().get("passward");
+  //   print("sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+  //   print(name);
+  //   print(passward);
+  //
+  //   if (name!=null)
+  //     Get.toNamed(RoutesName.home);
+  //     await SessionManager().update();
+  //     await SessionManager().destroy();
+  //     await SessionManager().remove("name");
+  //
+  //   }else{
+  //     Get.toNamed(RoutesName.stundetLogin);
+  //   }
+  //   // var name=await SessionManager().get("name");
+  //
+  //
+  // }
   @override
   void dispose() {
 
     super.dispose();
   }
 
-  // List  SchoolIdControllerList = [];
 
-  // Future<void> postData() async {
-  // print("fdddddddddddddddddddd44444444444444555555555555555555444");
-  // //    var headers = {
-  // //   'Content-Type': 'text/plain',
-  // //   'Cookie': 'ci_session=72ad09608320993a07938376d6296f08fb88ea49'
-  // // };
-  // var request = http.Request('POST', Uri.parse('https://e-gyan.co.in/api/parentwebservices/getProjectKey'));
-  // request.body = '''{\n    "school_id":"5"\n}''';
-  // // request.headers.addAll(headers);
-  //
-  // http.StreamedResponse response = await request.send();
-  //
-  // if (response.statusCode == 200) {
-  // final _model=await response.stream.bytesToString();
-  // print( _model);
-  //
-  // SchoolIdControllerList.add(5);
-  //
-  //
-  // print("777777777777777777777777777");
-  // print(SchoolIdControllerList);
-  // // print(await response.stream.bytesToString());
-  //
-  // }
-  // else {
-  // print(response.reasonPhrase);
-  // }
-  //
-  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,7 +123,7 @@ class _SimpleLoginState extends State<SimpleLogin> {
                       height: 0.030.sh,
                     ),
                     Text(
-                    "EGYAN",
+                    "E-GYAN",
                       style: GoogleFonts.dmSans(
                         fontStyle: FontStyle.normal,
                         fontSize: 35.sp,
@@ -266,10 +258,10 @@ keyboardType: TextInputType.number,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                   ),
-                  onPressed: () {
+                  onPressed: () async {
 
                     all.apicall( id.text,_radioVal,context);
-
+                   // id.text= await (sessionManager.set("id", id.text));
                     //    if (all.SchoolIdControllerList[0]["status"]==true) {
                     //       if(_radioVal=="Student" ){
                     //         all.apicall( id.text,_radioVal);

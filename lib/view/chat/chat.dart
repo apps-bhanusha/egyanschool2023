@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:ecom_desgin/constant/Colors.dart';
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
@@ -81,9 +83,20 @@ late Animation<double> _animation;
         ], 
       
         body: Scaffold(
-      appBar: AppBar(
-        title: const Text("Chat"),
-      ),
+          appBar: AppBar(
+            backgroundColor:AgentColor.appbarbackgroundColor,
+            title: Text('Chat',style: MyGoogeFont.mydmSans),
+            actions: [
+              PopupMenuButton<int>(
+                itemBuilder: (context) {
+                  return <PopupMenuEntry<int>>[
+                    const PopupMenuItem(child: Text('0'), value: 0),
+                    const PopupMenuItem(child: Text('1'), value: 1),
+                  ];
+                },
+              ),
+            ],
+          ),
           body: Container(
             color: Colors.blue,
             child: Chat(

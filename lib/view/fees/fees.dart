@@ -1,23 +1,42 @@
+import 'package:ecom_desgin/constant/Colors.dart';
+import 'package:ecom_desgin/constant/font.dart';
+import 'package:ecom_desgin/controller/fees_controller.dart';
+import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
+import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/view/dashboard/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pie_chart/pie_chart.dart';
-class ChildTotal extends StatefulWidget {
-  const ChildTotal({Key? key}) : super(key: key);
+import 'package:get/get.dart';
+class Fees extends StatefulWidget {
+  const Fees({Key? key}) : super(key: key);
 
   @override
-  State<ChildTotal> createState() => _ChildTotalState();
+  State<Fees> createState() => _FeesState();
 }
 
-class _ChildTotalState extends State<ChildTotal> {
-  Map<String, double> dataMap = {
-    "Due Fees": 20.5,
-    "Paid  Fees": 35.5,
+class _FeesState extends State<Fees> {
 
-  };
+  var schoolname;
+  var session;
+  var studentname;
+  var studentclass;
+  var studentsection;
+  var studenttotalfees;
+  var studentduefees;
+  var studentpresent;
+  var total_deposite_amount;
+  var id;
+  var company_key;
+final UserNameController _allsetController = Get.put(UserNameController());
+final FeeController all = Get.put(FeeController());
+final GetSchoolSettingController _schoolsetting =
+Get.put(GetSchoolSettingController());
+
   // final gradientList = <List<Color>>[
   //   [
   //     Color.fromRGBO(223, 250, 92, 1),
@@ -32,6 +51,29 @@ class _ChildTotalState extends State<ChildTotal> {
   //     Color.fromRGBO(254, 154, 92, 1),
   //   ]
   // ];
+  var box = Hive.box("schoolData");
+  @override
+  void initState() {
+    studentname = box.get("studentname");
+    studentclass = box.get("studentclass");
+    studentsection = box.get("studentsection");
+    studenttotalfees = box.get("studenttotalfees");
+    studentduefees = box.get("studentduefees");
+    studentpresent = box.get("studentpresent");
+    total_deposite_amount = box.get("total_deposite_amount");
+
+    schoolname = box.get("schoolname");
+    session = box.get("session");
+    id = box.get("student_id");
+    company_key = box.get("company_key");
+    all.Feesapi(id ,company_key);
+    super.initState();
+  }
+  late Map<String, double> dataMap = {
+    "Due Fees": double.parse('${studentduefees.toString()}'),
+    "Paid  Fees":double.parse('${total_deposite_amount.toString()}'),
+
+  };
   final colorList = <Color>[
     Color.fromRGBO(245, 10, 45, 1.0),
     Color.fromRGBO(37, 171, 29, 1.0)
@@ -39,8 +81,7 @@ class _ChildTotalState extends State<ChildTotal> {
   ];
 
 
-  ChartType? _chartType = ChartType.disc;
-  bool _showCenterText = true;
+
 
   double? _chartLegendSpacing = 12;
 
@@ -48,12 +89,6 @@ class _ChildTotalState extends State<ChildTotal> {
   bool _showLegends = true;
 
 
-  bool _showChartValueBackground = true;
-  bool _showChartValues = true;
-  bool _showChartValuesInPercentage = false;
-  bool _showChartValuesOutside = false;
-
-  bool _showGradientColors = false;
 
 
   LegendPosition? _legendPosition = LegendPosition.bottom;
@@ -87,52 +122,8 @@ class _ChildTotalState extends State<ChildTotal> {
     return Scaffold(
 
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
-        title: Row(
-          children: [
-            Container(
-              child: Text(
-                'EGYAN Demo school',
-                style: GoogleFonts.dmSans(
-                  fontStyle: FontStyle.normal,
-                  fontSize:15.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.redAccent,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 26).r,
-              child: Column(
-                children: [
-                  Container(
-                    child: Text(
-                      'Session',
-                      style: GoogleFonts.dmSans(
-                        fontStyle: FontStyle.normal,
-                        fontSize:12.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Text(
-                      '2020-21',
-                      style: GoogleFonts.dmSans(
-                        fontStyle: FontStyle.normal,
-                        fontSize:12.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+        backgroundColor:AgentColor.appbarbackgroundColor,
+        title: Text('Fees',style: MyGoogeFont.mydmSans),
         actions: [
           PopupMenuButton<int>(
             itemBuilder: (context) {
@@ -147,28 +138,20 @@ class _ChildTotalState extends State<ChildTotal> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10,right: 300).r,
-              child: Container(
-                child: Text(
-                  'Fees',
-                  style: GoogleFonts.dmSans(
-                    fontStyle: FontStyle.normal,
-                    fontSize:18.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
+
 
             SizedBox(height: 0.010.sh,),
             PieChart(dataMap: dataMap,
               animationDuration: Duration(milliseconds: 800),
               chartLegendSpacing: _chartLegendSpacing!,
               chartRadius: MediaQuery.of(context).size.width / 2.5,
-              initialAngleInDegree: -50,
+              initialAngleInDegree: 0,
               chartType: ChartType.disc,
+
+centerTextStyle: TextStyle(
+  fontWeight: FontWeight.bold,
+    color: Colors.white
+),
 
               legendOptions: LegendOptions(
                 showLegendsInRow: _showLegendsInRow,
@@ -178,17 +161,21 @@ class _ChildTotalState extends State<ChildTotal> {
                 legendShape:BoxShape.rectangle,
                 legendTextStyle: TextStyle(
                   fontWeight: FontWeight.bold,
+
                 ),
 
               ),
               chartValuesOptions:  const ChartValuesOptions(
                   decimalPlaces: 0,
-                  showChartValueBackground: true,
+                  showChartValueBackground: false,
                   showChartValues: true,
                   showChartValuesInPercentage: true,
                   showChartValuesOutside: false,
-
-                  chartValueBackgroundColor: Colors.teal
+chartValueStyle:TextStyle(
+    fontWeight: FontWeight.bold,
+    color: Colors.white
+) ,
+                  chartValueBackgroundColor: Colors.white
 
               ),
               colorList: colorList,
@@ -230,16 +217,17 @@ class _ChildTotalState extends State<ChildTotal> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10,left: 100).r,
                       child: Container(
-                        child: Text(
-                          'Mohan Sharma',
-                          style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize:18.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.lightBlueAccent,
+                        child:  Text(
+                          studentname??"",
+                            // _allsetController.SchoolIdControllerList[0]["response"][0]["name"] ??"",
+                            style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.lightBlue),
                           ),
                         ),
-                      ),
+
                     ),
                     Row(
                       children: [
@@ -253,10 +241,6 @@ class _ChildTotalState extends State<ChildTotal> {
 
                               child:  ClipRRect(
                                 // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
-
-
-
-
                                 child: CircleAvatar(
                                   maxRadius: MediaQuery.of(context).size.width -
                                       MediaQuery.of(context).size.width +
@@ -308,82 +292,145 @@ class _ChildTotalState extends State<ChildTotal> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                child: Text(
-                                  '1st',
-                                  style: GoogleFonts.dmSans(
-                                    fontStyle: FontStyle.normal,
-                                    fontSize:15.sp,
-                                    fontWeight: FontWeight.bold,
-color: Colors.lightBlue
+                                child:  Text(
+                          studentclass??"",
+                                    // _allsetController.SchoolIdControllerList[0]["response"][0]["class"] ?? "",
+
+                                    style: GoogleFonts.dmSans(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 13.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.lightBlue),
                                   ),
                                 ),
-                              ),
+
                               Container(
-                                child: Text(
-                                  'A',
-                                  style: GoogleFonts.dmSans(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize:15.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.lightBlue
+                                child:  Text(
+                                    studentsection??"",
+                                    // _allsetController.SchoolIdControllerList[0]["response"][0]["section"] ?? "",
+
+                                    style: GoogleFonts.dmSans(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 13.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.lightBlue),
                                   ),
                                 ),
-                              ),
+
                             ],
                           ),
                         ),
                       ],
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(left:10,top: 30.0).r,
+                      child: Row(
+                        mainAxisAlignment:
+                        MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Attandance",
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
+                                  style: GoogleFonts.dmSans(
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey[600],
 
-                        Expanded(
-                          // optional flex property if flex is 1 because the default flex is 1
-                          flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left:10 ,top: 20),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                  labelText: 'Attendance',
-                                  labelStyle: TextStyle(
-                                      color: Colors.grey[400]
-                                  )
-                              ),
-                              style: GoogleFonts.dmSans(
-                                fontStyle: FontStyle.normal,
-                                fontSize:15.sp,
-                                fontWeight: FontWeight.bold,
+                                  ),
 
-                              ),
+                                ),
+                                Text(
+                                  studentpresent??"",
+                                  // _allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"].toString(),
+
+                                  style: GoogleFonts.dmSans(
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey[600],
+
+                                  ),
+
+                                ),
+                                // SizedBox(height: 0.010.sh),
+                                // Container(color:Colors.black,height:0.001.sh,width: 0.40.sw,),
+                              ],
                             ),
                           ),
-                        ),
-                        SizedBox(width: 0.090.sw),
-                        Expanded(
-                          // optional flex property if flex is 1 because the default flex is 1
-                          flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right:10 ,top: 20  ),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                  labelText: 'Fees Due',
-                                  labelStyle: TextStyle(
-                                      color: Colors.grey[400]
-                                  )
-                              ),
-                              style: GoogleFonts.dmSans(
-                                fontStyle: FontStyle.normal,
-                                fontSize:15.sp,
-                                fontWeight: FontWeight.bold,
 
-                              ),
+                          SizedBox(width: 0.090.sw),
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Fees Due",
+
+                                  style: GoogleFonts.dmSans(
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey[600],
+
+                                  ),
+
+                                ),
+                                Text(
+                                  studentduefees.toString(),
+                                  // _allsetController.SchoolIdControllerList[0]["response"][0]["fee"]["total_balance_amount"].toString(),
+
+                                  style: GoogleFonts.dmSans(
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey[600],
+
+                                  ),
+
+                                ),
+                                // SizedBox(height: 0.010.sh),
+                                // Container(color:Colors.black,height:0.001.sh,width: 0.40.sw,),
+                              ],
                             ),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10).r,
+                            child: Container(
+                              height: 0.06.sh,
+                              width: 0.15.sw,
+
+                              child: FloatingActionButton(
+
+                                  child: Text("Pay",style: GoogleFonts.dmSans(
+                                                fontStyle: FontStyle.normal,
+                                                fontSize:15.sp,
+                                                fontWeight: FontWeight.bold,
+color: Colors.white,
+                                              ),
+                                              ),
+
+                                  backgroundColor: Colors.blue,
+                                  onPressed: () async {
+
+                                  } ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
+
 
                   ],
                 ),
@@ -431,16 +478,20 @@ Padding(
       ),
     ),
     Container(
-      child: Text(
-        '5059',
+      child: Obx(
+            () =>
+        all.loadingfees.value? Text(
+          all.FeeControllerList[0]["response"]["total_amount"].toString(),
+
         style: GoogleFonts.dmSans(
           fontStyle: FontStyle.normal,
           fontSize:15.sp,
           fontWeight: FontWeight.normal,
           color: Colors.lightBlue,
         ),
-      ),
+      ):Text("")
     ),
+    )
   ],
   ),
 ),
@@ -461,14 +512,18 @@ Padding(
                             ),
                           ),
                           Container(
-                            child: Text(
-                              '0',
-                              style: GoogleFonts.dmSans(
-                                fontStyle: FontStyle.normal,
-                                fontSize:15.sp,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.lightBlue,
-                              ),
+                            child: Obx(
+                                    () =>
+                                    all.loadingfees.value? Text(
+                                  all.FeeControllerList[0]["response"]["total_discount_amount"].toString(),
+
+                                  style: GoogleFonts.dmSans(
+                                    fontStyle: FontStyle.normal,
+                                    fontSize:15.sp,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.lightBlue,
+                                  ),
+                                ):Text("")
                             ),
                           ),
                         ],
@@ -481,7 +536,7 @@ Padding(
                         children: [
                           Container(
                             child:  Text(
-                              'Amount',
+                              'Paid',
                               style: GoogleFonts.dmSans(
                                 fontStyle: FontStyle.normal,
                                 fontSize:15.sp,
@@ -491,14 +546,18 @@ Padding(
                             ),
                           ),
                           Container(
-                            child: Text(
-                              '0',
-                              style: GoogleFonts.dmSans(
-                                fontStyle: FontStyle.normal,
-                                fontSize:15.sp,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.lightBlue,
-                              ),
+                            child: Obx(
+                                    () =>
+                                    all.loadingfees.value? Text(
+                                      all.FeeControllerList[0]["response"]["total_deposite_amount"].toString(),
+
+                                  style: GoogleFonts.dmSans(
+                                    fontStyle: FontStyle.normal,
+                                    fontSize:15.sp,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.lightBlue,
+                                  ),
+                                ):Text("")
                             ),
                           ),
                         ],
@@ -521,13 +580,18 @@ Padding(
                             ),
                           ),
                           Container(
-                            child: Text(
-                              '0',
-                              style: TextStyle(
-                                color: Colors.lightBlueAccent,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 15.0,
-                              ),
+                            child: Obx(
+                                    () =>
+                                    all.loadingfees.value? Text(
+                                      all.FeeControllerList[0]["response"]["total_fine_amount"].toString(),
+
+                                  style: GoogleFonts.dmSans(
+                                    fontStyle: FontStyle.normal,
+                                    fontSize:15.sp,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.lightBlue,
+                                  ),
+                                ):Text("")
                             ),
                           ),
                         ],
@@ -550,14 +614,18 @@ Padding(
                             ),
                           ),
                           Container(
-                            child: Text(
-                              '5059',
-                              style: GoogleFonts.dmSans(
-                                fontStyle: FontStyle.normal,
-                                fontSize:15.sp,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.lightBlue,
-                              ),
+                            child: Obx(
+                                    () =>
+                                    all.loadingfees.value? Text(
+                                      all.FeeControllerList[0]["response"]["total_balance_amount"].toString(),
+
+                                  style: GoogleFonts.dmSans(
+                                    fontStyle: FontStyle.normal,
+                                    fontSize:15.sp,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.lightBlue,
+                                  ),
+                                ):Text("")
                             ),
                           ),
                         ],

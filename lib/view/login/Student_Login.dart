@@ -1,16 +1,18 @@
-
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
+import 'package:ecom_desgin/main.dart';
 import 'package:ecom_desgin/routes/routes.dart';
-import 'package:ecom_desgin/view/dashboard/HomeScreen.dart';
+import 'package:ecom_desgin/view/dashboard/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-import 'package:http/http.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 class StudentLogin extends StatefulWidget {
   const StudentLogin({super.key});
 
@@ -20,9 +22,11 @@ class StudentLogin extends StatefulWidget {
 
 class _StudentLoginState extends State<StudentLogin> {
 
+ var  inputvalues = TextEditingController();
+
   TextEditingController usersname = TextEditingController();
   TextEditingController password = TextEditingController();
-  // UserNameController allset = UserNameController();
+
   final UserNameController _allsetController =Get.put( UserNameController());
   final GetSchoolSettingController _schoolsetting =Get.put(GetSchoolSettingController());
   List<UserNameController> _dataset = [];
@@ -30,33 +34,27 @@ class _StudentLoginState extends State<StudentLogin> {
   late String _radioVal = "";
   int rediobutton = 0;
 
-
-
   @override
   void initState() {
     super.initState();
-    // _allsetController.SchoolIdControllerList(
-    //         (user) {
-    //       if (user != null) {
-    //        Get.toNamed(RoutesName.home);
-    //       }
-    //       else {
-    //         //force to login page
-    //       } });
-  }
+  print("33333333333333333333333332222222222222222222222221111111111111");
 
-  TextEditingController _controller = new TextEditingController();
-  bool _enabled = false;
-  final _formkey = GlobalKey<FormState>();
+
+  }
+  // TextEditingController _controller = new TextEditingController();
+  // bool _enabled = false;
+  // final _formkey = GlobalKey<FormState>();
   bool _isHidden = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ListView(
+      body:
+      ListView(
         children: <Widget>[
           Stack(
+
             children: <Widget>[
               ClipPath(
                   clipper: WaveClipper2(),
@@ -69,17 +67,23 @@ class _StudentLoginState extends State<StudentLogin> {
               ClipPath(
                 clipper: WaveClipper3(),
                 child: Container(
-                  // ignore: sort_child_properties_last
+
                   child: Column(
-                    children: <Widget>[SizedBox(height: 0.020.sh,),
-                      Obx(()=> _schoolsetting.loadingimage.value?Image.network(_schoolsetting.GetSchoolSettingControllerList[0]["response"]["image"],width: 100,height: 100,):CircularProgressIndicator()),
-                      SizedBox(height: 0.020.sh,),
-                      Obx(() => _schoolsetting.loadingimage.value? Text(_schoolsetting.GetSchoolSettingControllerList[0]["response"]["name"],style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize: 35.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),):const Text("")),],),width: MediaQuery.of(context).size.width,height: 0.43.sh,decoration: const BoxDecoration(color: Colors.lightBlue),),),
+                    children: <Widget>[SizedBox(height: 0.010.sh,),
+                      ClipOval(child: Obx(()=> _schoolsetting.loadingimage.value?Image.network(_schoolsetting.GetSchoolSettingControllerList[0]["response"]["image"],width: 100,height: 100,):CircularProgressIndicator())),
+                      SizedBox(height: 0.010.sh,),
+                      SizedBox(
+
+                        child: Obx(() => _schoolsetting.loadingimage.value? Text(_schoolsetting.GetSchoolSettingControllerList[0]["response"]["name"],style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+
+                            ),
+                          overflow:TextOverflow.ellipsis,
+                        ):const Text("")),
+                      ),],),width: MediaQuery.of(context).size.width,height: 0.43.sh,decoration: const BoxDecoration(color: Colors.lightBlue),),),
             ],
           ),
           Padding(
@@ -174,10 +178,14 @@ class _StudentLoginState extends State<StudentLogin> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                  _allsetController.apicallpost(usersname.text,password.text,context);
 
+               await sessionManager.set("name", usersname.text);
+               await sessionManager.set("passward", password.text);
 
+               print("1111111000000878888888888800000000000000000000555555555555555555555555550");
+               print(await sessionManager.set("name", usersname.text));
                   },
                 ),
               )),
@@ -196,37 +204,40 @@ class _StudentLoginState extends State<StudentLogin> {
               ),
             ),
           ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0).r,
+          //   child: Align(
+          //     alignment: Alignment.center,
+          //     child: Container(
+          //       child: Text(
+          //         "EGYAN Demo School",
+          //         style: GoogleFonts.dmSans(
+          //           fontStyle: FontStyle.normal,
+          //           fontSize: 20.sp,
+          //           fontWeight: FontWeight.bold,
+          //           color: Colors.lightBlue,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Padding(
-            padding: const EdgeInsets.all(8.0).r,
+            padding: const EdgeInsets.all(16.0).r,
             child: Align(
               alignment: Alignment.center,
-              child: Container(
-                child: Text(
-                  "EGYAN Demo School",
-                  style: GoogleFonts.dmSans(
-                    fontStyle: FontStyle.normal,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.lightBlue,
+              child: InkWell(
+                child: Container(
+                  child: Text(
+                    "Change School",
+                    style: GoogleFonts.dmSans(
+                      fontStyle: FontStyle.normal,
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0).r,
-            child: Align(
-              alignment: Alignment.center,
-              child: Container(
-                child: Text(
-                  "Change School",
-                  style: GoogleFonts.dmSans(
-                    fontStyle: FontStyle.normal,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red,
-                  ),
-                ),
+                onTap: () { Get.toNamed(RoutesName.schoolId);},
               ),
             ),
           ),

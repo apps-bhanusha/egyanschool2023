@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -8,7 +9,7 @@ class GetSchoolSettingController extends GetxController {
   List <dynamic> GetSchoolSettingControllerList = [].obs;
 
  RxBool loadingimage =false.obs;
-  Future<List<GetSchoolSettingController>?> GetSchoolSettingapi(id ) async {
+  Future<List<GetSchoolSettingController>?> GetSchoolSettingapi(id, ) async {
 
     var body = json.encode({
       "company_key":id,
@@ -27,6 +28,9 @@ class GetSchoolSettingController extends GetxController {
       print(GetSchoolSettingControllerList);
 print(GetSchoolSettingControllerList[0]["response"]["image"]);
 print(GetSchoolSettingControllerList[0]["response"]["name"]);
+     var box = Hive.box("schoolData");
+     box.put("schoolname", GetSchoolSettingControllerList[0]["response"]["name"],);
+     box.put("session", GetSchoolSettingControllerList[0]["response"]["session"],);
       if (sdata["status"] == true ) {
         loadingimage.value=true;
         print("massage");

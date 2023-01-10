@@ -1,5 +1,10 @@
+import 'package:ecom_desgin/constant/Colors.dart';
+import 'package:ecom_desgin/constant/font.dart';
+import 'package:ecom_desgin/controller/getexamsResult_controller.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ExamResult extends StatefulWidget {
   const ExamResult({super.key});
 
@@ -8,27 +13,38 @@ class ExamResult extends StatefulWidget {
 }
 
 class _ExamResultState extends State<ExamResult> {
-  List studentName = [
-    "Rocky",
-    "radhe",
-    "dipak",
-    "john",
-    "daniel",
-  ];
+ GetexamsResultController GetexamsResult=Get.put(GetexamsResultController());
+
+
+// late String exam_group = GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["exam_group"].toString();
+//  late String exam= GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["exam"].toString();
+
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 211, 245, 255),
       appBar: AppBar(
-        title: const Text("Result"),
-        // backgroundColor: Colors.redAccent,
+        backgroundColor:AgentColor.appbarbackgroundColor,
+        title: Text('Result',style: MyGoogeFont.mydmSans),
+        actions: [
+          PopupMenuButton<int>(
+            itemBuilder: (context) {
+              return <PopupMenuEntry<int>>[
+                const PopupMenuItem(child: Text('0'), value: 0),
+                const PopupMenuItem(child: Text('1'), value: 1),
+              ];
+            },
+          ),
+        ],
       ),
       body: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
-          return ExpandableListView(title: studentName[index]);
+          return ExpandableListView(title: '${GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["exam_group"].toString()}${GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["exam"].toString()}');
         },
-        itemCount: studentName.length,
+        itemCount: GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"].length,
       ),
     );
   }
@@ -46,7 +62,7 @@ class ExpandableListView extends StatefulWidget {
 
 class _ExpandableListViewState extends State<ExpandableListView> {
   bool expandFlag = false;
-
+  GetexamsResultController GetexamsResult=Get.put(GetexamsResultController());
   List result = [
     {
       "subjectname": "hindi",
@@ -155,9 +171,13 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                             Text("Result"),
                           ]),
                     ),
+
                     Expanded(
+
                       child: ListView.builder(
+
                         itemBuilder: (BuildContext context, int index) {
+
                           return Container(
                             decoration: BoxDecoration(
                                 border:
@@ -169,8 +189,9 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
+
                                   Text(
-                                    result[index]["passingmarks"] ?? "",
+                              '${GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["min_marks"].toString()}',
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Color.fromARGB(255, 0, 0, 0)),
@@ -179,19 +200,19 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                                     width: 50,
                                   ),
                                   Text(
-                                    result[index]["Marks Obtained"] ?? "",
+                                    '${GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["get_marks"].toString()}/${GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["max_marks"].toString()}',
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Color.fromARGB(255, 0, 0, 0)),
                                   ),
                                 ],
                               ),
-                              leading: Text(result[index]["subjectname"] ?? ""),
+                              leading: Text('${GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["subject_name"].toString()}',),
                               trailing: Text(result[index]["Result"] ?? ""),
                             ),
                           );
                         },
-                        itemCount: result.length,
+                        itemCount:GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"].length,
                       ),
                     )
                   ],
@@ -213,7 +234,7 @@ class ExpandableContainer extends StatelessWidget {
     super.key,
     required this.child,
     this.collapsedHeight = 0.0,
-    this.expandedHeight = 360.0,
+    this.expandedHeight = 200.0,
     this.expanded = true,
   });
 

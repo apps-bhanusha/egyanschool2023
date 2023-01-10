@@ -1,59 +1,130 @@
+import 'package:ecom_desgin/controller/getexamsSchedule_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-class ExamTimeDetail extends StatelessWidget {
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:date_format/date_format.dart';
+import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
+class ExamTimeDetail extends StatefulWidget {
   const ExamTimeDetail({super.key});
+
+  @override
+  State<ExamTimeDetail> createState() => _ExamTimeDetailState();
+}
+
+class _ExamTimeDetailState extends State<ExamTimeDetail> {
+  late DateTime  examtimes;
+ late DateTime examtimedate;
+var  starttime;
+  GetexamsScheduleController getexamview=Get.put(GetexamsScheduleController());
+  @override
+  void initState() {
+
+    super.initState();
+    for (int i = 0; i < getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"].length; i++) {
+      examtimes = DateFormat("HH:mm:ss").parse(getexamview
+          .GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["time_from"]
+          .toString());
+      examtimedate = examtimes.add(Duration(hours: int.parse(getexamview
+          .GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["duration"]
+          .toString())));
+      print(
+          "rbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbxxxxxxxxxxxvvvvvvvvvvvvvvvvvvvnnnnnnnnnnnnaaaaaaaaaaaan");
+      print(examtimedate);
+
+      starttime = formatDate(examtimedate, [HH, ':', nn, ':', ss]);
+
+      print(examtimedate.hour);
+      print(examtimedate.minute);
+      print(examtimedate.second);
+    }
+
+  }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Exam schedule"),
+        title: Text("Exam schedule",style: GoogleFonts.dmSans(
+          fontStyle: FontStyle.normal,
+          fontSize: 15.sp,
+          fontWeight: FontWeight.bold,
+          color: Colors.redAccent,
+        ),),
       ),
       body: Container(
-        height: 0.61.sh,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-        ),
+        // height: 0.61.sh,
+        // decoration: const BoxDecoration(
+        //   color: Colors.white,
+        // ),
         child: SizedBox.expand(
           child: Column(
             children: [
-              for (int i = 0; i <= 3; i++)
+              for (int i = 0; i < getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"].length; i++)
+
                 Padding(
-                  padding: const EdgeInsets.all(0),
+                  padding: const EdgeInsets.all(0).r,
                   child: Center(
                     child: InkWell(
                       child: Card(
                         elevation: 10,
                         child: Container(
-                          width: 0.95.sw,
-                          height: 0.12.sh,
+                          width: 0.96.sw,
+                          height: 0.15.sh,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: const Color(0xffE3F2FB),
                           ),
                           child: Stack(
-                        
+
                             // ignore: prefer_const_literals_to_create_immutables
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(
                                   left: 19,top: 5
-                                ),
+                                ).r,
                                 child: Row(
-                                  children: const [
-                                    Text(
-                                      "English",
-                                      style: TextStyle(
-                                          color: Color.fromARGB(255, 0, 0, 0),
-                                          fontSize: 25),
+                                  children:  [
+                                    Obx(
+                                    () =>
+                                       Text(
+                                         getexamview.loadingGetexamsSchedule.value?getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["subject_name"]:CircularProgressIndicator(),
+                                         style: GoogleFonts.dmSans(
+                                           fontStyle: FontStyle.normal,
+                                           fontSize: 20.sp,
+                                           fontWeight: FontWeight.bold,
+                                           color: Colors.black,
+                                         ),
+                                      ),
                                     ),
                                     Spacer(),
                                     Padding(
-                                      padding:  EdgeInsets.only(right: 14,bottom: 15),
-                                      child: Text(
-                                        "Room No. 12",
-                                        style: TextStyle(fontSize: 14,fontWeight: FontWeight.w800),
+                                      padding:  EdgeInsets.only(right: 14,bottom: 10),
+                                      child: Row(
+                                        children: [
+                                          Text("Room No:",style: GoogleFonts.dmSans(
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),),
+                                          Obx(
+                                                () => Text(
+                                              getexamview.loadingGetexamsSchedule.value?getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["room_no"]:CircularProgressIndicator(),
+                                              style: GoogleFonts.dmSans(
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: 15.sp,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -61,101 +132,112 @@ class ExamTimeDetail extends StatelessWidget {
                               ),
                                Positioned(
                                 top: 0.033.sh,
-                               
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 15,
+
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                   padding: EdgeInsets.only(top: 20).r,
+                                      child: Icon(
+                                        Icons.date_range,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 0.015.sw,
+                                      height: 0.12.sh,
+                                    ),
+                                  Padding(
+                                      padding: EdgeInsets.only(top: 20).r,
+                                      child: Obx(
+                                            () => Text(
+                                        getexamview.loadingGetexamsSchedule.value?getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["date_from"]:CircularProgressIndicator(),
+                                        style: GoogleFonts.dmSans(
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 15.sp,
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                  child: Row(
-                                    children: [
-                                      const Padding(
-                                     padding: EdgeInsets.only(top: 38),
-                                        child: Icon(
-                                          Icons.date_range,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 0.05.sw,
-                                      ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 38),
-                                        child: Text(
-                                          "22/22/2222",
-                                          style: TextStyle(
-                                              color: Color.fromARGB(255, 0, 0, 0),
-                                              fontSize: 15),
-                                        ),
-                                      ),
-                                      // const Icon(Icons.timelapse),
-                                      SizedBox(
-                                        width: 0.054.sw,
-                                      ),
-                                      Padding(
-                                        padding:  EdgeInsets.only(left: 0.01.sw, right: 2,top: 2,bottom: 2),
-                                        child: Container(
-                                          width: 0.52.sw,
-                                          height: 0.06.sh,
-                                          decoration: BoxDecoration(
-                                              color: const Color(0xff828181),
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                    // const Icon(Icons.timelapse),
+                                    SizedBox(
+                                      width: 0.034.sw,
+                                    ),
+                                    Container(
+                                      width: 0.62.sw,
+                                      height: 0.070.sh,
+                                      decoration: BoxDecoration(
+                                          color: const Color(0xff828181),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                             children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  const Text("Start Time",
-                                                      style: TextStyle(
-                                                          color: Color.fromARGB(
-                                                              255, 255, 255, 255),
-                                                          fontSize: 15)),
-                                                  Container(
-                                                    color: Colors.black,
-                                                    width: 0.24.sw,
-                                                    height: 1,
-                                                  ),
-                                                  const Text("11:00: AM",
-                                                      style: TextStyle(
-                                                          color: Color.fromARGB(
-                                                              255, 255, 255, 255),
-                                                          fontSize: 15)),
-                                                ],
+                                             Text("Start Time",
+                                                style: GoogleFonts.dmSans(
+                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.normal,
+                                                  color: Colors.white,
+                                                ),
                                               ),
                                               Container(
-                                                width: 2,
-                                                height: 0.1.sh,
-                                                color: Colors.white,
+                                                color: Colors.black,
+                                                width: 0.24.sw,
+                                                height: 0.001.sh,
                                               ),
-                                               Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            const Text("End Time",
-                                                style: TextStyle(
-                                                    color: Color.fromARGB(
-                                                        255, 255, 255, 255),
-                                                    fontSize: 15)),
-                                            Container(
-                                              color: Colors.black,
-                                              width: 0.24.sw,
-                                              height: 1,
-                                            ),
-                                            const Text("10:00: AM",
-                                                style: TextStyle(
-                                                    color: Color.fromARGB(
-                                                        255, 255, 255, 255),
-                                                    fontSize: 15)),
-                                          ],
-                                        ),
+                                              Obx(
+                                                    () => Text(
+                                                  getexamview.loadingGetexamsSchedule.value?getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["time_from"]:CircularProgressIndicator(),
+                                                  style: GoogleFonts.dmSans(
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 15.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
                                             ],
                                           ),
+                                          Container(
+                                            width: 0.005.sw,
+                                            height: 0.1.sh,
+                                            color: Colors.white,
+                                          ),
+                                           Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                     Text("End Time",
+                                          style: GoogleFonts.dmSans(
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.white,
+                                          ),),
+                                        Container(
+                                          color: Colors.black,
+                                          width: 0.24.sw,
+                                          height: 0.001.sh,
                                         ),
+                                       Text('${starttime??""}',
+                                          style: GoogleFonts.dmSans(
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),),
+                                      ],
+                                    ),
+                                        ],
                                       ),
-                                    
-                                    ],
-                                  ),
+                                    ),
+
+                                  ],
                                 ),
                               ),
                             ],
@@ -171,4 +253,6 @@ class ExamTimeDetail extends StatelessWidget {
       ),
     );
   }
+
+
 }

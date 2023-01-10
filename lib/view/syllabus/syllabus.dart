@@ -22,6 +22,8 @@ class _SyllabusState extends State<Syllabus> {
 
   @override
   void initState() {
+
+
     timer = Timer.periodic(Duration(milliseconds: 20), (_) {
       if(secsRemaining == 40){
         return;

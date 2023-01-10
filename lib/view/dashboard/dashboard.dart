@@ -1,10 +1,19 @@
+import 'package:ecom_desgin/constant/Colors.dart';
+import 'package:ecom_desgin/constant/font.dart';
+import 'package:ecom_desgin/controller/getclasstimetable_controller.dart';
+import 'package:ecom_desgin/controller/getexamsResult_controller.dart';
+import 'package:ecom_desgin/controller/getexamsSchedule_controller.dart';
+import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
+import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/examination/Exam_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 
 class GridViewall extends StatefulWidget {
@@ -14,6 +23,16 @@ class GridViewall extends StatefulWidget {
 
 class _GridViewallState extends State<GridViewall>
     with TickerProviderStateMixin {
+  var schoolname;
+  var session;
+  GetclassTimeTableController GetclassTimeTable=Get.put(GetclassTimeTableController());
+  GetexamsResultController GetexamsResult=Get.put(GetexamsResultController());
+
+  GetexamsScheduleController getexamview=Get.put(GetexamsScheduleController());
+  final UserNameController _allsetController = Get.put(UserNameController());
+
+  final GetSchoolSettingController _schoolsetting =
+  Get.put(GetSchoolSettingController());
   late AnimationController _controller;
   // late AnimationController controller;
   // late Animation colorAnimation;
@@ -39,7 +58,7 @@ class _GridViewallState extends State<GridViewall>
       }
     }
   }
-
+  var box = Hive.box("schoolData");
   @override
   void initState() {
     super.initState();
@@ -55,10 +74,8 @@ class _GridViewallState extends State<GridViewall>
       _controller.stop(canceled: true);
     });
 
-    // _controller.repeat(reverse: true);
-    // _controller =  AnimationController(vsync: this, duration: Duration(seconds: 6));
-    // colorAnimation = ColorTween(begin: Colors.blue, end: Colors.yellow).animate(controller);
-    // sizeAnimation = Tween<double>(begin: 400.0, end: 400.0).animate(controller);
+    schoolname = box.get("schoolname");
+    session = box.get("session");
   }
 @override
   void dispose(){
@@ -176,82 +193,69 @@ class _GridViewallState extends State<GridViewall>
         ignoring: isOpened,
         child: Scaffold(
           appBar: AppBar(
-            centerTitle: true,
+            // centerTitle: true,
             leading: IconButton(
-              icon: const Icon(Icons.menu),
+
+              icon: const Icon(Icons.menu,),
+
               onPressed: () => toggleMenu(),
             ),
-           backgroundColor: Colors.white,
-            iconTheme: IconThemeData(color: Colors.black),
+            automaticallyImplyLeading: false,
+            backgroundColor:AgentColor.appbarbackgroundColor,
+            // iconTheme: IconThemeData(color: Colors.black),
             title: Row(
               children: [
-                Text(
-                  'EGYAN Demo school',
-                  style: GoogleFonts.dmSans(
-                    fontStyle: FontStyle.normal,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.redAccent,
-                  ),
+                SizedBox(
+                    width: 0.45.sw,
+                    child:  Text(
+                      schoolname??"",
+                      // _schoolsetting.GetSchoolSettingControllerList[0]["response"]["name"],
+                      style: MyGoogeFont.mydmSans1,
+                      overflow: TextOverflow.ellipsis,
+                    )
+
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 45).r,
-                //   child: Column(
-                //     children: [
-                //       Text(
-                //         'Session',
-                //         style: GoogleFonts.dmSans(
-                //           fontStyle: FontStyle.normal,
-                //           fontSize: 12.sp,
-                //           fontWeight: FontWeight.bold,
-                //           color: Colors.black,
-                //         ),
-                //       ),
-                //       Text(
-                //         '2020-21',
-                //         style: GoogleFonts.dmSans(
-                //           fontStyle: FontStyle.normal,
-                //           fontSize: 12.sp,
-                //           fontWeight: FontWeight.bold,
-                //           color: Colors.black,
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
+
+
               ],
             ),
             actions: [
-               Padding(
-                      padding: const EdgeInsets.only(left: 0,top: 10).r,
-                      child: Column(
-                        children: [
-                          Text(
-                            'Session',
-                            style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Text(
-                            '2020-21',
-                            style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
+              Padding(
+                padding: const EdgeInsets.only(left: 0, top: 10).r,
+                child: Column(
+                  children: [
+                    Text(
+                      'Session',
+                      style: MyGoogeFont.mydmSans2,
                     ),
+                    Text(
+                      session??"",
+                      // _schoolsetting.GetSchoolSettingControllerList[0]["response"]["session"],
+                      style: MyGoogeFont.mydmSans2,
+                    ),
+                  ],
+                ),
+              ),
               PopupMenuButton<int>(
-                itemBuilder: (context) {
+                itemBuilder: (context)  {
+
                   return <PopupMenuEntry<int>>[
-                    const PopupMenuItem(child: Text('logout'), value: 0),
-                    const PopupMenuItem(child: Text('about'), value: 1),
+                    PopupMenuItem(child: InkWell(child: Text('Logout'),
+                      onTap:() async { await SessionManager().remove("name");
+                      Get.toNamed(RoutesName.schoolId);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("logout", style: GoogleFonts.dmSans(
+                          fontStyle: FontStyle.normal,
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                        ),
+                        ),
+                          backgroundColor: Colors.white,
+                        ),
+                      );
+                      },), value: 0),
+                    PopupMenuItem(child: Text('about'), value: 1),
                   ];
                 },
               ),
@@ -354,213 +358,375 @@ class _GridViewallState extends State<GridViewall>
 
   Widget buildMenu() {
     return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children:  [
-                Center(
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 22.0,
-                    
-                    child: Image.asset("assets/images/user1.png"),
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-                const Center(
-                  child: Text(
-                    "Hello, John Doe",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                SizedBox(height: 20.0), 
-              ],  
-            ),  
-          ),        
-          ListTile(
-             onTap: () {
-                          Get.toNamed(RoutesName.dashboard);
-                        },
-            leading: const Icon(Icons.home, size: 20.0, color: Colors.white),
-            title: const Text("Home"),
-            textColor: Colors.white,
-            dense: true,
-          ),
-          ListTile(
-                       onTap: () {Get.toNamed(RoutesName.profile);},
+      child: Container(
 
-            leading: const Icon(Icons.verified_user,
-                size: 20.0, color: Colors.white),
-            title: const Text("Profile"),
-            textColor: Colors.white,
-            dense: true,
-    
-            // padding: EdgeInsets.zero,
-          ),
-          ListTile(
-            onTap: () {Get.toNamed(RoutesName.attendance);},
-            leading: const Icon(Icons.present_to_all,
-                size: 20.0, color: Colors.white),
-            title: const Text("Attendance"),
-            textColor: Colors.white,
-            dense: true,
-    
-            // padding: EdgeInsets.zero,
-          ),
-          ListTile(
-            onTap: () {Get.toNamed(RoutesName.fees);},
-            leading: const Icon(Icons.monetization_on,
-                size: 20.0, color: Colors.white),
-            title: const Text("Fees"),
-            textColor: Colors.white,
-            dense: true,
-    
-            // padding: EdgeInsets.zero,
-          ),
-          ListTile(
-            onTap: () { Get.toNamed(RoutesName.timetable);},
-            leading:
-                const Icon(Icons.av_timer_rounded, size: 20.0, color: Colors.white),
-            title: const Text("Class Time Table"),
-            textColor: Colors.white,
-            dense: true,
-    
-            // padding: EdgeInsets.zero,
-          ),
-          ListTile(
-          onTap: () {
-            Get.toNamed(RoutesName.lession);
-          },
-          leading: const Icon(Icons.play_lesson_outlined,
-              size: 20.0, color: Colors.white),
-          title: const Text("Lession Plan"),
-          textColor: Colors.white,
-          dense: true,
-  
-          // padding: EdgeInsets.zero,
-        ),
-          //  ListTile(
-          //   onTap: () { Get.toNamed(RoutesName.syllabus);},
-          //   leading:
-          //       const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
-          //   title: const Text("Syllabus"),
-          //   textColor: Colors.white,
-          //   dense: true,
-    
-          //   // padding: EdgeInsets.zero,
-          // ),
-           ListTile(
-           onTap: () => Get.toNamed(RoutesName.homeWork),
-            leading:
-                const Icon(Icons.home_work, size: 20.0, color: Colors.white),
-            title: const Text("Home Work"),
-            textColor: Colors.white,
-            dense: true,
-    
-            // padding: EdgeInsets.zero,
-          ),
-           ExpansionTile(
-            collapsedIconColor: Colors.white,
-            textColor: Colors.white,
-                      title: const Text("Exmaination",style:TextStyle(color: Colors.white),),
-                      leading: const Icon(Icons.book_outlined, size: 20.0, color: Colors.white), //add icon
-                      childrenPadding:
-                          const EdgeInsets.only(left: 60), //children padding
-                      children: [
-                        ListTile(
-                          title: const Text("Exam Time Table",style:TextStyle(color: Colors.white)),
-                          onTap: () => Get.toNamed(RoutesName.examination),
-                        ),
-    
-                        ListTile(
-                          title: const Text("Result",style:TextStyle(color: Colors.white)),
-                          onTap: () {
-                            onTap:
-                         
-                         Get.to(const ExamResult());
-                          },
-                        ),
-    
-                        //more child menu
-                      ],
-                    ),
-           ListTile(
-            onTap: () => Get.toNamed(RoutesName.downloadAll),
-            leading:
-                const Icon(Icons.download, size: 20.0, color: Colors.white),
-            title: const Text("Download"),
-            textColor: Colors.white,
-            dense: true,
-    
-            // padding: EdgeInsets.zero,
-          ),
-           ListTile(
-            onTap: () => Get.toNamed(RoutesName.busRoute),
-            leading:
-                const Icon(Icons.route, size: 20.0, color: Colors.white),
-            title: const Text("Bus Route"),
-            textColor: Colors.white,
-            dense: true,
-    
-            // padding: EdgeInsets.zero,
-          ),
-           ListTile(
-            onTap: () => Get.toNamed(RoutesName.chatPage),
-            leading:
-                const Icon(Icons.chat, size: 20.0, color: Colors.white),
-            title: const Text("Chat"),
-            textColor: Colors.white,
-            dense: true,
-    
-            // padding: EdgeInsets.zero,
-          ),
-           ListTile(
-            onTap: () => Get.toNamed(RoutesName.notification),
-            leading:
-                const Icon(Icons.notifications, size: 20.0, color: Colors.white),
-            title: const Text("Notification"),
-            textColor: Colors.white,
-            dense: true,
-    
-            // padding: EdgeInsets.zero,
-          ),
-          
-           SizedBox(
-            height: 0.05.sh,
-          ),
-           Container(
-            color: Colors.white,
-            height: 0.080.sh,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: Text(
-                    "Powered by",
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ClipOval(
+                      child: Obx(() => _schoolsetting.loadingimage.value
+                          ? Image.network(
+                        _schoolsetting.GetSchoolSettingControllerList[0]["response"]["image"],
+                        width: 100,
+                        height: 100,
+                      )
+                          : CircularProgressIndicator())),
+                  const SizedBox(height: 16.0),
+                  Obx(() => _schoolsetting.loadingimage.value
+                      ? Text(
+                    _schoolsetting.GetSchoolSettingControllerList[0]
+                    ["response"]["name"],
                     style: GoogleFonts.dmSans(
                       fontStyle: FontStyle.normal,
                       fontSize: 15.sp,
                       fontWeight: FontWeight.bold,
-        color: const Color.fromARGB(255, 196, 236, 255),
-            
+                      color: Colors.white,
                     ),
+                  )
+                      : const Text("")),
+                  SizedBox(height: 20.0),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 0.052.sh,
+              child: ListTile(
+                onTap: () {
+
+                  Get.toNamed(RoutesName.home);
+                },
+                leading: const Icon(Icons.home, size: 20.0, color: Colors.white),
+                title: const Text("Home"),
+                textColor: Colors.white,
+                dense: true,
+              ),
+            ),
+
+            SizedBox(
+              height: 0.052.sh,
+              child: ListTile(
+                onTap: () {
+                  Get.toNamed(RoutesName.profile);
+                },
+
+                leading: const Icon(Icons.verified_user,
+                    size: 20.0, color: Colors.white),
+                title: const Text("Profile"),
+                textColor: Colors.white,
+                dense: true,
+
+                // padding: EdgeInsets.zero,
+              ),
+            ),
+            SizedBox(
+              height: 0.052.sh,
+              child: ListTile(
+                onTap: () {
+                  Get.toNamed(RoutesName.attendance);
+
+                  //
+                  // if( studentattendance.AttendanceControllerList[0]["status"]==true){
+                  //
+                  // }
+
+
+                },
+                leading: const Icon(Icons.present_to_all,
+                    size: 20.0, color: Colors.white),
+                title: const Text("Attendance"),
+                textColor: Colors.white,
+                dense: true,
+
+                // padding: EdgeInsets.zero,
+              ),
+            ),
+            SizedBox(
+              height: 0.052.sh,
+              child: ListTile(
+                onTap: () {
+                  Get.toNamed(RoutesName.fees);
+                },
+                leading: const Icon(Icons.monetization_on,
+                    size: 20.0, color: Colors.white),
+                title: const Text("Fees"),
+                textColor: Colors.white,
+                dense: true,
+
+                // padding: EdgeInsets.zero,
+              ),
+            ),
+            SizedBox(
+              height: 0.052.sh,
+              child: ListTile(
+                onTap: () {
+                  Get.toNamed(RoutesName.timetable);
+                },
+                leading: const Icon(Icons.av_timer_rounded,
+                    size: 20.0, color: Colors.white),
+                title: const Text("Class Time Table"),
+                textColor: Colors.white,
+                dense: true,
+
+                // padding: EdgeInsets.zero,
+              ),
+            ),
+            SizedBox(
+              height: 0.052.sh,
+              child: ListTile(
+                onTap: () {
+                  Get.toNamed(RoutesName.lession);
+                },
+                leading: const Icon(Icons.play_lesson_outlined,
+                    size: 20.0, color: Colors.white),
+                title: const Text("Syllabus Status"),
+                textColor: Colors.white,
+                dense: true,
+
+                // padding: EdgeInsets.zero,
+              ),
+            ),
+            //  ListTile(
+            //   onTap: () { Get.toNamed(RoutesName.syllabus);},
+            //   leading:
+            //       const Icon(Icons.play_lesson_outlined, size: 20.0, color: Colors.white),
+            //   title: const Text("Syllabus"),
+            //   textColor: Colors.white,
+            //   dense: true,
+
+            //   // padding: EdgeInsets.zero,
+            // ),
+            SizedBox(
+              height: 0.052.sh,
+              child: ListTile(
+                onTap: () => Get.toNamed(RoutesName.homeWork),
+                leading:
+                const Icon(Icons.home_work, size: 20.0, color: Colors.white),
+                title: const Text("Home Work"),
+                textColor: Colors.white,
+                dense: true,
+
+                // padding: EdgeInsets.zero,
+              ),
+            ),
+            ListTileTheme(
+              dense: true,
+
+              child: ExpansionTile(
+
+                collapsedIconColor: Colors.white,
+                textColor: Colors.white,
+                title: Text(
+                  "Exmaination",
+                  style: GoogleFonts.dmSans(
+                    fontStyle: FontStyle.normal,
+                    fontSize: 14.sp,
+
+                    color: Colors.white,
                   ),
                 ),
-                
-                Image.asset(
-                  "assets/images/b.png",
-                  height: 0.13.sh,
-                  width: 0.35.sw,
-                ),
-              ],
+                leading: const Icon(Icons.book_outlined,
+                    size: 20.0, color: Colors.white),
+
+                childrenPadding: EdgeInsets.only(left: 60), //children padding
+                children: [
+                  SizedBox(
+                    height: 0.052.sh,
+                    child: ListTile(
+
+                        title:  Text("Exam Time ",
+                          style: GoogleFonts.dmSans(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 14.sp,
+
+                            color: Colors.white,
+                          ),),
+                        onTap:(){
+                          if (getexamview.GetexamsScheduleControllerList!=null){
+
+                            Get.toNamed(RoutesName.examination);
+                          }
+
+                        }
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 0.062.sh,
+                    child: ListTile(
+                        title:
+                        Text("Result",  style: GoogleFonts.dmSans(
+                          fontStyle: FontStyle.normal,
+                          fontSize: 14.sp,
+
+                          color: Colors.white,
+                        ),),
+                        onTap:(){
+                          if (GetexamsResult.GetexamsResultControllerList!=null){
+
+                            Get.toNamed(RoutesName.examresult);
+                          }
+
+                        }
+                    ),
+                  ),
+
+                  //more child menu
+                ],
+              ),
             ),
-          ),
-        ],
+            SizedBox(
+              height: 0.052.sh,
+              child: ListTile(
+                onTap: () => Get.toNamed(RoutesName.downloadAll),
+                leading:
+                const Icon(Icons.download, size: 20.0, color: Colors.white),
+                title: const Text("Download"),
+                textColor: Colors.white,
+                dense: true,
+
+                // padding: EdgeInsets.zero,
+              ),
+            ),
+            SizedBox(
+              height: 0.062.sh,
+              child: ListTile(
+                onTap: () => Get.toNamed(RoutesName.busRoute),
+                leading: const Icon(Icons.route, size: 20.0, color: Colors.white),
+                title: const Text("Bus Route"),
+                textColor: Colors.white,
+                dense: true,
+
+                // padding: EdgeInsets.zero,
+              ),
+            ),
+            SizedBox(
+              height: 0.052.sh,
+              child: ListTile(
+                onTap: () => Get.toNamed(RoutesName.chatPage),
+                leading: const Icon(Icons.chat, size: 20.0, color: Colors.white),
+                title: const Text("Chat"),
+                textColor: Colors.white,
+                dense: true,
+
+                // padding: EdgeInsets.zero,
+              ),
+            ),
+            SizedBox(
+              height: 0.052.sh,
+              child: ListTile(
+                onTap: () => Get.toNamed(RoutesName.notification),
+                leading: const Icon(Icons.notifications,
+                    size: 20.0, color: Colors.white),
+                title: const Text("Notification",),
+                textColor: Colors.white,
+                dense: true,
+
+                // padding: EdgeInsets.zero,
+              ),
+            ),
+            SizedBox(
+              height: 0.052.sh,
+              child: ListTile(
+                onTap: () => Get.toNamed(RoutesName.notification),
+                leading: const Icon(Icons.notifications,
+                    size: 20.0, color: Colors.white),
+                title: const Text("Teacher Review"),
+                textColor: Colors.white,
+                dense: true,
+
+                // padding: EdgeInsets.zero,
+              ),
+            ),
+            SizedBox(
+              height: 0.052.sh,
+              child: ListTile(
+                onTap: () => Get.toNamed(RoutesName.leavestatus),
+                leading: const Icon(Icons.notifications,
+                    size: 20.0, color: Colors.white),
+                title: const Text("Leave Status"),
+                textColor: Colors.white,
+                dense: true,
+
+                // padding: EdgeInsets.zero,
+              ),
+            ),
+            // ExpansionTile(
+            //   collapsedIconColor: Colors.white,
+            //   textColor: Colors.white,
+            //   title: Text(
+            //     "Leave",
+            //     style: GoogleFonts.dmSans(
+            //       fontStyle: FontStyle.normal,
+            //       fontSize: 14.sp,
+            //
+            //       color: Colors.white,
+            //     ),
+            //   ),
+            //   leading: const Icon(Icons.book_outlined,
+            //       size: 20.0, color: Colors.white), //add icon
+            //   childrenPadding: EdgeInsets.only(left: 60), //children padding
+            //   children: [
+            //     ListTile(
+            //       title:  Text("Add Leave",
+            //         style: GoogleFonts.dmSans(
+            //           fontStyle: FontStyle.normal,
+            //           fontSize: 14.sp,
+            //
+            //           color: Colors.white,
+            //         ),),
+            //       onTap: () => Get.toNamed(RoutesName.addleave),
+            //     ),
+            //
+            //     ListTile(
+            //       title:
+            //       Text("Leave Status",  style: GoogleFonts.dmSans(
+            //         fontStyle: FontStyle.normal,
+            //         fontSize: 14.sp,
+            //
+            //         color: Colors.white,
+            //       ),),
+            //       onTap: () => Get.toNamed(RoutesName.leavestatus),
+            //     ),
+            //
+            //     //more child menu
+            //   ],
+            // ),
+            SizedBox(
+              height: 0.05.sh,
+            ),
+            // Container(
+            //   color: Colors.white,
+            //   height: 0.080.sh,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Container(
+            //         child: Text(
+            //           "Powered by",
+            //           style: GoogleFonts.dmSans(
+            //             fontStyle: FontStyle.normal,
+            //             fontSize: 15.sp,
+            //             fontWeight: FontWeight.bold,
+            //             color: Color.fromARGB(255, 196, 236, 255),
+            //           ),
+            //         ),
+            //       ),
+            //       Image.asset(
+            //         "assets/images/b.png",
+            //         height: 0.13.sh,
+            //         width: 0.35.sw,
+            //       ),
+            //     ],
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }

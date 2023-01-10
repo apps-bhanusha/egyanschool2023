@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
+import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:get/get.dart';
 import 'package:ecom_desgin/view/login/Student_Login.dart';
 import 'package:ecom_desgin/view/teacher/Teacher_Login.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -29,9 +31,17 @@ import 'package:http/http.dart' as http;
       print(sdata);
       SchoolIdControllerList2=[];
       SchoolIdControllerList2.add(sdata);
-
+      print("55555555555555555555555555544444444444444444444444444444444444443333");
+print(SchoolIdControllerList2[0]["response"]["company_key"]);
       // SchoolIdModel.fromJson(sdata);
-      if (sdata["status"] == true) {
+      if (sdata["status"] == true ) {
+        print("3sadddddddddddddddddddddddddddddddddd44ddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+
+        var box = Hive.box("schoolData");
+
+
+        box.put("company_key",SchoolIdControllerList2[0]["response"]["company_key"]);
+
         _schoolsetting.GetSchoolSettingapi(SchoolIdControllerList2[0]["response"]["company_key"]);
         if (_radioVal == "Student") {
           Get.to(() => StudentLogin());

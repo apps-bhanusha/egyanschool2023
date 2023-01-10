@@ -1,4 +1,6 @@
 
+import 'package:ecom_desgin/constant/Colors.dart';
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:flutter/material.dart';
 class NotificationPage extends StatelessWidget {
   const NotificationPage({super.key});
@@ -7,9 +9,19 @@ class NotificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      appBar: AppBar(title: const Text("Notification"),
-      
-
+      appBar: AppBar(
+        backgroundColor:AgentColor.appbarbackgroundColor,
+        title: Text('Notification',style: MyGoogeFont.mydmSans),
+        actions: [
+          PopupMenuButton<int>(
+            itemBuilder: (context) {
+              return <PopupMenuEntry<int>>[
+                const PopupMenuItem(child: Text('0'), value: 0),
+                const PopupMenuItem(child: Text('1'), value: 1),
+              ];
+            },
+          ),
+        ],
       ),
       body: Column(
         children:   [

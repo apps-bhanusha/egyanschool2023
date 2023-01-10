@@ -1,8 +1,13 @@
+import 'package:ecom_desgin/constant/Colors.dart';
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/download_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+
+
+import 'package:google_fonts/google_fonts.dart';
 class DownloadAll extends StatefulWidget {
   const DownloadAll({super.key});
 
@@ -17,7 +22,20 @@ class _DownloadAllState extends State<DownloadAll> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Downloand")),
+      appBar: AppBar(
+        backgroundColor:AgentColor.appbarbackgroundColor,
+        title: Text('Download',style: MyGoogeFont.mydmSans),
+        actions: [
+          PopupMenuButton<int>(
+            itemBuilder: (context) {
+              return <PopupMenuEntry<int>>[
+                const PopupMenuItem(child: Text('0'), value: 0),
+                const PopupMenuItem(child: Text('1'), value: 1),
+              ];
+            },
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
