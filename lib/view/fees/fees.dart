@@ -70,8 +70,8 @@ Get.put(GetSchoolSettingController());
     super.initState();
   }
   late Map<String, double> dataMap = {
-    "Due Fees": double.parse('${studentduefees.toString()}'),
-    "Paid  Fees":double.parse('${total_deposite_amount.toString()}'),
+    "Due Fees": double.parse(studentduefees.toString()),
+    "Paid  Fees":double.parse(total_deposite_amount.toString()),
 
   };
   final colorList = <Color>[

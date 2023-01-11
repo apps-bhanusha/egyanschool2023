@@ -3,6 +3,7 @@ import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/controller/fees_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/school_id_controller.dart';
+import 'package:ecom_desgin/model/parent_student_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,8 @@ class UserNameController extends GetxController {
   final FeeController _feesController = Get.put(FeeController());
   List  SchoolIdControllerList = [].obs;
   RxBool loadingdata =false.obs;
+  Rxn<ParentStudentListModel> parentStudentListModel= Rxn<ParentStudentListModel>();
+
 
   // Future<bool> saveUser(String user) async {
   //   final prefs = await SchoolIdControllerList.toString();
@@ -40,6 +43,7 @@ class UserNameController extends GetxController {
       final userIsStored =
       await saveUser(jsonEncode(response.body));
       var sdata = jsonDecode(response.body);
+      parentStudentListModel.value= ParentStudentListModel.fromJson(sdata);
       print("fddddddddddddddddddd33333333333333333333");
       print(sdata);
   SchoolIdControllerList.add(sdata);
@@ -81,7 +85,7 @@ print(SchoolIdControllerList[0]["response"][0]["profileimage"]);
        //  print("33333387877555543447uuu");
        //  print(studentpro);
       loadingdata.value=true;
-           return Get.to(() => HomeScreen());
+           return Get.to(() => HomeScreen(),arguments: ['0',false],);
       }
 
       else  {

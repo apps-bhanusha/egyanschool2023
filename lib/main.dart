@@ -5,6 +5,7 @@ import 'package:ecom_desgin/view/dashboard/home.dart';
 import 'package:ecom_desgin/view/login/Loginscreen.dart';
 import 'package:ecom_desgin/view/dashboard/drawer.dart';
 import 'package:ecom_desgin/view/dashboard/dashboard.dart';
+import 'package:ecom_desgin/view/parent/parent_student_list.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:get/get.dart';
@@ -53,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(
       const Duration(seconds: 7),
-          () => name!=null ?Get.toNamed(RoutesName.home):Get.toNamed(RoutesName.schoolId),
+          () => name!=null ?Get.to(const ParentStudentList()):Get.toNamed(RoutesName.schoolId),
     );
    // name!=null ?Get.toNamed(RoutesName.home):Get.toNamed(RoutesName.schoolId),
 

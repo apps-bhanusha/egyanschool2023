@@ -5,6 +5,7 @@ import 'package:ecom_desgin/view/examination/Exam_result.dart';
 import 'package:ecom_desgin/view/fees/fees.dart';
 import 'package:ecom_desgin/view/leave/addleave.dart';
 import 'package:ecom_desgin/view/leave/leavestatus.dart';
+import 'package:ecom_desgin/view/login/parent_login.dart';
 import 'package:ecom_desgin/view/notification/notification.dart';
 import 'package:ecom_desgin/view/profile/profile.dart';
 import 'package:ecom_desgin/view/bus_routes/bus_routes.dart';
@@ -48,6 +49,7 @@ class RoutesName{
   static String addleave = '/addleave';
   static String leavestatus = '/leavestatus';
   static String examresult = '/Exam_result';
+  static String parentLogin = '/parentlogin';
 
 }
 
@@ -75,4 +77,5 @@ final getpages=[
  GetPage(name: RoutesName.addleave, page: () => const AddLeave(),transition: Transition.circularReveal),
  GetPage(name: RoutesName.leavestatus, page: () => const LeaveStatus(),transition: Transition.circularReveal),
  GetPage(name: RoutesName.examresult, page: () => const ExamResult(),transition: Transition.circularReveal),
+ GetPage(name: RoutesName.parentLogin, page: () => const ParentLogin(),transition: Transition.circularReveal),
 ];

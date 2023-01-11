@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -10,7 +11,7 @@ class FeeController extends GetxController {
 
   RxBool loadingfees =false.obs;
   Future<List<FeeController>?> Feesapi(id, company_key) async {
-
+var box = Hive.box("schoolData");
     var body = json.encode({
       "company_key":company_key,
       "student_id": id
@@ -28,6 +29,7 @@ class FeeController extends GetxController {
       print(FeeControllerList);
       print(FeeControllerList[0]["response"]["total_amount"]);
       print(FeeControllerList[0]["response"]["total_discount_amount"]);
+    box.put("total_deposite_amount", FeeControllerList[0]["response"]["total_discount_amount"]);
       if (sdata["status"] == true ) {
         loadingfees.value=true;
         print("massage");
