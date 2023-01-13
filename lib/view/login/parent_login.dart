@@ -1,4 +1,5 @@
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
+import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/main.dart';
 import 'package:ecom_desgin/routes/routes.dart';
@@ -13,15 +14,15 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-class StudentLogin extends StatefulWidget {
-  const StudentLogin({super.key});
+class ParentLogin extends StatefulWidget {
+  const ParentLogin({super.key});
 
   @override
-  _StudentLoginState createState() => _StudentLoginState();
+  State<ParentLogin> createState() => _ParentLoginState();
 }
 
-class _StudentLoginState extends State<StudentLogin> {
-
+class _ParentLoginState extends State<ParentLogin> {
+ 
  var  inputvalues = TextEditingController();
 
   TextEditingController usersname = TextEditingController();
@@ -29,6 +30,7 @@ class _StudentLoginState extends State<StudentLogin> {
 
   final UserNameController _allsetController =Get.put( UserNameController());
   final GetSchoolSettingController _schoolsetting =Get.put(GetSchoolSettingController());
+  final ParentLoginController parentLoginController=Get.put(ParentLoginController());
   List<UserNameController> _dataset = [];
   int _radioSelected = 0;
   late String _radioVal = "";
@@ -67,8 +69,23 @@ class _StudentLoginState extends State<StudentLogin> {
               ClipPath(
                 clipper: WaveClipper3(),
                 child: Container(
-                  child: Center(child: Text("Parent Login",style: TextStyle(color:Colors.white,fontSize: 23),)),
-width: MediaQuery.of(context).size.width,height: 0.43.sh,decoration: const BoxDecoration(color: Colors.lightBlue),),),
+
+                  child: Column(
+                    children: <Widget>[SizedBox(height: 0.010.sh,),
+                      ClipOval(child: Obx(()=> _schoolsetting.loadingimage.value?Image.network(_schoolsetting.GetSchoolSettingControllerList[0]["response"]["image"],width: 100,height: 100,):CircularProgressIndicator())),
+                      SizedBox(height: 0.010.sh,),
+                      SizedBox(
+
+                        child: Obx(() => _schoolsetting.loadingimage.value? Text(_schoolsetting.GetSchoolSettingControllerList[0]["response"]["name"],style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+
+                            ),
+                          overflow:TextOverflow.ellipsis,
+                        ):const Text("")),
+                      ),],),width: MediaQuery.of(context).size.width,height: 0.43.sh,decoration: const BoxDecoration(color: Colors.lightBlue),),),
             ],
           ),
           Padding(
@@ -164,11 +181,10 @@ width: MediaQuery.of(context).size.width,height: 0.43.sh,decoration: const BoxDe
                     backgroundColor: Colors.blue,
                   ),
                   onPressed: () async {
-                 _allsetController.apicallpost(usersname.text,password.text,context);
-
+                //  _allsetController.apicallpost(usersname.text,password.text,context);
+                 parentLoginController.parentapi(usersname.text, password.text, context);
                await sessionManager.set("name", usersname.text);
                await sessionManager.set("passward", password.text);
-
                print("1111111000000878888888888800000000000000000000555555555555555555555555550");
                print(await sessionManager.set("name", usersname.text));
                   },

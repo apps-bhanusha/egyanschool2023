@@ -4,8 +4,10 @@ import 'package:ecom_desgin/controller/getclasstimetable_controller.dart';
 import 'package:ecom_desgin/controller/getexamsResult_controller.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
+import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
+import 'package:ecom_desgin/view/calender/attendance.dart';
 import 'package:ecom_desgin/view/examination/Exam_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,6 +32,7 @@ class _GridViewallState extends State<GridViewall>
 
   GetexamsScheduleController getexamview=Get.put(GetexamsScheduleController());
   final UserNameController _allsetController = Get.put(UserNameController());
+  ParentLoginController parentLoginController=Get.put(ParentLoginController());
 
   final GetSchoolSettingController _schoolsetting =
   Get.put(GetSchoolSettingController());
@@ -283,7 +286,7 @@ class _GridViewallState extends State<GridViewall>
                                  child: InkWell(
                                          onTap: () { 
                                           print(index);               
-                                          if(index==0){Get.toNamed(RoutesName.home);}
+                                          if(index==0){Get.toNamed(RoutesName.home,arguments: ['',false]);}
                                           if(index==1){Get.toNamed(RoutesName.profile);}
                                           if(index==2){Get.toNamed(RoutesName.attendance);}
                                           if(index==3){Get.toNamed(RoutesName.fees);}
@@ -399,7 +402,7 @@ class _GridViewallState extends State<GridViewall>
               child: ListTile(
                 onTap: () {
 
-                  Get.toNamed(RoutesName.home);
+                  Get.toNamed(RoutesName.home,arguments: ['',false]);
                 },
                 leading: const Icon(Icons.home, size: 20.0, color: Colors.white),
                 title: const Text("Home"),
@@ -407,7 +410,95 @@ class _GridViewallState extends State<GridViewall>
                 dense: true,
               ),
             ),
+  ListTileTheme(
+            dense: true,
 
+            child: ExpansionTile(
+expandedCrossAxisAlignment: CrossAxisAlignment.start,
+              collapsedIconColor: Colors.white,
+              textColor: Colors.white,
+              title: Text(
+                "Select Student",
+                style: GoogleFonts.dmSans(
+                  fontStyle: FontStyle.normal,
+                  fontSize: 14.sp,
+
+                  color: Colors.white,
+                ),
+              ),
+              leading: const Icon(Icons.book_outlined,
+                  size: 20.0, color: Colors.white),
+              childrenPadding: const EdgeInsets.only(left: 60), //children padding
+               
+
+               //children padding
+              children: [
+                for(int index=0;index<=parentLoginController.parentStudentListModel.value!.response!.length-1;index++)
+                 Obx(() =>    ListTile(
+                      title:  Text( "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
+                        style: GoogleFonts.dmSans(
+                          fontStyle: FontStyle.normal,
+                          fontSize: 14.sp,
+                          color: Colors.white,
+                        ),),
+                       onTap: () {
+                              print("${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}"); 
+                              Get.toNamed(RoutesName.home,arguments: [
+                                "${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}",
+                                true,
+                              "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalAmount}",
+                              "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalBalanceAmount}",
+                              "${ parentLoginController.parentStudentListModel.value?.response?[index]?.attandance?.present}",
+                              "https://e-gyan.co.in/${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}",
+                              "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
+                              "${ parentLoginController.parentStudentListModel.value?.response?[index]?.responseClass}",
+                            
+                              ]);  
+                        toggleMenu(); 
+                       },
+                      ),
+               
+            
+             ),
+            //  Obx(() =>  
+            //      ListView.builder(
+            //         shrinkWrap: true,
+            //         scrollDirection: Axis.vertical,
+            //             itemCount: parentLoginController.parentStudentListModel.value?.response!=null ?parentLoginController.parentStudentListModel.value?.response?.length:0,
+            //         itemBuilder: (context, index) {
+            //         return  ListTile(
+            //           title:  Text( "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
+            //             style: GoogleFonts.dmSans(
+            //               fontStyle: FontStyle.normal,
+            //               fontSize: 14.sp,
+            //               color: Colors.white,
+            //             ),),
+            //            onTap: () {
+            //                   print("${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}"); 
+            //                   Get.toNamed(RoutesName.home,arguments: [
+            //                     "${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}",
+            //                     true,
+            //                   "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalAmount}",
+            //                   "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalBalanceAmount}",
+            //                   "${ parentLoginController.parentStudentListModel.value?.response?[index]?.attandance?.present}",
+            //                   "https://e-gyan.co.in/${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}",
+            //                   "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
+            //                   "${ parentLoginController.parentStudentListModel.value?.response?[index]?.responseClass}",
+                            
+            //                   ]);  
+            //             toggleMenu(); 
+            //            },
+            //           );
+            //       },),
+            
+            //  ),
+
+               
+
+                //more child menu
+              ],
+            ),
+          ),
             SizedBox(
               height: 0.052.sh,
               child: ListTile(
@@ -518,7 +609,6 @@ class _GridViewallState extends State<GridViewall>
               dense: true,
 
               child: ExpansionTile(
-
                 collapsedIconColor: Colors.white,
                 textColor: Colors.white,
                 title: Text(

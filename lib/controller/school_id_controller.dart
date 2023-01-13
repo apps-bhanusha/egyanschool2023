@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
+import 'package:ecom_desgin/routes/routes.dart';
 import 'package:get/get.dart';
 import 'package:ecom_desgin/view/login/Student_Login.dart';
 import 'package:ecom_desgin/view/teacher/Teacher_Login.dart';
@@ -52,6 +53,10 @@ print(SchoolIdControllerList2[0]["response"]["company_key"]);
           print("teacher");
           // all.apicall(id.text);
         }
+         if(_radioVal=="parent"){
+                      Get.toNamed(RoutesName.parentLogin);
+                    }
+                   
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(sdata["message"], style: GoogleFonts.dmSans(

@@ -207,7 +207,7 @@ keyboardType: TextInputType.number,
               });
             },
           ),
-              Text("Parrents/Students",
+            Text("Parents",
                 style: GoogleFonts.dmSans(
                   fontStyle: FontStyle.normal,
                   fontSize: 15.sp,
@@ -216,6 +216,30 @@ keyboardType: TextInputType.number,
                 ),),
               Radio(
                 value: 2,
+                groupValue: _radioSelected,
+                activeColor: Colors.pink,
+                onChanged: (value) {
+                  setState(() {
+
+                    _radioVal="parent";
+                    _radioSelected=value!;
+
+                    print(value);
+                    rediobutton=value;
+
+                  });
+
+                },
+              ),
+              Text("Students",
+                style: GoogleFonts.dmSans(
+                  fontStyle: FontStyle.normal,
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+
+                ),),
+              Radio(
+                value: 3,
                 groupValue: _radioSelected,
                 activeColor: Colors.pink,
                 onChanged: (value) {
@@ -259,8 +283,8 @@ keyboardType: TextInputType.number,
                     backgroundColor: Colors.blue,
                   ),
                   onPressed: () async {
-
-                    all.apicall( id.text,_radioVal,context);
+                   
+                  all.apicall( id.text,_radioVal,context);
                    // id.text= await (sessionManager.set("id", id.text));
                     //    if (all.SchoolIdControllerList[0]["status"]==true) {
                     //       if(_radioVal=="Student" ){
