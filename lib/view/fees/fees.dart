@@ -20,7 +20,6 @@ class Fees extends StatefulWidget {
 }
 
 class _FeesState extends State<Fees> {
-
   var schoolname;
   var session;
   var studentname;
@@ -337,7 +336,7 @@ chartValueStyle:TextStyle(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Attandance",
+                                  "Total Fees",
 
                                   style: GoogleFonts.dmSans(
                                     fontStyle: FontStyle.normal,
@@ -349,7 +348,7 @@ chartValueStyle:TextStyle(
 
                                 ),
                                 Text(
-                                  studentpresent??"",
+                                  studenttotalfees.toString(),
                                   // _allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"].toString(),
 
                                   style: GoogleFonts.dmSans(

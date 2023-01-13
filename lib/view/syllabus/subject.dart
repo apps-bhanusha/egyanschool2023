@@ -38,9 +38,11 @@ class _SubjectLessionState extends State<SubjectLession> with TickerProviderStat
   get progress => progressFraction;
   // List GetSylabusStatusList=[];
 // List sylabusStatus=[];
+
   @override
   void initState() {
     print(GetSylabusStatus.GetSylabusStatusControllerList);
+
     //
     // for (int i = 0; i <GetSylabusStatus.GetSylabusStatusControllerList[0]["response"]["subjects_data"].length; i++){
     //   GetSylabusStatusList.add(GetSylabusStatus.GetSylabusStatusControllerList[0]["response"]["subjects_data"]);
@@ -98,7 +100,7 @@ void dispose() {
 
       appBar: AppBar(
         backgroundColor:AgentColor.appbarbackgroundColor,
-        title: Text('Class Time Table',style: MyGoogeFont.mydmSans),
+        title: Text('Syllabus Status',style: MyGoogeFont.mydmSans),
         actions: [
           PopupMenuButton<int>(
             itemBuilder: (context) {
@@ -460,7 +462,7 @@ void dispose() {
                                        children: [
                                          Image.asset("assets/images/teacher.png",width: 20,height: 20,),
                                          Padding(
-                                           padding: const EdgeInsets.only(left: 8.0).r,
+                                           padding: const EdgeInsets.only(left: 5.0).r,
                                            child:  Obx(
                                                    () =>
                                                GetSylabusStatus.loadingGetSylabusStatus.value?
@@ -468,10 +470,13 @@ void dispose() {
                                                  // GetSylabusStatusList[0]["$i"]["complete"].toString(),
                                                  style: GoogleFonts.dmSans(
                                                    fontStyle: FontStyle.normal,
-                                                   fontSize: 15.sp,
-                                                   fontWeight: FontWeight.bold,
+                                                   fontSize: 12.sp,
+                                                   fontWeight: FontWeight.normal,
                                                    color: Colors.black,
+
                                                  ),
+
+                                                 overflow: TextOverflow.ellipsis,
                                                ):Text("")
                                            ),
                                          )

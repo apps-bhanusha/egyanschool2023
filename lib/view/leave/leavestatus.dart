@@ -1,10 +1,14 @@
 import 'package:ecom_desgin/constant/Colors.dart';
+import 'package:ecom_desgin/constant/date_format.dart';
 import 'package:ecom_desgin/constant/font.dart';
+import 'package:ecom_desgin/controller/studentLeaveRecord_controller.dart';
 import 'package:ecom_desgin/model/user.dart';
 import 'package:ecom_desgin/model/user_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,6 +22,10 @@ class LeaveStatus extends StatefulWidget {
 }
 
 class _LeaveStatusState extends State<LeaveStatus> {
+  var company_key;
+  var userfile;
+  var id;
+  StudentLeaveRecordController StudentLeaveRecord=Get.put(StudentLeaveRecordController());
   int currentTab = 0;
   DateTime today = DateTime.now();
 
@@ -25,11 +33,20 @@ class _LeaveStatusState extends State<LeaveStatus> {
   List<User> userList = [];
 
   get dateStr => "${today.day}-${today.month}-${today.year}";
+  var box = Hive.box("schoolData");
 @override
   void initState() {
   String dateStr = "${today.day}-${today.month}-${today.year}";
   print(dateStr);
     super.initState();
+
+  id = box.get("student_id");
+  company_key = box.get("company_key");
+  StudentLeaveRecord.StudentLeaveRecordapi(company_key,id);
+  print("4444444444444444443333333");
+  print(StudentLeaveRecord.StudentLeaveRecordControllerList);
+  print(StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][0]["approve_by"]);
+
   }
 
   @override
@@ -87,6 +104,11 @@ class _LeaveStatusState extends State<LeaveStatus> {
       // for (int i = 0; i <= 3; i++)
 
       InkWell(
+      onTap:(){
+        print("4444444444444444443333333");
+        print(StudentLeaveRecord.StudentLeaveRecordControllerList);
+        print(StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][index]["approve_by"]);
+      },
           child: Card(
             elevation: 10,
             shape: RoundedRectangleBorder(
@@ -106,7 +128,7 @@ class _LeaveStatusState extends State<LeaveStatus> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(
-                      left: 10,top: 10
+                      left: 10,top: 5
                   ).r,
                   child: Row(
                     children: [
@@ -121,13 +143,16 @@ class _LeaveStatusState extends State<LeaveStatus> {
                               color: Colors.black,
                             ),
                           ),
-                          Text(
-                            dateStr.toString(),
-                            style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                          Obx(
+                                () =>
+                                Text(
+                                  StudentLeaveRecord.loadingStudentLeaveRecord.value? StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][index]["apply_date"]!=null?MyDateFormat.dateformatmethod1(StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][index]["apply_date"]):"":"",
+                              style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
                         ],
@@ -148,7 +173,7 @@ class _LeaveStatusState extends State<LeaveStatus> {
 
                   child: Padding(
                     padding: EdgeInsets.only(
-                      left: 10,
+                      left: 5,
                     ).r,
                     child: Row(
                       children: [
@@ -156,32 +181,36 @@ class _LeaveStatusState extends State<LeaveStatus> {
                         // SizedBox(
                         //   width: 0.01.sw,
                         // ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15).r,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                        SizedBox(
+width:0.25.sw,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 10).r,
+                            child: Column(
 
-                              Text(
-                                "Panding",
-                                style: GoogleFonts.dmSans(
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.red,
+                              children: [
+
+                                Obx(
+                                () =>
+                               Text(
+                                 StudentLeaveRecord.loadingStudentLeaveRecord.value?StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][index]["approve_by"]!=null?StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][index]["leave_status"]:"":"",
+                                    style: GoogleFonts.dmSans(
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red,
+                                    ),
+                                  ),
                                 ),
-                              ),
 
 
 
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                         // const Icon(Icons.timelapse),
-                        SizedBox(
-                          width: 0.094.sw,
-                        ),
+
+
                         Padding(
                           padding:  EdgeInsets.only(left: 0.15.sw, right: 2,top: 2,bottom: 2).r,
                           child: Container(
@@ -212,13 +241,18 @@ class _LeaveStatusState extends State<LeaveStatus> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
-                                      child: Text( userList[index].fromdate,
-                                        style: GoogleFonts.dmSans(
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 13.sp,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),),
+                                      child:
+                                      Obx(
+                                            () =>
+                                            Text(
+                                              StudentLeaveRecord.loadingStudentLeaveRecord.value?StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][index]["from_date"]!=null?MyDateFormat.dateformatmethod1(StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][index]["from_date"]):"":"",
+                                          style: GoogleFonts.dmSans(
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 13.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -245,13 +279,17 @@ class _LeaveStatusState extends State<LeaveStatus> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
-                                      child: Text( userList[index].todate,
-                                        style: GoogleFonts.dmSans(
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 13.sp,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),),
+                                      child:     Obx(
+                                            () =>
+                                            Text(
+                                              StudentLeaveRecord.loadingStudentLeaveRecord.value?StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][index]["to_date"]!=null?MyDateFormat.dateformatmethod1(StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][index]["to_date"]):"":"",
+                                          style: GoogleFonts.dmSans(
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 13.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -274,7 +312,7 @@ class _LeaveStatusState extends State<LeaveStatus> {
 );
 
         },
-        itemCount: userList.length,
+        itemCount: StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"].length,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
       // bottomNavigationBar: BottomAppBar(

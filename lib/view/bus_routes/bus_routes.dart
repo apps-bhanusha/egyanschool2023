@@ -1,10 +1,12 @@
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
+import 'package:ecom_desgin/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 import 'package:rive/rive.dart';
@@ -39,7 +41,7 @@ static const _heightPercentages = [
     return Scaffold(
         appBar: AppBar(
           backgroundColor:AgentColor.appbarbackgroundColor,
-          title: Text('Download',style: MyGoogeFont.mydmSans),
+          title: Text('Bus route',style: MyGoogeFont.mydmSans),
           actions: [
             PopupMenuButton<int>(
               itemBuilder: (context) {
@@ -57,7 +59,7 @@ static const _heightPercentages = [
               elevation: 10,
               child: Container(
                 width: 0.95.sw,
-                height: 0.37.sh,
+                height: 0.42.sh,
                 child: Column(
                   children: [
                     Padding(
@@ -73,7 +75,7 @@ static const _heightPercentages = [
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: Row(
                         children: const [
                           Padding(
@@ -91,7 +93,7 @@ static const _heightPercentages = [
                         children: const [
                           Icon(Icons.drive_eta_rounded),
                           Padding(
-                            padding: EdgeInsets.all(10.0),
+                            padding: EdgeInsets.all(8.0),
                             child: Icon(Icons.call),
                           ),
                         ],
@@ -99,7 +101,7 @@ static const _heightPercentages = [
                     ),
                     const Divider(),
                     const Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(1.0),
                       child: Text(
                         "Pickup Drop Locations",
                         style: TextStyle(color: Colors.black54),
@@ -112,26 +114,34 @@ static const _heightPercentages = [
                     ),
                     const Divider(),
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        width: 0.5.sw,
-                        height: 0.05.sh,
-                        decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 50),
-                          child: Row(
-                            children: const [
-                              Icon(
-                                Icons.location_history,
-                                color: Colors.white,
-                              ),
-                              Text(
-                                "Track Bus",
-                                style: TextStyle(color: Colors.white),
-                              )
-                            ],
+                      padding:  EdgeInsets.all(10.0),
+                      child: InkWell(
+                        onTap: (){
+                      Get.toNamed(RoutesName.trackbus);
+                        },
+                        child: Container(
+                          width: 0.5.sw,
+                          height: 0.05.sh,
+                          decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 50),
+                            child: Row(
+                              children: const [
+                                Icon(
+                                  Icons.location_history,
+                                  color: Colors.white,
+                                ),
+                                InkWell(
+
+                                  child: Text(
+                                    "Track Bus",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),

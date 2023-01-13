@@ -1,4 +1,5 @@
 import 'package:ecom_desgin/main.dart';
+import 'package:ecom_desgin/view/bus_routes/track_bus.dart';
 import 'package:ecom_desgin/view/calender/attendance.dart';
 import 'package:ecom_desgin/view/examination/Exam_result.dart';
 
@@ -48,6 +49,7 @@ class RoutesName{
   static String addleave = '/addleave';
   static String leavestatus = '/leavestatus';
   static String examresult = '/Exam_result';
+  static String trackbus = '/track_bus';
 
 }
 
@@ -75,4 +77,5 @@ final getpages=[
  GetPage(name: RoutesName.addleave, page: () => const AddLeave(),transition: Transition.circularReveal),
  GetPage(name: RoutesName.leavestatus, page: () => const LeaveStatus(),transition: Transition.circularReveal),
  GetPage(name: RoutesName.examresult, page: () => const ExamResult(),transition: Transition.circularReveal),
+ GetPage(name: RoutesName.trackbus, page: () =>  TrackBusMap(),transition: Transition.circularReveal),
 ];

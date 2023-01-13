@@ -26,19 +26,19 @@ class Attendance extends StatefulWidget {
 }
 var  lengthchart=0.0;
  var  length=0.0;
-List<DateTime> absentDates = [
-  DateTime(2022, 1,4),
-  DateTime(2022, 11, 7),
-  DateTime(2022, 11, 8),
-  DateTime(2022, 11, 12),
-  DateTime(2022, 11, 13),
-  DateTime(2022, 11, 14),
-  DateTime(2022, 11, 16),
-  DateTime(2022, 11, 17),
-  DateTime(2022, 11, 18),
-  DateTime(2022, 11, 19),
-  DateTime(2022, 12, 20),
-];
+// List<DateTime> absentDates = [
+//   DateTime(2022, 1,4),
+//   DateTime(2022, 11, 7),
+//   DateTime(2022, 11, 8),
+//   DateTime(2022, 11, 12),
+//   DateTime(2022, 11, 13),
+//   DateTime(2022, 11, 14),
+//   DateTime(2022, 11, 16),
+//   DateTime(2022, 11, 17),
+//   DateTime(2022, 11, 18),
+//   DateTime(2022, 11, 19),
+//   DateTime(2022, 12, 20),
+// ];
 
 class _AttendanceState extends State<Attendance> {
 
@@ -198,9 +198,9 @@ void markedDatedMap(){
     print("3333ffff");
     print(count);
   }
-  var a = Jiffy(DateTime(2019, 10, 18)).month.toString();
+  // var a = Jiffy(DateTime(2019, 10, 18)).month.toString();
   print("444ddddddddd");
-  print(a);
+  // print(a);
   for (int i = 0; i <presentDates.length; i++) {
    print("4ggddc");
     // print(presentDates[i]["title"].length.toDouble());

@@ -8,6 +8,7 @@ import 'package:ecom_desgin/controller/getclasstimetable_controller.dart';
 import 'package:ecom_desgin/controller/getexamsResult_controller.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
+import 'package:ecom_desgin/controller/studentLeaveRecord_controller.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/calender/Calendar.dart';
@@ -40,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   GetexamsScheduleController getexamview=Get.put(GetexamsScheduleController());
   GetSylabusStatusController GetSylabusStatus=Get.put(GetSylabusStatusController());
+  StudentLeaveRecordController StudentLeaveRecord=Get.put(StudentLeaveRecordController());
   final GetSchoolSettingController _schoolsetting =
   Get.put(GetSchoolSettingController());
   // allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"]==0? (int.parse(_allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"].toString())) / 100:(int.parse(_allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"].toString())) / 100
@@ -61,7 +63,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   var company_key;
   var exam_id;
   var student_id;
-  var alld;
+
+
   int totalSecs = 90;
   int secsRemaining = 90;
   double progressFraction = 0.6;
@@ -159,6 +162,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     GetexamsResult.GetexamsResultapi( company_key,id);
     getexamview.GetexamsScheduleapi( company_key,exam_id);
     GetSylabusStatus.GetSylabusStatusapi(company_key,student_id);
+    StudentLeaveRecord.StudentLeaveRecordapi(company_key,id);
     _controller = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
@@ -1018,7 +1022,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             SizedBox(
               height: 0.052.sh,
               child: ListTile(
-                onTap: () => Get.toNamed(RoutesName.leavestatus),
+                onTap: () {
+
+                  Get.toNamed(RoutesName.leavestatus);
+                },
+
+
                 leading: const Icon(Icons.notifications,
                     size: 20.0, color: Colors.white),
                 title: const Text("Leave Status"),

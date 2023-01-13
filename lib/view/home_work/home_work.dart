@@ -1,6 +1,7 @@
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/home_word_controller.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:dio/dio.dart';
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:intl/intl.dart';
@@ -21,8 +23,13 @@ class HomeWork extends StatefulWidget {
 }
 
 class _HomeWorkState extends State<HomeWork> {
-  final HomeWorkController _homeWorkController = Get.put(HomeWorkController());
 
+  final HomeWorkController _homeWorkController = Get.put(HomeWorkController());
+  // FormData formData = new FormData.from({
+  //   "name": "wendux",
+  //   "file1": new UploadFileInfo(new File("./upload.jpg"), "upload1.jpg")
+  // });
+  // response = await dio.post("/info", data: formData)
   String _selectdrop = "select";
   List<String> dropdata = ["hindi", "math"];
   bool uploadDone = false;
@@ -116,7 +123,7 @@ class _HomeWorkState extends State<HomeWork> {
     }
   }
 
-  ////
+
   void showCustomDialog(BuildContext context) {
     showGeneralDialog(
       context: context,
@@ -280,28 +287,56 @@ class _HomeWorkState extends State<HomeWork> {
                                 color: Colors.black,
                               ),
                               children: <TextSpan>[
+
                                 TextSpan(
                                     text: '*',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.red)),
+
                               ],
                             ),
                           ),
                           Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              border: Border.all(
-                                color: Colors.blue,
-                                width: 1.0,
-                              ),
-                            ),
-                            child: const TextField(
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                              ),
-                            ),
+                            height: 0.08.sh,
+                            width: 0.15.sw,
+                            color: Colors.white,
+                            child: FloatingActionButton(
+
+                                child: Icon(Icons.upload_sharp),
+
+                                backgroundColor: Colors.white,
+                                onPressed: () async {
+
+                                  FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+                                  if (result != null) {
+                                    PlatformFile file = result.files.first;
+
+                                    print(file.name);
+                                    print(file.bytes);
+                                    print(file.size);
+                                    print(file.extension);
+                                    print(file.path);
+                                  } else {
+                                    print('No file selected');
+                                  }
+                                } ),
                           ),
+                          // Container(
+                          //         decoration: BoxDecoration(
+                          //           shape: BoxShape.rectangle,
+                          //           border: Border.all(
+                          //             color: Colors.blue,
+                          //             width: 1.0,
+                          //           ),
+                          //         ),
+                          //         child: const TextField(
+                          //           decoration: InputDecoration(
+                          //             border: InputBorder.none,
+                          //           ),
+                          //         ),
+                          //       ),
                           Padding(
                             padding: const EdgeInsets.all(15),
                             child: Center(
@@ -343,6 +378,7 @@ class _HomeWorkState extends State<HomeWork> {
       },
     );
   }
+
 void homework(){
     print("488888888888888888888888888888888888888882");
     print(_homeWorkController.homeWorkControllerList[0].length);
@@ -450,6 +486,7 @@ void homework(){
                                                 _homeWorkController
                                                     .isdownloadinmethod();
 
+
                                                 // Directory dir = Directory(
                                                 //     '/storage/emulated/0/Download');
                                                 // download(
@@ -493,6 +530,7 @@ void homework(){
                                                             //             tempDir.path),
                                                             //   ),
                                                             // );
+
                                                           },
                                                           child: SizedBox(
                                                             width: 0.32.sw,
@@ -631,12 +669,17 @@ title: Text("Description",   style: GoogleFonts.dmSans(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      const Text("Evulationdate:-",
-                                          style: TextStyle(
-                                              color: Color.fromARGB(255, 0, 0, 0),
-                                              fontSize: 11)),
+                                   Text("Evulationdate:-",
+                                        style: GoogleFonts.dmSans(
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 11.sp,
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.black,
+                                        ),),
                                       Obx(
-                                        () => Text(
+                                        () => Text(_homeWorkController
+                                            .homeWorkControllerList[0][i]
+                                        ["evaluation_date"]=="0000-00-00"?"":
                                             _homeWorkController
                                                     .homeWorkControllerList[0][i]
                                                 ["evaluation_date"]??"",
@@ -666,7 +709,8 @@ title: Text("Description",   style: GoogleFonts.dmSans(
                                             ),),
                                           Obx(
                                             () => Text(
-                                                _homeWorkController
+                                              _homeWorkController
+                                                  .homeWorkControllerList[0][i]["submit_date"]=="0000-00-00"?"": _homeWorkController
                                                         .homeWorkControllerList[0][i]["submit_date"]??"",
                                               style: GoogleFonts.dmSans(
                                                 fontStyle: FontStyle.normal,
