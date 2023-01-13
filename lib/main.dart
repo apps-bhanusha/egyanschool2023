@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/calender/Calendar.dart';
 import 'package:ecom_desgin/view/dashboard/home.dart';
@@ -43,6 +44,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 class _SplashScreenState extends State<SplashScreen> {
+  ParentLoginController parentLoginController=Get.put(ParentLoginController());
+
   var name;
   String url = "Your_URL";
   String? userlogin;
@@ -55,6 +58,13 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       const Duration(seconds: 7),
           () => name!=null ?Get.to(const ParentStudentList()):Get.toNamed(RoutesName.schoolId),
+  //         () {
+  //                  var box = Hive.box("schoolData");
+  //    var user=    box.get("username").toString();
+  //     var pass=  box.get("password").toString();
+  //  parentLoginController.parentapi(user, pass,"");
+  //  Get.to(const ParentStudentList());
+  //         }
     );
    // name!=null ?Get.toNamed(RoutesName.home):Get.toNamed(RoutesName.schoolId),
 

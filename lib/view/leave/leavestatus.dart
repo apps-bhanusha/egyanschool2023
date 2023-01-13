@@ -25,6 +25,7 @@ class _LeaveStatusState extends State<LeaveStatus> {
   var company_key;
   var userfile;
   var id;
+  // ignore: non_constant_identifier_names
   StudentLeaveRecordController StudentLeaveRecord=Get.put(StudentLeaveRecordController());
   int currentTab = 0;
   DateTime today = DateTime.now();

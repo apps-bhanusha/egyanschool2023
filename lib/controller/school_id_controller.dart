@@ -44,16 +44,17 @@ print(SchoolIdControllerList2[0]["response"]["company_key"]);
         box.put("company_key",SchoolIdControllerList2[0]["response"]["company_key"]);
 
         _schoolsetting.GetSchoolSettingapi(SchoolIdControllerList2[0]["response"]["company_key"]);
-        if (_radioVal == "Student") {
-          Get.to(() => StudentLogin());
+        if (_radioVal == 3) {
+          Get.to( StudentLogin());
           print("Student");
         }
-        if (_radioVal == "Teacher") {
-          Get.to(() => TeacherLogin());
+        if (_radioVal == 1) {
+           Get.to( const TeacherLogin());
+         
           print("teacher");
           // all.apicall(id.text);
         }
-         if(_radioVal=="parent"){
+         if(_radioVal==2){
                       Get.toNamed(RoutesName.parentLogin);
                     }
                    

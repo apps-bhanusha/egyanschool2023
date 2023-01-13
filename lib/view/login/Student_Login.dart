@@ -53,7 +53,7 @@ class _StudentLoginState extends State<StudentLogin> {
       body:
       ListView(
         children: <Widget>[
-          Stack(
+           Stack(
 
             children: <Widget>[
               ClipPath(
@@ -67,10 +67,39 @@ class _StudentLoginState extends State<StudentLogin> {
               ClipPath(
                 clipper: WaveClipper3(),
                 child: Container(
-                  child: Center(child: Text("Parent Login",style: TextStyle(color:Colors.white,fontSize: 23),)),
-width: MediaQuery.of(context).size.width,height: 0.43.sh,decoration: const BoxDecoration(color: Colors.lightBlue),),),
+
+                  child: Column(
+                    children: <Widget>[SizedBox(height: 0.010.sh,),
+                      ClipOval(child: Obx(()=> _schoolsetting.loadingimage.value?Image.network(_schoolsetting.GetSchoolSettingControllerList[0]["response"]["image"],width: 100,height: 100,):CircularProgressIndicator())),
+                      SizedBox(height: 0.010.sh,),
+                      SizedBox(
+
+                        child: Obx(() => _schoolsetting.loadingimage.value? Text(_schoolsetting.GetSchoolSettingControllerList[0]["response"]["name"],style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+
+                            ),
+                          overflow:TextOverflow.ellipsis,
+                        ):const Text("")),
+                      ),],),width: MediaQuery.of(context).size.width,height: 0.43.sh,decoration: const BoxDecoration(color: Colors.lightBlue),),),
+           Positioned (
+            top: 0.25.sh,
+            left: 0.32.sw,
+            
+               child: Text("Student Login",style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 23.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+             
+                              ),
+               ),
+             ),
             ],
           ),
+          
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 32).r,
             child: Material(

@@ -80,14 +80,12 @@ print(SchoolIdControllerList[0]["response"][0]["fee"]["total_deposite_amount"]);
         print("333333878777uuu");
 print(SchoolIdControllerList[0]["response"][0]["profileimage"]);
     // ,all.SchoolIdControllerList2[0]["response"]["company_key"]
-
        // studentpro= box.get("studentprofileimage");
        //  print("33333387877555543447uuu");
        //  print(studentpro);
       loadingdata.value=true;
-           return Get.to(() => HomeScreen(),arguments: ['0',false],);
+           return Get.offAll( const HomeScreen(),arguments: ['0',false]);
       }
-
       else  {
         ScaffoldMessenger.of (context).showSnackBar(SnackBar(content: Text(sdata["message"], style: GoogleFonts.dmSans(
             fontStyle: FontStyle.normal,

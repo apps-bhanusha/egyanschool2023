@@ -284,7 +284,7 @@ keyboardType: TextInputType.number,
                   ),
                   onPressed: () async {
                    
-                  all.apicall( id.text,_radioVal,context);
+                  all.apicall( id.text,rediobutton,context);
                    // id.text= await (sessionManager.set("id", id.text));
                     //    if (all.SchoolIdControllerList[0]["status"]==true) {
                     //       if(_radioVal=="Student" ){

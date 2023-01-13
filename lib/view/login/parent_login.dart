@@ -64,7 +64,7 @@ class _ParentLoginState extends State<ParentLogin> {
                     child: Column(),
                     width: MediaQuery.of(context).size.width,
                     height: 0.44.sh,
-                    decoration: BoxDecoration(color: Colors.blue),
+                    decoration: const BoxDecoration(color: Colors.blue),
                   )),
               ClipPath(
                 clipper: WaveClipper3(),
@@ -86,8 +86,24 @@ class _ParentLoginState extends State<ParentLogin> {
                           overflow:TextOverflow.ellipsis,
                         ):const Text("")),
                       ),],),width: MediaQuery.of(context).size.width,height: 0.43.sh,decoration: const BoxDecoration(color: Colors.lightBlue),),),
+            
+          Positioned (
+            top: 0.25.sh,
+            left: 0.32.sw,
+  
+               child: Text("Parent Login",style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 23.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+             
+                              ),
+               ),
+             )
             ],
           ),
+        
+
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 32).r,
             child: Material(

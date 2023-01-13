@@ -30,10 +30,7 @@ class ParentLoginController extends GetxController{
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-  var box = Hive.box("schoolData");
-     var user=    box.get("username").toString();
-      var pass=  box.get("password").toString();
-    parentapi(user, pass,"");
+  
   }
 
 
@@ -62,7 +59,7 @@ class ParentLoginController extends GetxController{
         var box = Hive.box("schoolData");
         var company_key = box.get("company_key");
       loadingdata.value=true;
-           return Get.to(() => const ParentStudentList());
+           return Get.offAll(const ParentStudentList());
       }
 
       else  {

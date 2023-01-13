@@ -285,7 +285,7 @@ var schoolname;
                         ),
                       ),
                     ),
-                   Obx(() => ListView.builder(
+                   Obx(() => parentLoginController.loadingdata.value? ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemCount: parentLoginController.parentStudentListModel.value?.response!=null ?parentLoginController.parentStudentListModel.value?.response?.length:0,
@@ -497,7 +497,7 @@ var schoolname;
                      ),
                    ),
                                   );
-                   },))
+                   },):const Center(child: CircularProgressIndicator(color: Colors.blue),))
                    ,
                   ]),
                    
