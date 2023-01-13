@@ -66,6 +66,8 @@ Get.put(GetSchoolSettingController());
     id = box.get("student_id");
     company_key = box.get("company_key");
     all.Feesapi(id ,company_key);
+    print("CKECKCKCKCKCKKKCKCK");
+    print(studentduefees);
     super.initState();
   }
   late Map<String, double> dataMap = {

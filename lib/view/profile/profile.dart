@@ -27,6 +27,8 @@ class _ProfileState extends State<Profile> {
   var admission_no;
   var roll_no;
   var email;
+  var samagra_id;
+  var adhar_no;
   var box = Hive.box("schoolData");
   @override
   void initState() {
@@ -42,7 +44,9 @@ class _ProfileState extends State<Profile> {
     mobileno=box.get("mobileno");
     admission_no=box.get("admission_no");
     roll_no=box.get("roll_no");
-    email=box.get("email");
+    samagra_id=box.get("samagra_id");
+    roll_no=box.get("roll_no");
+    adhar_no=box.get("adhar_no");
 
     super.initState();
   }
@@ -231,7 +235,7 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                       trailing: Text(
-                        '${email??""}',
+                      samagra_id??"",
                         style: GoogleFonts.dmSans(
                           fontStyle: FontStyle.normal,
                           fontSize: 15.sp,
@@ -252,7 +256,7 @@ class _ProfileState extends State<Profile> {
                       ),
                       ),
                       trailing: Text(
-                        '${email??""}',
+                       adhar_no??"",
                         style: GoogleFonts.dmSans(
                           fontStyle: FontStyle.normal,
                           fontSize: 15.sp,

@@ -42,63 +42,58 @@ class _SyllabusState extends State<Syllabus> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        backgroundColor: Color(0xff8DD0E5),
-        title: Text("Syllabus Status"),
+        backgroundColor: const Color(0xff8DD0E5),
+        title: const Text("Syllabus Status"),
       ),
 
       body: Center(
         child: Column(
           children: [
             SizedBox(height: 0.020.sh),
-            Container(
+            CircularPercentIndicator(
+              radius: 90.0,
+              lineWidth: 35.0,
+              reverse: true,
+              // backgroundColor: Colors.grey,
+              percent: progress,
+              animateFromLastPercent: true,
+              circularStrokeCap: CircularStrokeCap.round,
+              addAutomaticKeepAlive: true,
+              animation: true,
+              animationDuration: 1000,
+
+                center: Container(
 
 
-              child: CircularPercentIndicator(
-                radius: 90.0,
-                lineWidth: 35.0,
-
-                reverse: true,
-                // backgroundColor: Colors.grey,
-                percent: progress,
-                animateFromLastPercent: true,
-                circularStrokeCap: CircularStrokeCap.round,
-addAutomaticKeepAlive: true,
-                animation: true,
-                animationDuration: 1000,
-
-                  center: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
 
 
-                  decoration: BoxDecoration(
-                    color: Colors.white,
+                      shape: BoxShape.circle,
 
-
-                        shape: BoxShape.circle,
-
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: CircleAvatar(
-radius: 45,
-                    backgroundColor: Colors.white,
-
-                    child: Text('$percentage%',  style: GoogleFonts.dmSans(
-                      fontStyle: FontStyle.normal,
-                      fontSize: 30.sp,
-                      fontWeight: FontWeight.bold,
-                      color:Colors.green
-                    ),),
-                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
                 ),
-                progressColor: Colors.blue,
+                child: CircleAvatar(
+                  radius: 45,
+                  backgroundColor: Colors.white,
 
+                  child: Text('$percentage%',  style: GoogleFonts.dmSans(
+                    fontStyle: FontStyle.normal,
+                    fontSize: 30.sp,
+                    fontWeight: FontWeight.bold,
+                    color:Colors.green
+                  ),),
+                ),
               ),
+              progressColor: Colors.blue,
+
             ),
             Padding(
               padding: const EdgeInsets.all(5.0),
@@ -121,15 +116,13 @@ radius: 45,
                     SizedBox(height: 0.040.sh,),
                     Align(
                       alignment: Alignment.topLeft,
-                      child: Container(
-                        child: Text(
-                          "Subject-Lession-Topic Status",
-                          style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
+                      child: Text(
+                        "Subject-Lession-Topic Status",
+                        style: GoogleFonts.dmSans(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
                       ),
                     ),
                     SizedBox(height: 0.020.sh,),
@@ -154,16 +147,13 @@ radius: 45,
               
                           Padding(
                             padding: const EdgeInsets.only(left: 20).r,
-                            child: Container(
-              
-                              child: Text(
-                                "55% Completed",
-                                style: GoogleFonts.dmSans(
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              ),
+                            child: Text(
+                              "55% Completed",
+                              style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
                             ),
                           ),
               

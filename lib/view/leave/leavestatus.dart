@@ -42,10 +42,8 @@ class _LeaveStatusState extends State<LeaveStatus> {
 
   id = box.get("student_id");
   company_key = box.get("company_key");
-  StudentLeaveRecord.StudentLeaveRecordapi(company_key,id);
-  print("4444444444444444443333333");
-  print(StudentLeaveRecord.StudentLeaveRecordControllerList);
-  print(StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][0]["approve_by"]);
+  StudentLeaveRecord.loadingStudentLeaveRecord.value? StudentLeaveRecord.StudentLeaveRecordapi(company_key,id):CircularProgressIndicator();
+
 
   }
 
@@ -105,9 +103,7 @@ class _LeaveStatusState extends State<LeaveStatus> {
 
       InkWell(
       onTap:(){
-        print("4444444444444444443333333");
-        print(StudentLeaveRecord.StudentLeaveRecordControllerList);
-        print(StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][index]["approve_by"]);
+
       },
           child: Card(
             elevation: 10,
@@ -184,25 +180,42 @@ class _LeaveStatusState extends State<LeaveStatus> {
                         SizedBox(
 width:0.25.sw,
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 10).r,
+                            padding: const EdgeInsets.only(left:5 ,top: 0).r,
                             child: Column(
-
+mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
 
                                 Obx(
                                 () =>
                                Text(
-                                 StudentLeaveRecord.loadingStudentLeaveRecord.value?StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][index]["approve_by"]!=null?StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][index]["leave_status"]:"":"",
+                                 StudentLeaveRecord.loadingStudentLeaveRecord.value?StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][index]["leave_status"]!=null?StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][index]["leave_status"]:"":"",
                                     style: GoogleFonts.dmSans(
                                       fontStyle: FontStyle.normal,
-                                      fontSize: 18.sp,
+                                      fontSize: 17.sp,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.red,
                                     ),
                                   ),
                                 ),
 
+SizedBox(height: 0.010.sh,),
+                                SizedBox(
 
+                                  width: 0.25.sw,
+                                  child: Obx(
+                                        () =>
+                                        Text(
+                                          StudentLeaveRecord.loadingStudentLeaveRecord.value?StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][index]["approved_by_staff_name"]!=null?StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"][index]["approved_by_staff_name"]:"":"",
+                                          style: GoogleFonts.dmSans(
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                  ),
+                                ),
 
                               ],
                             ),

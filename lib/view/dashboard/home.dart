@@ -3,11 +3,13 @@ import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/attendance_controller.dart';
+import 'package:ecom_desgin/controller/fees_controller.dart';
 import 'package:ecom_desgin/controller/getSylabusStatus_controller.dart';
 import 'package:ecom_desgin/controller/getclasstimetable_controller.dart';
 import 'package:ecom_desgin/controller/getexamsResult_controller.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
+import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/calender/Calendar.dart';
@@ -39,7 +41,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   GetexamsResultController GetexamsResult=Get.put(GetexamsResultController());
 
   GetexamsScheduleController getexamview=Get.put(GetexamsScheduleController());
-  GetSylabusStatusController GetSylabusStatus=Get.put(GetSylabusStatusController());
+  GetSylabusStatusController getSylabusStatus=Get.put(GetSylabusStatusController());
+  ParentLoginController parentLoginController=Get.put(ParentLoginController());
+FeeController feeController=Get.put(FeeController());
+
   final GetSchoolSettingController _schoolsetting =
   Get.put(GetSchoolSettingController());
   // allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"]==0? (int.parse(_allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"].toString())) / 100:(int.parse(_allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"].toString())) / 100
@@ -62,13 +67,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   var exam_id;
   var student_id;
   var alld;
+  late String urlimage;
   int totalSecs = 90;
   int secsRemaining = 90;
   double progressFraction = 0.6;
   int percentage = 0;
 
-  late double TotalFees = double.parse(_allsetController.SchoolIdControllerList[0]["response"][0]["fee"]["total_amount"]);
-  late double DueFees = double.parse(_allsetController.SchoolIdControllerList[0]["response"][0]["fee"]["total_balance_amount"]);
+ var present;
+
   // double progressFraction = 0.0;
   //
   // double percentage = 0;
@@ -77,7 +83,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   DateTime now = DateTime.now();
   late int lastday = DateTime(now.year, now.month + 1, 0).day;
   late int days =lastday ;
-  late double present = double.parse(_allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"]);
   double progressFraction1 = 0.0;
   double percentage1 = 0;
   late Timer timer1;
@@ -91,24 +96,60 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void initState() {
 
+
+
+  
     var id = box.get("company_key");
     _schoolsetting.GetSchoolSettingapi(id,);
-    studentname = box.get("studentname");
-    studentclass = box.get("studentclass");
-    studentsection = box.get("studentsection");
-    studenttotalfees = box.get("studenttotalfees");
-    studentduefees = box.get("studentduefees");
-    studentpresent = box.get("studentpresent");
-    schoolname = box.get("schoolname");
-    session = box.get("session");
-    studentpro=box.get("studentprofileimage");
-    exam_id=box.get("exam_view");
+   
+
 
     id = box.get("student_id");
     student_id = box.get("student_id");
     company_key = box.get("company_key");
-
     print("322222222222222222222222222222gggggggggggggg22222222");
+      if(Get.arguments[1]==true){
+        urlimage=Get.arguments[5];
+         id = Get.arguments[0];
+    studentname =Get.arguments[6];
+    studentclass = Get.arguments[7];  
+    box.put("student_id", Get.arguments[0]);
+    box.put("studenttotalfees", int.parse(Get.arguments[2].toString()));
+    box.put("studentduefees", int.parse(Get.arguments[3].toString()));
+    box.put("studentpresent", Get.arguments[4].toString());
+    box.put("studentname", Get.arguments[6].toString());
+    box.put("studentclass", Get.arguments[7].toString());
+    box.put("studentprofileimage", Get.arguments[5].toString());
+    box.put("exam_view", "${ parentLoginController.parentStudentListModel.value?.parentInfo?["exam_view"]}");
+    box.put("mobileno", Get.arguments[8]);
+    box.put("admission_no", Get.arguments[9]);
+    box.put("roll_no", Get.arguments[10]);
+    box.put("samagra_id", Get.arguments[11]);
+    box.put("adhar_no", Get.arguments[12]);
+    
+   
+    // student_id = Get.arguments[0];
+
+    // present = Get.arguments[4].toString();
+    // studenttotalfees =Get.arguments[2].toString();
+    // studentduefees = Get.arguments[0].toString();
+    }else{
+    
+    }
+     studentname = box.get("studentname");
+    studentclass = box.get("studentclass");
+    studentsection = box.get("studentsection");
+   
+    schoolname = box.get("schoolname");
+    session = box.get("session");
+    studentpro=box.get("studentprofileimage");
+    exam_id=box.get("exam_view");
+    studenttotalfees = box.get("studenttotalfees");
+    studentduefees = box.get("studentduefees");
+    studentpresent = box.get("studentpresent");
+print("HOHOHOHOHOHOHOH");
+print(studentduefees);
+
   // alld=(int.parse(_allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"])) / 100;
   //       print("444mmmmmmmmmmmmmm4444");
   //      print(alld);
@@ -116,16 +157,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 //     print(studentname);
     // _loading = false;
     // _progressValue =double.parse(_allsetController.SchoolIdControllerList[0]["response"][0]["fee"]["total_amount"]);
-    timer = Timer.periodic(Duration(milliseconds: 20), (_) {
-      if(secsRemaining == 40){
-        return;
-      }
-      setState(() {
-        secsRemaining -= 1;
-        progressFraction = (totalSecs - secsRemaining) / totalSecs;
-        percentage = (progressFraction*100).floor();
-      });
-    });
+    // timer = Timer.periodic(Duration(milliseconds: 20), (_) {
+    //   if(secsRemaining == 40){
+    //     return;
+    //   }
+    //   setState(() {
+    //     secsRemaining -= 1;
+    //     progressFraction = (totalSecs - secsRemaining) / totalSecs;
+    //     percentage = (progressFraction*100).floor();
+    //   });
+    // });
     // timer = Timer.periodic(Duration(milliseconds: 100), (_) {
     //   if(DueFees == TotalFees){
     //     return ;
@@ -137,16 +178,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     //   });
     // });
 
-    timer1 = Timer.periodic(Duration(milliseconds: 100), (_) {
-      if(present == days){
-        return ;
-      }
-      setState(() {
-        present -= 1;
-        progressFraction1 = (present*lastday) /present;
-        percentage1 = (progressFraction*100).floor() as double;
-      });
-    });
+    // timer1 = Timer.periodic(Duration(milliseconds: 100), (_) {
+    //   if(present == days){
+    //     return ;
+    //   }
+    //   setState(() {
+    //     present -= 1;
+    //     progressFraction1 = (present*lastday) /present;
+    //     // percentage1 = (progressFraction*100).floor() as double;
+    //   });
+    // });
     super.initState();
     // _updateProgress();
     //
@@ -154,11 +195,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     //   _loading = !_loading;
     //   _updateProgress();
     // });
+feeController.Feesapi(id, company_key);
 
     GetclassTimeTable.GetclassTimeTableapi( company_key,id);
     GetexamsResult.GetexamsResultapi( company_key,id);
     getexamview.GetexamsScheduleapi( company_key,exam_id);
-    GetSylabusStatus.GetSylabusStatusapi(company_key,student_id);
+    getSylabusStatus.GetSylabusStatusapi(company_key,student_id);
     _controller = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
@@ -275,9 +317,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   itemBuilder: (context)  {
 
                     return <PopupMenuEntry<int>>[
-                      PopupMenuItem(child: InkWell(child: Text('Logout'),
+                      PopupMenuItem(value: 0, child: InkWell(child: const Text('Logout'),
                         onTap:() async { await SessionManager().remove("name");
                         Get.toNamed(RoutesName.schoolId);
+                        // ignore: use_build_context_synchronously
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("logout", style: GoogleFonts.dmSans(
                             fontStyle: FontStyle.normal,
@@ -289,7 +332,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             backgroundColor: Colors.white,
                           ),
                         );
-                        },), value: 0),
+                        },)),
                       PopupMenuItem(child: Text('about'), value: 1),
                     ];
                   },
@@ -332,7 +375,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             translation: Offset(0.0, -0.5),
                             child: ClipOval(
                               child: Align(
-                                child: CachedNetworkImage(
+                                alignment: FractionalOffset(0.5, 0.0),
+                                child:
+                                 CachedNetworkImage(
                                   placeholder: (context, url) => CircleAvatar(
                                     maxRadius:
                                     MediaQuery.of(context).size.width -
@@ -342,14 +387,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       "assets/images/user1.png",
                                     ),
                                   ),
-                                  imageUrl: '${ApiUrl.imagesUrl}${studentpro}'!=null ?'${ApiUrl.imagesUrl.toString()}${studentpro.toString()}':
+                                  imageUrl:Get.arguments[1]?Get.arguments[5]: '${ApiUrl.imagesUrl}${studentpro}'!=null ?'${ApiUrl.imagesUrl.toString()}${studentpro.toString()}':
                                   "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.clipartmax.com%2Fmiddle%2Fm2i8N4d3i8m2Z5A0_how-to-use-this-website-e-learning-student-icon%2F&psig=AOvVaw1cQVeYYslr-4AcEz9do-do&ust=1673154552886000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCPCCn8jYtPwCFQAAAAAdAAAAABAG"
                                   // _allsetController
                                   //     .SchoolIdControllerList[0]["response"]
                                   // [0]["profileimage"]
                                   //     .toString(),
                                 ),
-                                alignment: FractionalOffset(0.5, 0.0),
                               ),
                             ),
                           ),
@@ -578,7 +622,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             width: 0.30.sw,
                             child: LiquidLinearProgressIndicator(
                               value: (studenttotalfees-studentduefees) / studenttotalfees, // Defaults to 0.5.
-                              valueColor: AlwaysStoppedAnimation(
+                              valueColor: const AlwaysStoppedAnimation(
                                 // DueFees
                                 //     ? Color.fromARGB(255, 91, 167, 230)
                                 Color.fromARGB(255, 228, 97, 87),
@@ -630,7 +674,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             height: 0.14.sh,
                             width: 0.30.sw,
                             child: LiquidLinearProgressIndicator(
-                              value: (int.parse(studentpresent)) / 100,// Defaults to 0.5.
+                              value: studentpresent!=null?(int.parse(studentpresent)) / 100:0,// Defaults to 0.5.
                               valueColor: const AlwaysStoppedAnimation(
                                   Color.fromARGB(255, 144, 212,
                                       146)), // Defaults to the current Theme's accentColor.
@@ -774,7 +818,60 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 dense: true,
               ),
             ),
+ListTileTheme(
+            dense: true,
 
+            child: ExpansionTile(
+
+              collapsedIconColor: Colors.white,
+              textColor: Colors.white,
+              title: Text(
+                "Select Student",
+                style: GoogleFonts.dmSans(
+                  fontStyle: FontStyle.normal,
+                  fontSize: 14.sp,
+
+                  color: Colors.white,
+                ),
+              ),
+              leading: const Icon(Icons.book_outlined,
+                  size: 20.0, color: Colors.white),
+
+              childrenPadding: EdgeInsets.only(left: 60), //children padding
+              children: [
+             Obx(() =>  ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                    itemCount: parentLoginController.parentStudentListModel.value?.response!=null ?parentLoginController.parentStudentListModel.value?.response?.length:0,
+                itemBuilder: (context, index) {
+                return   ListTile(
+                    title:  Text( "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
+                      style: GoogleFonts.dmSans(
+                        fontStyle: FontStyle.normal,
+                        fontSize: 14.sp,
+                        color: Colors.white,
+                      ),),
+                     onTap: () {
+                            print("${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}"); 
+                            Get.toNamed(RoutesName.home,arguments: [
+                              "${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}",
+                              false,
+                            "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalAmount}",
+                            "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalBalanceAmount}",
+                            "${ parentLoginController.parentStudentListModel.value?.response?[index]?.attandance?.present}",
+                            "https://e-gyan.co.in/${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}",
+                            ]);  
+                       toggleMenu(); 
+                     },
+                );
+              },),)
+
+               
+
+                //more child menu
+              ],
+            ),
+          ),
             SizedBox(
               height: 0.052.sh,
               child: ListTile(
@@ -847,7 +944,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               height: 0.052.sh,
               child: ListTile(
                 onTap: () {
-                  if (GetSylabusStatus.GetSylabusStatusControllerList!=null){
+                  if (getSylabusStatus.GetSylabusStatusControllerList!=null){
 
                     Get.toNamed(RoutesName.lession);
                   }

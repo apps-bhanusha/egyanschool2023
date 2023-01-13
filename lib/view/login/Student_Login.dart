@@ -179,7 +179,7 @@ width: MediaQuery.of(context).size.width,height: 0.43.sh,decoration: const BoxDe
             child: Container(
               margin: const EdgeInsets.only(right: 30).r,
               child: Text(
-                "Forget PassWord",
+                "Forget Passsord",
                 style: GoogleFonts.dmSans(
                   fontStyle: FontStyle.normal,
                   fontSize: 15.sp,

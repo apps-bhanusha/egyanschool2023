@@ -1,17 +1,12 @@
-<<<<<<< HEAD
 import 'package:ecom_desgin/constant/date_format.dart';
 import 'package:ecom_desgin/controller/addstudentLeaveRecord_controller.dart';
 import 'package:ecom_desgin/controller/studentLeaveRecord_controller.dart';
-=======
-
->>>>>>> origin/master
 import 'package:ecom_desgin/model/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-<<<<<<< HEAD
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:file_picker/file_picker.dart';
@@ -22,18 +17,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:date_format/date_format.dart';
-=======
-
-import 'package:google_fonts/google_fonts.dart';
-import 'package:file_picker/file_picker.dart';
-
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
-
->>>>>>> origin/master
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
@@ -51,13 +34,22 @@ class AddUserDialog extends StatefulWidget {
 }
 
 class _AddUserDialogState extends State<AddUserDialog>with SingleTickerProviderStateMixin {
-
+  StudentLeaveRecordController StudentLeaveRecord=Get.put(StudentLeaveRecordController());
+  AddStudentLeaveRecordController AddStudentLeaveRecord=Get.put(AddStudentLeaveRecordController());
+var pickedRange1;
+var  pickedRange2;
+var from_date;
+var to_date;
+var message;
+var student_id;
+var company_key;
+var userfile;
+var id;
   List<types.Message> _messages = [];
   final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
 
   late Animation<double> _animation;
   late AnimationController _animationController;
-<<<<<<< HEAD
   Future selectDateRange(BuildContext context) async {
     // DateTimeRange? pickedRange = await showDateRangePicker(
     //     context: context,
@@ -103,19 +95,11 @@ var box = Hive.box("schoolData");
     fromdateController.text = "";
     todateController.text = "";
 
-=======
-
-  @override
-  void initState() {
-    fromdateController.text = "";
-    todateController.text = "";
->>>>>>> origin/master
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 260),
     );
 
-<<<<<<< HEAD
 
     // box.put("fromdateController",fromdateController.text);
     // box.put("todateController",todateController.text);
@@ -133,8 +117,6 @@ var box = Hive.box("schoolData");
     print(to_date);
     print(message);
 
-=======
->>>>>>> origin/master
     final curvedAnimation = CurvedAnimation(curve: Curves.easeInOut, parent: _animationController);
     _animation = Tween<double>(begin: 0, end: 1).animate(curvedAnimation);
 
@@ -143,18 +125,12 @@ var box = Hive.box("schoolData");
     // _loadMessages();
   }
 
-<<<<<<< HEAD
   // var pickedRange;
-=======
->>>>>>> origin/master
     var usernameController = TextEditingController();
     var fromdateController = TextEditingController();
     var todateController = TextEditingController();
     var reasonController = TextEditingController();
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
     @override
 
     Widget build(BuildContext context)  =>
@@ -190,7 +166,6 @@ var box = Hive.box("schoolData");
                     //       ),
                     //     ),
 
-<<<<<<< HEAD
                 Row(
                   mainAxisAlignment:
                   MainAxisAlignment.spaceEvenly,
@@ -297,107 +272,6 @@ var box = Hive.box("schoolData");
                     ),
                   ],
                 ),
-=======
-                        Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-
-
-                            Expanded(
-                              // optional flex property if flex is 1 because the default flex is 1
-                              flex: 1,
-                              child: Padding(
-                                padding:
-                         EdgeInsets.only(left: 10).r,
-                                child: TextField(
-
-                                  controller: fromdateController,
-                                  decoration: InputDecoration(
-                                      labelText: 'From Date',
-                                      contentPadding:
-                                      EdgeInsets.all(5).r,
-                                      labelStyle: TextStyle(
-                                          color: Colors.grey[400])),
-                                  style: GoogleFonts.dmSans(
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  readOnly: true,
-  onTap: () async {
-  DateTime? pickedDate = await showDatePicker(
-  context: context,
-  initialDate: DateTime.now(),
-
-  firstDate: DateTime(2022),
-  lastDate: DateTime(2023)
-  );
-  if(pickedDate != null ){
-    print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
-    String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-    print(formattedDate); //formatted date output using intl package =>  2021-03-16
-    //you can implement different kind of Date Format here according to your requirement
-
-    setState(() {
-            fromdateController.text = formattedDate; //set output date to TextField value.
-    });
-  }else{
-    print("Date is not selected");
-  }
-  },
-                                ),
-
-
-                              ),
-                            ),
-                            SizedBox(width: 0.030.sw),
-                            Expanded(
-                              // optional flex property if flex is 1 because the default flex is 1
-                              flex: 1,
-                              child: Padding(
-                                padding:
-                                const EdgeInsets.only(right: 10).r,
-                                child: TextField(
-                                  controller: todateController,
-                                  decoration: InputDecoration(
-                                    labelText: 'To Date',
-                                    contentPadding: EdgeInsets.all(5).r,
-                                    labelStyle: TextStyle(
-                                        color: Colors.grey[400]),
-                                  ),
-                                  style: GoogleFonts.dmSans(
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  readOnly: true,
-                                  onTap: () async {
-                                    DateTime? pickedDate = await showDatePicker(
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        firstDate: DateTime(2022),
-                                        lastDate: DateTime(2023)
-                                    );
-                                    if(pickedDate != null ){
-                                      print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
-                                      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-                                      print(formattedDate); //formatted date output using intl package =>  2021-03-16
-                                      //you can implement different kind of Date Format here according to your requirement
-
-                                      setState(() {
-                                        todateController.text = formattedDate; //set output date to TextField value.
-                                      });
-                                    }else{
-                                      print("Date is not selected");
-                                    }
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
->>>>>>> origin/master
                         Padding(
                           padding:
                           const EdgeInsets.only(left: 10,right: 10).r,
@@ -456,10 +330,7 @@ var box = Hive.box("schoolData");
                           print(file.size);
                           print(file.extension);
                           print(file.path);
-<<<<<<< HEAD
                           userfile=file.path;
-=======
->>>>>>> origin/master
                       } else {
                           print('No file selected');
                       }
@@ -489,7 +360,6 @@ var box = Hive.box("schoolData");
                       MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-<<<<<<< HEAD
                         // ElevatedButton(
                         //   onPressed: () {
                         //     selectDateRange(context);
@@ -507,13 +377,6 @@ var box = Hive.box("schoolData");
                               AddStudentLeaveRecord.AddStudentLeaveRecordapi(company_key,student_id,from_date,to_date,message,userfile);
 
 
-=======
-
-                        ElevatedButton(
-                            onPressed: () async {
-                              final user = User(usernameController.text,fromdateController.text,todateController.text,reasonController.text);
-                              widget.addUser(user);
->>>>>>> origin/master
 
 
                               Navigator.of(context).pop();
@@ -733,13 +596,10 @@ var box = Hive.box("schoolData");
         _messages = messages;
       });
     }
-<<<<<<< HEAD
 
   daterange() {
     selectDateRange(context);
   }
-=======
->>>>>>> origin/master
   }
 
 

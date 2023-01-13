@@ -1,3 +1,6 @@
+import 'package:ecom_desgin/constant/Colors.dart';
+import 'package:ecom_desgin/constant/date_format.dart';
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,13 +53,20 @@ var  starttime;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Exam schedule",style: GoogleFonts.dmSans(
-          fontStyle: FontStyle.normal,
-          fontSize: 15.sp,
-          fontWeight: FontWeight.bold,
-          color: Colors.redAccent,
-        ),),
+        backgroundColor:AgentColor.appbarbackgroundColor,
+        title: Text("Exam schedule",style: MyGoogeFont.mydmSans),
+        actions: [
+          PopupMenuButton<int>(
+            itemBuilder: (context) {
+              return <PopupMenuEntry<int>>[
+                const PopupMenuItem(value: 0, child: Text('0')),
+                const PopupMenuItem(value: 1, child: Text('1')),
+              ];
+            },
+          ),
+        ],
       ),
+
       body: Container(
         // height: 0.61.sh,
         // decoration: const BoxDecoration(
@@ -149,7 +159,7 @@ var  starttime;
                                       padding: EdgeInsets.only(top: 20).r,
                                       child: Obx(
                                             () => Text(
-                                        getexamview.loadingGetexamsSchedule.value?getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["date_from"]:CircularProgressIndicator(),
+                                        getexamview.loadingGetexamsSchedule.value?MyDateFormat.dateformatmethod1(getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["date_from"]):CircularProgressIndicator(),
                                         style: GoogleFonts.dmSans(
                                           fontStyle: FontStyle.normal,
                                           fontSize: 15.sp,

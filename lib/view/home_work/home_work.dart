@@ -1,4 +1,5 @@
 import 'package:ecom_desgin/constant/Colors.dart';
+import 'package:ecom_desgin/constant/date_format.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/home_word_controller.dart';
 import 'package:file_picker/file_picker.dart';
@@ -676,20 +677,23 @@ title: Text("Description",   style: GoogleFonts.dmSans(
                                           fontWeight: FontWeight.normal,
                                           color: Colors.black,
                                         ),),
-                                      Obx(
-                                        () => Text(_homeWorkController
-                                            .homeWorkControllerList[0][i]
-                                        ["evaluation_date"]=="0000-00-00"?"":
-                                            _homeWorkController
-                                                    .homeWorkControllerList[0][i]
-                                                ["evaluation_date"]??"",
-                                          style: GoogleFonts.dmSans(
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.normal,
-                                            color: Colors.black,
-                                          ),
-                                        )
+                                      SizedBox(
+                                        width: 0.25.sw,
+                                        child: Obx(
+                                          () => Text(_homeWorkController
+                                              .homeWorkControllerList[0][i]
+                                          ["evaluation_date"]=="0000-00-00"?"":
+                                          MyDateFormat.dateformatmethod1(_homeWorkController
+                                              .homeWorkControllerList[0][i]
+                                          ["evaluation_date"]??"",) ,
+                                            style: GoogleFonts.dmSans(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 10.sp,
+                                              fontWeight: FontWeight.normal,
+                                              color: Colors.black,
+                                            ),
+                                          )
+                                        ),
                                       ),
                                       SizedBox(
                                       width: 0.02.sw,
@@ -710,8 +714,8 @@ title: Text("Description",   style: GoogleFonts.dmSans(
                                           Obx(
                                             () => Text(
                                               _homeWorkController
-                                                  .homeWorkControllerList[0][i]["submit_date"]=="0000-00-00"?"": _homeWorkController
-                                                        .homeWorkControllerList[0][i]["submit_date"]??"",
+                                                  .homeWorkControllerList[0][i]["submit_date"]=="0000-00-00"?"": MyDateFormat.dateformatmethod1(_homeWorkController
+                                                  .homeWorkControllerList[0][i]["submit_date"]??"") ,
                                               style: GoogleFonts.dmSans(
                                                 fontStyle: FontStyle.normal,
                                                 fontSize: 10.sp,

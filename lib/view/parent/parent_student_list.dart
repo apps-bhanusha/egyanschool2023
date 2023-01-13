@@ -300,7 +300,13 @@ var schoolname;
                    children: <Widget>[                     
                      InkWell(
                        onTap: () {
-                              print("${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}"); 
+                        print("Parent Info print");
+                              print("${  parentLoginController.parentStudentListModel.value?.parentInfo}"); 
+                              print("${  parentLoginController.parentStudentListModel.value?.parentInfo?["admission_no"]}"); 
+                              print("${  parentLoginController.parentStudentListModel.value?.parentInfo?["adhar_no"]}"); 
+                              print("${  parentLoginController.parentStudentListModel.value?.parentInfo?["mobileno"]}"); 
+                              print("${  parentLoginController.parentStudentListModel.value?.parentInfo?["samagra_id"]}"); 
+                              print("${  parentLoginController.parentStudentListModel.value?.parentInfo?["roll_no"]}"); 
                               Get.toNamed(RoutesName.home,arguments: [
                                 "${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}",
                                 true,
@@ -310,6 +316,11 @@ var schoolname;
                               "https://e-gyan.co.in/${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}",
                               "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
                              "${ parentLoginController.parentStudentListModel.value?.response?[index]?.responseClass}",
+                             "${  parentLoginController.parentStudentListModel.value?.parentInfo?["mobileno"]}",
+                             "${  parentLoginController.parentStudentListModel.value?.parentInfo?["admission_no"]}",
+                             "${  parentLoginController.parentStudentListModel.value?.parentInfo?["roll_no"]}",
+                             "${  parentLoginController.parentStudentListModel.value?.parentInfo?["samagra_id"]}",
+                             "${  parentLoginController.parentStudentListModel.value?.parentInfo?["adhar_no"]}",
                               ]);  
                        },
                                   child: Card(
@@ -418,7 +429,7 @@ var schoolname;
                        const SizedBox(width: 140,),
                          Column(
                            children: [
-                             Text("${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalBalanceAmount}", style: GoogleFonts.dmSans(
+                             Text("Due Fee", style: GoogleFonts.dmSans(
                              fontStyle: FontStyle.normal,
                              fontSize: 15.sp,
                              fontWeight: FontWeight.bold,
@@ -426,7 +437,7 @@ var schoolname;
                                            Divider(),
                              
                              
-                             Text("0", style: GoogleFonts.dmSans(
+                             Text("${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalBalanceAmount}", style: GoogleFonts.dmSans(
                              fontStyle: FontStyle.normal,
                              fontSize: 15.sp,
                              fontWeight: FontWeight.bold,

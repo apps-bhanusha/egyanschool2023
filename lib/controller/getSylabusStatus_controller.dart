@@ -29,7 +29,7 @@ class GetSylabusStatusController extends GetxController {
       GetSylabusStatusControllerList.add(sdata) ;
       print("getSyladsssddddddddddddddddddddddddddddsdbus");
       print(GetSylabusStatusControllerList);
-      print(GetSylabusStatusControllerList[0]["response"]["subjects_data"][0]["lebel"]);
+  
       // print(GetschoolsettingControllerLexam_idist[0]["response"]["total_discount_amount"]);
       if (sdata["status"] == true ) {
         loadingGetSylabusStatus.value=true;

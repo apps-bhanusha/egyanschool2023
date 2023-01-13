@@ -86,7 +86,7 @@ List<dynamic>  timeTable= [
   ];
 @override
   void initState() {
-  print("4444444444444ss4444s444333");
+  print("44444444444444444444333");
   print(datalist);
   print(timeTable);
     super.initState();
@@ -176,16 +176,16 @@ List<dynamic>  timeTable= [
         },
       ),
     ),
-    Padding(
-      padding: const EdgeInsets.only(top: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: const [
-        Text("Time",style: TextStyle(color: Colors.white,fontSize: 18),),
-        Text("Subject",style: TextStyle(color: Colors.white,fontSize: 18),),
-        Text("Room No.",style: TextStyle(color: Colors.white,fontSize: 18),),
-      ],),
-    ),
+    // Padding(
+    //   padding: const EdgeInsets.only(top: 10),
+    //   child: Row(
+    //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //     children: const [
+    //     Text("Time",style: TextStyle(color: Colors.white,fontSize: 18),),
+    //     Text("Subject",style: TextStyle(color: Colors.white,fontSize: 18),),
+    //     Text("Room No.",style: TextStyle(color: Colors.white,fontSize: 18),),
+    //   ],),
+    // ),
            SizedBox(height: 0.050.sh,),
           Expanded(
             child: Container(
