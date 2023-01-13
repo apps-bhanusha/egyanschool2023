@@ -60,7 +60,8 @@ class _ParentStudentListState extends State<ParentStudentList> with TickerProvid
   late AnimationController _controller1;
   late Animation<Offset> _Animation;
   double percent = 1.0;
-
+var schoolname;
+  var session;
   int totalSecs = 90;
   int secsRemaining = 90;
   double progressFraction = 0.6;
@@ -89,7 +90,8 @@ class _ParentStudentListState extends State<ParentStudentList> with TickerProvid
   void initState() {
 
     var id = box.get("company_key");
-    
+       schoolname = box.get("schoolname");
+    session = box.get("session");
   // alld=(int.parse(_allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"])) / 100;
   //       print("444mmmmmmmmmmmmmm4444");
   //      print(alld);
@@ -211,7 +213,7 @@ class _ParentStudentListState extends State<ParentStudentList> with TickerProvid
                   SizedBox(
                       width: 0.45.sw,
                       child:  Text(
-                        "Parent Home",
+                        schoolname??"",
                         // _schoolsetting.GetSchoolSettingControllerList[0]["response"]["name"],
                         style: MyGoogeFont.mydmSans1,
                         overflow: TextOverflow.ellipsis,
@@ -232,7 +234,7 @@ class _ParentStudentListState extends State<ParentStudentList> with TickerProvid
                         style: MyGoogeFont.mydmSans2,
                       ),
                       Text(
-                        "2023",
+                        session??"",
                         // _schoolsetting.GetSchoolSettingControllerList[0]["response"]["session"],
                         style: MyGoogeFont.mydmSans2,
                       ),
@@ -290,13 +292,12 @@ class _ParentStudentListState extends State<ParentStudentList> with TickerProvid
                     itemBuilder: (context, index) {
                      return Padding(
                    padding:
-                   const EdgeInsets.only(left: 15, right: 15, top: 80).r,
+                   const EdgeInsets.only(left: 23, right: 23, top: 80).r,
                    child: SizedBox(
-                     // width: 200,
+              
                      height: 0.3.sh,
                      child: Stack(
-                   children: <Widget>[
-                                             
+                   children: <Widget>[                     
                      InkWell(
                        onTap: () {
                               print("${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}"); 
@@ -306,6 +307,9 @@ class _ParentStudentListState extends State<ParentStudentList> with TickerProvid
                               "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalAmount}",
                               "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalBalanceAmount}",
                               "${ parentLoginController.parentStudentListModel.value?.response?[index]?.attandance?.present}",
+                              "https://e-gyan.co.in/${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}",
+                              "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
+                             "${ parentLoginController.parentStudentListModel.value?.response?[index]?.responseClass}",
                               ]);  
                        },
                                   child: Card(
@@ -323,18 +327,21 @@ class _ParentStudentListState extends State<ParentStudentList> with TickerProvid
                                   child: FractionalTranslation(
                    translation: const Offset(0.0, -0.5),
                    child: ClipOval(
-                     child: CachedNetworkImage(
-                       placeholder: (context, url) => CircleAvatar(
-                         maxRadius:
-                         MediaQuery.of(context).size.width -
-                             MediaQuery.of(context).size.width +
-                             52,
-                         backgroundImage: const AssetImage(
-                           "assets/images/user1.png",
+                     child: Align(
+                                alignment: const FractionalOffset(0.5, 0.0),
+                       child: CachedNetworkImage(
+                         placeholder: (context, url) => CircleAvatar(
+                           maxRadius:
+                           MediaQuery.of(context).size.width -
+                               MediaQuery.of(context).size.width +
+                               60,
+                           backgroundImage: const AssetImage(
+                             "assets/images/user1.png",
+                           ),
                          ),
+                         imageUrl: "https://e-gyan.co.in/${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}"
+                        
                        ),
-                       imageUrl: "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=740&t=st=1673351398~exp=1673351998~hmac=9c2ed365a0ce781ca20e56e259bc86a3c958042eaede59ff7b919f3293312584"
-                      
                      ),
                    ),
                                   ),
@@ -513,27 +520,27 @@ class _ParentStudentListState extends State<ParentStudentList> with TickerProvid
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // ClipOval(
-                //     child: Obx(() => _schoolsetting.loadingimage.value
-                //         ? Image.network(
-                //       _schoolsetting.GetSchoolSettingControllerList[0]["response"]["image"],
-                //       width: 100,
-                //       height: 100,
-                //     )
-                //         : CircularProgressIndicator())),
+                ClipOval(
+                    child: Obx(() => _schoolsetting.loadingimage.value
+                        ? Image.network(
+                      _schoolsetting.GetSchoolSettingControllerList[0]["response"]["image"],
+                      width: 100,
+                      height: 100,
+                    )
+                        : CircularProgressIndicator())),
                 const SizedBox(height: 16.0),
-                // Obx(() => _schoolsetting.loadingimage.value
-                //     ? Text(
-                //   _schoolsetting.GetSchoolSettingControllerList[0]
-                //   ["response"]["name"],
-                //   style: GoogleFonts.dmSans(
-                //     fontStyle: FontStyle.normal,
-                //     fontSize: 15.sp,
-                //     fontWeight: FontWeight.bold,
-                //     color: Colors.white,
-                //   ),
-                // )
-                //     : const Text("")),
+                Obx(() => _schoolsetting.loadingimage.value
+                    ? Text(
+                  _schoolsetting.GetSchoolSettingControllerList[0]
+                  ["response"]["name"],
+                  style: GoogleFonts.dmSans(
+                    fontStyle: FontStyle.normal,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                )
+                    : const Text("")),
                 SizedBox(height: 20.0),
               ],
             ),

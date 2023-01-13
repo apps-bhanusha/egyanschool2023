@@ -67,6 +67,7 @@ FeeController feeController=Get.put(FeeController());
   var exam_id;
   var student_id;
   var alld;
+  late String urlimage;
   int totalSecs = 90;
   int secsRemaining = 90;
   double progressFraction = 0.6;
@@ -115,7 +116,10 @@ FeeController feeController=Get.put(FeeController());
     company_key = box.get("company_key");
     print("322222222222222222222222222222gggggggggggggg22222222");
       if(Get.arguments[1]==true){
+        urlimage=Get.arguments[5];
          id = Get.arguments[0];
+    studentname =Get.arguments[6];
+    studentclass = Get.arguments[7];  
     box.put("student_id", Get.arguments[0]);
     box.put("studenttotalfees", int.parse(Get.arguments[2].toString()));
     box.put("studentduefees", int.parse(Get.arguments[0].toString()));
@@ -359,24 +363,24 @@ feeController.Feesapi(id, company_key);
                             child: ClipOval(
                               child: Align(
                                 alignment: FractionalOffset(0.5, 0.0),
-                                child:Text("data")
-                                //  CachedNetworkImage(
-                                //   placeholder: (context, url) => CircleAvatar(
-                                //     maxRadius:
-                                //     MediaQuery.of(context).size.width -
-                                //         MediaQuery.of(context).size.width +
-                                //         52,
-                                //     backgroundImage: const AssetImage(
-                                //       "assets/images/user1.png",
-                                //     ),
-                                //   ),
-                                //   imageUrl: '${ApiUrl.imagesUrl}${studentpro}'!=null ?'${ApiUrl.imagesUrl.toString()}${studentpro.toString()}':
-                                //   "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.clipartmax.com%2Fmiddle%2Fm2i8N4d3i8m2Z5A0_how-to-use-this-website-e-learning-student-icon%2F&psig=AOvVaw1cQVeYYslr-4AcEz9do-do&ust=1673154552886000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCPCCn8jYtPwCFQAAAAAdAAAAABAG"
-                                //   // _allsetController
-                                //   //     .SchoolIdControllerList[0]["response"]
-                                //   // [0]["profileimage"]
-                                //   //     .toString(),
-                                // ),
+                                child:
+                                 CachedNetworkImage(
+                                  placeholder: (context, url) => CircleAvatar(
+                                    maxRadius:
+                                    MediaQuery.of(context).size.width -
+                                        MediaQuery.of(context).size.width +
+                                        52,
+                                    backgroundImage: const AssetImage(
+                                      "assets/images/user1.png",
+                                    ),
+                                  ),
+                                  imageUrl:Get.arguments[1]?Get.arguments[5]: '${ApiUrl.imagesUrl}${studentpro}'!=null ?'${ApiUrl.imagesUrl.toString()}${studentpro.toString()}':
+                                  "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.clipartmax.com%2Fmiddle%2Fm2i8N4d3i8m2Z5A0_how-to-use-this-website-e-learning-student-icon%2F&psig=AOvVaw1cQVeYYslr-4AcEz9do-do&ust=1673154552886000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCPCCn8jYtPwCFQAAAAAdAAAAABAG"
+                                  // _allsetController
+                                  //     .SchoolIdControllerList[0]["response"]
+                                  // [0]["profileimage"]
+                                  //     .toString(),
+                                ),
                               ),
                             ),
                           ),
@@ -801,7 +805,60 @@ feeController.Feesapi(id, company_key);
                 dense: true,
               ),
             ),
+ListTileTheme(
+            dense: true,
 
+            child: ExpansionTile(
+
+              collapsedIconColor: Colors.white,
+              textColor: Colors.white,
+              title: Text(
+                "Select Student",
+                style: GoogleFonts.dmSans(
+                  fontStyle: FontStyle.normal,
+                  fontSize: 14.sp,
+
+                  color: Colors.white,
+                ),
+              ),
+              leading: const Icon(Icons.book_outlined,
+                  size: 20.0, color: Colors.white),
+
+              childrenPadding: EdgeInsets.only(left: 60), //children padding
+              children: [
+             Obx(() =>  ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                    itemCount: parentLoginController.parentStudentListModel.value?.response!=null ?parentLoginController.parentStudentListModel.value?.response?.length:0,
+                itemBuilder: (context, index) {
+                return   ListTile(
+                    title:  Text( "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
+                      style: GoogleFonts.dmSans(
+                        fontStyle: FontStyle.normal,
+                        fontSize: 14.sp,
+                        color: Colors.white,
+                      ),),
+                     onTap: () {
+                            print("${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}"); 
+                            Get.toNamed(RoutesName.home,arguments: [
+                              "${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}",
+                              false,
+                            "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalAmount}",
+                            "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalBalanceAmount}",
+                            "${ parentLoginController.parentStudentListModel.value?.response?[index]?.attandance?.present}",
+                            "https://e-gyan.co.in/${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}",
+                            ]);  
+                       toggleMenu(); 
+                     },
+                );
+              },),)
+
+               
+
+                //more child menu
+              ],
+            ),
+          ),
             SizedBox(
               height: 0.052.sh,
               child: ListTile(

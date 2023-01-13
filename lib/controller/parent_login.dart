@@ -22,6 +22,7 @@ class ParentLoginController extends GetxController{
   final SchoolIdController all = Get.put(SchoolIdController());
   final FeeController _feesController = Get.put(FeeController());
   Rxn<ParentStudentListModel> parentStudentListModel= Rxn<ParentStudentListModel>();
+  
   List  SchoolIdControllerList = [].obs;
   RxBool loadingdata =false.obs;
 

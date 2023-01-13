@@ -30,9 +30,9 @@ class GetSchoolSettingController extends GetxController {
       print(GetSchoolSettingControllerList);
 // print(GetSchoolSettingControllerList[0]["response"]["image"]);
 // print(GetSchoolSettingControllerList[0]["response"]["name"]);
-//      var box = Hive.box("schoolData");
-//      box.put("schoolname", GetSchoolSettingControllerList[0]["response"]["name"],);
-//      box.put("session", GetSchoolSettingControllerList[0]["response"]["session"],);
+     var box = Hive.box("schoolData");
+     box.put("schoolname", GetSchoolSettingControllerList[0]["response"]["name"],);
+     box.put("session", GetSchoolSettingControllerList[0]["response"]["session"],);
       if (sdata["status"] == true ) {
         loadingimage.value=true;
         print("massage");
