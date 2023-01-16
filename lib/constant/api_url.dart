@@ -17,6 +17,7 @@ class ApiUrl{
  static const String assignmentDownloadurl="/parentwebservices/assignment";
  static const String syllabusDownloadurl="/parentwebservices/syllabus";
  static const String otherDownloadurl="/parentwebservices/other";
+ static const String monthlyattendenceUrl="/parentwebservices/monthlypresentsummary";
 
  static const String imagesUrl="https://e-gyan.co.in/";
 

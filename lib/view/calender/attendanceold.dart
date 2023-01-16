@@ -1,13 +1,14 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/attendance_controller.dart';
-import 'package:ecom_desgin/controller/monthly_present_summary_controller.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,23 +44,18 @@ class _AttendanceState extends State<Attendance> {
 
 
   final AttendanceController studentattendance = Get.put(AttendanceController());
-  MonthlyPresentSummaryController monthlypresentssummary = Get.put(MonthlyPresentSummaryController());
-
-
 // var dateapi;
   var date;
  //  late final outputFormat;
  //  late String title;
  //  var allsplit;
   var id;
-  var student_id;
   var company_key;
   final index=0;
  var year;
  var month;
  var days;
-  late String present;
-  late String months;
+
   var test;
 
 
@@ -100,15 +96,16 @@ class _AttendanceState extends State<Attendance> {
   ];
   @override
   void initState() {
+    print("444444");
+    print(presentDates);
+
 
     _tooltip = TooltipBehavior(enable: true);
 
-    student_id = box.get("student_id");
+    id = box.get("student_id");
     company_key = box.get("company_key");
 
-    Attendanceapi(student_id ,company_key);
-    monthlypresentssummary.MonthlyPresentSummaryapi(student_id, company_key);
-    print("ddddaaaa");
+    Attendanceapi("2022","12", id ,company_key);
 
     // date=box.get("date");
 
@@ -159,11 +156,12 @@ class _AttendanceState extends State<Attendance> {
 
   Widget _presentIcon(String day,String title) => ClipRect(
 
-    child: title!=""?Container(
+    // color: Colors.green,
+    child: Container(
       height: 0.40.sh,
       width: 0.40.sw,
       alignment: Alignment.center,
-      color: title=="Present"?Colors.green:title=="Holiday"?Colors.grey:title=="Late"?Colors.yellow:title=="Half Day"?Colors.lightBlueAccent:Color.fromARGB(255, 206, 204, 204),
+      color: title=="Present"?Colors.green:title=="Holiday"?Colors.grey:title=="Late"?Colors.yellow:title=="HalfDay"?Colors.lightBlueAccent:Colors.red,
       child: Text(
         day,
         style: TextStyle(
@@ -171,7 +169,7 @@ class _AttendanceState extends State<Attendance> {
 
         ),
       ),
-    ):Container(),
+    ),
   );
   static Widget _absentIcon(String day) => CircleAvatar(
     backgroundColor: Colors.red,
@@ -188,46 +186,32 @@ class _AttendanceState extends State<Attendance> {
   );
 
   late CalendarCarousel _calendarCarouselNoHeader;
-
 double count=0.0;
 // late String months=presentDates[0]["date"];
-
 
   // var len = min(absentDates.length, presentDates.length);
   // late double cHeight;
 void markedDatedMap(){
-  print("sssss");
-;
-  // data.add( _ChartData(months,present, Color.fromRGBO(37, 171, 29, 1.0)));
+  if (presentDates[0]["title"]=="Present"){
 
-
-  // for (var s=0; s<monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"].length;s++)
-  // if (monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"][s]["present"]=="Present"){
-  //
-  //   count+=monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"][s]["present"].length.toDouble();
-  //   print("3333ffff");
-  //   print(count);
-  //   late String monthconvert='${DateFormat('MMMM').format(DateFormat("yyyy-MM-dd").parse(monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"][s]["month"]))}';
-  //   print(monthconvert);
-  //
-  //   data.add( _ChartData(monthconvert,count, Color.fromRGBO(37, 171, 29, 1.0)));
-  // }
-
-  var a = Jiffy(DateTime(2019, 10, 18)).month.toString();
-  print("444ddddddddd");
-  print(a);
-  for (int i = 0; i <monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"].length; i++) {
-    present=monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"][i]["present"];
-     months=monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"][i]["month"];
-late String monthconvert='${DateFormat('MMMM').format(DateFormat("yyyy-MM-dd").parse(monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"][s]["month"]))}';
-    data.add( _ChartData(months.toString(),double.parse(present), Color.fromRGBO(37, 171, 29, 1.0)));
+    count+=presentDates[0]["title"].length.toDouble();
+    print("3333ffff");
+    print(count);
   }
+  // var a = Jiffy(DateTime(2019, 10, 18)).month.toString();
+  print("444ddddddddd");
+  // print(a);
   for (int i = 0; i <presentDates.length; i++) {
    print("4ggddc");
-    print(presentDates[i]["title"].length.toDouble());
+    // print(presentDates[i]["title"].length.toDouble());
+   late String monthconvert='${DateFormat('MMMM').format(DateFormat("yyyy-MM-dd").parse(presentDates[i]["date"]))}';
+   print(monthconvert);
 
+   data.add( _ChartData(monthconvert,count, Color.fromRGBO(37, 171, 29, 1.0)));
+print("44aaaa4333");
+// print(month);
 
-
+    print(length);
 // if(length==0){
 //   lengthchart=double.parse(length.toString());
 // }
@@ -238,7 +222,7 @@ late String monthconvert='${DateFormat('MMMM').format(DateFormat("yyyy-MM-dd").p
 
       Event(
         date:DateFormat("yyyy-MM-dd").parse(presentDates[i]["date"]),
-        title: "event 5",
+        title: 'Event 5',
         icon: _presentIcon(
             DateFormat("yyyy-MM-dd").parse(presentDates[i]["date"]).day.toString(),presentDates[i]["title"]
           // presentDates[i].date.day.toString(),
@@ -264,16 +248,17 @@ late String monthconvert='${DateFormat('MMMM').format(DateFormat("yyyy-MM-dd").p
     print(_markedDateMap);
   });
 }
-  void Attendanceapi(student_id,
+  void Attendanceapi(year, month, id,
       company_key) async {
     var body = json.encode({
       "company_key": company_key,
-      "student_id": student_id,
-
+      "student_id": id,
+      "month": month,
+      "year": year,
     });
     print("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
     print(body);
-    final urlapi = Uri.parse(ApiUrl.baseUrl + ApiUrl.monthlyattendenceUrl);
+    final urlapi = Uri.parse(ApiUrl.baseUrl + ApiUrl.attendanceUrl);
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
       var sdata = jsonDecode(response.body);
@@ -297,7 +282,8 @@ late String monthconvert='${DateFormat('MMMM').format(DateFormat("yyyy-MM-dd").p
     }
   }
   void addcalendardata(){
-
+  print("ddd");
+  print(AttendanceControllerList[0]["response"].length);
 
     for(var i=0; i<AttendanceControllerList[0]["response"].length; i++){
 
@@ -334,7 +320,7 @@ late String monthconvert='${DateFormat('MMMM').format(DateFormat("yyyy-MM-dd").p
       markedDateIconMaxShown: 1,
       markedDateMoreShowTotal:
 
-      true,
+      null,
       thisMonthDayBorderColor: Color.fromARGB(255, 206, 204, 204),// null for not showing hidden events indicator
       markedDateIconBuilder: (event) {
         return event.icon;
