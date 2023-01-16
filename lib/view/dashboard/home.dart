@@ -1074,11 +1074,11 @@ feeController.Feesapi(id, company_key);
             ),
             SizedBox(
               height: 0.052.sh,
-              child: ListTile(
-                onTap: () => Get.toNamed(RoutesName.chatPage),
-                leading: const Icon(Icons.chat, size: 20.0, color: Colors.white),
-                title: const Text("Chat"),
-                textColor: Colors.white,
+              child: const ListTile(
+                // onTap: () => Get.toNamed(RoutesName.chatPage),
+                leading: Icon(Icons.chat, size: 20.0, color: Colors.white),
+                title: Text("Chat"),
+                textColor: Colors.grey,
                 dense: true,
 
                 // padding: EdgeInsets.zero,

@@ -703,10 +703,10 @@ class _GridViewallState extends State<GridViewall>
             SizedBox(
               height: 0.052.sh,
               child: ListTile(
-                onTap: () => Get.toNamed(RoutesName.chatPage),
+                // onTap: () => Get.toNamed(RoutesName.chatPage),
                 leading: const Icon(Icons.chat, size: 20.0, color: Colors.white),
                 title: const Text("Chat"),
-                textColor: Colors.white,
+                textColor: Colors.grey,
                 dense: true,
 
                 // padding: EdgeInsets.zero,

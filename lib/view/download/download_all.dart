@@ -51,11 +51,8 @@ class _DownloadAllState extends State<DownloadAll> {
      if (statuses[Permission.storage]!.isGranted) {
       await Permission.storage.request();
         var dir = await DownloadsPathProvider.downloadsDirectory;
-      
-
           // Directory dir = Directory('/storage/emulated/0/Download');
-      if (dir != null) {
-        
+      if (dir != null) { 
         String savename = "file.pdf";
         String savePath = "${dir.path}/$savename";
         print(savePath);
@@ -113,9 +110,13 @@ class _DownloadAllState extends State<DownloadAll> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
+          
+            Container(
+          
+            ),
             Center(
               child: Card(
-                color: Color.fromARGB(255, 164, 229, 255),
+                color: const Color.fromARGB(255, 164, 229, 255),
                 elevation: 10,
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
