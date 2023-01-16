@@ -14,6 +14,9 @@ class ApiUrl{
  static const String getSylabusStatustUrl="/parentwebservices/getSylabusStatus";
  static const String studentLeaveRecordUrl="/leavewebservices/studentLeaveRecord";
  static const String addstudentLeaveRecordUrl="/leavewebservices/addstudentLeaveRecord";
+ static const String assignmentDownloadurl="/parentwebservices/assignment";
+ static const String syllabusDownloadurl="/parentwebservices/syllabus";
+ static const String otherDownloadurl="/parentwebservices/other";
 
  static const String imagesUrl="https://e-gyan.co.in/";
 

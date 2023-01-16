@@ -1,13 +1,15 @@
 import 'package:ecom_desgin/constant/Colors.dart';
+import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/download_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
-
-
+import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:permission_handler/permission_handler.dart'; 
 class DownloadAll extends StatefulWidget {
   const DownloadAll({super.key});
 
@@ -16,8 +18,79 @@ class DownloadAll extends StatefulWidget {
 }
 
 class _DownloadAllState extends State<DownloadAll> {
-  final DownloadAllController _downloadAllController =
-      Get.put(DownloadAllController());
+  final DownloadAllController _downloadAllController = Get.put(DownloadAllController());
+
+  double progress = 0;
+
+  bool didDownloadPDF = false;
+  bool isdownloadin = true;
+  int index=0;
+ String progressString = 'Error.';
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  
+  }
+
+ pdfDownload(pdfurl,value) async {
+    print('dkkdkdkd');
+    print(pdfurl);
+    setState(() {
+      isdownloadin=false;
+      index=value;
+
+    });
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.storage,
+      //add more permission to request here.
+    ].request();
+    String i = "";
+    i=DateTime.now().toString();
+   if(pdfurl.toString().isNotEmpty){
+     if (statuses[Permission.storage]!.isGranted) {
+      await Permission.storage.request();
+        var dir = await DownloadsPathProvider.downloadsDirectory;
+      
+
+          // Directory dir = Directory('/storage/emulated/0/Download');
+      if (dir != null) {
+        
+        String savename = "file.pdf";
+        String savePath = "${dir.path}/$savename";
+        print(savePath);
+        //output:  /storage/emulated/0/Download/banner.png
+         print("${ApiUrl.imagesUrl}"+pdfurl.toString());
+        try {
+          await Dio().download(ApiUrl.imagesUrl+pdfurl.toString(), savePath,
+              onReceiveProgress: (received, total) {
+            if (total != -1) {
+              print((received / total * 100).toStringAsFixed(0) +"%");
+              setState(() {
+                progressString =(received / total * 100).toStringAsFixed(0) +"%";
+              });
+              //you can build progressbar feature too
+            }
+          });
+          Get.snackbar(
+              "download Succesfull", "File is saved to download folder");
+        } on DioError catch (e) {
+          print(e.message);
+          Get.snackbar(
+              e.toString(), "");
+        }
+      }
+    } else {
+      print("No permission to read and write.");
+      Get.snackbar(
+              "No permission to read and write.", "");
+    }
+   }else{
+    Get.snackbar(
+              "File Not Available", "");
+   }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,70 +111,86 @@ class _DownloadAllState extends State<DownloadAll> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
-          child: Column(
-            children: [
-              Center(
-                child: Card(
-                  color: Color.fromARGB(255, 164, 229, 255),
-                  elevation: 10,
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Column(
-                      children: [
-                        DropdownButton<String>(
-                          autofocus: true,
-                          isExpanded: true,
-                          hint: Obx(
-                            () => Text(
-                                _downloadAllController.selectDrop.value,
-                                style: const TextStyle(
-                                  fontSize: 20,color: Colors.black)),
-                          ),
-                          items: _downloadAllController.dropdata
-                              .map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style:
-                                    const TextStyle(color: Colors.blueAccent),
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            print(newValue);
-
-                            _downloadAllController.selectDropdown(newValue);
-                          },
+        child: Column(
+          children: [
+            Center(
+              child: Card(
+                color: Color.fromARGB(255, 164, 229, 255),
+                elevation: 10,
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    children: [
+                      DropdownButton<String>(
+                        autofocus: true,
+                        isExpanded: true,
+                        hint: Obx(
+                          () => Text(
+                              _downloadAllController.selectDrop.value,
+                              style: const TextStyle(
+                                fontSize: 20,color: Colors.black)),
                         ),
-                      ],
-                    ),
+                        items: _downloadAllController.dropdata
+                            .map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style:
+                                  const TextStyle(color: Colors.blueAccent),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          print(newValue);
+                           
+                          _downloadAllController.selectDropdown(newValue);
+                          _downloadAllController.isloading.value=false;
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),
-              Expanded(
-                child: Center(
-                  child: Obx(
-                    () => ListView.builder(
-                      itemBuilder: (context, index) {
-                        return Card(
-                          color: Color.fromARGB(255, 164, 229, 255),
+            ),
+            Expanded(
+              child: Center(
+                child: Obx(
+                  () => _downloadAllController.isloading.value?_downloadAllController.assignmentDownloadModel.value?.response?.list!=null? ListView.builder(
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: (){
+                          pdfDownload("${_downloadAllController.assignmentDownloadModel.value?.response?.list?[index]?.file}",index);
+                        },
+                        child: Card(
+                          color: const Color.fromARGB(255, 164, 229, 255),
                           child: ListTile(
                             title:
-                                Obx(() => Text(_downloadAllController.showDataList[index])),
-                                subtitle: Text("date"),
-                                trailing: Icon(Icons.download),
+                                Obx(() => Text("${_downloadAllController.assignmentDownloadModel.value?.response?.list?[index]?.title}")),
+                                subtitle: Obx(() => Text("${_downloadAllController.assignmentDownloadModel.value?.response?.list?[index]?.date}")),
+                      
+                                trailing: isdownloadin?const Icon(Icons.download):index==index ? Text(
+                                                                progressString,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                              style: GoogleFonts.dmSans(
+                                                                fontStyle: FontStyle.normal,
+                                                                fontSize: 15.sp,
+                                                                fontWeight: FontWeight.bold,
+                                                                color: Colors.black,
+                                                              ),):const Icon(Icons.download),
                           ),
-                        );
-                      },
-                      itemCount: _downloadAllController.showDataList.length,
-                    ),
-                  ),
+                        ),
+                      );
+                    },
+                    itemCount:_downloadAllController.assignmentDownloadModel.value?.response?.list?.length,
+
+                  ):const Text("No Record"):const CircularProgressIndicator(color: Colors.blue,),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

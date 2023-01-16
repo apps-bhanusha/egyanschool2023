@@ -4,18 +4,16 @@ import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/home_word_controller.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dio/dio.dart';
-import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
-
+import 'package:permission_handler/permission_handler.dart'; 
 import 'package:intl/intl.dart';
+import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 class HomeWork extends StatefulWidget {
   const HomeWork({super.key});
 
@@ -39,15 +37,35 @@ class _HomeWorkState extends State<HomeWork> {
 
   bool didDownloadPDF = false;
   bool isdownloadin = true;
+  int index=0;
   var box = Hive.box("schoolData");
  late  var id = box.get("student_id");
   String progressString = 'Error.';
-
+late Directory _downloadsDirectory;
   @override
   void initState() {
 
     _homeWorkController.homeworkapi(id);
     super.initState();
+    initDownloadsDirectoryState();
+  }
+
+Future<void> initDownloadsDirectoryState() async {
+    Directory? downloadsDirectory;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
+    } on PlatformException {
+      print('Could not get the downloads directory');
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+      _downloadsDirectory = downloadsDirectory!;
+    
   }
 
   Future download(Dio dio, String Path, String savePath) async {
@@ -83,26 +101,36 @@ class _HomeWorkState extends State<HomeWork> {
   }
 
 //pdf dwonlad work it
-  pdfDownload(pdfurl) async {
+  pdfDownload(pdfurl,value) async {
+    print('dkkdkdkd');
+    print(pdfurl);
     setState(() {
       isdownloadin=false;
+      index=value;
+
     });
     Map<Permission, PermissionStatus> statuses = await [
       Permission.storage,
       //add more permission to request here.
     ].request();
-    int i = 0;
-    i++;
-    if (statuses[Permission.storage]!.isGranted) {
-      var dir = await DownloadsPathProvider.downloadsDirectory;
+    String i = "";
+    i=DateTime.now().toString();
+   if(pdfurl.toString().isNotEmpty){
+     if (statuses[Permission.storage]!.isGranted) {
+        var dir = await DownloadsPathProvider.downloadsDirectory;
+      
+
+Future<Directory?> downloadsDirectory = DownloadsPathProvider.downloadsDirectory;
+          // Directory dir = Directory('/storage/emulated/0/Download');
       if (dir != null) {
-        String savename = "file$i.pdf";
-        String savePath = dir.path + "/$savename";
+        
+        String savename = "file.pdf";
+        String savePath = "${dir.path}/$savename";
         print(savePath);
         //output:  /storage/emulated/0/Download/banner.png
 
         try {
-          await Dio().download(pdfurl, savePath,
+          await Dio().download(pdfurl, downloadsDirectory,
               onReceiveProgress: (received, total) {
             if (total != -1) {
               print((received / total * 100).toStringAsFixed(0) +"%");
@@ -122,6 +150,10 @@ class _HomeWorkState extends State<HomeWork> {
     } else {
       print("No permission to read and write.");
     }
+   }else{
+    Get.snackbar(
+              "File Not Available", "");
+   }
   }
 
 
@@ -380,13 +412,7 @@ class _HomeWorkState extends State<HomeWork> {
     );
   }
 
-void homework(){
-    print("488888888888888888888888888888888888888882");
-    print(_homeWorkController.homeWorkControllerList[0].length);
-    print(_homeWorkController.homeWorkControllerList);
-    print(_homeWorkController.homeWorkControllerList[0][0]);
-    print(_homeWorkController.homeWorkControllerList[0][1]);
-  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -429,7 +455,7 @@ void homework(){
                       child: InkWell(
                         onTap:(){
                           setState(() {
-                            homework();
+                          
                           });
 
                         },
@@ -473,9 +499,10 @@ void homework(){
                                         // ignore: prefer_const_literals_to_create_immutables
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          const Text(
-                                            "Pending",
-                                            style: TextStyle(
+                                          Text(
+                                             _homeWorkController
+                                               .homeWorkControllerList[0][i]["status"]?? "",
+                                            style: const TextStyle(
                                                 color: Colors.red, fontSize: 23),
                                           ),
                                           SizedBox(width: 0.30.sw,),
@@ -488,8 +515,7 @@ void homework(){
                                                     .isdownloadinmethod();
 
 
-                                                // Directory dir = Directory(
-                                                //     '/storage/emulated/0/Download');
+                                              
                                                 // download(
                                                 //     Dio(),
                                                 //     _homeWorkController
@@ -497,16 +523,18 @@ void homework(){
                                                 //         [0]["document"],
                                                 //     dir.path);
 
+                                               
+                                              pdfDownload(_homeWorkController
+                                                        .homeWorkControllerList[0][i]
+                                                    ["document"]?? "",i);
                                                 setState(() {
 
                                                 });
 
-                                                pdfDownload(_homeWorkController
-                                                        .homeWorkControllerList[0][i]
-                                                    ["document"]?? "");
+                                               
                                               },
-                                              child: isdownloadin
-                                                  ? Row(
+                                              child: isdownloadin 
+                                                  ?  Row(
                                                       children:  [
                                                         Text("Download",
                                                           style: GoogleFonts.dmSans(
@@ -518,7 +546,7 @@ void homework(){
                                                         Icon(Icons.download)
                                                       ],
                                                     )
-                                                  : Row(
+                                                  :index==i ? Row(
                                                       children: [
                                                         InkWell(
                                                           onTap: () async {
@@ -548,6 +576,17 @@ void homework(){
                                                               ),),
                                                           ),
                                                         ),
+                                                      ],
+                                                    ):Row(
+                                                      children:  [
+                                                        Text("Download",
+                                                          style: GoogleFonts.dmSans(
+                                                            fontStyle: FontStyle.normal,
+                                                            fontSize: 15.sp,
+                                                            fontWeight: FontWeight.bold,
+                                                            color: Colors.black,
+                                                          ),),
+                                                        Icon(Icons.download)
                                                       ],
                                                     ),
                                             ),

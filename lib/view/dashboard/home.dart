@@ -369,24 +369,24 @@ feeController.Feesapi(id, company_key);
                             child: ClipOval(
                               child: Align(
                                 alignment: FractionalOffset(0.5, 0.0),
-                                child:
-                                 CachedNetworkImage(
-                                  placeholder: (context, url) => CircleAvatar(
-                                    maxRadius:
-                                    MediaQuery.of(context).size.width -
-                                        MediaQuery.of(context).size.width +
-                                        52,
-                                    backgroundImage: const AssetImage(
-                                      "assets/images/user1.png",
-                                    ),
-                                  ),
-                                  imageUrl:Get.arguments[1]?Get.arguments[5]: '${ApiUrl.imagesUrl}${studentpro}'!=null ?'${ApiUrl.imagesUrl.toString()}${studentpro.toString()}':
-                                  "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.clipartmax.com%2Fmiddle%2Fm2i8N4d3i8m2Z5A0_how-to-use-this-website-e-learning-student-icon%2F&psig=AOvVaw1cQVeYYslr-4AcEz9do-do&ust=1673154552886000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCPCCn8jYtPwCFQAAAAAdAAAAABAG"
-                                  // _allsetController
-                                  //     .SchoolIdControllerList[0]["response"]
-                                  // [0]["profileimage"]
-                                  //     .toString(),
-                                ),
+                                child: Text("data")
+                                //  CachedNetworkImage(
+                                //   placeholder: (context, url) => CircleAvatar(
+                                //     maxRadius:
+                                //     MediaQuery.of(context).size.width -
+                                //         MediaQuery.of(context).size.width +
+                                //         52,
+                                //     backgroundImage: const AssetImage(
+                                //       "assets/images/user1.png",
+                                //     ),
+                                //   ),
+                                //   imageUrl:Get.arguments[1]?Get.arguments[5]: '${ApiUrl.imagesUrl}${studentpro}'!=null ?'${ApiUrl.imagesUrl.toString()}${studentpro.toString()}':
+                                //   "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.clipartmax.com%2Fmiddle%2Fm2i8N4d3i8m2Z5A0_how-to-use-this-website-e-learning-student-icon%2F&psig=AOvVaw1cQVeYYslr-4AcEz9do-do&ust=1673154552886000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCPCCn8jYtPwCFQAAAAAdAAAAABAG"
+                                //   // _allsetController
+                                //   //     .SchoolIdControllerList[0]["response"]
+                                //   // [0]["profileimage"]
+                                //   //     .toString(),
+                                // ),
                               ),
                             ),
                           ),

@@ -15,7 +15,7 @@ class ExamResult extends StatefulWidget {
 class _ExamResultState extends State<ExamResult> {
  GetexamsResultController GetexamsResult=Get.put(GetexamsResultController());
 
-
+int autohight=0;
 // late String exam_group = GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["exam_group"].toString();
 //  late String exam= GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["exam"].toString();
 
@@ -61,6 +61,7 @@ class ExpandableListView extends StatefulWidget {
 }
 
 class _ExpandableListViewState extends State<ExpandableListView> {
+  double autovalue=0;
   bool expandFlag = false;
   GetexamsResultController GetexamsResult=Get.put(GetexamsResultController());
   List result = [
@@ -144,6 +145,7 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                       onPressed: () {
                         setState(() {
                           expandFlag = !expandFlag;
+                          autovalue=65.0*double.parse(GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"].length.toString());
                         });
                       }),
                 ],
@@ -153,6 +155,7 @@ class _ExpandableListViewState extends State<ExpandableListView> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
             child: ExpandableContainer(
+             autohight: autovalue,
                 expanded: expandFlag,
                 child: Column(
                   children: [
@@ -161,7 +164,7 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                           vertical: 0, horizontal: 5),
                       decoration: BoxDecoration(
                           border: Border.all(width: 0.3, color: Colors.grey),
-                          color: Color.fromARGB(255, 250, 254, 255)),
+                          color: const Color.fromARGB(255, 250, 254, 255)),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: const [
@@ -182,7 +185,7 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                             decoration: BoxDecoration(
                                 border:
                                     Border.all(width: 0.3, color: Colors.grey),
-                                color: Color.fromARGB(255, 250, 254, 255)),
+                                color: const Color.fromARGB(255, 250, 254, 255)),
                             child: ListTile(
                               title: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,7 +194,7 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                                 children: [
 
                                   Text(
-                              '${GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["min_marks"].toString()}',
+                              GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["min_marks"].toString(),
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Color.fromARGB(255, 0, 0, 0)),
@@ -207,7 +210,7 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                                   ),
                                 ],
                               ),
-                              leading: Text('${GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["subject_name"].toString()}',),
+                              leading: Text(GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["subject_name"].toString(),),
                               trailing: Text(result[index]["Result"] ?? ""),
                             ),
                           );
@@ -229,13 +232,15 @@ class ExpandableContainer extends StatelessWidget {
   final double collapsedHeight;
   final double expandedHeight;
   final Widget child;
-
+  final double autohight;
+  
   const ExpandableContainer({
     super.key,
     required this.child,
     this.collapsedHeight = 0.0,
-    this.expandedHeight = 200.0,
+    this.expandedHeight = 200,
     this.expanded = true,
+   required this.autohight,
   });
 
   @override
@@ -245,7 +250,7 @@ class ExpandableContainer extends StatelessWidget {
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
       width: screenWidth,
-      height: expanded ? expandedHeight : collapsedHeight,
+      height: expanded ? autohight : collapsedHeight,
       child: Container(
         child: child,
         // decoration:  BoxDecoration(border:  Border.all(width: 1.0, color: Color.fromARGB(255, 119, 127, 134))),
