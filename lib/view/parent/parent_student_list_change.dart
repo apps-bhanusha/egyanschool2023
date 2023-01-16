@@ -88,17 +88,16 @@ var schoolname;
 
   @override
   void initState() {
-
+    
+   var box = Hive.box("schoolData");
+     var user=    box.get("username").toString();
+      var pass=  box.get("password").toString();
+   parentLoginController.parentapi(user, pass,context);
+    print("model data ckeck.........................");
+  print(parentLoginController.parentStudentListModel.value?.response?[0]?.name);
     var id = box.get("company_key");
        schoolname = box.get("schoolname");
     session = box.get("session");
-  // alld=(int.parse(_allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"])) / 100;
-  //       print("444mmmmmmmmmmmmmm4444");
-  //      print(alld);
-// print('${ApiUrl.imagesUrl}${studentpro}');
-//     print(studentname);
-    // _loading = false;
-    // _progressValue =double.parse(_allsetController.SchoolIdControllerList[0]["response"][0]["fee"]["total_amount"]);
     timer = Timer.periodic(Duration(milliseconds: 20), (_) {
       if(secsRemaining == 40){
         return;
@@ -109,26 +108,8 @@ var schoolname;
         percentage = (progressFraction*100).floor();
       });
     });
-    // timer = Timer.periodic(Duration(milliseconds: 100), (_) {
-    //   if(DueFees == TotalFees){
-    //     return ;
-    //   }
-    //   setState(() {
-    //     DueFees -= 1;
-    //     progressFraction = (TotalFees - DueFees) / TotalFees;
-    //     percentage = (progressFraction*100).roundToDouble();
-    //   });
-    // });
 
     super.initState();
-    // _updateProgress();
-    //
-    // setState(() {
-    //   _loading = !_loading;
-    //   _updateProgress();
-    // });
-
-
     _controller = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
@@ -148,16 +129,13 @@ var schoolname;
       parent: _controller1,
       curve: Curves.linear,
     ));
-    // _controller.repeat(reverse: true);
-    // _controller =  AnimationController(vsync: this, duration: Duration(seconds: 6));
-    // colorAnimation = ColorTween(begin: Colors.blue, end: Colors.yellow).animate(controller);
-    // sizeAnimation = Tween<double>(begin: 400.0, end: 400.0).animate(controller);
   }
 
   @override
   void dispose() {
     _controller.dispose();
     _controller1.dispose();
+    
 
     super.dispose();
   }
@@ -285,7 +263,7 @@ var schoolname;
                         ),
                       ),
                     ),
-                   Obx(() => parentLoginController.loadingdata.value? ListView.builder(
+                   Obx(() => ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemCount: parentLoginController.parentStudentListModel.value?.response!=null ?parentLoginController.parentStudentListModel.value?.response?.length:0,
@@ -497,7 +475,7 @@ var schoolname;
                      ),
                    ),
                                   );
-                   },):const Center(child: CircularProgressIndicator(color: Colors.blue),))
+                   },))
                    ,
                   ]),
                    

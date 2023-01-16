@@ -95,15 +95,8 @@ FeeController feeController=Get.put(FeeController());
 
   @override
   void initState() {
-
-
-
-  
     var id = box.get("company_key");
     _schoolsetting.GetSchoolSettingapi(id,);
-   
-
-
     id = box.get("student_id");
     student_id = box.get("student_id");
     company_key = box.get("company_key");
@@ -818,60 +811,65 @@ feeController.Feesapi(id, company_key);
                 dense: true,
               ),
             ),
-ListTileTheme(
-            dense: true,
 
-            child: ExpansionTile(
-
-              collapsedIconColor: Colors.white,
-              textColor: Colors.white,
-              title: Text(
-                "Select Student",
-                style: GoogleFonts.dmSans(
-                  fontStyle: FontStyle.normal,
-                  fontSize: 14.sp,
-
-                  color: Colors.white,
-                ),
+ Visibility(
+    visible:parentLoginController.parentLogin.value ,
+  child:   ListTileTheme(
+                dense: true,
+    
+                child: parentLoginController.parentStudentListModel.value!=null? ExpansionTile(
+    
+                  collapsedIconColor: Colors.white,
+                  textColor: Colors.white,
+                  title: Text(
+                    "Select Student",
+                    style: GoogleFonts.dmSans(
+                      fontStyle: FontStyle.normal,
+                      fontSize: 14.sp,
+    
+                      color: Colors.white,
+                    ),
+                  ),
+                  leading: const Icon(Icons.book_outlined,
+                      size: 20.0, color: Colors.white),
+    
+                  childrenPadding: EdgeInsets.only(left: 60), //children padding
+                  children: [
+                 Obx(() =>  ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                        itemCount: parentLoginController.parentStudentListModel.value?.response!=null ?parentLoginController.parentStudentListModel.value?.response?.length:0,
+                    itemBuilder: (context, index) {
+                    return   ListTile(
+                        title:  Text( "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
+                          style: GoogleFonts.dmSans(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 14.sp,
+                            color: Colors.white,
+                          ),),
+                         onTap: () {
+                                print("${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}"); 
+                                Get.toNamed(RoutesName.home,arguments: [
+                                  "${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}",
+                                  false,
+                                "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalAmount}",
+                                "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalBalanceAmount}",
+                                "${ parentLoginController.parentStudentListModel.value?.response?[index]?.attandance?.present}",
+                                "https://e-gyan.co.in/${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}",
+                                ]);  
+                           toggleMenu(); 
+                         },
+                    );
+                  },),)
+    
+                   
+    
+                    //more child menu
+                  ],
+                ):const SizedBox(),
               ),
-              leading: const Icon(Icons.book_outlined,
-                  size: 20.0, color: Colors.white),
+),
 
-              childrenPadding: EdgeInsets.only(left: 60), //children padding
-              children: [
-             Obx(() =>  ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                    itemCount: parentLoginController.parentStudentListModel.value?.response!=null ?parentLoginController.parentStudentListModel.value?.response?.length:0,
-                itemBuilder: (context, index) {
-                return   ListTile(
-                    title:  Text( "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
-                      style: GoogleFonts.dmSans(
-                        fontStyle: FontStyle.normal,
-                        fontSize: 14.sp,
-                        color: Colors.white,
-                      ),),
-                     onTap: () {
-                            print("${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}"); 
-                            Get.toNamed(RoutesName.home,arguments: [
-                              "${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}",
-                              false,
-                            "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalAmount}",
-                            "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalBalanceAmount}",
-                            "${ parentLoginController.parentStudentListModel.value?.response?[index]?.attandance?.present}",
-                            "https://e-gyan.co.in/${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}",
-                            ]);  
-                       toggleMenu(); 
-                     },
-                );
-              },),)
-
-               
-
-                //more child menu
-              ],
-            ),
-          ),
             SizedBox(
               height: 0.052.sh,
               child: ListTile(

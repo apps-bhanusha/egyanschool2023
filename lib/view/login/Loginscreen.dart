@@ -269,21 +269,24 @@ keyboardType: TextInputType.number,
                   // color:  Colors.blue
                 ),
                 child: ElevatedButton(
-                  child:  Text(
-                    "Next",
-                    style: GoogleFonts.dmSans(
-                      fontStyle: FontStyle.normal,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-
+                  // ignore: sort_child_properties_last
+                  child:  Obx(
+                    () => all.isloading.value ? Text(
+                      "Next",
+                      style: GoogleFonts.dmSans(
+                        fontStyle: FontStyle.normal,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                  
+                    ):const Center(child:  CircularProgressIndicator(color: Colors.white,)),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                   ),
                   onPressed: () async {
-                   
+                   all.isloading.value=false;
                   all.apicall( id.text,rediobutton,context);
                    // id.text= await (sessionManager.set("id", id.text));
                     //    if (all.SchoolIdControllerList[0]["status"]==true) {

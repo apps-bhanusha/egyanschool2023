@@ -180,23 +180,25 @@ class _StudentLoginState extends State<StudentLogin> {
                 ),
                 child: ElevatedButton(
                   // ignore: sort_child_properties_last
-                  child: Text(
-                    "Login",
-                    style: GoogleFonts.dmSans(
-                      fontStyle: FontStyle.normal,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                  child: Obx(
+                   () => _allsetController.isloading.value ? Text(
+                      "Login",
+                      style: GoogleFonts.dmSans(
+                        fontStyle: FontStyle.normal,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ):const Center(child: CircularProgressIndicator(color: Colors.white),),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                   ),
                   onPressed: () async {
+                    _allsetController.isloading.value =false;
                  _allsetController.apicallpost(usersname.text,password.text,context);
 
-               await sessionManager.set("name", usersname.text);
-               await sessionManager.set("passward", password.text);
+
 
                print("1111111000000878888888888800000000000000000000555555555555555555555555550");
                print(await sessionManager.set("name", usersname.text));
@@ -208,7 +210,7 @@ class _StudentLoginState extends State<StudentLogin> {
             child: Container(
               margin: const EdgeInsets.only(right: 30).r,
               child: Text(
-                "Forget Passsord",
+                "Forget Passsword",
                 style: GoogleFonts.dmSans(
                   fontStyle: FontStyle.normal,
                   fontSize: 15.sp,

@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/controller/fees_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
+import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/controller/school_id_controller.dart';
+import 'package:ecom_desgin/main.dart';
 import 'package:ecom_desgin/model/parent_student_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,7 +23,9 @@ class UserNameController extends GetxController {
   final FeeController _feesController = Get.put(FeeController());
   List  SchoolIdControllerList = [].obs;
   RxBool loadingdata =false.obs;
+  RxBool isloading=true.obs;
   Rxn<ParentStudentListModel> parentStudentListModel= Rxn<ParentStudentListModel>();
+  ParentLoginController parentLoginController=Get.put(ParentLoginController());
 
 
   // Future<bool> saveUser(String user) async {
@@ -29,7 +33,7 @@ class UserNameController extends GetxController {
   //   return prefs.setString('', user);
   // }
   Future<List<UserNameController>?> apicallpost( username,password,context) async {
-
+   
     var body = json.encode({
       "username":username,
       "company_key":"Od9EFRCPo8ach2Hk",
@@ -40,6 +44,12 @@ class UserNameController extends GetxController {
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.studentLoginUrl);
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
+      isloading.value=true;
+      parentLoginController.parentLogin.value=false;
+                     await sessionManager.set("name", username);
+               await sessionManager.set("passward", password);
+          await sessionManager.set("parentlogin", "student");
+
       final userIsStored =
       await saveUser(jsonEncode(response.body));
       var sdata = jsonDecode(response.body);
@@ -84,7 +94,7 @@ print(SchoolIdControllerList[0]["response"][0]["profileimage"]);
        //  print("33333387877555543447uuu");
        //  print(studentpro);
       loadingdata.value=true;
-           return Get.offAll( const HomeScreen(),arguments: ['0',false]);
+           return Get.to( const HomeScreen(),arguments: ['0',false]);
       }
       else  {
         ScaffoldMessenger.of (context).showSnackBar(SnackBar(content: Text(sdata["message"], style: GoogleFonts.dmSans(

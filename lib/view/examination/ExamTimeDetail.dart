@@ -103,7 +103,7 @@ var  starttime;
                                     Obx(
                                     () =>
                                        Text(
-                                         getexamview.loadingGetexamsSchedule.value?getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["subject_name"]:CircularProgressIndicator(),
+                                         getexamview.loadingGetexamsSchedule.value?"${getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["subject_name"].toString().capitalize}":"",
                                          style: GoogleFonts.dmSans(
                                            fontStyle: FontStyle.normal,
                                            fontSize: 20.sp,

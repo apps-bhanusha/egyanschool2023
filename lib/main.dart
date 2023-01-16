@@ -6,7 +6,7 @@ import 'package:ecom_desgin/view/dashboard/home.dart';
 import 'package:ecom_desgin/view/login/Loginscreen.dart';
 import 'package:ecom_desgin/view/dashboard/drawer.dart';
 import 'package:ecom_desgin/view/dashboard/dashboard.dart';
-import 'package:ecom_desgin/view/parent/parent_student_list.dart';
+import 'package:ecom_desgin/view/parent/parent_student_list_change.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:get/get.dart';
@@ -44,9 +44,10 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 class _SplashScreenState extends State<SplashScreen> {
-  ParentLoginController parentLoginController=Get.put(ParentLoginController());
+  // ParentLoginController parentLoginController=Get.put(ParentLoginController());
 
   var name;
+  var parentlogin;
   String url = "Your_URL";
   String? userlogin;
   String? manager;
@@ -55,11 +56,14 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
    usercheck();
     super.initState();
+    print("setion ckeck .................");
+    print(name);
+    print(parentlogin);
     Future.delayed(
       const Duration(seconds: 7),
-          () => name!=null ?Get.to(const ParentStudentList()):Get.toNamed(RoutesName.schoolId),
+          () => name!=null ? "parentlogin"==parentlogin?Get.to(const ParentStudentList()):Get.toNamed(RoutesName.home,arguments: ['0',false]):Get.toNamed(RoutesName.schoolId),
   //         () {
-  //                  var box = Hive.box("schoolData");
+  //     var box = Hive.box("schoolData");
   //    var user=    box.get("username").toString();
   //     var pass=  box.get("password").toString();
   //  parentLoginController.parentapi(user, pass,"");
@@ -71,7 +75,18 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 Future<void> usercheck() async {
   name=await SessionManager().get("name");
+  parentlogin=await SessionManager().get("parentlogin");
 }
+// parentloginrecall(){
+//        var box = Hive.box("schoolData");
+//      var user=    box.get("username");
+//       var pass=  box.get("password").toString();
+//   parentLoginController.parentapi(user, pass,"");
+//   Get.to(const ParentStudentList());
+// }
+
+
+
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;

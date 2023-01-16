@@ -1,5 +1,6 @@
+import 'package:ecom_desgin/main.dart';
 import 'package:ecom_desgin/model/parent_student_model.dart';
-import 'package:ecom_desgin/view/parent/parent_student_list.dart';
+import 'package:ecom_desgin/view/parent/parent_student_list_change.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:ecom_desgin/constant/api_url.dart';
@@ -24,16 +25,19 @@ class ParentLoginController extends GetxController{
   Rxn<ParentStudentListModel> parentStudentListModel= Rxn<ParentStudentListModel>();
   
   List  SchoolIdControllerList = [].obs;
-  RxBool loadingdata =false.obs;
+  RxBool loadingdata =true.obs;
+  RxBool parentLogin =  false.obs;
 
 @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-  
+   
   }
 
-
+// parentloginrecall(){
+//  
+// }
 
   void parentapi( username,password,context) async {
   var box = Hive.box("schoolData");
@@ -49,17 +53,21 @@ class ParentLoginController extends GetxController{
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.parentLoginUrl);
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
+          await sessionManager.set("name", username);
+          await sessionManager.set("parentlogin", "parentlogin");
+          await sessionManager.set("passward", password);
       final userIsStored =
       await saveUser(jsonEncode(response.body));
       var pdata = jsonDecode(response.body);
       parentStudentListModel.value=ParentStudentListModel.fromJson(pdata);
-       print("parent responce");
-      print(pdata);
+       print("parent responce data ");
+      print(parentStudentListModel.value?.response?[0]?.name);
       if (pdata["status"] == true) {
         var box = Hive.box("schoolData");
         var company_key = box.get("company_key");
       loadingdata.value=true;
-           return Get.offAll(const ParentStudentList());
+      parentLogin.value=true;
+           return Get.to(const ParentStudentList());
       }
 
       else  {
@@ -73,7 +81,6 @@ class ParentLoginController extends GetxController{
           backgroundColor: Colors.white,
         ),
         );
-        print("invalid id");
       } }
     else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Blank Field Not Allowed",style: GoogleFonts.dmSans(fontStyle: FontStyle.normal,

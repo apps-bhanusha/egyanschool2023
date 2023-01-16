@@ -18,7 +18,7 @@ import 'package:http/http.dart' as http;
   final GetSchoolSettingController _schoolsetting =Get.put(GetSchoolSettingController());
 
   List SchoolIdControllerList2 = [];
-   
+   RxBool isloading =true.obs;
   Future<List<SchoolIdController>?> apicall(id ,_radioVal,context) async {
     var body = json.encode({
       "school_id": id,
@@ -44,6 +44,8 @@ print(SchoolIdControllerList2[0]["response"]["company_key"]);
         box.put("company_key",SchoolIdControllerList2[0]["response"]["company_key"]);
 
         _schoolsetting.GetSchoolSettingapi(SchoolIdControllerList2[0]["response"]["company_key"]);
+    isloading =true.obs;
+
         if (_radioVal == 3) {
           Get.to( StudentLogin());
           print("Student");
