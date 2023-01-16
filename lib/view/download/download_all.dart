@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
-import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart'; 
@@ -110,10 +109,6 @@ class _DownloadAllState extends State<DownloadAll> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-          
-            Container(
-          
-            ),
             Center(
               child: Card(
                 color: const Color.fromARGB(255, 164, 229, 255),
@@ -171,16 +166,16 @@ class _DownloadAllState extends State<DownloadAll> {
                                 subtitle: Obx(() => Text("${_downloadAllController.assignmentDownloadModel.value?.response?.list?[index]?.date}")),
                       
                                 trailing: isdownloadin?const Icon(Icons.download):index==index ? Text(
-                                                                progressString,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                              style: GoogleFonts.dmSans(
-                                                                fontStyle: FontStyle.normal,
-                                                                fontSize: 15.sp,
-                                                                fontWeight: FontWeight.bold,
-                                                                color: Colors.black,
-                                                              ),):const Icon(Icons.download),
+                                    progressString,
+                                    overflow:
+                                        TextOverflow
+                                            .ellipsis,
+                                  style: GoogleFonts.dmSans(
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),):const Icon(Icons.download),
                           ),
                         ),
                       );
