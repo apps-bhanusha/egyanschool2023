@@ -399,7 +399,9 @@ feeController.Feesapi(id, company_key);
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  print("all");
+                                },
                                 child:  Text(
                                   studentname??"",
                                   // _allsetController.SchoolIdControllerList[0]
