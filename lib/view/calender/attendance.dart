@@ -216,17 +216,14 @@ void markedDatedMap(){
   var a = Jiffy(DateTime(2019, 10, 18)).month.toString();
   print("444ddddddddd");
   print(a);
-  for (int i = 0; i <monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"].length; i++) {
+ 
+   for (int i = 0; i <monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"].length; i++) {
     present=monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"][i]["present"];
      months=monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"][i]["month"];
-late String monthconvert='${DateFormat('MMMM').format(DateFormat("yyyy-MM-dd").parse(monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"][s]["month"]))}';
-    data.add( _ChartData(months.toString(),double.parse(present), Color.fromRGBO(37, 171, 29, 1.0)));
+    data.add( _ChartData(months.toString(),double.parse(present), const Color.fromRGBO(37, 171, 29, 1.0)));
   }
+ 
   for (int i = 0; i <presentDates.length; i++) {
-   print("4ggddc");
-    print(presentDates[i]["title"].length.toDouble());
-
-
 
 // if(length==0){
 //   lengthchart=double.parse(length.toString());
@@ -264,8 +261,7 @@ late String monthconvert='${DateFormat('MMMM').format(DateFormat("yyyy-MM-dd").p
     print(_markedDateMap);
   });
 }
-  void Attendanceapi(student_id,
-      company_key) async {
+  void Attendanceapi(student_id,company_key) async {
     var body = json.encode({
       "company_key": company_key,
       "student_id": student_id,
@@ -275,6 +271,7 @@ late String monthconvert='${DateFormat('MMMM').format(DateFormat("yyyy-MM-dd").p
     print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl + ApiUrl.monthlyattendenceUrl);
     var response = await http.post(urlapi, body: body);
+    print(response);
     if (response.statusCode == 200) {
       var sdata = jsonDecode(response.body);
 

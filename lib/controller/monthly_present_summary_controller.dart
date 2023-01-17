@@ -17,7 +17,7 @@ class MonthlyPresentSummaryController extends GetxController {
     });
     print("monthly summry");
     print(body);
-    final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.monthlyattendenceUrl);
+    final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.monthlyattendencesummaryUrl);
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
       var  sdata = jsonDecode(response.body);
