@@ -329,9 +329,9 @@ void markedDatedMap(){
       markedDateShowIcon: true,
       showOnlyCurrentMonthDate: true,
       markedDateIconMaxShown: 1,
-      markedDateMoreShowTotal:
-
-      true,
+      markedDateMoreShowTotal: true,
+      minSelectedDate: DateTime(2022),
+      maxSelectedDate: DateTime(2023,3),
       thisMonthDayBorderColor: Color.fromARGB(255, 206, 204, 204),// null for not showing hidden events indicator
       markedDateIconBuilder: (event) {
         return event.icon;
@@ -340,10 +340,8 @@ void markedDatedMap(){
 
     return Scaffold(
       appBar: AppBar(
-
         backgroundColor:AgentColor.appbarbackgroundColor,
         title: Text('Student Atendance',style: MyGoogeFont.mydmSans),
-
         actions: [
           PopupMenuButton<int>(
             itemBuilder: (context) {
@@ -359,29 +357,20 @@ void markedDatedMap(){
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-
-            Container(
+            SizedBox(
               height: 0.25.sh,
-
               child: SfCartesianChart(
                   plotAreaBorderWidth: 0,
                   primaryXAxis: CategoryAxis(
                     majorGridLines: MajorGridLines(width: 0),
-
-
                     axisLine: AxisLine(width: 0),
-
                   ),
-
                   primaryYAxis: NumericAxis(minimum: 0, maximum: 31, interval: 5,  numberFormat: NumberFormat.compact(),  majorGridLines: MajorGridLines(width: 0),
-
                     axisLine: AxisLine(width: 0), ),
                   tooltipBehavior: _tooltip,
-
                   series: <ChartSeries<_ChartData, String>>[
                     // for(var i=5; i<data.length; i++)
                     ColumnSeries<_ChartData, String>(
-
                       dataSource: data,
                       xValueMapper: (_ChartData data, _) => data.x,
                       yValueMapper: (_ChartData data, _) => data.y,
@@ -389,10 +378,10 @@ void markedDatedMap(){
                       pointColorMapper: (_ChartData data, _) => data.color,
                       // dataLabelSettings: DataLabelSettings(isVisible: true)
                     )
-
                   ]),
             ),
-            Container(
+
+            SizedBox(
               height: 0.60.sh,
               child: Card(margin: EdgeInsets.only(left: 16.0, right: 16.0,).r,child: Column(
                 children: [
@@ -404,6 +393,7 @@ void markedDatedMap(){
                     height: 0.0035.sh,
 
                   ) ,
+
           Container(margin: EdgeInsets.symmetric(horizontal: 16.0).r,
                   child: _calendarCarouselNoHeader),
                   Row(
@@ -413,64 +403,54 @@ void markedDatedMap(){
                           height: 15,
                           width: 15,
                           color: Colors.red),
-                      Container(
-                        child: Text("Absent",style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize:12.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.lightBlueAccent,
-                        ),),
-                      ),
+                      Text("Absent",style: GoogleFonts.dmSans(
+                        fontStyle: FontStyle.normal,
+                        fontSize:12.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.lightBlueAccent,
+                      ),),
                       Container(
                           height: 15,
                           width: 15,
                           color: Colors.green),
 
-                      Container(
-                        child: Text("Present",style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize:12.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.lightBlueAccent,
-                        ),),
-                      ),
+                      Text("Present",style: GoogleFonts.dmSans(
+                        fontStyle: FontStyle.normal,
+                        fontSize:12.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.lightBlueAccent,
+                      ),),
                       Container(
                           height: 15,
                           width: 15,
                           color: Colors.yellow),
-                      Container(
-                        child: Text("Late",style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize:12.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.lightBlueAccent,
-                        ),),
-                      ),
+                      Text("Late",style: GoogleFonts.dmSans(
+                        fontStyle: FontStyle.normal,
+                        fontSize:12.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.lightBlueAccent,
+                      ),),
                       Container(
                           height: 15,
                           width: 15,
                           color: Colors.orange),
+                      Text("HalfDay",style: GoogleFonts.dmSans(
+                        fontStyle: FontStyle.normal,
+                        fontSize:12.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.lightBlueAccent,
+                      ),),
                       Container(
-                        child: Text("HalfDay",style: GoogleFonts.dmSans(
+                          height: 15,
+                          width: 15,
+                          color: Colors.grey),
+                      Text("Holiday",
+                        style: GoogleFonts.dmSans(
                           fontStyle: FontStyle.normal,
                           fontSize:12.sp,
                           fontWeight: FontWeight.bold,
                           color: Colors.lightBlueAccent,
                         ),),
-                      ),
-                      Container(
-                          height: 15,
-                          width: 15,
-                          color: Colors.grey),
-                      Container(
-                        child: Text("Holiday",
-                          style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize:12.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.lightBlueAccent,
-                          ),),
-                      ),
                     ],
                   ),
                 ],
