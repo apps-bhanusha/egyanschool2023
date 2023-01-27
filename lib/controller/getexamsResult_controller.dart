@@ -12,11 +12,12 @@ class GetexamsResultController extends GetxController {
 
 
   RxBool loadingGetexamsResult =false.obs;
-  Future<List<GetexamsResultController>?> GetexamsResultapi( company_key,id) async {
+  Future<List<GetexamsResultController>?> GetexamsResultapi( company_key,id,exam_id) async {
 
     var body = json.encode({
       "company_key":company_key,
-      "id": id
+      "id": id,
+"exam_id":exam_id
     });
     print("4ffffffffffffffffffffoooooooooooooooooo444444444444444444ffffffffffffff");
     print(body);

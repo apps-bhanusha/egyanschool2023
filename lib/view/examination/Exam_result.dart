@@ -1,10 +1,15 @@
+import 'dart:async';
+
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/getexamsResult_controller.dart';
+import 'package:ecom_desgin/controller/getexamsSchedule1_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 class ExamResult extends StatefulWidget {
   const ExamResult({super.key});
 
@@ -13,47 +18,78 @@ class ExamResult extends StatefulWidget {
 }
 
 class _ExamResultState extends State<ExamResult> {
- GetexamsResultController GetexamsResult=Get.put(GetexamsResultController());
+  GetexamsSchedule1Controller getexamview1=Get.put(GetexamsSchedule1Controller());
+  GetexamsResultController GetexamsResult=Get.put(GetexamsResultController());
+ var id;
+ var company_key;
 
-int autohight=0;
-// late String exam_group = GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["exam_group"].toString();
-//  late String exam= GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["exam"].toString();
+ var box = Hive.box("schoolData");
+// int autohight=0;
 
+@override
+  void initState() {
+  id = box.get("student_id");
+
+  company_key = box.get("company_key");
+
+  getexamview1.GetexamsSchedule1api( company_key, 0);
+
+    super.initState();
+  }
 
 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 211, 245, 255),
-      appBar: AppBar(
-        backgroundColor:AgentColor.appbarbackgroundColor,
-        title: Text('Result',style: MyGoogeFont.mydmSans),
-        actions: [
-          PopupMenuButton<int>(
-            itemBuilder: (context) {
-              return <PopupMenuEntry<int>>[
-                const PopupMenuItem(child: Text('0'), value: 0),
-                const PopupMenuItem(child: Text('1'), value: 1),
-              ];
+    return RefreshIndicator(
+
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 211, 245, 255),
+        appBar: AppBar(
+          backgroundColor:AgentColor.appbarbackgroundColor,
+          title: Text('Result',style: MyGoogeFont.mydmSans),
+          actions: [
+            PopupMenuButton<int>(
+              itemBuilder: (context) {
+                return <PopupMenuEntry<int>>[
+                  const PopupMenuItem(child: Text('0'), value: 0),
+                  const PopupMenuItem(child: Text('1'), value: 1),
+                ];
+              },
+            ),
+          ],
+        ),
+        body:Obx(()=> getexamview1.loadingGetexamsSchedule1.value ?ListView.builder(
+            itemBuilder: (BuildContext context, int index) {
+              return ExpandableListView(title: '${getexamview1.loadingGetexamsSchedule1.value?getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][index]["exam_group_name"]:""}${getexamview1.loadingGetexamsSchedule1.value?getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][index]["exam"]:""}',id:getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][index]["exam_group_id"],value:GetexamsResult.loadingGetexamsResult.value=false);
             },
-          ),
-        ],
+            itemCount:getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"].length,
+          ):Center(child: CircularProgressIndicator()),
+        ),
       ),
-      body: ListView.builder(
-        itemBuilder: (BuildContext context, int index) {
-          return ExpandableListView(title: '${GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["exam_group"].toString()}${GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["exam"].toString()}');
-        },
-        itemCount: GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"].length,
-      ),
+      onRefresh: () async {
+        AlwaysScrollableScrollPhysics();
+        setState(() {
+          getexamview1.GetexamsSchedule1api(company_key, 0);
+
+        });
+
+
+        await Future.value({
+
+          Duration(seconds: 3),
+
+        });
+      },
     );
   }
 }
 
 class ExpandableListView extends StatefulWidget {
   final String title;
-
-  const ExpandableListView({Key? key, required this.title}) : super(key: key);
+  final String id;
+  final bool value;
+  const ExpandableListView({Key? key, required this.title,required this.id,required this.value}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -61,9 +97,13 @@ class ExpandableListView extends StatefulWidget {
 }
 
 class _ExpandableListViewState extends State<ExpandableListView> {
+
   double autovalue=0;
   bool expandFlag = false;
   GetexamsResultController GetexamsResult=Get.put(GetexamsResultController());
+  GetexamsSchedule1Controller getexamview1=Get.put(GetexamsSchedule1Controller());
+  var company_key;
+  var student_id;
   List result = [
     {
       "subjectname": "hindi",
@@ -143,83 +183,107 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                         ),
                       ),
                       onPressed: () {
-                        setState(() {
+                        var box = Hive.box("schoolData");
+                        company_key = box.get("company_key");
+                        student_id = box.get("student_id");
+                        GetexamsResult.GetexamsResultapi(company_key,student_id,widget.id);
+
+                        setState(()  {
+
                           expandFlag = !expandFlag;
-                          autovalue=65.0*double.parse(GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"].length.toString());
+                          autovalue=62.0*double.parse(GetexamsResult.loadingGetexamsResult.value ?GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"].length.toString():"0.0");
+print("dffdfd");
+                          print(expandFlag);
+                          print(autovalue);
                         });
+
+
+
                       }),
                 ],
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-            child: ExpandableContainer(
-             autohight: autovalue,
-                expanded: expandFlag,
-                child: Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 0, horizontal: 5),
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 0.3, color: Colors.grey),
-                          color: const Color.fromARGB(255, 250, 254, 255)),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text("Subject"),
-                            Text("Passing Marks"),
-                            Text("Marks Obtained"),
-                            Text("Result"),
-                          ]),
-                    ),
 
-                    Expanded(
 
-                      child: ListView.builder(
-
-                        itemBuilder: (BuildContext context, int index) {
-
-                          return Container(
+           Padding(
+                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                child: ExpandableContainer(
+                 autohight: autovalue,
+                    expanded: expandFlag,
+                    child:  Obx(()=> GetexamsResult.loadingGetexamsResult.value==true?Column(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 5),
                             decoration: BoxDecoration(
-                                border:
-                                    Border.all(width: 0.3, color: Colors.grey),
+                                border: Border.all(width: 0.3, color: Colors.grey),
                                 color: const Color.fromARGB(255, 250, 254, 255)),
-                            child: ListTile(
-                              title: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Text("Subject"),
+                                  Text("Passing Marks"),
+                                  Text("Marks Obtained"),
+                                  Text("Result"),
+                                ]),
+                          ),
 
-                                  Text(
-                              GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["min_marks"].toString(),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Color.fromARGB(255, 0, 0, 0)),
+                              Expanded(
+
+                                child:
+
+                                     ListView.builder(
+                                      itemBuilder: (BuildContext context, int index) {
+
+                                        return Container(
+                                            decoration: BoxDecoration(
+                                                border:
+                                                    Border.all(width: 0.3, color: Colors.grey),
+                                                color: const Color.fromARGB(255, 250, 254, 255)),
+                                            child: ListTile(
+                                              title: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.spaceEvenly,
+                                                children: [
+
+                                                  Text(
+                                              GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["min_marks"].toString(),
+                                                    style: const TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Color.fromARGB(255, 0, 0, 0)),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Text(
+                                                    '${GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["get_marks"].toString()}/${GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["max_marks"].toString()}',
+                                                    style: const TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Color.fromARGB(255, 0, 0, 0)),
+                                                  ),
+                                                ],
+                                              ),
+                                              leading: Text(GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["subject_name"].toString(),),
+                                              trailing: Text(GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["result"].toString(),),
+                                            ),
+
+                                        );
+                                      },
+                                      itemCount:GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"].length,
                                   ),
-                                  const SizedBox(
-                                    width: 50,
-                                  ),
-                                  Text(
-                                    '${GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["get_marks"].toString()}/${GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["max_marks"].toString()}',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Color.fromARGB(255, 0, 0, 0)),
-                                  ),
-                                ],
-                              ),
-                              leading: Text(GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"][index]["subject_name"].toString(),),
-                              trailing: Text(result[index]["Result"] ?? ""),
-                            ),
-                          );
-                        },
-                        itemCount:GetexamsResult.GetexamsResultControllerList[0]["response"]["examResult"].length,
-                      ),
+                                   ),
+
+
+
+
+                        ],
+                    ):Center(child: CircularProgressIndicator()),
+
                     )
-                  ],
-                )),
+              ),
+
           )
         ],
       ),

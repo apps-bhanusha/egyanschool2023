@@ -17,5 +17,11 @@ class MyDateFormat{
     return dateformate;
 
   }
+  static dateformatmethod2(datechange){
+    var  dateformate=formatDate(DateTime.parse(datechange),[dd, '-', mm, '-', yyyy," ", HH, ':', nn, ':', ss ]);
+
+    return dateformate;
+
+  }
 
 }

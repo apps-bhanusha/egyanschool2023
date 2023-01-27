@@ -27,7 +27,7 @@ var box = Hive.box("schoolData");
       FeeControllerList.add(sdata) ;
       print("555555555555555555555jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
       print(FeeControllerList);
-    box.put("total_deposite_amount", FeeControllerList[0]["response"]["total_discount_amount"]);
+
       if (sdata["status"] == true ) {
         loadingfees.value=true;
         print("massage");

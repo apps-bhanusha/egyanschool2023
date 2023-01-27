@@ -716,7 +716,7 @@ class _GridViewallState extends State<GridViewall>
               height: 0.052.sh,
               child: ListTile(
                 onTap: () => Get.toNamed(RoutesName.notification),
-                leading: const Icon(Icons.notifications,
+                leading: const Icon(Icons.rate_review_rounded,
                     size: 20.0, color: Colors.white),
                 title: const Text("Notification",),
                 textColor: Colors.white,
@@ -728,8 +728,8 @@ class _GridViewallState extends State<GridViewall>
             SizedBox(
               height: 0.052.sh,
               child: ListTile(
-                onTap: () => Get.toNamed(RoutesName.notification),
-                leading: const Icon(Icons.notifications,
+                onTap: () => Get.toNamed(RoutesName.teacherreview),
+                leading: const Icon(Icons.accessibility,
                     size: 20.0, color: Colors.white),
                 title: const Text("Teacher Review"),
                 textColor: Colors.white,

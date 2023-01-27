@@ -47,16 +47,19 @@ print(SchoolIdControllerList2[0]["response"]["company_key"]);
     isloading =true.obs;
 
         if (_radioVal == 3) {
-          Get.to( StudentLogin());
+        box.put("role_flag","S");
+
+          Get.to( const StudentLogin());
           print("Student");
         }
         if (_radioVal == 1) {
            Get.to( const TeacherLogin());
-         
+          box.put("role_flag","T");
           print("teacher");
           // all.apicall(id.text);
         }
          if(_radioVal==2){
+           box.put("role_flag","P");
                       Get.toNamed(RoutesName.parentLogin);
                     }
                    

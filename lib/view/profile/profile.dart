@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/font.dart';
+import 'package:ecom_desgin/controller/student_login_controller.dart';
+import 'package:ecom_desgin/controller/student_login_update_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +16,9 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-
+  final UserNameController _allsetController =Get.put( UserNameController());
+  final StudentLoginUpdateController studentLoginUpdateControllers =Get.put( StudentLoginUpdateController());
+ List <dynamic> parentinfo=[];
   var  studentpro;
   var studentname;
   var studentclass;
@@ -29,6 +35,8 @@ class _ProfileState extends State<Profile> {
   var email;
   var samagra_id;
   var adhar_no;
+  var username;
+  var password;
   var box = Hive.box("schoolData");
   @override
   void initState() {
@@ -48,230 +56,258 @@ class _ProfileState extends State<Profile> {
     roll_no=box.get("roll_no");
     adhar_no=box.get("adhar_no");
 
+    username = box.get("username");
+    password =box.get("password");
+    studentLoginUpdateControllers.apicallpost(username,password);
+
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor:AgentColor.appbarbackgroundColor,
-          title: Text('Profile ',style: MyGoogeFont.mydmSans),
-          actions: [
-            PopupMenuButton<int>(
-              itemBuilder: (context) {
-                return <PopupMenuEntry<int>>[
-                  const PopupMenuItem(child: Text('0'), value: 0),
-                  const PopupMenuItem(child: Text('1'), value: 1),
-                ];
-              },
-            ),
-          ],
-        ),
-        body: Column(
-          children: <Widget>[
-            Container(
-              height: 0.350.sh,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.blue, Colors.blue.shade300],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  stops: [0.5, 0.9],
-                ),
+    return RefreshIndicator(
+      onRefresh: () async {
+        AlwaysScrollableScrollPhysics();
+        setState(() {
+
+
+
+        });
+
+        Timer timer;
+
+        timer = Timer.periodic(Duration(seconds: 3),(t){
+          username = box.get("username");
+          password =box.get("password");
+          studentLoginUpdateControllers.apicallpost(username,password);
+        });
+
+      },
+      child: Scaffold(
+          appBar: AppBar(
+            backgroundColor:AgentColor.appbarbackgroundColor,
+            title: Text('Profile ',style: MyGoogeFont.mydmSans),
+            actions: [
+              PopupMenuButton<int>(
+                itemBuilder: (context) {
+                  return <PopupMenuEntry<int>>[
+                    const PopupMenuItem(child: Text('0'), value: 0),
+                    const PopupMenuItem(child: Text('1'), value: 1),
+                  ];
+                },
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+            ],
+          ),
+          body: Obx(
+    () =>  studentLoginUpdateControllers.loadingstudentLoginData.value ? studentLoginUpdateControllers.studentLoginModelList.value?.response?.length != null?
+            Column(
+              children: <Widget>[
+                Container(
+                  height: 0.350.sh,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Colors.blue, Colors.blue.shade300],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      stops: [0.5, 0.9],
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      // CircleAvatar(
-                      //   backgroundColor: Colors.blue.shade300,
-                      //   minRadius: 35.0,
-                      //   child: Icon(
-                      //     Icons.call,
-                      //     size: 30.0.sp,
-                      //   ),
-                      // ),
-                      CircleAvatar(
-                        backgroundColor: Colors.white70,
-                        minRadius: 60.0,
-                        child: CircleAvatar(
-                          radius: 54.0,
-                          backgroundImage:
-                          NetworkImage('${ApiUrl.imagesUrl.toString()}${studentpro.toString()}'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          // CircleAvatar(
+                          //   backgroundColor: Colors.blue.shade300,
+                          //   minRadius: 35.0,
+                          //   child: Icon(
+                          //     Icons.call,
+                          //     size: 30.0.sp,
+                          //   ),
+                          // ),
+                          CircleAvatar(
+                            backgroundColor: Colors.white70,
+                            minRadius: 60.0,
+                            child: CircleAvatar(
+                              radius: 54.0,
+                              backgroundImage:
+                              NetworkImage('${ApiUrl.imagesUrl.toString()}${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.profileimage}'),
+                            ),
+                          ),
+                          // CircleAvatar(
+                          //   backgroundColor: Colors.blue.shade300,
+                          //   minRadius: 35.0,
+                          //   child: Icon(
+                          //     Icons.message,
+                          //     size: 30.0,
+                          //   ),
+                          // ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 0.010.sh,
+                      ),
+                      Text(
+                        '${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.name}',
+
+                        style: GoogleFonts.dmSans(
+                          fontStyle: FontStyle.normal,
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
-                      // CircleAvatar(
-                      //   backgroundColor: Colors.blue.shade300,
-                      //   minRadius: 35.0,
-                      //   child: Icon(
-                      //     Icons.message,
-                      //     size: 30.0,
-                      //   ),
-                      // ),
+                      Text(
+                        '${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.responseClass} ${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.section}',
+                        style: GoogleFonts.dmSans(
+                          fontStyle: FontStyle.normal,
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
                     ],
                   ),
-                  SizedBox(
-                    height: 0.010.sh,
-                  ),
-                  Text(
-                    studentname??"",
-                    style: GoogleFonts.dmSans(
-                      fontStyle: FontStyle.normal,
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Text(
-                    '${studentclass??""} ${studentsection??""}',
-                    style: GoogleFonts.dmSans(
-                      fontStyle: FontStyle.normal,
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      color: Colors.lightBlue.shade300,
-                      child: ListTile(
-                        title: Text(
-                         "Mobile No",
+                ),
+                Container(
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.lightBlue.shade300,
+                          child: ListTile(
+                            title: Text(
+                             "Mobile No",
 
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        subtitle: Text(
-                          '${mobileno??""}',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white70,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: Colors.blue,
-                      child: ListTile(
-                        title: Text(
-                          'Admission No',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            subtitle: Text(
+                              '${studentLoginUpdateControllers.studentLoginModelList.value?.parentInfo["mobileno"]}',
 
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        subtitle: Text(
-                          '${admission_no??""}',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white70,
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white70,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                      Expanded(
+                        child: Container(
+                          color: Colors.blue,
+                          child: ListTile(
+                            title: Text(
+                              'Admission No',
+
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            subtitle: Text(
+                              '${studentLoginUpdateControllers.studentLoginModelList.value?.parentInfo["admission_no"]}',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white70,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 5,left: 10,right: 10).r,
-              child: Card(
-                child: Column(
-                  children: <Widget>[
-                    ListTile(
-                      title: Text(
-                        'Roll No',
-                  style: GoogleFonts.dmSans(
-                    fontStyle: FontStyle.normal,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
-                  ),),
-                      trailing: Text(
-                        '${roll_no??""}',
-                        style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ),
-                    Divider(),
-                    ListTile(
-                      title: Text(
-                        'Samagra Id',
-                        style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
-                        ),
-                      ),
-                      trailing: Text(
-                      samagra_id??"",
-                        style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ),
-                    Divider(),
-                    ListTile(
-                      title: Text(
-                       "AdharCard",
-                       style: GoogleFonts.dmSans(
-                      fontStyle: FontStyle.normal,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 5,left: 10,right: 10).r,
+                  child: Card(
+                    child: Column(
+                      children: <Widget>[
+                        ListTile(
+                          title: Text(
+                            'Roll No',
+                      style: GoogleFonts.dmSans(
+                        fontStyle: FontStyle.normal,
                         fontSize: 15.sp,
                         fontWeight: FontWeight.bold,
                         color: Colors.blue,
-                      ),
-                      ),
-                      trailing: Text(
-                       adhar_no??"",
-                        style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
+                      ),),
+                          trailing: Text(
+                            '${studentLoginUpdateControllers.studentLoginModelList.value?.parentInfo["roll_no"]}',
+                            style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                            ),
+                          ),
                         ),
-                      ),
+                        Divider(),
+                        ListTile(
+                          title: Text(
+                            'Samagra Id',
+                            style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                            ),
+                          ),
+                          trailing: Text(
+                            '${studentLoginUpdateControllers.studentLoginModelList.value?.parentInfo["samagra_id"]}',
+                            style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                        Divider(),
+                        ListTile(
+                          title: Text(
+                           "AdharCard",
+                           style: GoogleFonts.dmSans(
+                          fontStyle: FontStyle.normal,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                          ),
+                          ),
+                          trailing: Text(
+                            '${studentLoginUpdateControllers.studentLoginModelList.value?.parentInfo["adhar_no"]}',
+                            style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            )
-          ],
+                  ),
+                )
+              ],
+            ):Center(child: CircularProgressIndicator()):Center(child: CircularProgressIndicator()),
+          ),
         ),
-      );
+    );
   }
 }
 // import 'package:flutter/material.dart';

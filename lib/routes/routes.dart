@@ -2,7 +2,6 @@ import 'package:ecom_desgin/main.dart';
 import 'package:ecom_desgin/view/bus_routes/track_bus.dart';
 import 'package:ecom_desgin/view/calender/attendance.dart';
 import 'package:ecom_desgin/view/examination/Exam_result.dart';
-
 import 'package:ecom_desgin/view/fees/fees.dart';
 import 'package:ecom_desgin/view/leave/addleave.dart';
 import 'package:ecom_desgin/view/leave/leavestatus.dart';
@@ -19,9 +18,10 @@ import 'package:ecom_desgin/view/examination/Exam_time_table.dart';
 import 'package:ecom_desgin/view/home_work/home_work.dart';
 import 'package:ecom_desgin/view/login/Loginscreen.dart';
 import 'package:ecom_desgin/view/login/Student_Login.dart';
-import 'package:ecom_desgin/view/syllabus/feesgraff.dart';
+
 import 'package:ecom_desgin/view/syllabus/subject.dart';
 import 'package:ecom_desgin/view/syllabus/syllabus.dart';
+import 'package:ecom_desgin/view/teacher/teacher_review.dart';
 import 'package:ecom_desgin/view/time_table/time_table.dart';
 import 'package:get/route_manager.dart';
 
@@ -46,12 +46,15 @@ class RoutesName{
   static String lession = '/lession';
   static String chatPage = '/ChatPage';
   static String busRoute = '/busroute';
-  static String notification = '/notification';
   static String addleave = '/addleave';
   static String leavestatus = '/leavestatus';
   static String examresult = '/Exam_result';
   static String parentLogin = '/parentlogin';
-static String trackbus = '/track_bus';
+  static String trackbus = '/track_bus';
+  static String teacherreview = '/teacher_review';
+  static String notification = '/notification';
+
+
 }
 
 final getpages=[
@@ -68,17 +71,17 @@ final getpages=[
  GetPage(name: RoutesName.timetable, page: () =>  const TimeTable(),transition: Transition.topLevel),
  GetPage(name: RoutesName.timetable, page: () =>  const TimeTable(),transition: Transition.zoom),
  GetPage(name: RoutesName.syllabus, page: () =>  const Syllabus(),transition: Transition.upToDown),
- GetPage(name: RoutesName.feesgraff, page: () =>  const FeesGraff(),transition: Transition.fade),
- GetPage(name: RoutesName.lession, page: () =>  const SubjectLession(),transition: Transition.cupertinoDialog),
+  GetPage(name: RoutesName.lession, page: () =>  const SubjectLession(),transition: Transition.cupertinoDialog),
  GetPage(name: RoutesName.chatPage, page: () =>  const ChatPage(),transition: Transition.cupertinoDialog),
  GetPage(name: RoutesName.attendance, page: () => Attendance(),transition: Transition.cupertino),
  GetPage(name: RoutesName.busRoute, page: () =>   const BusRoute(),transition: Transition.circularReveal),
- GetPage(name: RoutesName.notification, page: () =>   const NotificationPage(),transition: Transition.fadeIn),
- GetPage(name: RoutesName.profile, page: () =>   Profile(),transition: Transition.circularReveal),
+  GetPage(name: RoutesName.profile, page: () =>   Profile(),transition: Transition.circularReveal),
  GetPage(name: RoutesName.addleave, page: () => const AddLeave(),transition: Transition.circularReveal),
  GetPage(name: RoutesName.leavestatus, page: () => const LeaveStatus(),transition: Transition.circularReveal),
  GetPage(name: RoutesName.examresult, page: () => const ExamResult(),transition: Transition.circularReveal),
  GetPage(name: RoutesName.parentLogin, page: () => const ParentLogin(),transition: Transition.circularReveal),
-  GetPage(name: RoutesName.trackbus, page: () =>  TrackBusMap(),transition: Transition.circularReveal),
+  GetPage(name: RoutesName.trackbus, page: () =>  TrackBus(),transition: Transition.circularReveal),
+  GetPage(name: RoutesName.teacherreview, page: () =>  TeacherReview(),transition: Transition.circularReveal),
+  GetPage(name: RoutesName.notification, page: () =>  NotificationPage(),transition: Transition.circularReveal),
   
 ];

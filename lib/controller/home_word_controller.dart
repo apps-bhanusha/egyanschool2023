@@ -11,11 +11,11 @@ class HomeWorkController extends GetxController {
   bool noMoreData = false;
   RxList homeWorkControllerList =[].obs;
 
-  void homeworkapi(id) async {
+  void homeworkapi(student_id) async {
     var box = Hive.box("schoolData");
     var company_key = box.get("company_key");
 
-    var body = json.encode({"company_key": company_key, "id":id });
+    var body = json.encode({"company_key": company_key, "student_id":student_id});
     print(body);
     final urlapi = Uri.parse(
        ApiUrl.baseUrl+ApiUrl.homeWorkUrl);
@@ -26,17 +26,22 @@ class HomeWorkController extends GetxController {
       print( homeWorkData);
          if (homeWorkData["status"] == true ) {
            isloading.value=true;
-         homeWorkControllerList.add(homeWorkData["response"]["homeworklist"]);
+         homeWorkControllerList.add(homeWorkData["response"]);
+         print("allddfdf");
+
+print(homeWorkControllerList);
+print(homeWorkControllerList[0][0]["homework_date"]);
+print(homeWorkControllerList[0][0]["id"]);
+
       } else {print("invalid id");}
     } else {print("errror");}
   }
 
   void isdownloadinmethod(){
         isdownloadin.value=false;
-        
-       
-      
+
    }
+
 }
 
 

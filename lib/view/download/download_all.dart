@@ -1,5 +1,6 @@
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
+import 'package:ecom_desgin/constant/date_format.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/download_controller.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _DownloadAllState extends State<DownloadAll> {
   bool didDownloadPDF = false;
   bool isdownloadin = true;
   int index=0;
- String progressString = 'Error.';
+ String progressString = 'Now.';
 @override
   void initState() {
     // TODO: implement initState
@@ -68,6 +69,7 @@ class _DownloadAllState extends State<DownloadAll> {
               //you can build progressbar feature too
             }
           });
+          isdownloadin=true;
           Get.snackbar(
               "download Succesfull", "File is saved to download folder");
         } on DioError catch (e) {
@@ -154,29 +156,26 @@ class _DownloadAllState extends State<DownloadAll> {
                 child: Obx(
                   () => _downloadAllController.isloading.value?_downloadAllController.assignmentDownloadModel.value?.response?.list!=null? ListView.builder(
                     itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: (){
-                          pdfDownload("${_downloadAllController.assignmentDownloadModel.value?.response?.list?[index]?.file}",index);
-                        },
-                        child: Card(
-                          color: const Color.fromARGB(255, 164, 229, 255),
-                          child: ListTile(
-                            title:
-                                Obx(() => Text("${_downloadAllController.assignmentDownloadModel.value?.response?.list?[index]?.title}")),
-                                subtitle: Obx(() => Text("${_downloadAllController.assignmentDownloadModel.value?.response?.list?[index]?.date}")),
-                      
-                                trailing: isdownloadin?const Icon(Icons.download):index==index ? Text(
-                                    progressString,
-                                    overflow:
-                                        TextOverflow
-                                            .ellipsis,
-                                  style: GoogleFonts.dmSans(
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),):const Icon(Icons.download),
-                          ),
+                      return Card(
+                        color: const Color.fromARGB(255, 164, 229, 255),
+                        child: ListTile(
+                          title:
+                              Obx(() => Text("${_downloadAllController.assignmentDownloadModel.value?.response?.list?[index]?.title}")),
+                              subtitle: Obx(() => Text("${MyDateFormat.dateformatmethod2(_downloadAllController.assignmentDownloadModel.value?.response?.list?[index]?.date.toString())}")),
+
+                              trailing: isdownloadin?InkWell(onTap:(){
+                                pdfDownload("${_downloadAllController.assignmentDownloadModel.value?.response?.list?[index]?.file}",index);
+                              } ,child: const Icon(Icons.download)):index==index ? Text(
+                                  progressString,
+                                  overflow:
+                                      TextOverflow
+                                          .ellipsis,
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),):const Icon(Icons.download),
                         ),
                       );
                     },

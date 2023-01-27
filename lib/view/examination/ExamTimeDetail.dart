@@ -7,8 +7,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:date_format/date_format.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
+
 class ExamTimeDetail extends StatefulWidget {
   const ExamTimeDetail({super.key});
 
@@ -17,37 +19,22 @@ class ExamTimeDetail extends StatefulWidget {
 }
 
 class _ExamTimeDetailState extends State<ExamTimeDetail> {
-  late DateTime  examtimes;
- late DateTime examtimedate;
-var  starttime;
+
+
+
   GetexamsScheduleController getexamview=Get.put(GetexamsScheduleController());
+  var company_key;
+var starttime;
+  var box = Hive.box("schoolData");
+
   @override
   void initState() {
 
     super.initState();
-    for (int i = 0; i < getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"].length; i++) {
-      examtimes = DateFormat("HH:mm:ss").parse(getexamview
-          .GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["time_from"]
-          .toString());
-      examtimedate = examtimes.add(Duration(hours: int.parse(getexamview
-          .GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["duration"]
-          .toString())));
-      print(
-          "rbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbxxxxxxxxxxxvvvvvvvvvvvvvvvvvvvnnnnnnnnnnnnaaaaaaaaaaaan");
-      print(examtimedate);
 
-      starttime = formatDate(examtimedate, [HH, ':', nn, ':', ss]);
-
-      print(examtimedate.hour);
-      print(examtimedate.minute);
-      print(examtimedate.second);
-    }
+      starttime = box.get("starttime");
 
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +54,8 @@ var  starttime;
         ],
       ),
 
-      body: Container(
+      body:Obx(()=>
+    getexamview.loadingGetexamsSchedule.value? Container(
         // height: 0.61.sh,
         // decoration: const BoxDecoration(
         //   color: Colors.white,
@@ -75,9 +63,22 @@ var  starttime;
         child: SizedBox.expand(
           child: Column(
             children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0,top: 8).r,
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text('${getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"][0]["exam_group_name"].toString().capitalize} ${getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"][0]["exam"].toString().capitalize}', style: GoogleFonts.dmSans(
+                    fontStyle: FontStyle.normal,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),),
+                ),
+              ),
+SizedBox(height: 0.010.sh,),
               for (int i = 0; i < getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"].length; i++)
 
-                Padding(
+           Padding(
                   padding: const EdgeInsets.all(0).r,
                   child: Center(
                     child: InkWell(
@@ -125,7 +126,7 @@ var  starttime;
                                           ),),
                                           Obx(
                                                 () => Text(
-                                              getexamview.loadingGetexamsSchedule.value?getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["room_no"]:CircularProgressIndicator(),
+                                              getexamview.loadingGetexamsSchedule.value?getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["room_no"]:"",
                                               style: GoogleFonts.dmSans(
                                                 fontStyle: FontStyle.normal,
                                                 fontSize: 15.sp,
@@ -159,7 +160,7 @@ var  starttime;
                                       padding: EdgeInsets.only(top: 20).r,
                                       child: Obx(
                                             () => Text(
-                                        getexamview.loadingGetexamsSchedule.value?MyDateFormat.dateformatmethod1(getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["date_from"]):CircularProgressIndicator(),
+                                        getexamview.loadingGetexamsSchedule.value?MyDateFormat.dateformatmethod1(getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["date_from"]):"",
                                         style: GoogleFonts.dmSans(
                                           fontStyle: FontStyle.normal,
                                           fontSize: 15.sp,
@@ -202,7 +203,7 @@ var  starttime;
                                               ),
                                               Obx(
                                                     () => Text(
-                                                  getexamview.loadingGetexamsSchedule.value?getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["time_from"]:CircularProgressIndicator(),
+                                                  getexamview.loadingGetexamsSchedule.value?getexamview.GetexamsScheduleControllerList[0]["response"]["examSchedule"][i]["time_from"]:"",
                                                   style: GoogleFonts.dmSans(
                                                     fontStyle: FontStyle.normal,
                                                     fontSize: 15.sp,
@@ -234,7 +235,7 @@ var  starttime;
                                           width: 0.24.sw,
                                           height: 0.001.sh,
                                         ),
-                                       Text('${starttime??""}',
+                                       Text(starttime!=null?'${starttime??""}':"",
                                           style: GoogleFonts.dmSans(
                                             fontStyle: FontStyle.normal,
                                             fontSize: 15.sp,
@@ -256,12 +257,13 @@ var  starttime;
                       ),
                     ),
                   ),
-                )
-            ],
+                ),
+
+      ],
           ),
         ),
-      ),
-    );
+    ):Center(child: CircularProgressIndicator()),
+      ) );
   }
 
 

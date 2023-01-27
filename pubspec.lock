@@ -779,6 +779,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  pull_to_refresh:
+    dependency: "direct main"
+    description:
+      name: pull_to_refresh
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   rive:
     dependency: "direct main"
     description:
@@ -875,6 +882,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smooth_star_rating_null_safety:
+    dependency: "direct main"
+    description:
+      name: smooth_star_rating_null_safety
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4+2"
   source_span:
     dependency: transitive
     description:
@@ -959,6 +973,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.12"
+  text_scroll:
+    dependency: "direct main"
+    description:
+      name: text_scroll
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.2"
   time:
     dependency: "direct main"
     description:

@@ -6,6 +6,7 @@ import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/controller/school_id_controller.dart';
 import 'package:ecom_desgin/main.dart';
 import 'package:ecom_desgin/model/parent_student_model.dart';
+import 'package:ecom_desgin/model/student_login_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class UserNameController extends GetxController {
   final SchoolIdController all = Get.put(SchoolIdController());
   final FeeController _feesController = Get.put(FeeController());
   List  SchoolIdControllerList = [].obs;
+
   RxBool loadingdata =false.obs;
   RxBool isloading=true.obs;
   Rxn<ParentStudentListModel> parentStudentListModel= Rxn<ParentStudentListModel>();
@@ -33,10 +35,11 @@ class UserNameController extends GetxController {
   //   return prefs.setString('', user);
   // }
   Future<List<UserNameController>?> apicallpost( username,password,context) async {
-   
+    var box = Hive.box("schoolData");
+    var company_key = box.get("company_key");
     var body = json.encode({
       "username":username,
-      "company_key":"Od9EFRCPo8ach2Hk",
+      "company_key":company_key,
       "password":password,
     });
     print("465555555555555555555555555544444444");

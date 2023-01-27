@@ -4,7 +4,7 @@ class ApiUrl{
  static const String studentLoginUrl="/parentwebservices/studentlogin";
  static const String parentLoginUrl="/parentwebservices/login";
  static const String teacherLoginUrl="https://e-gyan.co.in/api";
- static const String homeWorkUrl="/parentwebservices/student_homework";
+ static const String homeWorkUrl="/homework/studenthomework";
  static const String getschoolsettingUrl="/parentwebservices/getschoolsetting";
  static const String feeUrl="/parentwebservices/fee";
  static const String attendanceUrl="/parentwebservices/attendence";
@@ -19,7 +19,12 @@ class ApiUrl{
  static const String otherDownloadurl="/parentwebservices/other";
  static const String monthlyattendencesummaryUrl="/parentwebservices/monthlypresentsummary";
  static const String monthlyattendenceUrl="/parentwebservices/monthlyattendence";
-
+ static const String homeworkcreateUrl="/homework/studentuploadhomework";
+ static const String teacherratingUrl="/teacherwebservices/rating";
+ static const String getteacherbystudentUrl="/parentwebservices/getteacherbystudent";
  static const String imagesUrl="https://e-gyan.co.in/";
-
+ static const String notificationUrl="//messagingwebservices/getnotification";
+ static const String getnotificationcountUrl="//messagingwebservices/getnotificationcount";
+ static const String setnotificationreadUrl="//messagingwebservices//setnotificationread";
+ static const String noticUrl="/messagingwebservices/getnotice";
 }
