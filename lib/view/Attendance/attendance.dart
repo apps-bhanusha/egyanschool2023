@@ -6,6 +6,7 @@ import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/attendance_controller.dart';
 import 'package:ecom_desgin/controller/monthly_present_summary_controller.dart';
+import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -47,6 +48,8 @@ class _AttendanceState extends State<Attendance> {
 
   final AttendanceController studentattendance = Get.put(AttendanceController());
   MonthlyPresentSummaryController monthlypresentssummary = Get.put(MonthlyPresentSummaryController());
+  final StudentProfileController studentProfileController = Get.put(StudentProfileController());
+
   RefreshController _refreshController =
   RefreshController(initialRefresh: false);
 
@@ -96,17 +99,6 @@ var company_key;
 
   // late double datelength=0.0;
   List<_ChartData>  data = [
-    // _ChartData('Feb', 25, Color.fromRGBO(37, 171, 29, 1.0)),
-    // _ChartData('Mar', 31, Color.fromRGBO(37, 171, 29, 1.0)),
-    // _ChartData('Apr', 0, Color.fromRGBO(37, 171, 29, 1.0)),
-    // _ChartData('May', 0, Color.fromRGBO(37, 171, 29, 1.0)),
-    // _ChartData('Jun', 0, Color.fromRGBO(37, 171, 29, 1.0)),
-    // _ChartData('Jul', 0, Color.fromRGBO(37, 171, 29, 1.0)),
-    // _ChartData('Aug', 0, Color.fromRGBO(37, 171, 29, 1.0)),
-    // _ChartData('Spt', 0, Color.fromRGBO(37, 171, 29, 1.0)),
-    // _ChartData('Oct', 0, Color.fromRGBO(37, 171, 29, 1.0)),
-    // _ChartData('Nov', 0, Color.fromRGBO(37, 171, 29, 1.0)),
-    // _ChartData('Dec', 0, Color.fromRGBO(37, 171, 29, 1.0)),
   ];
   @override
   void initState() {
@@ -115,9 +107,9 @@ var company_key;
 
 
     student_id = box.get("student_id");
-  company_key = box.get("company_key");
-    monthlypresentssummary.MonthlyPresentSummaryapi(student_id,company_key);
-    Attendanceapi(student_id ,company_key);
+   company_key = box.get("company_key");
+    monthlypresentssummary.MonthlyPresentSummaryapi(studentProfileController.studentProfileModel.value?.response.studentId,company_key);
+    Attendanceapi(studentProfileController.studentProfileModel.value?.response.studentId ,company_key);
 
 
 

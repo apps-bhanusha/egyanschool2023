@@ -80,7 +80,7 @@ class Response {
     dob: DateTime.parse(json["DOB"]),
     fathername: json["fathername"],
     mothername: json["mothername"],
-    profileimage: json["profileimage"],
+    profileimage: json["profileimage"]??"",
     teachername: json["teachername"],
     fee: Fee.fromJson(json["fee"]),
     attandance: Attandance.fromJson(json["attandance"]),

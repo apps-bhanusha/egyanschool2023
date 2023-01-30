@@ -27,6 +27,7 @@ class StudentLeaveRecordController extends GetxController {
       var  sdata = jsonDecode(response.body);
       StudentLeaveRecordControllerList=[];
       StudentLeaveRecordControllerList.add(sdata) ;
+        // loadingStudentLeaveRecord.value=true;
 
       print("leavjhjjjjjjjjjjjjjjjjjjsssjjjjjj");
       print(StudentLeaveRecordControllerList);
@@ -35,10 +36,8 @@ class StudentLeaveRecordController extends GetxController {
       if (sdata["status"] == true ) {
         loadingStudentLeaveRecord.value=true;
         print("massage");
-      }
- 
-      else  {
-        print("invalid cccid");
+      }else  {
+       isloading.value=true;
       } }
     else {
 

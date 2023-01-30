@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/routes/routes.dart';
-import 'package:ecom_desgin/view/calender/Calendar.dart';
+import 'package:ecom_desgin/view/Attendance/Calendar.dart';
 import 'package:ecom_desgin/view/dashboard/home.dart';
 import 'package:ecom_desgin/view/login/Loginscreen.dart';
 import 'package:ecom_desgin/view/dashboard/drawer.dart';

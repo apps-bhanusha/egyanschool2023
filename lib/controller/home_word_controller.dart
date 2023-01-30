@@ -27,11 +27,8 @@ class HomeWorkController extends GetxController {
          if (homeWorkData["status"] == true ) {
            isloading.value=true;
          homeWorkControllerList.add(homeWorkData["response"]);
-         print("allddfdf");
 
-print(homeWorkControllerList);
-print(homeWorkControllerList[0][0]["homework_date"]);
-print(homeWorkControllerList[0][0]["id"]);
+
 
       } else {print("invalid id");}
     } else {print("errror");}

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/controller/home_word_controller.dart';
+import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +10,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 class HomeWorkCreateController extends GetxController {
   final HomeWorkController _homeWorkController = Get.put(HomeWorkController());
+  final StudentProfileController studentProfileController = Get.put(StudentProfileController());
+
 var sdata;
   List <dynamic> HomeWorkCreateControllerList = [].obs;
   RxBool loadingHomeWorkCreate =false.obs;
@@ -19,7 +22,7 @@ var sdata;
     var request = http.MultipartRequest('POST', Uri.parse(ApiUrl.baseUrl+ApiUrl.homeworkcreateUrl));
     request.fields.addAll({
       'company_key': company_key,
-      'student_id': student_id,
+      'student_id': '${studentProfileController.studentProfileModel.value?.response.studentId}',
       'content_title': content_title,
       'note': note,
       'homework_id': homework_id});

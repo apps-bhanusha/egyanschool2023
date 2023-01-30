@@ -4,9 +4,11 @@ import 'package:ecom_desgin/controller/fees_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/controller/school_id_controller.dart';
+import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:ecom_desgin/main.dart';
 import 'package:ecom_desgin/model/parent_student_model.dart';
 import 'package:ecom_desgin/model/student_login_model.dart';
+import 'package:ecom_desgin/routes/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +30,7 @@ class UserNameController extends GetxController {
   RxBool isloading=true.obs;
   Rxn<ParentStudentListModel> parentStudentListModel= Rxn<ParentStudentListModel>();
   ParentLoginController parentLoginController=Get.put(ParentLoginController());
+  final StudentProfileController studentProfileController = Get.put(StudentProfileController());
 
 
   // Future<bool> saveUser(String user) async {
@@ -42,10 +45,11 @@ class UserNameController extends GetxController {
       "company_key":company_key,
       "password":password,
     });
-    print("465555555555555555555555555544444444");
+    print("Student Login ");
     print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.studentLoginUrl);
     var response = await http.post(urlapi, body: body);
+    print("student login Responce");
     if (response.statusCode == 200) {
       isloading.value=true;
       parentLoginController.parentLogin.value=false;
@@ -56,48 +60,44 @@ class UserNameController extends GetxController {
       final userIsStored =
       await saveUser(jsonEncode(response.body));
       var sdata = jsonDecode(response.body);
-      parentStudentListModel.value= ParentStudentListModel.fromJson(sdata);
-      print("fddddddddddddddddddd33333333333333333333");
-      print(sdata);
+      // parentStudentListModel.value= ParentStudentListModel.fromJson(sdata);
   SchoolIdControllerList.add(sdata);
-print(SchoolIdControllerList);
-print(SchoolIdControllerList[0]["response"][0]["student_id"]);
-
       if (sdata["status"] == true) {
         var box = Hive.box("schoolData");
         box.put("username",username);
-        box.put("password",password);
-        box.put("student_id",SchoolIdControllerList[0]["response"][0]["student_id"]);
-        box.put("exam_view", SchoolIdControllerList[0]['parent_info']["exam_view"]);
-        print("44444444444444444444444333333333311111111111333333333333333");
-        box.put("studentprofileimage", SchoolIdControllerList[0]["response"][0]["profileimage"]);
-        box.put("studentname", SchoolIdControllerList[0]["response"][0]["name"]);
-        box.put("mobileno", SchoolIdControllerList[0]['parent_info']["mobileno"]);
-        box.put("admission_no", SchoolIdControllerList[0]['parent_info']["admission_no"]);
-        box.put("DOB", SchoolIdControllerList[0]['parent_info']["DOB"]);
-        box.put("roll_no", SchoolIdControllerList[0]['parent_info']["roll_no"]);
-        box.put("email", SchoolIdControllerList[0]['parent_info']["email"]);
-        box.put("studentclass",SchoolIdControllerList[0]["response"][0]["class"]);
-        box.put("studentsection",SchoolIdControllerList[0]["response"][0]["section"]);
-        box.put("studenttotalfees", SchoolIdControllerList[0]["response"][0]["fee"]["total_amount"]);
-        box.put("studentduefees",  SchoolIdControllerList[0]["response"][0]["fee"]["total_balance_amount"]);
-        box.put("studentpresent", SchoolIdControllerList[0]["response"][0]["attandance"]["present"]);
-        box.put("total_deposite_amount", SchoolIdControllerList[0]["response"][0]["fee"]["total_deposite_amount"]);
+        // box.put("password",password);
+        // box.put("student_id",SchoolIdControllerList[0]["response"][0]["student_id"]);
+        // box.put("exam_view", SchoolIdControllerList[0]['parent_info']["exam_view"]);
+        // print("44444444444444444444444333333333311111111111333333333333333");
+        // box.put("studentprofileimage", SchoolIdControllerList[0]["response"][0]["profileimage"]);
+        // box.put("studentname", SchoolIdControllerList[0]["response"][0]["name"]);
+        // box.put("mobileno", SchoolIdControllerList[0]['parent_info']["mobileno"]);
+        // box.put("admission_no", SchoolIdControllerList[0]['parent_info']["admission_no"]);
+        // box.put("DOB", SchoolIdControllerList[0]['parent_info']["DOB"]);
+        // box.put("roll_no", SchoolIdControllerList[0]['parent_info']["roll_no"]);
+        // box.put("email", SchoolIdControllerList[0]['parent_info']["email"]);
+        // box.put("studentclass",SchoolIdControllerList[0]["response"][0]["class"]);
+        // box.put("studentsection",SchoolIdControllerList[0]["response"][0]["section"]);
+        // box.put("studenttotalfees", SchoolIdControllerList[0]["response"][0]["fee"]["total_amount"]);
+        // box.put("studentduefees",  SchoolIdControllerList[0]["response"][0]["fee"]["total_balance_amount"]);
+        // box.put("studentpresent", SchoolIdControllerList[0]["response"][0]["attandance"]["present"]);
+        // box.put("total_deposite_amount", SchoolIdControllerList[0]["response"][0]["fee"]["total_deposite_amount"]);
 
-        print(SchoolIdControllerList[0]["response"][0]["name"]);
-print("22211111111111111111111111111111111111");
-print(SchoolIdControllerList[0]["response"][0]["fee"]["total_deposite_amount"]);
         var company_key = box.get("company_key");
 
-        _feesController.Feesapi(SchoolIdControllerList[0]["response"][0]["student_id"],company_key);
-        print("333333878777uuu");
-print(SchoolIdControllerList[0]["response"][0]["profileimage"]);
-    // ,all.SchoolIdControllerList2[0]["response"]["company_key"]
+        // _feesController.Feesapi(SchoolIdControllerList[0]["response"][0]["student_id"],company_key);
+       // ,all.SchoolIdControllerList2[0]["response"]["company_key"]
        // studentpro= box.get("studentprofileimage");
        //  print("33333387877555543447uuu");
        //  print(studentpro);
       loadingdata.value=true;
-           return Get.to( const HomeScreen(),arguments: ['0',false]);
+          //  return Get.to( const HomeScreen(),arguments: ['0',false]);
+          studentProfileController.isloading.value=false;
+          print("student profile get student id ckeck ");
+          print(SchoolIdControllerList[0]["response"][0]["student_id"]);
+           studentProfileController.studentProfileApi(SchoolIdControllerList[0]["response"][0]["student_id"]);
+              Get.offAllNamed(RoutesName.home);
+                           
       }
       else  {
         ScaffoldMessenger.of (context).showSnackBar(SnackBar(content: Text(sdata["message"], style: GoogleFonts.dmSans(

@@ -5,6 +5,7 @@ import 'package:ecom_desgin/constant/date_format.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/addstudentLeaveRecord_controller.dart';
 import 'package:ecom_desgin/controller/studentLeaveRecord_controller.dart';
+import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:ecom_desgin/model/user.dart';
 import 'package:ecom_desgin/view/leave/user_dialog.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,8 @@ class _LeaveStatusState extends State<LeaveStatus> {
   StudentLeaveRecordController StudentLeaveRecord=Get.put(StudentLeaveRecordController());
   AddStudentLeaveRecordController AddStudentLeaveRecord =
   Get.put(AddStudentLeaveRecordController());
+  final StudentProfileController studentProfileController = Get.put(StudentProfileController());
+
   int currentTab = 0;
   DateTime today = DateTime.now();
 
@@ -48,9 +51,7 @@ class _LeaveStatusState extends State<LeaveStatus> {
 
   id = box.get("student_id");
   company_key = box.get("company_key");
-  StudentLeaveRecord.StudentLeaveRecordapi(company_key,id);
-
-
+  StudentLeaveRecord.StudentLeaveRecordapi(company_key,studentProfileController.studentProfileModel.value?.response.studentId);
   }
 
   @override
@@ -95,10 +96,10 @@ class _LeaveStatusState extends State<LeaveStatus> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: showUserDialog,
-          child: Icon(Icons.add),
-        ),
+          child: Icon(Icons.add),  
+        ),//StudentLeaveRecord.loadingStudentLeaveRecord.value?
         body: Obx(
-          () => StudentLeaveRecord.loadingStudentLeaveRecord.value? ListView.builder(
+          () => StudentLeaveRecord.isloading.value==false?StudentLeaveRecord.loadingStudentLeaveRecord.value?ListView.builder(
             itemBuilder: (ctx, index) {
               return Container(
           height: 0.15.sh,
@@ -333,11 +334,11 @@ class _LeaveStatusState extends State<LeaveStatus> {
         );
 
             },
-            itemCount: StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"].length,
-          ):const Center(child: CircularProgressIndicator(color: Colors.blue),),
-        ),
+            itemCount: StudentLeaveRecord.isloading.value==false? StudentLeaveRecord.StudentLeaveRecordControllerList[0]["response"].length:0,
+          ):const Center(child: CircularProgressIndicator(color: Colors.blue),):const Center(child: Text("Record Not Found"),)
+      ),
         floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
-        // bottomNavigationBar: BottomAppBar(
+        // bottomNavigationBar: BottomAppBar(  
         //   shape: CircularNotchedRectangle(),
         //   notchMargin: 10,
         //   color: Colors.green,

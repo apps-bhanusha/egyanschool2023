@@ -4,11 +4,12 @@ import 'dart:developer';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:ecom_desgin/model/download_model.dart';
+import 'package:ecom_desgin/model/notification_model.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http; 
 
-class DownloadAllController extends GetxController{
+class NotificationController extends GetxController{
 
 
 
@@ -21,95 +22,88 @@ class DownloadAllController extends GetxController{
   RxString selectDrop = "Download Section".obs;
   final StudentProfileController studentProfileController = Get.put(StudentProfileController());
     
-     Rxn<DownloadModel> assignmentDownloadModel=Rxn<DownloadModel>();
-     
-    RxBool isloading =true.obs;
+     Rxn<NotificationModel> notificationList=Rxn<NotificationModel>();
+    RxBool isloading =false.obs;
        var id="";
+       var companyKey='';
+       var roleflag='';
+  RxString  getnotificationcount="0".obs;
+       
 
 @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
        var box = Hive.box("schoolData");
-    id = "${studentProfileController.studentProfileModel.value?.response.studentId}";
+        id = "${studentProfileController.studentProfileModel.value?.response.studentId}";
+
+     companyKey= box.get("company_key");
+     roleflag = box.get("role_flag");
   }
 
-void assignmentDownload(url) async {
+void notifactionApi() async {
     id = "${studentProfileController.studentProfileModel.value?.response.studentId}";
 
-  print("call assingment select");
-    var box = Hive.box("schoolData");
-    var companyKey = box.get("company_key");
-     
-    var body = json.encode({"company_key": companyKey, "id":id });
+    var body = json.encode({"company_key":companyKey,"id":id,"role_flag":roleflag});
     final urlapi = Uri.parse(
-       ApiUrl.baseUrl+url);
+       ApiUrl.baseUrl+ApiUrl.notificationUrl);
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
       isloading.value=true;
       var homeWorkData = jsonDecode(response.body);
       log(homeWorkData.toString());
          if (homeWorkData["status"] == true ) {
-           assignmentDownloadModel.value = DownloadModel.fromJson(homeWorkData);
+           notificationList.value = NotificationModel.fromJson(homeWorkData);
            isloading.value=true;
       } else {print("invalid id");}
     } else {print("errror");}
   }
-  void otherDownload(url) async {
+  void getnotificationcountmethod() async {
     id = "${studentProfileController.studentProfileModel.value?.response.studentId}";
 
-  print("call time table select");
+  print("notification count");
     var box = Hive.box("schoolData");
     var companyKey = box.get("company_key");
      
-    var body = json.encode({"company_key": companyKey, "id":id });
+    var body = json.encode({"company_key":companyKey,"id":id,"role_flag":roleflag});
     final urlapi = Uri.parse(
-       ApiUrl.baseUrl+url);
+       ApiUrl.baseUrl+ApiUrl.getnotificationcountUrl);
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
       isloading.value=true;
       var homeWorkData = jsonDecode(response.body);
+      print('notifiaction count...................');
       log(homeWorkData.toString());
          if (homeWorkData["status"] == true ) {
-           assignmentDownloadModel.value = DownloadModel.fromJson(homeWorkData);
+           getnotificationcount.value=homeWorkData["response"][0]["count"];
       } else {print("invalid id");}
     } else {print("errror");}
   }
 
-void syllebusDownload(url) async {
+void setnotificationread(notiid) async {
     id = "${studentProfileController.studentProfileModel.value?.response.studentId}";
 
-  print("call syllebus select");
+  print("notificaion read");
     var box = Hive.box("schoolData");
     var companyKey = box.get("company_key");
     
-    var body = json.encode({"company_key": companyKey, "id":id });
+    var body = json.encode({"company_key": companyKey, "noti_id":notiid});
     final urlapi = Uri.parse(
-       ApiUrl.baseUrl+url);
+       ApiUrl.baseUrl+ApiUrl.setnotificationreadUrl);
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
        isloading.value=true;
       var homeWorkData = jsonDecode(response.body);
       log(homeWorkData.toString());
          if (homeWorkData["status"] == true ) {
-           assignmentDownloadModel.value = DownloadModel.fromJson(homeWorkData);
+          Get.snackbar(homeWorkData["message"],"");
+          getnotificationcountmethod();
+          notifactionApi();
+          //  assignmentDownloadModel.value = DownloadModel.fromJson(homeWorkData);
       } else {print("invalid id");}
     } else {print("errror");}
   }
 
 
-  selectDropdown(selectdropdata){
-    print("controller");   
-    print(selectdropdata);
-    selectDrop.value=selectdropdata;
-    if(selectdropdata=="Assinment"){
-        assignmentDownload(ApiUrl.assignmentDownloadurl);
-    }else if(selectdropdata=="Syllebus"){
-          syllebusDownload(ApiUrl.syllabusDownloadurl);
-    }else if(selectdropdata=="other"){
-           assignmentDownload(ApiUrl.otherDownloadurl);
-    }
-  }
 
 
 }

@@ -1,16 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecom_desgin/controller/parent_login.dart';
-import 'package:ecom_desgin/view/dashboard/home.dart';
+import 'package:ecom_desgin/controller/student_login_update_controller.dart';
+import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../constantold/api_url.dart';
+import 'package:ecom_desgin/constant/api_url.dart';
 import 'dart:async';
 import 'package:ecom_desgin/constant/Colors.dart';
-import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/attendance_controller.dart';
 import 'package:ecom_desgin/controller/getSylabusStatus_controller.dart';
@@ -20,19 +18,14 @@ import 'package:ecom_desgin/controller/getexamsSchedule_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
-import 'package:ecom_desgin/view/calender/Calendar.dart';
-import 'package:ecom_desgin/view/dashboard/drawer.dart';
-import 'package:ecom_desgin/view/examination/Exam_result.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:hive/hive.dart';
+
+import '../../controller/student_profile-Controller.dart';
 
 class ParentStudentList extends StatefulWidget {
   const ParentStudentList({super.key});
@@ -47,6 +40,8 @@ class _ParentStudentListState extends State<ParentStudentList> with TickerProvid
   final UserNameController _allsetController = Get.put(UserNameController());
   GetclassTimeTableController GetclassTimeTable=Get.put(GetclassTimeTableController());
   GetexamsResultController GetexamsResult=Get.put(GetexamsResultController());
+  final StudentLoginUpdateController studentLoginUpdateControllers =Get.put( StudentLoginUpdateController());
+  final StudentProfileController studentProfileController =Get.put(StudentProfileController());
 
   GetexamsScheduleController getexamview=Get.put(GetexamsScheduleController());
   GetSylabusStatusController GetSylabusStatus=Get.put(GetSylabusStatusController());
@@ -163,333 +158,346 @@ var schoolname;
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SideMenu(
-        background: Colors.blue,
-        key: _sideMenuKey,
-        menu: buildMenu(),
-        type: SideMenuType.shrikNRotate,
-        onChange: (isOpened) {
-          setState(() => isOpened = isOpened);
-        },
-        child: IgnorePointer(
-          ignoring: isOpened,
-          child: Scaffold(
-            appBar: AppBar(
-              // centerTitle: true,
-              leading: IconButton(
+    return RefreshIndicator(
+      onRefresh: () async {
+          var username;
+          var password;
+          var company_key;
+        AlwaysScrollableScrollPhysics();
+        setState(() {
 
-                icon: const Icon(Icons.menu,),
-
-                onPressed: () => toggleMenu(),
-              ),
-              automaticallyImplyLeading: false,
-              backgroundColor:AgentColor.appbarbackgroundColor,
-              // iconTheme: IconThemeData(color: Colors.black),
-              title: Row(
-                children: [
-                  SizedBox(
-                      width: 0.45.sw,
-                      child:  Text(
-                        schoolname??"",
-                        // _schoolsetting.GetSchoolSettingControllerList[0]["response"]["name"],
-                        style: MyGoogeFont.mydmSans1,
-                        overflow: TextOverflow.ellipsis,
-                      )
-
+          username = box.get("username");
+          password =box.get("password");
+          studentLoginUpdateControllers.apicallpost(username,password);
+          company_key = box.get("company_key");
+        parentLoginController.parentapi( username,password,context);
+        });
+        Timer timer;
+        timer = Timer.periodic(Duration(seconds: 3),(t){
+          username = box.get("username");
+          password =box.get("password");
+          studentLoginUpdateControllers.apicallpost(username,password);
+          company_key = box.get("company_key");
+        });
+        await Future.value({
+          Duration(seconds: 3),
+        });
+      },
+      child: SafeArea(
+        child: SideMenu(
+          background: Colors.blue,
+          key: _sideMenuKey,
+          menu: buildMenu(),
+          type: SideMenuType.shrikNRotate,
+          onChange: (isOpened) {
+            setState(() => isOpened = isOpened);
+          },
+          child: IgnorePointer(
+            ignoring: isOpened,
+            child: Scaffold(
+              appBar: AppBar(
+                // centerTitle: true,
+                leading: IconButton(
+                  icon: const Icon(Icons.menu,),
+                  onPressed: () => toggleMenu(),
+                ),
+                automaticallyImplyLeading: false,
+                backgroundColor:AgentColor.appbarbackgroundColor,
+                // iconTheme: IconThemeData(color: Colors.black),
+                title: Row(
+                  children: [
+                    SizedBox(
+                        width: 0.45.sw,
+                        child:  Text(
+                          schoolname??"",
+                          // _schoolsetting.GetSchoolSettingControllerList[0]["response"]["name"],
+                          style: MyGoogeFont.mydmSans1,
+                          overflow: TextOverflow.ellipsis,
+                        )
+                    ),
+                  ],
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 0, top: 10).r,
+                    child: Column(
+                      children: [
+                        Text(
+                          'Session',
+                          style: MyGoogeFont.mydmSans2,
+                        ),
+                        Text(
+                          session??"",
+                          // _schoolsetting.GetSchoolSettingControllerList[0]["response"]["session"],
+                          style: MyGoogeFont.mydmSans2,
+                        ),
+                      ],
+                    ),
                   ),
-
-
+                  PopupMenuButton<int>(
+                    itemBuilder: (context)  {
+    
+                      return <PopupMenuEntry<int>>[
+                        PopupMenuItem(value: 0, child: InkWell(child: const Text('Logout'),
+                          onTap:() async { await SessionManager().remove("name");
+                          Get.toNamed(RoutesName.schoolId);
+                          // ignore: use_build_context_synchronously
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("logout", style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                            ),
+                              backgroundColor: Colors.white,
+                            ),
+                          );
+                          },)),
+                        const PopupMenuItem(value: 1, child: Text('about')),
+                      ];
+                    },
+                  ),
                 ],
               ),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 0, top: 10).r,
-                  child: Column(
-                    children: [
-                      Text(
-                        'Session',
-                        style: MyGoogeFont.mydmSans2,
-                      ),
-                      Text(
-                        session??"",
-                        // _schoolsetting.GetSchoolSettingControllerList[0]["response"]["session"],
-                        style: MyGoogeFont.mydmSans2,
-                      ),
-                    ],
-                  ),
-                ),
-                PopupMenuButton<int>(
-                  itemBuilder: (context)  {
-
-                    return <PopupMenuEntry<int>>[
-                      PopupMenuItem(value: 0, child: InkWell(child: const Text('Logout'),
-                        onTap:() async { await SessionManager().remove("name");
-                        Get.toNamed(RoutesName.schoolId);
-                        // ignore: use_build_context_synchronously
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("logout", style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.red,
-                          ),
-                          ),
-                            backgroundColor: Colors.white,
-                          ),
-                        );
-                        },)),
-                      const PopupMenuItem(value: 1, child: Text('about')),
-                    ];
-                  },
-                ),
-              ],
-            ),
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Stack(children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 0, right: 0).r,
-                      child: ClipPath(
-                        clipper: ClipPathClass(),
-                        child: SizedBox(
-                          width: double.infinity,
-                          height: 0.220.sh,
-                          child: Image.asset(
-                            "assets/images/bannerimage.jpeg",
-                            fit: BoxFit.fill,
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Stack(children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 0, right: 0).r,
+                        child: ClipPath(
+                          clipper: ClipPathClass(),
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 0.220.sh,
+                            child: Image.asset(
+                              "assets/images/bannerimage.jpeg",
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                   Obx(() => ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: parentLoginController.parentStudentListModel.value?.response!=null ?parentLoginController.parentStudentListModel.value?.response?.length:0,
-                    itemBuilder: (context, index) {
-                     return Padding(
-                   padding:
-                   const EdgeInsets.only(left: 23, right: 23, top: 80).r,
-                   child: SizedBox(
-              
-                     height: 0.3.sh,
-                     child: Stack(
-                   children: <Widget>[                     
-                     InkWell(
-                       onTap: () {
-                        print("Parent Info print");
-                              print("${  parentLoginController.parentStudentListModel.value?.parentInfo}"); 
-                              print("${  parentLoginController.parentStudentListModel.value?.parentInfo?["admission_no"]}"); 
-                              print("${  parentLoginController.parentStudentListModel.value?.parentInfo?["adhar_no"]}"); 
-                              print("${  parentLoginController.parentStudentListModel.value?.parentInfo?["mobileno"]}"); 
-                              print("${  parentLoginController.parentStudentListModel.value?.parentInfo?["samagra_id"]}"); 
-                              print("${  parentLoginController.parentStudentListModel.value?.parentInfo?["roll_no"]}"); 
-                              Get.toNamed(RoutesName.home,arguments: [
-                                "${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}",
-                                true,
-                              "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalAmount}",
-                              "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalBalanceAmount}",
-                              "${ parentLoginController.parentStudentListModel.value?.response?[index]?.attandance?.present}",
-                              "https://e-gyan.co.in/${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}",
-                              "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
-                             "${ parentLoginController.parentStudentListModel.value?.response?[index]?.responseClass}",
-                             "${  parentLoginController.parentStudentListModel.value?.parentInfo?["mobileno"]}",
-                             "${  parentLoginController.parentStudentListModel.value?.parentInfo?["admission_no"]}",
-                             "${  parentLoginController.parentStudentListModel.value?.parentInfo?["roll_no"]}",
-                             "${  parentLoginController.parentStudentListModel.value?.parentInfo?["samagra_id"]}",
-                             "${  parentLoginController.parentStudentListModel.value?.parentInfo?["adhar_no"]}",
-                              ]);  
-                       },
-                                  child: Card(
-                                   color: const Color.fromRGBO(114, 199, 255, 1),
-                                    child: SizedBox(
-                                                   height: 0.3.sh,
-                                                   width: 0.87.sw,
+                     Obx(() => ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: parentLoginController.parentStudentListModel.value?.response!=null ?parentLoginController.parentStudentListModel.value?.response?.length:0,
+                      itemBuilder: (context, index) {
+                       return Padding(
+                     padding:
+                     const EdgeInsets.only(left: 23, right: 23, top: 80).r,
+                     child: SizedBox(
+                
+                       height: 0.3.sh,
+                       child: Stack(
+                     children: <Widget>[                     
+                       InkWell(
+                         onTap: () {
+                   studentLoginUpdateControllers.loadingstudentLoginData.value=true;
+                                Get.toNamed(RoutesName.home);
+                            studentProfileController.studentProfileApi(parentLoginController.parentStudentListModel.value?.response?[index]?.studentId);
+                              // Get.toNamed(RoutesName.home);
+                         },
+                                    child: Card(
+                                     color: const Color.fromRGBO(114, 199, 255, 1),
+                                      child: SizedBox(
+                                                     height: 0.3.sh,
+                                                     width: 0.87.sw,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Positioned(
-                                  top: 0.012.sh,
-                                  left: 0.33.sw,
-                                  right: 0.31.sw,
-                                  child: FractionalTranslation(
-                   translation: const Offset(0.0, -0.5),
-                   child: ClipOval(
-                     child: Align(
-                                alignment: const FractionalOffset(0.5, 0.0),
-                       child: CachedNetworkImage(
-                         placeholder: (context, url) => CircleAvatar(
-                           maxRadius:
-                           MediaQuery.of(context).size.width -
-                               MediaQuery.of(context).size.width +
-                               60,
-                           backgroundImage: const AssetImage(
-                             "assets/images/user1.png",
+                                  Positioned(
+                                    top: 0.012.sh,
+                                    left: 0.33.sw,
+                                    right: 0.31.sw,
+                                    child: FractionalTranslation(
+                     translation: const Offset(0.0, -0.5),
+                     child: ClipOval(
+                       child: Align(
+                                  alignment: const FractionalOffset(0.5, 0.0),
+                         child: 
+                         CachedNetworkImage(
+                           placeholder: (context, url) => CircleAvatar(
+                             maxRadius:
+                             MediaQuery.of(context).size.width -
+                                 MediaQuery.of(context).size.width +
+                                 60,
+                             backgroundImage: const AssetImage(
+                               "assets/images/user1.png",
+                             ),
                            ),
+                           imageUrl: parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage!=null ?"${ApiUrl.imagesUrl.toString()}${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}":"https://e-gyan.co.in/uploads/student_images/5/1.jpg"
+                          
                          ),
-                         imageUrl: "https://e-gyan.co.in/${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}"
-                        
                        ),
                      ),
-                   ),
+                                    ),
                                   ),
-                                ),
-                                Positioned(
-                                  left: 0.33.sw,
-                                  top: 0.080.sh,
-                                  child: Column(
-                   mainAxisAlignment: MainAxisAlignment.center,
-                   crossAxisAlignment: CrossAxisAlignment.center,
-                   children: [
-                     Text(
-                     "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
-                                               style: GoogleFonts.dmSans(
-                           fontStyle: FontStyle.normal,
-                           fontSize: 17.sp,
-                           fontWeight: FontWeight.bold,
-                           color: Color.fromARGB(255, 255, 254, 254)),
-                     ),
-                                 
-                     Row(
-                       children: [
-                         Text(
-                            "${ parentLoginController.parentStudentListModel.value?.response?[index]?.responseClass}",
-
-                      
-                                style: GoogleFonts.dmSans(
-                           fontStyle: FontStyle.normal,
-                           fontSize: 14.sp,
-                           fontWeight: FontWeight.bold,
-                           color: Color.fromARGB(255, 255, 254, 254)),
-                         ),
-                               
-                         SizedBox(width: 0.010.sw,),
-                         Text(
-                               "${ parentLoginController.parentStudentListModel.value?.response?[index]?.section}",
-
-                      
-                          style: GoogleFonts.dmSans(
-                           fontStyle: FontStyle.normal,
-                           fontSize: 16.sp,
-                           fontWeight: FontWeight.bold,
-                           color: Color.fromARGB(255, 255, 254, 254)),
-                         ),
-                               
-                       ],
-                     ),
-                    
-                   ],
-                                  ),
-                                ),
-                     Positioned(
-                                  left: 0.1.sw,
-                                  top: 0.13.sh,
-                                   child: Row(
-                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  Positioned(
+                                    left: 0.33.sw,
+                                    top: 0.080.sh,
+                                    child: Column(
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     crossAxisAlignment: CrossAxisAlignment.center,
+                     children: [
+                       Text(
+                       "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
+                                                 style: GoogleFonts.dmSans(
+                             fontStyle: FontStyle.normal,
+                             fontSize: 17.sp,
+                             fontWeight: FontWeight.bold,
+                             color: const Color.fromARGB(255, 255, 254, 254)),
+                       ),
+                                   
+                       Row(
                          children: [
-                         Column(
+                           Text(
+                              "${ parentLoginController.parentStudentListModel.value?.response?[index]?.responseClass}",
+    
+                        
+                                  style: GoogleFonts.dmSans(
+                             fontStyle: FontStyle.normal,
+                             fontSize: 14.sp,
+                             fontWeight: FontWeight.bold,
+                             color: Color.fromARGB(255, 255, 254, 254)),
+                           ),
+                                 
+                           SizedBox(width: 0.010.sw,),
+                           Text(
+                                 "${ parentLoginController.parentStudentListModel.value?.response?[index]?.section}",
+    
+                        
+                            style: GoogleFonts.dmSans(
+                             fontStyle: FontStyle.normal,
+                             fontSize: 16.sp,
+                             fontWeight: FontWeight.bold,
+                             color: Color.fromARGB(255, 255, 254, 254)),
+                           ),
+                                 
+                         ],
+                       ),
+                      
+                     ],
+                                    ),
+                                  ),
+                       Positioned(
+                                    left: 0.1.sw,
+                                    top: 0.13.sh,
+                                     child: Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                            children: [
-                             Text("Total Fee", style: GoogleFonts.dmSans(
-                             fontStyle: FontStyle.normal,
-                             fontSize: 15.sp,
-                             fontWeight: FontWeight.bold,
-                             color: Color.fromARGB(255, 255, 254, 254)),),
-                       Divider(),
-                             
-                             Text("${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalAmount}", style: GoogleFonts.dmSans(
-                             fontStyle: FontStyle.normal,
-                             fontSize: 15.sp,
-                             fontWeight: FontWeight.bold,
-                             color: Color.fromARGB(255, 255, 254, 254)),),
-                           ],
-                         ),
-                       const SizedBox(width: 140,),
-                         Column(
-                           children: [
-                             Text("Due Fee", style: GoogleFonts.dmSans(
-                             fontStyle: FontStyle.normal,
-                             fontSize: 15.sp,
-                             fontWeight: FontWeight.bold,
-                             color: Color.fromARGB(255, 255, 254, 254)),),
-                                           Divider(),
-                             
-                             
-                             Text("${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalBalanceAmount}", style: GoogleFonts.dmSans(
-                             fontStyle: FontStyle.normal,
-                             fontSize: 15.sp,
-                             fontWeight: FontWeight.bold,
-                             color: Color.fromARGB(255, 255, 254, 254)),),
-                           ],
-                         )
-                       ],),
-                                 ),
-                       const SizedBox(width: 150,),
-                             
-                         Positioned(
-                                  left: 0.1.sw,
-                                  top: 0.2.sh,
-                       child: Row(
-                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                         Column(
-                           children: [
-                             Text("Present", style: GoogleFonts.dmSans(
-                             fontStyle: FontStyle.normal,
-                             fontSize: 15.sp,
-                             fontWeight: FontWeight.bold,
-                             color: const Color.fromARGB(255, 255, 254, 254)),),
-                                           Divider(),
-                             
-                             
-                             Text("${ parentLoginController.parentStudentListModel.value?.response?[index]?.attandance?.present}", style: GoogleFonts.dmSans(
-                             fontStyle: FontStyle.normal,
-                             fontSize: 15.sp,
-                             fontWeight: FontWeight.bold,
-                             color: const Color.fromARGB(255, 255, 254, 254)),),
-                           ],
-                         ),
-                       const SizedBox(width: 150,),
-                             
-                         Column(
-                           children: [
-                             Text("Absent", style: GoogleFonts.dmSans(
-                             fontStyle: FontStyle.normal,
-                             fontSize: 15.sp,
-                             fontWeight: FontWeight.bold,
-                             color: const Color.fromARGB(255, 255, 254, 254)),),
-                             
-                                         const Divider(),
-                             
-                             
-                             Text("${ parentLoginController.parentStudentListModel.value?.response?[index]?.attandance?.absent}", style: GoogleFonts.dmSans(
-                             fontStyle: FontStyle.normal,
-                             fontSize: 15.sp,
-                             fontWeight: FontWeight.bold,
-                             color: const Color.fromARGB(255, 255, 254, 254)),),
-                           ],
-                         )
-                       ],),
-                     )
-                   ],
+                           Column(
+                             children: [
+                               Text("Total Fee", style: GoogleFonts.dmSans(
+                               fontStyle: FontStyle.normal,
+                               fontSize: 15.sp,
+                               fontWeight: FontWeight.bold,
+                               color: Color.fromARGB(255, 255, 254, 254)),),
+                         Divider(),
+                               
+                               Text("${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalAmount}", style: GoogleFonts.dmSans(
+                               fontStyle: FontStyle.normal,
+                               fontSize: 15.sp,
+                               fontWeight: FontWeight.bold,
+                               color: Color.fromARGB(255, 255, 254, 254)),),
+                             ],
+                           ),
+                         const SizedBox(width: 140,),
+                           Column(
+                             children: [
+                               Text("Due Fee", style: GoogleFonts.dmSans(
+                               fontStyle: FontStyle.normal,
+                               fontSize: 15.sp,
+                               fontWeight: FontWeight.bold,
+                               color: Color.fromARGB(255, 255, 254, 254)),),
+                                             Divider(),
+                               
+                               
+                               Text("${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalBalanceAmount}", style: GoogleFonts.dmSans(
+                               fontStyle: FontStyle.normal,
+                               fontSize: 15.sp,
+                               fontWeight: FontWeight.bold,
+                               color: Color.fromARGB(255, 255, 254, 254)),),
+                             ],
+                           )
+                         ],),
+                                   ),
+                         const SizedBox(width: 150,),
+                               
+                           Positioned(
+                                    left: 0.1.sw,
+                                    top: 0.2.sh,
+                         child: Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                           Column(
+                             children: [
+                               Text("Present", style: GoogleFonts.dmSans(
+                               fontStyle: FontStyle.normal,
+                               fontSize: 15.sp,
+                               fontWeight: FontWeight.bold,
+                               color: const Color.fromARGB(255, 255, 254, 254)),),
+                                             Divider(),
+                               
+                               
+                               Text("${ parentLoginController.parentStudentListModel.value?.response?[index]?.attandance?.present}", style: GoogleFonts.dmSans(
+                               fontStyle: FontStyle.normal,
+                               fontSize: 15.sp,
+                               fontWeight: FontWeight.bold,
+                               color: const Color.fromARGB(255, 255, 254, 254)),),
+                             ],
+                           ),
+                         const SizedBox(width: 150,),
+                               
+                           Column(
+                             children: [
+                               Text("Absent", style: GoogleFonts.dmSans(
+                               fontStyle: FontStyle.normal,
+                               fontSize: 15.sp,
+                               fontWeight: FontWeight.bold,
+                               color: const Color.fromARGB(255, 255, 254, 254)),),
+                               
+                                           const Divider(),
+                               
+                               
+                               Text("${ parentLoginController.parentStudentListModel.value?.response?[index]?.attandance?.absent}", style: GoogleFonts.dmSans(
+                               fontStyle: FontStyle.normal,
+                               fontSize: 15.sp,
+                               fontWeight: FontWeight.bold,
+                               color: const Color.fromARGB(255, 255, 254, 254)),),
+                             ],
+                           )
+                         ],),
+                       )
+                     ],
+                       ),
                      ),
-                   ),
-                                  );
-                   },))
-                   ,
-                  ]),
-                   
-                
-                
-                ],
+                                    );
+                     },))
+                     ,
+                    ]),
+                     
+                  
+                  
+                  ],
+                ),
               ),
-            ),
-            bottomNavigationBar: Container(
-              color: const Color.fromARGB(255, 196, 236, 255),
-              child: Image.asset(
-                "assets/images/b.png",
-                width: MediaQuery.of(context).size.width,
-                height: 0.070.sh,
+              bottomNavigationBar: Container(
+                color: const Color.fromARGB(255, 196, 236, 255),
+                child: Row(
+                
+                  children: [
+                     Padding(
+                       padding:  EdgeInsets.only(left: 0.15.sw,top: 10),
+                       child: const Text("Powered By :-"),
+                     ),
+                    Image.asset(
+                      "assets/images/b.png",
+                      width: 0.5.sw,
+                      height: 0.070.sh,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

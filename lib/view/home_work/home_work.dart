@@ -5,6 +5,7 @@ import 'package:ecom_desgin/constant/date_format.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/home_word_controller.dart';
 import 'package:ecom_desgin/controller/homeworkcreate_controller.dart';
+import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,6 +31,8 @@ class _HomeWorkState extends State<HomeWork> {
   bool changeButton = false;
   final _formkey = GlobalKey<FormState>();
   final HomeWorkController _homeWorkController = Get.put(HomeWorkController());
+  final StudentProfileController studentProfileController = Get.put(StudentProfileController());
+
   var contenttileController = TextEditingController();
   var noteController = TextEditingController();
   bool noteValidate = false;
@@ -85,7 +88,7 @@ class _HomeWorkState extends State<HomeWork> {
   void initState() {
     company_key = box.get("company_key");
     student_id = box.get("student_id");
-    _homeWorkController.homeworkapi(student_id);
+    _homeWorkController.homeworkapi(studentProfileController.studentProfileModel.value?.response.studentId );
     super.initState();
     initDownloadsDirectoryState();
   }
@@ -197,6 +200,10 @@ void filepicker(){
     });
 }
   void showCustomDialog(BuildContext context) {
+    noteController.clear();
+                                            contenttileController.clear();
+                                             fileData="";
+                                             
     showGeneralDialog(
       context: context,
       barrierLabel: "Barrier",
@@ -218,7 +225,7 @@ void filepicker(){
                   });
                 },
                 child: Container(
-                  height: 0.72.sh,
+                  height: 0.58.sh,
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   decoration: const BoxDecoration(
                     color: Colors.white,
@@ -465,7 +472,7 @@ void filepicker(){
 
 
                                                       fileselected = true;
-
+                                                    
                                                     }
 
                                                   }else{
@@ -601,6 +608,11 @@ void filepicker(){
                                                 note,
                                                 userfile,
                                                 homework_id);
+
+                                            noteController.clear();
+                                            contenttileController.clear();
+                                             fileData="";
+
                                           }
                                           Navigator.pop(context);
                                         },
@@ -609,13 +621,13 @@ void filepicker(){
                                                 width: 0.3.sw,
                                                 height: 0.07.sh,
                                                 // color: Colors.green,
-                                                decoration: BoxDecoration(
+                                                decoration: const BoxDecoration(
                                                   color: Colors.green,
                                                   borderRadius: BorderRadius.all(
                                                     Radius.circular(30),
                                                   ),
                                                 ),
-                                                child: Text(
+                                                child: const Text(
                                                   "Upload",
                                                   style: TextStyle(
                                                       color: Colors.white),
@@ -625,13 +637,13 @@ void filepicker(){
                                           width: 0.3.sw,
                                           height: 0.07.sh,
                                           // color: Colors.green,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             color: Colors.grey,
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(30),
                                             ),
                                           ),
-                                          child: Text(
+                                          child: const Text(
                                             "Upload",
                                             style: TextStyle(
                                                 color: Colors.white),
@@ -1019,13 +1031,7 @@ void filepicker(){
                                                                   .homeWorkControllerList[
                                                               0] !=
                                                           null) {
-                                                        homework_id =
-                                                            _homeWorkController
-                                                                    .isloading
-                                                                    .value
-                                                                ? _homeWorkController
-                                                                        .homeWorkControllerList[
-                                                                    0][i]["id"]
+                                                        homework_id = _homeWorkController .isloading.value ? _homeWorkController.homeWorkControllerList[ 0][i]["id"]
                                                                 : "";
                                                       }
                                                       fileselected = false;

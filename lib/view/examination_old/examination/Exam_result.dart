@@ -4,7 +4,6 @@ import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/getexamsResult_controller.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule1_controller.dart';
-import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:ecom_desgin/view/examination/Exam_result_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -24,8 +23,6 @@ class _ExamResultState extends State<ExamResult> {
   GetexamsSchedule1Controller getexamview1 =
   Get.put(GetexamsSchedule1Controller());
   GetexamsResultController GetexamsResult = Get.put(GetexamsResultController());
-  final StudentProfileController studentProfileController = Get.put(StudentProfileController());
-
   var id;
   var company_key;
 
@@ -70,7 +67,7 @@ class _ExamResultState extends State<ExamResult> {
                 var box = Hive.box("schoolData");
                 company_key = box.get("company_key");
                var  student_id = box.get("student_id");
-                GetexamsResult.GetexamsResultapi(company_key, '${studentProfileController.studentProfileModel.value?.response.studentId}', getexamview1.GetexamsSchedule1ControllerList[0]
+                GetexamsResult.GetexamsResultapi(company_key, student_id, getexamview1.GetexamsSchedule1ControllerList[0]
                 ["response"]["examSchedule"][index]["exam_group_id"],);
                 GetexamsResult.loadingGetexamsResult.value=false;
                 Get.to(ExamResult1(title: '${getexamview1.loadingGetexamsSchedule1.value ? getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][index]["exam_group_name"] : ""}${getexamview1.loadingGetexamsSchedule1.value ? getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][index]["exam"] : ""}',));
@@ -196,11 +193,12 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                          var box = Hive.box("schoolData");
                           company_key = box.get("company_key");
                           var  student_id = box.get("student_id");
-                         
-                          // GetexamsResult.GetexamsResultapi(company_key, student_id, getexamview1.loadingGetexamsSchedule1.value ?getexamview1.GetexamsSchedule1ControllerList[0]
-                          // ["response"]["examSchedule"][int.parse(widget.id)]["exam_group_id"]:"",);
+                          print("finfdfdfinvaled numer");
+                          print(widget.id);
+                          GetexamsResult.GetexamsResultapi(company_key, student_id, getexamview1.loadingGetexamsSchedule1.value ?getexamview1.GetexamsSchedule1ControllerList[0]
+                          ["response"]["examSchedule"][int.parse(widget.id)]["exam_group_id"]:"",);
                           // GetexamsResult.loadingGetexamsResult.value=false;
-                          // Get.to(ExamResult1(title: '${getexamview1.loadingGetexamsSchedule1.value ? getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][int.parse(widget.id)]["exam_group_name"] : ""}${getexamview1.loadingGetexamsSchedule1.value ? getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][int.parse(widget.id)]["exam"] : ""}',));
+                          Get.to(ExamResult1(title: '${getexamview1.loadingGetexamsSchedule1.value ? getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][int.parse(widget.id)]["exam_group_name"] : ""}${getexamview1.loadingGetexamsSchedule1.value ? getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][int.parse(widget.id)]["exam"] : ""}',));
 
                         // var box = Hive.box("schoolData");
                         // company_key = box.get("company_key");

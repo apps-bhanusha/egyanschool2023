@@ -27,7 +27,7 @@ class StudentLoginUpdateController extends GetxController {
   RxBool loadingstudentLoginData =false.obs;
   RxBool isloading=true.obs;
 
-  ParentLoginController parentLoginController=Get.put(ParentLoginController());
+  // ParentLoginController parentLoginController=Get.put(ParentLoginController());
 
   Rxn<StudentLoginModel> studentLoginModelList= Rxn<StudentLoginModel>();
 

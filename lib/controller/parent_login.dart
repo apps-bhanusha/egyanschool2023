@@ -1,5 +1,7 @@
+import 'package:ecom_desgin/controller/student_login_update_controller.dart';
 import 'package:ecom_desgin/main.dart';
 import 'package:ecom_desgin/model/parent_student_model.dart';
+import 'package:ecom_desgin/model/student_login_model.dart';
 import 'package:ecom_desgin/view/parent/parent_student_list_change.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
@@ -19,8 +21,11 @@ import 'package:http/http.dart' as http;
 class ParentLoginController extends GetxController{
  var studentpro;
   final SchoolIdController all = Get.put(SchoolIdController());
+  final StudentLoginUpdateController loginUpdateControllers =Get.put( StudentLoginUpdateController());
   final FeeController _feesController = Get.put(FeeController());
   Rxn<ParentStudentListModel> parentStudentListModel= Rxn<ParentStudentListModel>();
+  
+
   
   List  SchoolIdControllerList = [].obs;
   RxBool loadingdata =true.obs;
@@ -58,8 +63,10 @@ class ParentLoginController extends GetxController{
       await saveUser(jsonEncode(response.body));
       var pdata = jsonDecode(response.body);
       parentStudentListModel.value=ParentStudentListModel.fromJson(pdata);
+    //  loginUpdateControllers.studentLoginModelList.value = StudentLoginModel.fromJson(pdata);
+    
+      
        print("parent responce data ");
-      print(parentStudentListModel.value?.response?[0]?.name);
       if (pdata["status"] == true) {
         var box = Hive.box("schoolData");
         var company_key = box.get("company_key");

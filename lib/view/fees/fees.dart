@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
-import 'package:ecom_desgin/constantold/api_url.dart';
+import 'package:ecom_desgin/controller/student_profile-Controller.dart';
+import 'package:ecom_desgin/old/api.dart';
 import 'package:ecom_desgin/controller/fees_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
@@ -45,6 +46,8 @@ final GetSchoolSettingController _schoolsetting =
 Get.put(GetSchoolSettingController());
   FeeController feeController=Get.put(FeeController());
   final StudentLoginUpdateController studentLoginUpdateControllers =Get.put( StudentLoginUpdateController());
+  final StudentProfileController studentProfileController = Get.put(StudentProfileController());
+
   // final gradientList = <List<Color>>[
   //   [
   //     Color.fromRGBO(223, 250, 92, 1),
@@ -74,15 +77,16 @@ Get.put(GetSchoolSettingController());
     session = box.get("session");
     id = box.get("student_id");
     company_key = box.get("company_key");
-    all.Feesapi(id ,company_key);
+
     print("CKECKCKCKCKCKKKCKCK");
     print(studentduefees);
     super.initState();
-    feeController.Feesapi(id, company_key);
+    feeController.loadingfees.value=false;
+    feeController.Feesapi(studentProfileController.studentProfileModel.value?.response.studentId, company_key);
     studentpro=box.get("studentprofileimage");
     username = box.get("username");
     password =box.get("password");
-    studentLoginUpdateControllers.apicallpost(username,password);
+    // studentLoginUpdateControllers.apicallpost(username,password);
   }
   // late Map<String, double> dataMap = {
   //   "Due Fees":double.parse('${ dataMap1?all.FeeControllerList[0]["response"]["total_balance_amount"]:dataMap}'),
@@ -153,7 +157,7 @@ Get.put(GetSchoolSettingController());
           ],
         ),
         body:Obx(()=>
-         feeController.loadingfees.value?studentLoginUpdateControllers.loadingstudentLoginData.value ? studentLoginUpdateControllers.studentLoginModelList.value?.response?.length != null? SingleChildScrollView(
+         feeController.loadingfees.value? SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(height: 0.010.sh,),
@@ -167,7 +171,7 @@ Get.put(GetSchoolSettingController());
                   initialAngleInDegree: 0,
                   chartType: ChartType.disc,
 
-centerTextStyle: TextStyle(
+centerTextStyle: const TextStyle(
   fontWeight: FontWeight.bold,
       color: Colors.white
 ),
@@ -237,7 +241,7 @@ chartValueStyle:TextStyle(
                           padding: const EdgeInsets.only(top: 10,left: 100).r,
                           child: Container(
                             child:  Text(
-                              '${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.name}',
+                              '${studentProfileController.studentProfileModel.value?.response.name}',
                                 // _allsetController.SchoolIdControllerList[0]["response"][0]["name"] ??"",
                                 style: GoogleFonts.dmSans(
                                     fontStyle: FontStyle.normal,
@@ -263,7 +267,7 @@ chartValueStyle:TextStyle(
                                     child:   CircleAvatar(
                                       radius: 20.0,
                                       backgroundImage:
-                                      NetworkImage('${ApiUrl.imagesUrl.toString()}${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.profileimage}'),
+                                      NetworkImage('${ApiUrl.imagesUrl.toString()}${studentProfileController.studentProfileModel.value?.response.profileimage}'),
                                     ),
                                   ),
                                 ),
@@ -309,7 +313,7 @@ chartValueStyle:TextStyle(
                                 children: [
                                   Container(
                                     child:  Text(
-                              '${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.responseClass}',
+                              '${studentProfileController.studentProfileModel.value?.response.responseClass}',
                                         // _allsetController.SchoolIdControllerList[0]["response"][0]["class"] ?? "",
 
                                         style: GoogleFonts.dmSans(
@@ -322,7 +326,7 @@ chartValueStyle:TextStyle(
 
                                   Container(
                                     child:  Text(
-                                        '${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.section}',
+                                        '${studentProfileController.studentProfileModel.value?.response.section}',
                                         // _allsetController.SchoolIdControllerList[0]["response"][0]["section"] ?? "",
 
                                         style: GoogleFonts.dmSans(
@@ -661,28 +665,18 @@ Padding(
               ],
             ),
 
-          ):Center(child: CircularProgressIndicator()):Center(child: CircularProgressIndicator()):Center(child: CircularProgressIndicator()),
+          ):const Center(child: CircularProgressIndicator()),
         ),
 
       ),
       onRefresh: () async {
-        AlwaysScrollableScrollPhysics();
+        const AlwaysScrollableScrollPhysics();
         setState(() {
-          feeController.Feesapi(id, company_key);
+          feeController.Feesapi(studentProfileController.studentProfileModel.value?.response.studentId, company_key);
 
           username = box.get("username");
           password =box.get("password");
-          studentLoginUpdateControllers.apicallpost(username,password);
-        });
-
-        Timer timer;
-
-        timer = Timer.periodic(Duration(seconds: 3),(t){
-          feeController.Feesapi(id, company_key);
-
-          username = box.get("username");
-          password =box.get("password");
-          studentLoginUpdateControllers.apicallpost(username,password);
+         studentProfileController.studentProfileApi(studentProfileController.studentProfileModel.value?.response.studentId);
         });
         await Future.value({
 

@@ -27,4 +27,5 @@ class ApiUrl{
  static const String getnotificationcountUrl="//messagingwebservices/getnotificationcount";
  static const String setnotificationreadUrl="//messagingwebservices//setnotificationread";
  static const String noticUrl="/messagingwebservices/getnotice";
+ static const String studentProfileUrl="/parentwebservices/studentprofile";
 }

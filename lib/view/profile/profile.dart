@@ -5,6 +5,7 @@ import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/controller/student_login_update_controller.dart';
+import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,6 +19,8 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   final UserNameController _allsetController =Get.put( UserNameController());
   final StudentLoginUpdateController studentLoginUpdateControllers =Get.put( StudentLoginUpdateController());
+  final StudentProfileController studentProfileController = Get.put(StudentProfileController());
+
  List <dynamic> parentinfo=[];
   var  studentpro;
   var studentname;
@@ -78,7 +81,7 @@ class _ProfileState extends State<Profile> {
         timer = Timer.periodic(Duration(seconds: 3),(t){
           username = box.get("username");
           password =box.get("password");
-          studentLoginUpdateControllers.apicallpost(username,password);
+          // studentLoginUpdateControllers.apicallpost(username,password);
         });
 
       },
@@ -98,7 +101,7 @@ class _ProfileState extends State<Profile> {
             ],
           ),
           body: Obx(
-    () =>  studentLoginUpdateControllers.loadingstudentLoginData.value ? studentLoginUpdateControllers.studentLoginModelList.value?.response?.length != null?
+    () =>  studentProfileController.isloading.value ? 
             Column(
               children: <Widget>[
                 Container(
@@ -132,7 +135,7 @@ class _ProfileState extends State<Profile> {
                             child: CircleAvatar(
                               radius: 54.0,
                               backgroundImage:
-                              NetworkImage('${ApiUrl.imagesUrl.toString()}${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.profileimage}'),
+                              NetworkImage('${ApiUrl.imagesUrl.toString()}${studentProfileController.studentProfileModel.value?.response.profileimage}'),
                             ),
                           ),
                           // CircleAvatar(
@@ -149,7 +152,7 @@ class _ProfileState extends State<Profile> {
                         height: 0.010.sh,
                       ),
                       Text(
-                        '${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.name}',
+                        '${studentProfileController.studentProfileModel.value?.response.name}',
 
                         style: GoogleFonts.dmSans(
                           fontStyle: FontStyle.normal,
@@ -159,7 +162,7 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                       Text(
-                        '${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.responseClass} ${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.section}',
+                        '${studentProfileController.studentProfileModel.value?.response.responseClass} ${studentProfileController.studentProfileModel.value?.response.section}',
                         style: GoogleFonts.dmSans(
                           fontStyle: FontStyle.normal,
                           fontSize: 15.sp,
@@ -189,7 +192,7 @@ class _ProfileState extends State<Profile> {
                               ),
                             ),
                             subtitle: Text(
-                              '${studentLoginUpdateControllers.studentLoginModelList.value?.parentInfo["mobileno"]}',
+                              '${studentProfileController.studentProfileModel.value?.response.mobileno}',
 
                               textAlign: TextAlign.center,
                               style: GoogleFonts.dmSans(
@@ -218,7 +221,7 @@ class _ProfileState extends State<Profile> {
                               ),
                             ),
                             subtitle: Text(
-                              '${studentLoginUpdateControllers.studentLoginModelList.value?.parentInfo["admission_no"]}',
+                              '${studentProfileController.studentProfileModel.value?.response.admissionNo}',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.dmSans(
                                 fontStyle: FontStyle.normal,
@@ -248,7 +251,7 @@ class _ProfileState extends State<Profile> {
                         color: Colors.blue,
                       ),),
                           trailing: Text(
-                            '${studentLoginUpdateControllers.studentLoginModelList.value?.parentInfo["roll_no"]}',
+                            '${studentProfileController.studentProfileModel.value?.response.rollNo}',
                             style: GoogleFonts.dmSans(
                               fontStyle: FontStyle.normal,
                               fontSize: 15.sp,
@@ -269,7 +272,7 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                           trailing: Text(
-                            '${studentLoginUpdateControllers.studentLoginModelList.value?.parentInfo["samagra_id"]}',
+                            '${studentProfileController.studentProfileModel.value?.response.samagraId}',
                             style: GoogleFonts.dmSans(
                               fontStyle: FontStyle.normal,
                               fontSize: 15.sp,
@@ -290,7 +293,7 @@ class _ProfileState extends State<Profile> {
                           ),
                           ),
                           trailing: Text(
-                            '${studentLoginUpdateControllers.studentLoginModelList.value?.parentInfo["adhar_no"]}',
+                            '${studentProfileController.studentProfileModel.value?.response.adharNo}',
                             style: GoogleFonts.dmSans(
                               fontStyle: FontStyle.normal,
                               fontSize: 15.sp,
@@ -304,7 +307,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 )
               ],
-            ):Center(child: CircularProgressIndicator()):Center(child: CircularProgressIndicator()),
+            ):Center(child: CircularProgressIndicator())
           ),
         ),
     );

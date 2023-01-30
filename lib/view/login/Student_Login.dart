@@ -262,11 +262,20 @@ class _StudentLoginState extends State<StudentLogin> {
       bottomNavigationBar: Container(
              color: Color.fromARGB(255, 196, 236, 255),
 
-        child: Image.asset(
-          "assets/images/b.png",
-          width: MediaQuery.of(context).size.width,
-          height: 0.070.sh,
-        ),
+        child:Row(
+
+                  children: [
+                     Padding(
+                       padding:  EdgeInsets.only(left: 0.15.sw,top: 10),
+                       child: const Text("Powered By :-"),
+                     ),
+                    Image.asset(
+                      "assets/images/b.png",
+                      width: 0.5.sw,
+                      height: 0.070.sh,
+                    ),
+                  ],
+                ),
       ),
     );
   }

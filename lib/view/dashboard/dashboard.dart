@@ -6,9 +6,8 @@ import 'package:ecom_desgin/controller/getexamsSchedule_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
+import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
-import 'package:ecom_desgin/view/calender/attendance.dart';
-import 'package:ecom_desgin/view/examination/Exam_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
@@ -33,6 +32,7 @@ class _GridViewallState extends State<GridViewall>
   GetexamsScheduleController getexamview=Get.put(GetexamsScheduleController());
   final UserNameController _allsetController = Get.put(UserNameController());
   ParentLoginController parentLoginController=Get.put(ParentLoginController());
+  final StudentProfileController studentProfileController = Get.put(StudentProfileController());
 
   final GetSchoolSettingController _schoolsetting =
   Get.put(GetSchoolSettingController());
@@ -349,11 +349,19 @@ class _GridViewallState extends State<GridViewall>
                          ),
           bottomNavigationBar: Container(
               color: Color.fromARGB(255, 196, 236, 255),
-            child: Image.asset(
-              "assets/images/b.png",
-              width: MediaQuery.of(context).size.width,
-              height: 0.070.sh,
-            ),
+            child: Row(
+                  children: [
+                     Padding(
+                       padding:  EdgeInsets.only(left: 0.15.sw,top: 10),
+                       child: const Text("Powered By :-"),
+                     ),
+                    Image.asset(
+                      "assets/images/b.png",
+                      width: 0.5.sw,
+                      height: 0.070.sh,
+                    ),
+                  ],
+                ),
           ),
         ),
       ),
@@ -445,18 +453,11 @@ class _GridViewallState extends State<GridViewall>
                               color: Colors.white,
                             ),),
                            onTap: () {
-                                  print("${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}"); 
-                                  Get.toNamed(RoutesName.home,arguments: [
-                                    "${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}",
-                                    true,
-                                  "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalAmount}",
-                                  "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalBalanceAmount}",
-                                  "${ parentLoginController.parentStudentListModel.value?.response?[index]?.attandance?.present}",
-                                  "https://e-gyan.co.in/${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}",
-                                  "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
-                                  "${ parentLoginController.parentStudentListModel.value?.response?[index]?.responseClass}",
-                                
-                                  ]);  
+                                  
+                    studentProfileController.isloading.value=false;
+                            studentProfileController.studentProfileApi(parentLoginController.parentStudentListModel.value?.response?[index]?.studentId);
+
+                                Get.toNamed(RoutesName.home,);  
                             toggleMenu(); 
                            },
                           ),

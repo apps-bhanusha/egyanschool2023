@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/controller/studentLeaveRecord_controller.dart';
+import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -9,6 +10,7 @@ import 'package:http/http.dart' as http;
 class AddStudentLeaveRecordController extends GetxController {
   StudentLeaveRecordController StudentLeaveRecord=Get.put(StudentLeaveRecordController());
   List <dynamic> AddStudentLeaveRecordControllerList = [].obs;
+  final StudentProfileController studentProfileController = Get.put(StudentProfileController());
 
   RxBool loadingAddStudentLeaveRecord1 =false.obs;
   Future<List<AddStudentLeaveRecordController>?> AddStudentLeaveRecordapi(company_key,student_id,from_date,to_date,message,userfile) async {
@@ -20,7 +22,7 @@ class AddStudentLeaveRecordController extends GetxController {
     var request = http.MultipartRequest('POST', Uri.parse('https://e-gyan.co.in/api/leavewebservices/addstudentLeaveRecord'));
     request.fields.addAll({
       'company_key': company_key,
-      'student_id': student_id,
+      'student_id': '${studentProfileController.studentProfileModel.value?.response.studentId}',
       'from_date': from_date,
       'to_date': to_date,
       'message': message,
@@ -68,7 +70,7 @@ class AddStudentLeaveRecordController extends GetxController {
     var box = Hive.box("schoolData");
     var  id = box.get("student_id");
     company_key = box.get("company_key");
-    StudentLeaveRecord.StudentLeaveRecordapi(company_key,id);
+    StudentLeaveRecord.StudentLeaveRecordapi(company_key,'${studentProfileController.studentProfileModel.value?.response.studentId}');
 
       loadingAddStudentLeaveRecord1.value=true;
 

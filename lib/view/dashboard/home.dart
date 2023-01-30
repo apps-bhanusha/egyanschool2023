@@ -3,7 +3,6 @@ import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/attendance_controller.dart';
-import 'package:ecom_desgin/controller/fees_controller.dart';
 import 'package:ecom_desgin/controller/getSylabusStatus_controller.dart';
 import 'package:ecom_desgin/controller/getclasstimetable_controller.dart';
 import 'package:ecom_desgin/controller/getexamsResult_controller.dart';
@@ -15,9 +14,10 @@ import 'package:ecom_desgin/controller/notice_controller.dart';
 import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/controller/student_login_update_controller.dart';
+import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:ecom_desgin/controller/teacher_by_Student_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
-import 'package:ecom_desgin/view/calender/Calendar.dart';
+import 'package:ecom_desgin/view/Attendance/Calendar.dart';
 import 'package:ecom_desgin/view/dashboard/drawer.dart';
 import 'package:ecom_desgin/view/examination/Exam_result.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -52,6 +52,7 @@ late  int? i= noticController.noticlist.value?.response?.length;
   GetTeacherByStudentController teacherbystudentController=Get.put(GetTeacherByStudentController());
 
   final HomeWorkController _homeWorkController = Get.put(HomeWorkController());
+  final StudentProfileController studentProfileController = Get.put(StudentProfileController());
   final NoticController noticController = Get.put(NoticController());
   final GetSchoolSettingController _schoolsetting =
   Get.put(GetSchoolSettingController());
@@ -62,19 +63,11 @@ late  int? i= noticController.noticlist.value?.response?.length;
   late AnimationController _controller1;
   late Animation<Offset> _Animation;
   double percent = 1.0;
- var  studentpro;
-  var studentname;
-  var studentclass;
-  var studentsection;
   var  studenttotalfees;
   var studentduefees;
-  var studentpresent;
-  var session;
   var schoolname;
   var company_key;
-  var exam_id;
-  var student_id;
-  var alld;
+  var session;
   late String urlimage;
   int totalSecs = 90;
   int secsRemaining = 90;
@@ -100,57 +93,19 @@ late  int? i= noticController.noticlist.value?.response?.length;
   // late double _progressValue;
   var box = Hive.box("schoolData");
 
-  get id => id;
+
 
   @override
   void initState() {
     var id = box.get("company_key");
+   session = box.get("session");
     _schoolsetting.GetSchoolSettingapi(id,);
-    id = box.get("student_id");
-    student_id = box.get("student_id");
     company_key = box.get("company_key");
-    print("322222222222222222222222222222gggggggggggggg22222222");
-      if(Get.arguments[1]==true){
-        urlimage=Get.arguments[5];
-         id = Get.arguments[0];
-    studentname =Get.arguments[6];
-    studentclass = Get.arguments[7];  
-    box.put("student_id", Get.arguments[0]);
-    box.put("studenttotalfees", int.parse(Get.arguments[2].toString()));
-    box.put("studentduefees", int.parse(Get.arguments[3].toString()));
-    box.put("studentpresent", Get.arguments[4].toString());
-    box.put("studentname", Get.arguments[6].toString());
-    box.put("studentclass", Get.arguments[7].toString());
-    box.put("studentprofileimage", Get.arguments[5].toString());
-    box.put("exam_view", "${ parentLoginController.parentStudentListModel.value?.parentInfo?["exam_view"]}");
-    box.put("mobileno", Get.arguments[8]);
-    box.put("admission_no", Get.arguments[9]);
-    box.put("roll_no", Get.arguments[10]);
-    box.put("samagra_id", Get.arguments[11]);
-    box.put("adhar_no", Get.arguments[12]);
-    
-   
-    // student_id = Get.arguments[0];
 
-    // present = Get.arguments[4].toString();
-    // studenttotalfees =Get.arguments[2].toString();
-    // studentduefees = Get.arguments[0].toString();
-    }else{
-    
-    }
-    studentname = box.get("studentname");
-    studentclass = box.get("studentclass");
-    studentsection = box.get("studentsection");
-   
     schoolname = box.get("schoolname");
-    session = box.get("session");
-    studentpro=box.get("studentprofileimage");
-    exam_id=box.get("exam_view");
-    studenttotalfees = box.get("studenttotalfees");
-    studentduefees = box.get("studentduefees");
-    studentpresent = box.get("studentpresent");
-print("HOHOHOHOHOHOHOH");
-print(studentduefees);
+ studenttotalfees = studentProfileController.studentProfileModel.value?.response.fee.totalAmount;
+    studentduefees = studentProfileController.studentProfileModel.value?.response.fee.totalBalanceAmount;
+
 
   // alld=(int.parse(_allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"])) / 100;
   //       print("444mmmmmmmmmmmmmm4444");
@@ -192,8 +147,8 @@ print(studentduefees);
     // });
 
     super.initState();
-    progressFraction = studentduefees*100/studenttotalfees;
-        percentage = (progressFraction*100).floor();
+    // progressFraction = studentduefees*100/studenttotalfees;
+    //     percentage = (progressFraction*100).floor();
 
     // _updateProgress();
     //
@@ -206,13 +161,11 @@ print(studentduefees);
 
     username = box.get("username");
     password =box.get("password");
-    studentLoginUpdateControllers.apicallpost(username,password);
-
+    // studentLoginUpdateControllers.apicallpost(username,password);
     company_key = box.get("company_key");
     getexamview1.GetexamsSchedule1api( company_key, 0);
 
-    teacherbystudentController.GetTeacherByStudentapi(company_key, student_id);
-    noticController.noticControllerApi();
+    // teacherbystudentController.GetTeacherByStudentapi(company_key, studentProfileController.studentProfileModel.value?.response.studentId.toString());
 
     _controller = AnimationController(
       duration: const Duration(milliseconds: 500),
@@ -277,25 +230,12 @@ print(studentduefees);
 
           username = box.get("username");
           password =box.get("password");
-          studentLoginUpdateControllers.apicallpost(username,password);
+          // studentLoginUpdateControllers.apicallpost(username,password);
           company_key = box.get("company_key");
           getexamview1.GetexamsSchedule1api( company_key, 0);
 
-          teacherbystudentController.GetTeacherByStudentapi(company_key, student_id);
-          noticController.noticControllerApi();
+          // teacherbystudentController.GetTeacherByStudentapi(company_key, studentProfileController.studentProfileModel.value?.response.studentId);
 
-        });
-        Timer timer;
-
-        timer = Timer.periodic(Duration(seconds: 3),(t){
-          username = box.get("username");
-          password =box.get("password");
-          studentLoginUpdateControllers.apicallpost(username,password);
-          company_key = box.get("company_key");
-          getexamview1.GetexamsSchedule1api( company_key, 0);
-
-          teacherbystudentController.GetTeacherByStudentapi(company_key, student_id);
-          noticController.noticControllerApi();
         });
 
         await Future.value({
@@ -380,14 +320,16 @@ print(studentduefees);
                             ),
                           );
                           },)),
-                        PopupMenuItem(child: Text('about'), value: 1),
+                        const PopupMenuItem(child: Text('about'), value: 1),
                       ];
                     },
                   ),
                 ],
               ),
               body: Obx(
-      () =>  studentLoginUpdateControllers.loadingstudentLoginData.value ? studentLoginUpdateControllers.studentLoginModelList.value?.response?.length != null?(
+      () =>
+        // studentLoginUpdateControllers.loadingstudentLoginData.value ? 
+    studentProfileController.isloading.value ?(
                Column(
                   children: [
                     Stack(children: [
@@ -438,7 +380,7 @@ print(studentduefees);
                                       ),
                                       imageUrl:
 
-                                      '${ApiUrl.imagesUrl.toString()}${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.profileimage}'
+                                      studentProfileController.studentProfileModel.value?.response.profileimage.toString()=="null"?'${ApiUrl.imagesUrl.toString()}${studentProfileController.studentProfileModel.value?.response.profileimage}':"https://e-gyan.co.in/uploads/student_images/5/1.jpg"
 
 
                                     ),
@@ -458,7 +400,7 @@ print(studentduefees);
                                       print("all");
                                     },
                                     child:  Text(
-                                      '${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.name}',
+                                      '${studentProfileController.studentProfileModel.value?.response.name}',
                                       // _allsetController.SchoolIdControllerList[0]
                                       //         ["response"][0]["name"] ??
                                       //     "",
@@ -477,7 +419,7 @@ print(studentduefees);
                                     child: Row(
                                       children: [
                                         Text(
-                                          '${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.responseClass} ${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.section}',
+                                          '${studentProfileController.studentProfileModel.value?.response.responseClass} ${studentProfileController.studentProfileModel.value?.response.section}',
                                           // _allsetController.SchoolIdControllerList[0]
                                           // ["response"][0]["class"] ??
                                           //     "",
@@ -676,7 +618,7 @@ enableScrollInput: true,
 
                                   direction: Axis.vertical,
                                   // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
-                                  center: Text('${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.fee.totalAmount}',
+                                  center: Text('${studentProfileController.studentProfileModel.value?.response.fee.totalAmount}',
                                     // _allsetController.SchoolIdControllerList[0]["response"][0]["fee"]["total_amount"].toString(),
 
                                     style: GoogleFonts.dmSans(
@@ -710,7 +652,7 @@ enableScrollInput: true,
                                 height: 0.14.sh,
                                 width: 0.30.sw,
                                 child: LiquidLinearProgressIndicator(
-                                  value: studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.fee.totalBalanceAmount!=null?(int.parse('${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.fee.totalBalanceAmount}',)) / int.parse('${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.fee.totalAmount}'):0, // Defaults to 0.5.
+                                  value: studentProfileController.studentProfileModel.value?.response.fee.totalBalanceAmount!=null?(int.parse('${studentProfileController.studentProfileModel.value?.response.fee.totalBalanceAmount}',)) / int.parse('${studentProfileController.studentProfileModel.value?.response.fee.totalAmount}'):0, // Defaults to 0.5.
                                   valueColor: const AlwaysStoppedAnimation(
                                     // DueFees
                                     //     ? Color.fromARGB(255, 91, 167, 230)
@@ -729,7 +671,7 @@ enableScrollInput: true,
                                   // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
                                   center:
                                   Text(
-                                    '${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.fee.totalBalanceAmount}',
+                                    '${studentProfileController.studentProfileModel.value?.response.fee.totalBalanceAmount}',
                                     // _allsetController.SchoolIdControllerList[0]["response"][0]["fee"]["total_balance_amount"].toString(),
                                     style: GoogleFonts.dmSans(
                                       fontStyle: FontStyle.normal,
@@ -763,7 +705,7 @@ enableScrollInput: true,
                                 height: 0.14.sh,
                                 width: 0.30.sw,
                                 child: LiquidLinearProgressIndicator(
-                                  value: studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.attandance.present!=null?(int.parse('${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.attandance.present}')) / days:0,// Defaults to 0.5.
+                                  value: studentProfileController.studentProfileModel.value?.response.attandance.present!=null?(int.parse('${studentProfileController.studentProfileModel.value?.response.attandance.present}')) / days:0,// Defaults to 0.5.
                                   valueColor: const AlwaysStoppedAnimation(
                                       Color.fromARGB(255, 144, 212,
                                           146)), // Defaults to the current Theme's accentColor.
@@ -780,7 +722,7 @@ enableScrollInput: true,
                                   // The directioncent% the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
                                   center:
                                   Text(
-                                    '${studentLoginUpdateControllers.studentLoginModelList.value?.response?[0]?.attandance.present}',
+                                    '${studentProfileController.studentProfileModel.value?.response.attandance.present}',
                                     // _allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"]??"",
                                     style: GoogleFonts.dmSans(
                                       fontStyle: FontStyle.normal,
@@ -853,14 +795,24 @@ enableScrollInput: true,
                     ),
                   ],
                 )
-              ):Center(child: CircularProgressIndicator()):Center(child: CircularProgressIndicator()),
+              ):Center(child: CircularProgressIndicator( color: Colors.blue,))
+              // :Center(child: CircularProgressIndicator()),
             ),
               bottomNavigationBar: Container(
                 color: Color.fromARGB(255, 196, 236, 255),
-                child: Image.asset(
-                  "assets/images/b.png",
-                  width: MediaQuery.of(context).size.width,
-                  height: 0.070.sh,
+                child:Row(
+                
+                  children: [
+                     Padding(
+                       padding:  EdgeInsets.only(left: 0.15.sw,top: 10),
+                       child: const Text("Powered By :-"),
+                     ),
+                    Image.asset(
+                      "assets/images/b.png",
+                      width: 0.5.sw,
+                      height: 0.070.sh,
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -958,15 +910,11 @@ enableScrollInput: true,
                             color: Colors.white,
                           ),),
                          onTap: () {
-                                print("${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}"); 
-                                Get.toNamed(RoutesName.home,arguments: [
-                                  "${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}",
-                                  false,
-                                "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalAmount}",
-                                "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalBalanceAmount}",
-                                "${ parentLoginController.parentStudentListModel.value?.response?[index]?.attandance?.present}",
-                                "https://e-gyan.co.in/${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}",
-                                ]);  
+                   studentLoginUpdateControllers.loadingstudentLoginData.value=true;
+                    studentProfileController.isloading.value=false;
+                            studentProfileController.studentProfileApi(parentLoginController.parentStudentListModel.value?.response?[index]?.studentId);
+
+                                Get.toNamed(RoutesName.home,);  
                            toggleMenu(); 
                          },
                     );

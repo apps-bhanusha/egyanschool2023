@@ -147,8 +147,8 @@ SizedBox(height: 0.010.sh,),
                                 child: Row(
                                   children: [
                                     Padding(
-                                   padding: const EdgeInsets.only(top: 20).r,
-                                      child: const Icon(
+                                   padding: EdgeInsets.only(top: 20).r,
+                                      child: Icon(
                                         Icons.date_range,
                                       ),
                                     ),

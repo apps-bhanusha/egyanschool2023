@@ -11,23 +11,23 @@ class FeeController extends GetxController {
 
   RxBool loadingfees =false.obs;
   Future<List<FeeController>?> Feesapi(id, company_key) async {
+    print("student feesssssssssss.......................................");
+    print("student feesssssssssss.......................................");
+    print("student feesssssssssss.......................................");
+    print("student feesssssssssss.......................................");
 var box = Hive.box("schoolData");
     var body = json.encode({
       "company_key":company_key,
       "student_id": id
     });
-    print("46555555555555555555555554444444444444444444fgggggggggg55544444444");
+  
     print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.feeUrl);
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
       var  sdata = jsonDecode(response.body);
-
       FeeControllerList=[];
       FeeControllerList.add(sdata) ;
-      print("555555555555555555555jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
-      print(FeeControllerList);
-
       if (sdata["status"] == true ) {
         loadingfees.value=true;
         print("massage");

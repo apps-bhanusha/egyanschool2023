@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/getSylabusStatus_controller.dart';
+import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -24,6 +25,8 @@ class SubjectLession extends StatefulWidget {
 
 class _SubjectLessionState extends State<SubjectLession> with TickerProviderStateMixin {
   GetSylabusStatusController GetSylabusStatus=Get.put(GetSylabusStatusController());
+  final StudentProfileController studentProfileController = Get.put(StudentProfileController());
+
 var student_id;
 var company_key;
   final bool _visible = true;
@@ -46,7 +49,7 @@ var company_key;
   void initState() {
     student_id = box.get("student_id");
     company_key = box.get("company_key");
-    GetSylabusStatus.GetSylabusStatusapi(company_key,student_id);
+    GetSylabusStatus.GetSylabusStatusapi(company_key,studentProfileController.studentProfileModel.value?.response.studentId );
 
 
     percentage = (progressFraction*100).floor();
@@ -266,18 +269,7 @@ void dispose() {
       onRefresh: () async {
         AlwaysScrollableScrollPhysics();
         setState(() {
-          GetSylabusStatus.GetSylabusStatusapi(company_key,student_id);
-        });
-
-        Timer timer;
-
-        timer = Timer.periodic(Duration(seconds: 3),(t){
-          GetSylabusStatus.GetSylabusStatusapi(company_key,student_id);
-        });
-        await Future.value({
-
-          Duration(seconds: 3),
-
+          GetSylabusStatus.GetSylabusStatusapi(company_key,studentProfileController.studentProfileModel.value?.response.studentId );
         });
       },
     );

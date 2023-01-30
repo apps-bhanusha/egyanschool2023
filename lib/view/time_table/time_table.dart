@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/getclasstimetable_controller.dart';
+import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,6 +22,8 @@ class TimeTable extends StatefulWidget {
 class _TimeTableState extends State<TimeTable> {
   GetclassTimeTableController GetclassTimeTable = Get.put(
       GetclassTimeTableController());
+  final StudentProfileController studentProfileController = Get.put(StudentProfileController());
+
   var company_key;
   var id;
   var days;
@@ -60,7 +63,7 @@ class _TimeTableState extends State<TimeTable> {
     current = day.substring(0, 3).toUpperCase();
     company_key = box.get("company_key");
     id = box.get("student_id");
-    GetclassTimeTable.GetclassTimeTableapi(company_key, id);
+    GetclassTimeTable.GetclassTimeTableapi(company_key, studentProfileController.studentProfileModel.value?.response.studentId);
     print("ddddddddddddddddddsddsdsddddsxx");
 
     super.initState();
@@ -491,19 +494,11 @@ print(index);
                 ),
               ),
             ],
-          ):Center(child: CircularProgressIndicator()),
+          ):Center(child: CircularProgressIndicator(color: Colors.blue,)),
         ),
       ),
       onRefresh: () async {
-        Timer timer;
-
-        timer = Timer.periodic(Duration(seconds: 3),(t){
-          GetclassTimeTable.GetclassTimeTableapi(company_key, id);
-        });
-        await Future.value({
-          Duration(seconds: 1),
-        GetclassTimeTable.GetclassTimeTableapi(company_key, id),
-        });
+          GetclassTimeTable.GetclassTimeTableapi(company_key, studentProfileController.studentProfileModel.value?.response.studentId);
       },
     );
   }
