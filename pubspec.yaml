@@ -83,6 +83,9 @@ dependencies:
   smooth_star_rating_null_safety: ^1.0.4+2
   pull_to_refresh: ^2.0.0
   text_scroll: ^0.1.2
+  anim_search_bar: ^2.0.3
+  easy_search_bar: ^2.4.2
+  getwidget: ^2.0.4
 
 
 

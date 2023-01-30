@@ -168,19 +168,10 @@ var schoolname;
 
           username = box.get("username");
           password =box.get("password");
-          studentLoginUpdateControllers.apicallpost(username,password);
           company_key = box.get("company_key");
+          print(username);
+          print(password);
         parentLoginController.parentapi( username,password,context);
-        });
-        Timer timer;
-        timer = Timer.periodic(Duration(seconds: 3),(t){
-          username = box.get("username");
-          password =box.get("password");
-          studentLoginUpdateControllers.apicallpost(username,password);
-          company_key = box.get("company_key");
-        });
-        await Future.value({
-          Duration(seconds: 3),
         });
       },
       child: SafeArea(
@@ -278,7 +269,7 @@ var schoolname;
                           ),
                         ),
                       ),
-                     Obx(() => ListView.builder(
+                     Obx(() => parentLoginController.loadingdata.value? ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       itemCount: parentLoginController.parentStudentListModel.value?.response!=null ?parentLoginController.parentStudentListModel.value?.response?.length:0,
@@ -326,7 +317,7 @@ var schoolname;
                                "assets/images/user1.png",
                              ),
                            ),
-                           imageUrl: parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage!=null ?"${ApiUrl.imagesUrl.toString()}${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}":"https://e-gyan.co.in/uploads/student_images/5/1.jpg"
+                           imageUrl: parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage!=null ?"${ApiUrl.imagesUrl.toString()}${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}":"https://cdn-icons-png.flaticon.com/512/149/149071.png"
                           
                          ),
                        ),
@@ -473,7 +464,7 @@ var schoolname;
                        ),
                      ),
                                     );
-                     },))
+                     },):Center(child:CircularProgressIndicator(color:Colors.blue),))
                      ,
                     ]),
                      

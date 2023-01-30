@@ -55,12 +55,14 @@ class ParentLoginController extends GetxController{
     print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.parentLoginUrl);
     var response = await http.post(urlapi, body: body);
+    print("parent login responce");
+    print(response.body);
     if (response.statusCode == 200) {
           await sessionManager.set("name", username);
           await sessionManager.set("parentlogin", "parentlogin");
           await sessionManager.set("passward", password);
-      final userIsStored =
-      await saveUser(jsonEncode(response.body));
+          final userIsStored =  await saveUser(jsonEncode(response.body));
+  Rxn<ParentStudentListModel> parentStudentListModel= Rxn<ParentStudentListModel>();
       var pdata = jsonDecode(response.body);
       parentStudentListModel.value=ParentStudentListModel.fromJson(pdata);
     //  loginUpdateControllers.studentLoginModelList.value = StudentLoginModel.fromJson(pdata);

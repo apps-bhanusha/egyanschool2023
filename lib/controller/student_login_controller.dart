@@ -4,6 +4,7 @@ import 'package:ecom_desgin/controller/fees_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/controller/school_id_controller.dart';
+import 'package:ecom_desgin/controller/student_login_update_controller.dart';
 import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:ecom_desgin/main.dart';
 import 'package:ecom_desgin/model/parent_student_model.dart';
@@ -31,6 +32,7 @@ class UserNameController extends GetxController {
   Rxn<ParentStudentListModel> parentStudentListModel= Rxn<ParentStudentListModel>();
   ParentLoginController parentLoginController=Get.put(ParentLoginController());
   final StudentProfileController studentProfileController = Get.put(StudentProfileController());
+  final StudentLoginUpdateController studentLoginUpdateControllers =Get.put( StudentLoginUpdateController());
 
 
   // Future<bool> saveUser(String user) async {
@@ -52,7 +54,7 @@ class UserNameController extends GetxController {
     print("student login Responce");
     if (response.statusCode == 200) {
       isloading.value=true;
-      parentLoginController.parentLogin.value=false;
+      // parentLoginController.parentLogin.value=false;
                      await sessionManager.set("name", username);
                await sessionManager.set("passward", password);
           await sessionManager.set("parentlogin", "student");
@@ -92,11 +94,14 @@ class UserNameController extends GetxController {
        //  print(studentpro);
       loadingdata.value=true;
           //  return Get.to( const HomeScreen(),arguments: ['0',false]);
-          studentProfileController.isloading.value=false;
+          // studentProfileController.isloading.value=false;
+          studentLoginUpdateControllers.loadingstudentLoginData.value=true;
+                                Get.toNamed(RoutesName.home);
+                            studentProfileController.studentProfileApi(SchoolIdControllerList[0]["response"][0]["student_id"]);
           print("student profile get student id ckeck ");
-          print(SchoolIdControllerList[0]["response"][0]["student_id"]);
-           studentProfileController.studentProfileApi(SchoolIdControllerList[0]["response"][0]["student_id"]);
-              Get.offAllNamed(RoutesName.home);
+          // print(SchoolIdControllerList[0]["response"][0]["student_id"]);
+          //  studentProfileController.studentProfileApi(SchoolIdControllerList[0]["response"][0]["student_id"]);
+          //     Get.offAllNamed(RoutesName.home);
                            
       }
       else  {

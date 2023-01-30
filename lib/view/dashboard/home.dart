@@ -99,7 +99,7 @@ late  int? i= noticController.noticlist.value?.response?.length;
   void initState() {
     var id = box.get("company_key");
    session = box.get("session");
-    _schoolsetting.GetSchoolSettingapi(id,);
+    // _schoolsetting.GetSchoolSettingapi(id,);
     company_key = box.get("company_key");
 
     schoolname = box.get("schoolname");

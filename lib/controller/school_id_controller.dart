@@ -32,8 +32,7 @@ import 'package:http/http.dart' as http;
       print(sdata);
       SchoolIdControllerList2=[];
       SchoolIdControllerList2.add(sdata);
-      print("55555555555555555555555555544444444444444444444444444444444444443333");
-print(SchoolIdControllerList2[0]["response"]["company_key"]);
+
       // SchoolIdModel.fromJson(sdata);
       if (sdata["status"] == true ) {
         print("3sadddddddddddddddddddddddddddddddddd44ddddddddddddddddddddddddddddddddddddddddddddddddddddd");

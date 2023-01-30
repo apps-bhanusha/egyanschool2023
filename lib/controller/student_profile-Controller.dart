@@ -25,9 +25,11 @@ class StudentProfileController extends GetxController{
         var profileData = jsonDecode(response.body);
         print("student profile data");
         print(profileData);
+        isloading.value=true;
        studentProfileModel.value= StudentProfileModel.fromJson(profileData);
-       isloading.value=true;
+       
        print("is loading value true");
+       print(studentProfileModel.value);
   }
     else {
       

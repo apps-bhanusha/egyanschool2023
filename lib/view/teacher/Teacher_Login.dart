@@ -1,4 +1,5 @@
 import 'package:ecom_desgin/view/dashboard/home.dart';
+import 'package:ecom_desgin/view/teacher/student%20_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
@@ -150,6 +151,9 @@ class _TeacherLoginState extends State<TeacherLogin> {
                     return "Password length should be atleast 6";
                   }
                   return null;
+
+
+                
                 },
               ),
             ),
@@ -182,7 +186,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
                   ),
                   onPressed: () {
 
-                    // Get.to(HomeScreen());
+                  Get.to(StudentInformation());
 
                   },
                 ),
