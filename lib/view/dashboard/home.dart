@@ -49,6 +49,7 @@ late  int? i= noticController.noticlist.value?.response?.length;
   GetexamsScheduleController getexamview=Get.put(GetexamsScheduleController());
 
   ParentLoginController parentLoginController=Get.put(ParentLoginController());
+  UserNameController userNameController=Get.put(UserNameController());
   GetTeacherByStudentController teacherbystudentController=Get.put(GetTeacherByStudentController());
 
   final HomeWorkController _homeWorkController = Get.put(HomeWorkController());
@@ -101,7 +102,6 @@ late  int? i= noticController.noticlist.value?.response?.length;
    session = box.get("session");
     // _schoolsetting.GetSchoolSettingapi(id,);
     company_key = box.get("company_key");
-
     schoolname = box.get("schoolname");
  studenttotalfees = studentProfileController.studentProfileModel.value?.response.fee.totalAmount;
     studentduefees = studentProfileController.studentProfileModel.value?.response.fee.totalBalanceAmount;
@@ -163,6 +163,12 @@ late  int? i= noticController.noticlist.value?.response?.length;
     password =box.get("password");
     // studentLoginUpdateControllers.apicallpost(username,password);
     company_key = box.get("company_key");
+  var  student_id = box.get("student_id");
+  var  student_login = box.get("student_login");
+        // studentLoginUpdateControllers.loadingstudentLoginData.value=true;
+       if(student_login=="student_login"){
+         studentProfileController.studentProfileApi(student_id);
+       }
     getexamview1.GetexamsSchedule1api( company_key, 0);
 
     // teacherbystudentController.GetTeacherByStudentapi(company_key, studentProfileController.studentProfileModel.value?.response.studentId.toString());

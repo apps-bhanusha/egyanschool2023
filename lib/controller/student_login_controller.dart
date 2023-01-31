@@ -67,6 +67,7 @@ class UserNameController extends GetxController {
       if (sdata["status"] == true) {
         var box = Hive.box("schoolData");
         box.put("username",username);
+        box.put("student_login","student_login");
         // box.put("password",password);
         // box.put("student_id",SchoolIdControllerList[0]["response"][0]["student_id"]);
         // box.put("exam_view", SchoolIdControllerList[0]['parent_info']["exam_view"]);
@@ -95,14 +96,18 @@ class UserNameController extends GetxController {
       loadingdata.value=true;
           //  return Get.to( const HomeScreen(),arguments: ['0',false]);
           // studentProfileController.isloading.value=false;
+        box.put("student_id",SchoolIdControllerList[0]["response"][0]["student_id"]);
+
           studentLoginUpdateControllers.loadingstudentLoginData.value=true;
-                                Get.toNamed(RoutesName.home);
-                            studentProfileController.studentProfileApi(SchoolIdControllerList[0]["response"][0]["student_id"]);
+          //  Get.toNamed(RoutesName.home);
+           Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const HomeScreen()));
+
+                            // studentProfileController.studentProfileApi(SchoolIdControllerList[0]["response"][0]["student_id"]);
           print("student profile get student id ckeck ");
           // print(SchoolIdControllerList[0]["response"][0]["student_id"]);
           //  studentProfileController.studentProfileApi(SchoolIdControllerList[0]["response"][0]["student_id"]);
           //     Get.offAllNamed(RoutesName.home);
-                           
+           parentLoginController.parentLogin.value=false;                
       }
       else  {
         ScaffoldMessenger.of (context).showSnackBar(SnackBar(content: Text(sdata["message"], style: GoogleFonts.dmSans(

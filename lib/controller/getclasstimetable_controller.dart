@@ -22,15 +22,15 @@ class GetclassTimeTableController extends GetxController {
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
       var  sdata = jsonDecode(response.body);
-
+    
       GetclassTimeTableControllerList=[];
       GetclassTimeTableControllerList.add(sdata) ;
       print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmvvvvvvvvvvvvvvv");
       print(GetclassTimeTableControllerList);
-      print(GetclassTimeTableControllerList[0]["response"]["result"][0]["timetable"][0]["subject_name"]);
+       loadingGetclassTimeTable.value=true;
       // print(GetschoolsettingControllerList[0]["response"]["total_discount_amount"]);
       if (sdata["status"] == true ) {
-        loadingGetclassTimeTable.value=true;
+       
         print("massage");
       }
       else  {

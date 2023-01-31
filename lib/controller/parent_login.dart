@@ -62,7 +62,7 @@ class ParentLoginController extends GetxController{
           await sessionManager.set("parentlogin", "parentlogin");
           await sessionManager.set("passward", password);
           final userIsStored =  await saveUser(jsonEncode(response.body));
-  Rxn<ParentStudentListModel> parentStudentListModel= Rxn<ParentStudentListModel>();
+   parentStudentListModel= Rxn<ParentStudentListModel>();
       var pdata = jsonDecode(response.body);
       parentStudentListModel.value=ParentStudentListModel.fromJson(pdata);
     //  loginUpdateControllers.studentLoginModelList.value = StudentLoginModel.fromJson(pdata);
@@ -70,11 +70,9 @@ class ParentLoginController extends GetxController{
       
        print("parent responce data ");
       if (pdata["status"] == true) {
-        var box = Hive.box("schoolData");
-        var company_key = box.get("company_key");
       loadingdata.value=true;
       parentLogin.value=true;
-           return Get.to(const ParentStudentList());
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const HomeScreen()));
       }
 
       else  {

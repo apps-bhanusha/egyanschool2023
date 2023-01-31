@@ -1,11 +1,17 @@
 import 'package:ecom_desgin/view/dashboard/home.dart';
+import 'package:ecom_desgin/view/teacher/home_work/home_work.dart';
 import 'package:ecom_desgin/view/teacher/student%20_information.dart';
+import 'package:ecom_desgin/view/teacher/time_table_t/class_time_table.dart';
+import 'package:ecom_desgin/view/teacher/time_table_t/time_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+
+import '../time_table/time_table.dart';
+import 'leave_teacher/leave_teacher.dart';
 class TeacherLogin extends StatefulWidget {
   const TeacherLogin({super.key});
 
@@ -186,7 +192,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
                   ),
                   onPressed: () {
 
-                  Get.to(StudentInformation());
+                  Get.to(LeaveTeacher());
 
                   },
                 ),

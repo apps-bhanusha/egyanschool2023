@@ -61,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
     print(parentlogin);
     Future.delayed(
       const Duration(seconds: 7),
-          () => name!=null ? "parentlogin"==parentlogin?Get.to(const ParentStudentList()):Get.toNamed(RoutesName.home,arguments: ['0',false]):Get.toNamed(RoutesName.schoolId),
+          () => name!=null ? "parentlogin"==parentlogin? Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const ParentStudentList())):Get.toNamed(RoutesName.home,arguments: ['0',false]):Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) =>  SimpleLogin())),
   //         () {
   //     var box = Hive.box("schoolData");
   //    var user=    box.get("username").toString();

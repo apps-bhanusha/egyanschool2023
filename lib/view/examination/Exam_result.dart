@@ -75,11 +75,55 @@ class _ExamResultState extends State<ExamResult> {
                 GetexamsResult.loadingGetexamsResult.value=false;
                 Get.to(ExamResult1(title: '${getexamview1.loadingGetexamsSchedule1.value ? getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][index]["exam_group_name"] : ""}${getexamview1.loadingGetexamsSchedule1.value ? getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][index]["exam"] : ""}',));
               },
-              child: ExpandableListView(
-                  title:
-                  '${getexamview1.loadingGetexamsSchedule1.value ? getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][index]["exam_group_name"] : ""}${getexamview1.loadingGetexamsSchedule1.value ? getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][index]["exam"] : ""}',
-                  id: getexamview1.GetexamsSchedule1ControllerList[0]
-                  ["response"]["examSchedule"][index]["exam_group_id"]),
+              child:   Padding(
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 8),
+            child: Container(
+              color: Colors.blue,
+              padding: const EdgeInsets.symmetric(horizontal: 5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    '${getexamview1.loadingGetexamsSchedule1.value ? getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][index]["exam_group_name"] : ""}${getexamview1.loadingGetexamsSchedule1.value ? getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][index]["exam"] : ""}',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+
+                  IconButton(
+                      icon: Container(
+                        height: 30.0,
+                        width: 30.0,
+                        decoration: const BoxDecoration(
+                          color: Colors.orange,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Center(
+                          child: Icon(
+                            true
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_up,
+                            color: Colors.white,
+                            size: 20.0,
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                            var box = Hive.box("schoolData");
+                company_key = box.get("company_key");
+               var  student_id = box.get("student_id");
+                GetexamsResult.GetexamsResultapi(company_key, '${studentProfileController.studentProfileModel.value?.response.studentId}', getexamview1.GetexamsSchedule1ControllerList[0]
+                ["response"]["examSchedule"][index]["exam_group_id"],);
+                GetexamsResult.loadingGetexamsResult.value=false;
+                Get.to(ExamResult1(title: '${getexamview1.loadingGetexamsSchedule1.value ? getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][index]["exam_group_name"] : ""}${getexamview1.loadingGetexamsSchedule1.value ? getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][index]["exam"] : ""}',));
+                      //  getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][index]["exam_group_id"]
+                      })
+
+
+                ],
+              ),
+            ),
+          ),
+    
             );
           },
           itemCount: getexamview1
@@ -113,45 +157,6 @@ class _ExpandableListViewState extends State<ExpandableListView> {
   Get.put(GetexamsSchedule1Controller());
   var company_key;
   var student_id;
-  List result = [
-    {
-      "subjectname": "hindi",
-      "passingmarks": "33",
-      "Marks Obtained": "6.00/23",
-      "Result": "pass",
-    },
-    {
-      "subjectname": "english",
-      "passingmarks": "33",
-      "Marks Obtained": "6.00/23",
-      "Result": "pass",
-    },
-    {
-      "subjectname": "math",
-      "passingmarks": "33",
-      "Marks Obtained": "6.00/23",
-      "Result": "pass",
-    },
-    {
-      "subjectname": "physics",
-      "passingmarks": "33",
-      "Marks Obtained": "6.00/23",
-      "Result": "pass",
-    },
-    {
-      "subjectname": "physics",
-      "passingmarks": "33",
-      "Marks Obtained": "6.00/23",
-      "Result": "pass",
-    },
-    {
-      "subjectname": "physics",
-      "passingmarks": "33",
-      "Marks Obtained": "6.00/23",
-      "Result": "pass",
-    }
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -160,75 +165,7 @@ class _ExpandableListViewState extends State<ExpandableListView> {
       ),
       child: Column(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 8),
-            child: Container(
-              color: Colors.blue,
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    widget.title,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
-
-                  IconButton(
-                      icon: Container(
-                        height: 30.0,
-                        width: 30.0,
-                        decoration: const BoxDecoration(
-                          color: Colors.orange,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
-                          child: Icon(
-                            expandFlag
-                                ? Icons.keyboard_arrow_up
-                                : Icons.keyboard_arrow_up,
-                            color: Colors.white,
-                            size: 20.0,
-                          ),
-                        ),
-                      ),
-                      onPressed: () {
-                         var box = Hive.box("schoolData");
-                          company_key = box.get("company_key");
-                          var  student_id = box.get("student_id");
-                         
-                          // GetexamsResult.GetexamsResultapi(company_key, student_id, getexamview1.loadingGetexamsSchedule1.value ?getexamview1.GetexamsSchedule1ControllerList[0]
-                          // ["response"]["examSchedule"][int.parse(widget.id)]["exam_group_id"]:"",);
-                          // GetexamsResult.loadingGetexamsResult.value=false;
-                          // Get.to(ExamResult1(title: '${getexamview1.loadingGetexamsSchedule1.value ? getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][int.parse(widget.id)]["exam_group_name"] : ""}${getexamview1.loadingGetexamsSchedule1.value ? getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][int.parse(widget.id)]["exam"] : ""}',));
-
-                        // var box = Hive.box("schoolData");
-                        // company_key = box.get("company_key");
-                        // student_id = box.get("student_id");
-                        // GetexamsResult.GetexamsResultapi(
-                        //     company_key, student_id, widget.id);
-
-                        setState(() {
-                          print("fddffds");
-
-                          expandFlag ==false;
-                          autovalue = 60.0 *
-                              double.parse(GetexamsResult
-                                  .loadingGetexamsResult.value
-                                  ? GetexamsResult
-                                  .GetexamsResultControllerList[0]
-                              ["response"]["examResult"]
-                                  .length
-                                  .toString()
-                                  : "0.0");
-                        });
-                      })
-
-
-                ],
-              ),
-            ),
-          ),
+       
           Padding(
               padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
               child: ExpandableContainer(

@@ -89,21 +89,16 @@ class _TimeTableState extends State<TimeTable> {
         setState(() {
 
         });
-        print("timtable1______");
-        print(GetclassTimeTable
-            .GetclassTimeTableControllerList[0]["response"]["result"][0]["timetable"]);
-        print(GetclassTimeTable.GetclassTimeTableControllerList[0]["response"]["result"][0]["timetable"][0]["time_to"]);
-        print(datalist);
+     
+        
       }
       else if(currentindex==1){
 
         setState(() {
           datalist=GetclassTimeTable.GetclassTimeTableControllerList[0]["response"]["result"][1]["timetable"];
-          GetclassTimeTable.loadingGetclassTimeTable.value=false;
+         
         });
-        print("timtable2______");
-        print(GetclassTimeTable.GetclassTimeTableControllerList[0]["response"]["result"][1]["timetable"]);
-        print(datalist);
+       
       }
       else if(currentindex==2){
         setState(() {
@@ -494,7 +489,7 @@ print(index);
                 ),
               ),
             ],
-          ):Center(child: CircularProgressIndicator(color: Colors.blue,)),
+          ):Center(child: CircularProgressIndicator(color: Colors.white,)),
         ),
       ),
       onRefresh: () async {

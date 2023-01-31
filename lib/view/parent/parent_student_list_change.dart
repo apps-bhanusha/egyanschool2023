@@ -284,7 +284,7 @@ var schoolname;
                      children: <Widget>[                     
                        InkWell(
                          onTap: () {
-                   studentLoginUpdateControllers.loadingstudentLoginData.value=true;
+                   studentProfileController.isloading.value=false;
                                 Get.toNamed(RoutesName.home);
                             studentProfileController.studentProfileApi(parentLoginController.parentStudentListModel.value?.response?[index]?.studentId);
                               // Get.toNamed(RoutesName.home);

@@ -336,13 +336,13 @@ void filepicker(){
                             ],
                           )),
                       Padding(
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               RichText(
-                                text: TextSpan(
+                                text: const TextSpan(
                                   text: 'Description',
                                   style: TextStyle(
                                     color: Colors.black,
@@ -376,7 +376,7 @@ void filepicker(){
                                     }
                                     return null;
                                   },
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     border: InputBorder.none,
                                   ),
                                 ),
