@@ -4,6 +4,7 @@ import 'package:ecom_desgin/controller/getclasstimetable_controller.dart';
 import 'package:ecom_desgin/controller/getexamsResult_controller.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
+import 'package:ecom_desgin/controller/parent_Student_List_Controller.dart';
 import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/controller/student_profile-Controller.dart';
@@ -33,7 +34,8 @@ class _GridViewallState extends State<GridViewall>
   final UserNameController _allsetController = Get.put(UserNameController());
   ParentLoginController parentLoginController=Get.put(ParentLoginController());
   final StudentProfileController studentProfileController = Get.put(StudentProfileController());
-
+  final ParentStudentListController parentStudentListController =
+      Get.put(ParentStudentListController());
   final GetSchoolSettingController _schoolsetting =
   Get.put(GetSchoolSettingController());
   late AnimationController _controller;
@@ -244,22 +246,24 @@ class _GridViewallState extends State<GridViewall>
                 itemBuilder: (context)  {
 
                   return <PopupMenuEntry<int>>[
-                    PopupMenuItem(child: InkWell(child: Text('Logout'),
-                      onTap:() async { await SessionManager().remove("name");
-                      Get.toNamed(RoutesName.schoolId);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("logout", style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red,
-                        ),
-                        ),
-                          backgroundColor: Colors.white,
-                        ),
-                      );
-                      },), value: 0),
-                    PopupMenuItem(child: Text('about'), value: 1),
+                    PopupMenuItem(
+                            onTap:() async { await SessionManager().remove("name");
+                          Get.offAllNamed(RoutesName.schoolId);
+                          // ignore: use_build_context_synchronously
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("logout", style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                            ),
+                              backgroundColor: Colors.white,
+                            ),
+                          );
+                          },
+                      child: const Text('Logout'), value: 0),
+                    const PopupMenuItem(child: Text('about'), value: 1),
                   ];
                 },
               ),
@@ -420,12 +424,13 @@ class _GridViewallState extends State<GridViewall>
               ),
             ),
     Visibility(
-    visible:parentLoginController.loadingdata.value ,
-     child: ListTileTheme(
+    visible:parentLoginController.parentLogin.value ,
+  child:   ListTileTheme(
                 dense: true,
-     
-                child:parentLoginController.parentStudentListModel.value!=null? ExpansionTile(
-     expandedCrossAxisAlignment: CrossAxisAlignment.start,
+    
+                child:parentStudentListController
+                                          .parentSListModel.value!=null? ExpansionTile(
+    
                   collapsedIconColor: Colors.white,
                   textColor: Colors.white,
                   title: Text(
@@ -433,77 +438,52 @@ class _GridViewallState extends State<GridViewall>
                     style: GoogleFonts.dmSans(
                       fontStyle: FontStyle.normal,
                       fontSize: 14.sp,
-     
+    
                       color: Colors.white,
                     ),
                   ),
                   leading: const Icon(Icons.book_outlined,
                       size: 20.0, color: Colors.white),
-                  childrenPadding: const EdgeInsets.only(left: 60), //children padding
-                   
-     
-                   //children padding
+    
+                  childrenPadding: EdgeInsets.only(left: 60), //children padding
                   children: [
-                    for(int index=0;index<=parentLoginController.parentStudentListModel.value!.response!.length-1;index++)
-                     Obx(() =>    ListTile(
-                          title:  Text( "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
-                            style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize: 14.sp,
-                              color: Colors.white,
-                            ),),
-                           onTap: () {
-                                  
-                    studentProfileController.isloading.value=false;
-                            studentProfileController.studentProfileApi(parentLoginController.parentStudentListModel.value?.response?[index]?.studentId);
-
-                                Get.toNamed(RoutesName.home,);  
-                            toggleMenu(); 
-                           },
-                          ),
+                 Obx(() =>  ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                        itemCount: parentStudentListController
+                                          .parentSListModel.value?.response!=null ?parentStudentListController
+                                          .parentSListModel.value?.response.length:0,
+                    itemBuilder: (context, index) {
+                    return   ListTile(
+                        title:  Text( "${ parentStudentListController
+                                          .parentSListModel.value?.response?[index]?.name}",
+                          style: GoogleFonts.dmSans(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 14.sp,
+                            color: Colors.white,
+                          ),),
+                       onTap: () {
+                                              studentProfileController
+                                                  .isloading.value = false;
+                                              Get.toNamed(RoutesName.home);
+                                              studentProfileController
+                                                  .studentProfileApi(
+                                                      parentStudentListController.parentSListModel
+                                                          .value
+                                                          ?.response[index]
+                                                          .studentId);
+                                              // Get.toNamed(RoutesName.home);
+                                            },
+                    );
+                  },),)
+    
                    
-                
-                 ),
-                //  Obx(() =>  
-                //      ListView.builder(
-                //         shrinkWrap: true,
-                //         scrollDirection: Axis.vertical,
-                //             itemCount: parentLoginController.parentStudentListModel.value?.response!=null ?parentLoginController.parentStudentListModel.value?.response?.length:0,
-                //         itemBuilder: (context, index) {
-                //         return  ListTile(
-                //           title:  Text( "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
-                //             style: GoogleFonts.dmSans(
-                //               fontStyle: FontStyle.normal,
-                //               fontSize: 14.sp,
-                //               color: Colors.white,
-                //             ),),
-                //            onTap: () {
-                //                   print("${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}"); 
-                //                   Get.toNamed(RoutesName.home,arguments: [
-                //                     "${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}",
-                //                     true,
-                //                   "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalAmount}",
-                //                   "${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalBalanceAmount}",
-                //                   "${ parentLoginController.parentStudentListModel.value?.response?[index]?.attandance?.present}",
-                //                   "https://e-gyan.co.in/${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}",
-                //                   "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
-                //                   "${ parentLoginController.parentStudentListModel.value?.response?[index]?.responseClass}",
-                                
-                //                   ]);  
-                //             toggleMenu(); 
-                //            },
-                //           );
-                //       },),
-                
-                //  ),
-     
-                   
-     
+    
                     //more child menu
                   ],
-                ):SizedBox(),
+                ):const SizedBox(),
               ),
-   ),
+),
   
             SizedBox(
               height: 0.052.sh,

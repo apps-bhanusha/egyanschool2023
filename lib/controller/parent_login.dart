@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/controller/parent_Student_List_Controller.dart';
 import 'package:ecom_desgin/controller/student_login_update_controller.dart';
 import 'package:ecom_desgin/main.dart';
 import 'package:ecom_desgin/model/parent_student_model.dart';
@@ -24,6 +25,7 @@ class ParentLoginController extends GetxController{
   final StudentLoginUpdateController loginUpdateControllers =Get.put( StudentLoginUpdateController());
   final FeeController _feesController = Get.put(FeeController());
   Rxn<ParentStudentListModel> parentStudentListModel= Rxn<ParentStudentListModel>();
+  Rxn<ParentStudentListController> parentStudentListController= Rxn<ParentStudentListController>();
   
 
   
@@ -46,36 +48,44 @@ class ParentLoginController extends GetxController{
   var box = Hive.box("schoolData");
     var company_key = box.get("company_key");
     var body = json.encode({
+      "password":password,
       "company_key":company_key,
       "username":username,
-      "password":password,
+      
     });
-        box.put("username",username);
-        box.put("password",password);
+
     print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.parentLoginUrl);
     var response = await http.post(urlapi, body: body);
     print("parent login responce");
-    print(response.body);
     if (response.statusCode == 200) {
+        var pdata = jsonDecode(response.body); 
+      if (pdata["status"] == true) {
+        box.put("role_flag","P");
+        box.put("username",username);
+        box.put("password",password);
           await sessionManager.set("name", username);
           await sessionManager.set("parentlogin", "parentlogin");
           await sessionManager.set("passward", password);
           final userIsStored =  await saveUser(jsonEncode(response.body));
-   parentStudentListModel= Rxn<ParentStudentListModel>();
-      var pdata = jsonDecode(response.body);
+        parentStudentListModel= Rxn<ParentStudentListModel>();
+    
       parentStudentListModel.value=ParentStudentListModel.fromJson(pdata);
     //  loginUpdateControllers.studentLoginModelList.value = StudentLoginModel.fromJson(pdata);
-    
-      
        print("parent responce data ");
-      if (pdata["status"] == true) {
+       print(parentStudentListModel.value?.parentInfo?["parent_id"]);
+        box.put("parent_id",parentStudentListModel.value?.parentInfo?["parent_id"]);
       loadingdata.value=true;
       parentLogin.value=true;
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const HomeScreen()));
+           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+           ParentStudentList()), (Route<dynamic> route) => false);
+            // Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const ParentStudentList()));
       }
 
       else  {
+
+
+         loadingdata.value=true;
         ScaffoldMessenger.of (context).showSnackBar(SnackBar(content: Text(pdata["message"], style: GoogleFonts.dmSans(
             fontStyle: FontStyle.normal,
             fontSize: 15.sp,
@@ -88,6 +98,9 @@ class ParentLoginController extends GetxController{
         );
       } }
     else {
+    
+
+       loadingdata.value=true;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Blank Field Not Allowed",style: GoogleFonts.dmSans(fontStyle: FontStyle.normal,
         fontSize: 15.sp,
         fontWeight: FontWeight.bold,

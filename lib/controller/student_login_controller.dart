@@ -43,18 +43,20 @@ class UserNameController extends GetxController {
     var box = Hive.box("schoolData");
     var company_key = box.get("company_key");
     var body = json.encode({
+        "password":password,
       "username":username,
       "company_key":company_key,
-      "password":password,
+    
     });
     print("Student Login ");
     print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.studentLoginUrl);
     var response = await http.post(urlapi, body: body);
-    print("student login Responce");
+   
     if (response.statusCode == 200) {
       isloading.value=true;
       // parentLoginController.parentLogin.value=false;
+       box.put("role_flag","S");
                      await sessionManager.set("name", username);
                await sessionManager.set("passward", password);
           await sessionManager.set("parentlogin", "student");
@@ -63,6 +65,9 @@ class UserNameController extends GetxController {
       await saveUser(jsonEncode(response.body));
       var sdata = jsonDecode(response.body);
       // parentStudentListModel.value= ParentStudentListModel.fromJson(sdata);
+       print("student login Responce");
+       print(sdata);
+  
   SchoolIdControllerList.add(sdata);
       if (sdata["status"] == true) {
         var box = Hive.box("schoolData");
@@ -100,8 +105,9 @@ class UserNameController extends GetxController {
 
           studentLoginUpdateControllers.loadingstudentLoginData.value=true;
           //  Get.toNamed(RoutesName.home);
-           Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const HomeScreen()));
-
+          //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const HomeScreen()));
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+    HomeScreen()), (Route<dynamic> route) => false);
                             // studentProfileController.studentProfileApi(SchoolIdControllerList[0]["response"][0]["student_id"]);
           print("student profile get student id ckeck ");
           // print(SchoolIdControllerList[0]["response"][0]["student_id"]);

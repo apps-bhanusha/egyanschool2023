@@ -58,7 +58,7 @@ class RoutesName{
 }
 
 final getpages=[
- GetPage(name: RoutesName.splashScreen, page: () =>  const SplashScreen(),transition: Transition.circularReveal),
+ GetPage(name: RoutesName.splashScreen, page: () =>  const SplashScreen(),transition: Transition.circularReveal,),
  GetPage(name: RoutesName.dashboard, page: () =>  GridViewall(),transition: Transition.cupertino),
  GetPage(name: RoutesName.home, page: () =>  HomeScreen(),transition: Transition.cupertinoDialog),
  GetPage(name: RoutesName.schoolId, page: () =>  SimpleLogin(),transition: Transition.downToUp),

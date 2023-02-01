@@ -1,5 +1,6 @@
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
+import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:ecom_desgin/controller/teacher_by_Student_controller.dart';
 import 'package:ecom_desgin/controller/teacher_review_controller.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,8 @@ class TeacherReview extends StatefulWidget {
 class _TeacherReviewState extends State<TeacherReview> {
   TeacherRatingController teacherRatings=Get.put(TeacherRatingController());
   GetTeacherByStudentController teacherbystudentController=Get.put(GetTeacherByStudentController());
-
+   final StudentProfileController studentProfileController =  Get.put(StudentProfileController());
+  List<String> dropdata = [];
  bool  selectteacher=false;
   var company_key;
   var staff_id;
@@ -35,19 +37,27 @@ var show;
   void initState() {
     student_id = box.get("student_id");
     company_key = box.get("company_key");
+    teacherbystudentController.GetTeacherByStudentapi(company_key, studentProfileController.studentProfileModel.value?.response.studentId);
+    if(teacherbystudentController.GetTeacherByStudentControllerList.isNotEmpty){
 for(var i=0; i<teacherbystudentController.GetTeacherByStudentControllerList[0]["response"].length; i++) {
   dropdata.add(teacherbystudentController
       .GetTeacherByStudentControllerList[0]["response"][i]["staff_name"]);
 }
-    print("dddddzzz");
-    print(dropdata1);
+    }
+update();
     super.initState();
   }
  List  dropdata1 =[];
   var commentController = TextEditingController();
   String _selectdrop = "Select";
-  List<String> dropdata = [];
 
+update(){
+  Future.delayed(Duration(seconds: 4),() {
+  setState(() {
+    
+  });
+},);
+}
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -211,7 +221,7 @@ SizedBox(height: 0.050.sh,),
             onTap:() {
           comment = commentController.text;
           if(comment.toString().isNotEmpty){
-            teacherRatings.TeacherRatingapi(company_key,staff_id,comment,rate,student_id);
+            teacherRatings.TeacherRatingapi(company_key,staff_id,comment,rate,studentProfileController.studentProfileModel.value?.response.studentId);
           }
           else{
             show="Please Enter comment";

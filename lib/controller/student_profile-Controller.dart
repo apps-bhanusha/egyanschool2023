@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 class StudentProfileController extends GetxController{
   Rxn<StudentProfileModel> studentProfileModel= Rxn<StudentProfileModel>();
   RxBool isloading = false.obs;
-       void studentProfileApi(studentId) async {
+  void studentProfileApi(studentId) async {
   var box = Hive.box("schoolData");
     var company_key = box.get("company_key");
     var body = json.encode({
@@ -17,7 +17,8 @@ class StudentProfileController extends GetxController{
       "student_id":studentId,
     });
     print(body);
-    final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.studentProfileUrl);
+   try {
+      final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.studentProfileUrl);
    
     var response = await http.post(urlapi, body: body);
      print(response.body);
@@ -34,6 +35,9 @@ class StudentProfileController extends GetxController{
     else {
       
     }
+   } catch (e) {
+     print("some ERROR");
+   }
   }
 
  } 

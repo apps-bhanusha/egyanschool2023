@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecom_desgin/controller/parent_Student_List_Controller.dart';
 import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/controller/student_login_update_controller.dart';
 import 'package:ecom_desgin/controller/student_profile-Controller.dart';
@@ -34,20 +35,30 @@ class ParentStudentList extends StatefulWidget {
   State<ParentStudentList> createState() => _ParentStudentListState();
 }
 
-class _ParentStudentListState extends State<ParentStudentList> with TickerProviderStateMixin{
- final AttendanceController studentattendance = Get.put(AttendanceController());
-  var  isloading=false ;
+class _ParentStudentListState extends State<ParentStudentList>
+    with TickerProviderStateMixin {
+  final AttendanceController studentattendance =
+      Get.put(AttendanceController());
+  var isloading = false;
   final UserNameController _allsetController = Get.put(UserNameController());
-  GetclassTimeTableController GetclassTimeTable=Get.put(GetclassTimeTableController());
-  GetexamsResultController GetexamsResult=Get.put(GetexamsResultController());
-  final StudentLoginUpdateController studentLoginUpdateControllers =Get.put( StudentLoginUpdateController());
-  final StudentProfileController studentProfileController =Get.put(StudentProfileController());
+  GetclassTimeTableController GetclassTimeTable =
+      Get.put(GetclassTimeTableController());
+  GetexamsResultController GetexamsResult = Get.put(GetexamsResultController());
+  final StudentLoginUpdateController studentLoginUpdateControllers =
+      Get.put(StudentLoginUpdateController());
+  final StudentProfileController studentProfileController =
+      Get.put(StudentProfileController());
+  final ParentStudentListController parentStudentListController =
+      Get.put(ParentStudentListController());
 
-  GetexamsScheduleController getexamview=Get.put(GetexamsScheduleController());
-  GetSylabusStatusController GetSylabusStatus=Get.put(GetSylabusStatusController());
-  ParentLoginController parentLoginController=Get.put(ParentLoginController());
+  GetexamsScheduleController getexamview =
+      Get.put(GetexamsScheduleController());
+  GetSylabusStatusController GetSylabusStatus =
+      Get.put(GetSylabusStatusController());
+  ParentLoginController parentLoginController =
+      Get.put(ParentLoginController());
   final GetSchoolSettingController _schoolsetting =
-  Get.put(GetSchoolSettingController());
+      Get.put(GetSchoolSettingController());
   // allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"]==0? (int.parse(_allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"].toString())) / 100:(int.parse(_allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"].toString())) / 100
   List<UserNameController> dataModel = [];
   late AnimationController _controller;
@@ -55,7 +66,7 @@ class _ParentStudentListState extends State<ParentStudentList> with TickerProvid
   late AnimationController _controller1;
   late Animation<Offset> _Animation;
   double percent = 1.0;
-var schoolname;
+  var schoolname;
   var session;
   int totalSecs = 90;
   int secsRemaining = 90;
@@ -69,7 +80,7 @@ var schoolname;
   get progress => progressFraction;
   DateTime now = DateTime.now();
   late int lastday = DateTime(now.year, now.month + 1, 0).day;
-  late int days =lastday ;
+  late int days = lastday;
 
   double progressFraction1 = 0.0;
   double percentage1 = 0;
@@ -83,27 +94,18 @@ var schoolname;
 
   @override
   void initState() {
-    
-   var box = Hive.box("schoolData");
-     var user=    box.get("username").toString();
-      var pass=  box.get("password").toString();
-   parentLoginController.parentapi(user, pass,context);
+    var box = Hive.box("schoolData");
+    var user = box.get("username").toString();
+    var pass = box.get("password").toString();
+    var parent_id = box.get("parent_id").toString();
+    parentStudentListController.parentStudentListMethod(parent_id);
     print("model data ckeck.........................");
-  print(parentLoginController.parentStudentListModel.value?.response?[0]?.name);
     var id = box.get("company_key");
-       schoolname = box.get("schoolname");
+    schoolname = box.get("schoolname");
     session = box.get("session");
-    timer = Timer.periodic(Duration(milliseconds: 20), (_) {
-      if(secsRemaining == 40){
-        return;
-      }
-      setState(() {
-        secsRemaining -= 1;
-        progressFraction = (totalSecs - secsRemaining) / totalSecs;
-        percentage = (progressFraction*100).floor();
-      });
-    });
 
+
+parentLoginController.parentLogin.value=true;
     super.initState();
     _controller = AnimationController(
       duration: const Duration(milliseconds: 500),
@@ -112,9 +114,9 @@ var schoolname;
     _offsetAnimation =
         Tween<Offset>(begin: Offset.zero, end: const Offset(0.1, 0.0))
             .animate(CurvedAnimation(
-          parent: _controller,
-          curve: Curves.linear,
-        ));
+      parent: _controller,
+      curve: Curves.linear,
+    ));
     _controller1 = AnimationController(
       duration: const Duration(milliseconds: 700),
       vsync: this,
@@ -130,7 +132,6 @@ var schoolname;
   void dispose() {
     _controller.dispose();
     _controller1.dispose();
-    
 
     super.dispose();
   }
@@ -160,18 +161,16 @@ var schoolname;
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-          var username;
-          var password;
-          var company_key;
+        var username;
+        var password;
+        var company_key;
         AlwaysScrollableScrollPhysics();
         setState(() {
-
           username = box.get("username");
-          password =box.get("password");
+          password = box.get("password");
           company_key = box.get("company_key");
-          print(username);
-          print(password);
-        parentLoginController.parentapi( username,password,context);
+          var parent_id = box.get("parent_id").toString();
+          parentStudentListController.parentStudentListMethod(parent_id);
         });
       },
       child: SafeArea(
@@ -189,23 +188,24 @@ var schoolname;
               appBar: AppBar(
                 // centerTitle: true,
                 leading: IconButton(
-                  icon: const Icon(Icons.menu,),
+                  icon: const Icon(
+                    Icons.menu,
+                  ),
                   onPressed: () => toggleMenu(),
                 ),
                 automaticallyImplyLeading: false,
-                backgroundColor:AgentColor.appbarbackgroundColor,
+                backgroundColor: AgentColor.appbarbackgroundColor,
                 // iconTheme: IconThemeData(color: Colors.black),
                 title: Row(
                   children: [
                     SizedBox(
                         width: 0.45.sw,
-                        child:  Text(
-                          schoolname??"",
+                        child: Text(
+                          schoolname ?? "",
                           // _schoolsetting.GetSchoolSettingControllerList[0]["response"]["name"],
                           style: MyGoogeFont.mydmSans1,
                           overflow: TextOverflow.ellipsis,
-                        )
-                    ),
+                        )),
                   ],
                 ),
                 actions: [
@@ -218,7 +218,7 @@ var schoolname;
                           style: MyGoogeFont.mydmSans2,
                         ),
                         Text(
-                          session??"",
+                          session ?? "",
                           // _schoolsetting.GetSchoolSettingControllerList[0]["response"]["session"],
                           style: MyGoogeFont.mydmSans2,
                         ),
@@ -226,25 +226,30 @@ var schoolname;
                     ),
                   ),
                   PopupMenuButton<int>(
-                    itemBuilder: (context)  {
-    
+                    itemBuilder: (context) {
                       return <PopupMenuEntry<int>>[
-                        PopupMenuItem(value: 0, child: InkWell(child: const Text('Logout'),
-                          onTap:() async { await SessionManager().remove("name");
-                          Get.toNamed(RoutesName.schoolId);
-                          // ignore: use_build_context_synchronously
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("logout", style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red,
-                            ),
-                            ),
-                              backgroundColor: Colors.white,
-                            ),
-                          );
-                          },)),
+                        PopupMenuItem(
+                            onTap: () async {
+                                await SessionManager().remove("name");
+                                 Get.offAllNamed(RoutesName.schoolId);
+                                // ignore: use_build_context_synchronously
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      "logout",
+                                      style: GoogleFonts.dmSans(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                    backgroundColor: Colors.white,
+                                  ),
+                                );
+                              },
+                            value: 0,
+                            child: const Text('Logout')),
                         const PopupMenuItem(value: 1, child: Text('about')),
                       ];
                     },
@@ -252,236 +257,346 @@ var schoolname;
                 ],
               ),
               body: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Stack(children: [
-                      Container(
-                        margin: const EdgeInsets.only(left: 0, right: 0).r,
-                        child: ClipPath(
-                          clipper: ClipPathClass(),
-                          child: SizedBox(
-                            width: double.infinity,
-                            height: 0.220.sh,
-                            child: Image.asset(
-                              "assets/images/bannerimage.jpeg",
-                              fit: BoxFit.fill,
+                child: Obx(
+                  () =>  parentStudentListController.loadingdata.value? Column(
+                    children: [
+                      Stack(children: [
+                        Container(
+                          margin: const EdgeInsets.only(left: 0, right: 0).r,
+                          child: ClipPath(
+                            clipper: ClipPathClass(),
+                            child: SizedBox(
+                              width: double.infinity,
+                              height: 0.220.sh,
+                              child: Image.asset(
+                                "assets/images/bannerimage.jpeg",
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                     Obx(() => parentLoginController.loadingdata.value? ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: parentLoginController.parentStudentListModel.value?.response!=null ?parentLoginController.parentStudentListModel.value?.response?.length:0,
-                      itemBuilder: (context, index) {
-                       return Padding(
-                     padding:
-                     const EdgeInsets.only(left: 23, right: 23, top: 80).r,
-                     child: SizedBox(
-                
-                       height: 0.3.sh,
-                       child: Stack(
-                     children: <Widget>[                     
-                       InkWell(
-                         onTap: () {
-                   studentProfileController.isloading.value=false;
-                                Get.toNamed(RoutesName.home);
-                            studentProfileController.studentProfileApi(parentLoginController.parentStudentListModel.value?.response?[index]?.studentId);
-                              // Get.toNamed(RoutesName.home);
-                         },
-                                    child: Card(
-                                     color: const Color.fromRGBO(114, 199, 255, 1),
+                        Obx(() =>
+                             ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemCount: parentStudentListController
+                                            .parentSListModel.value?.response !=
+                                        null
+                                    ? parentStudentListController
+                                        .parentSListModel.value?.response.length
+                                    : 0,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                            left: 23, right: 23, top: 80)
+                                        .r,
+                                    child: InkWell(
+                                        onTap: () {
+                                              studentProfileController
+                                                  .isloading.value = false;
+                                             
+                                              studentProfileController
+                                                  .studentProfileApi(parentStudentListController.parentSListModel.value
+                                                          ?.response[index]
+                                                          .studentId);
+                                              Get.toNamed(RoutesName.home);
+                                            },
                                       child: SizedBox(
-                                                     height: 0.3.sh,
-                                                     width: 0.87.sw,
+                                        height: 0.3.sh,
+                                        child: Stack(
+                                          children: <Widget>[
+                                            Card(
+                                              color: const Color.fromRGBO(
+                                                  114, 199, 255, 1),
+                                              child: SizedBox(
+                                                height: 0.3.sh,
+                                                width: 0.87.sw,
+                                              ),
+                                            ),
+                                            Positioned(
+                                              top: 0.012.sh,
+                                              left: 0.33.sw,
+                                              right: 0.31.sw,
+                                              child: FractionalTranslation(
+                                                translation:
+                                                    const Offset(0.0, -0.5),
+                                                child: ClipOval(
+                                                  child: Align(
+                                                    alignment:
+                                                        const FractionalOffset(
+                                                            0.5, 0.0),
+                                                    child: CachedNetworkImage(
+                                                        placeholder:
+                                                            (context, url) =>
+                                                                CircleAvatar(
+                                                                  maxRadius: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width -
+                                                                      MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width +
+                                                                      60,
+                                                                  backgroundImage:
+                                                                      const AssetImage(
+                                                                    "assets/images/user1.png",
+                                                                  ),
+                                                                ),
+                                                        imageUrl: parentStudentListController
+                                                                    .parentSListModel
+                                                                    .value
+                                                                    ?.response[
+                                                                        index]
+                                                                    .profileimage !=
+                                                                null
+                                                            ? "${ApiUrl.imagesUrl.toString()}${parentStudentListController.parentSListModel.value?.response[index].profileimage}"
+                                                            : "https://cdn-icons-png.flaticon.com/512/149/149071.png"),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              left: 0.33.sw,
+                                              top: 0.080.sh,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "${parentStudentListController.parentSListModel.value?.response[index].name}",
+                                                    style: GoogleFonts.dmSans(
+                                                        fontStyle: FontStyle.normal,
+                                                        fontSize: 17.sp,
+                                                        fontWeight: FontWeight.bold,
+                                                        color: const Color.fromARGB(
+                                                            255, 255, 254, 254)),
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        "${parentStudentListController.parentSListModel.value?.response[index].responseClass}",
+                                                        style: GoogleFonts.dmSans(
+                                                            fontStyle:
+                                                                FontStyle.normal,
+                                                            fontSize: 14.sp,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Color.fromARGB(
+                                                                255,
+                                                                255,
+                                                                254,
+                                                                254)),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 0.010.sw,
+                                                      ),
+                                                      Text(
+                                                        "${parentStudentListController.parentSListModel.value?.response[index].section}",
+                                                        style: GoogleFonts.dmSans(
+                                                            fontStyle:
+                                                                FontStyle.normal,
+                                                            fontSize: 16.sp,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Color.fromARGB(
+                                                                255,
+                                                                255,
+                                                                254,
+                                                                254)),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Positioned(
+                                              left: 0.1.sw,
+                                              top: 0.13.sh,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.spaceEvenly,
+                                                children: [
+                                                  Column(
+                                                    children: [
+                                                      Text(
+                                                        "Total Fee",
+                                                        style: GoogleFonts.dmSans(
+                                                            fontStyle:
+                                                                FontStyle.normal,
+                                                            fontSize: 15.sp,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Color.fromARGB(
+                                                                255,
+                                                                255,
+                                                                254,
+                                                                254)),
+                                                      ),
+                                                      Divider(),
+                                                      Text(
+                                                        "${parentStudentListController.parentSListModel.value?.response[index].fee.totalAmount}",
+                                                        style: GoogleFonts.dmSans(
+                                                            fontStyle:
+                                                                FontStyle.normal,
+                                                            fontSize: 15.sp,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Color.fromARGB(
+                                                                255,
+                                                                255,
+                                                                254,
+                                                                254)),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 140,
+                                                  ),
+                                                  Column(
+                                                    children: [
+                                                      Text(
+                                                        "Due Fee",
+                                                        style: GoogleFonts.dmSans(
+                                                            fontStyle:
+                                                                FontStyle.normal,
+                                                            fontSize: 15.sp,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Color.fromARGB(
+                                                                255,
+                                                                255,
+                                                                254,
+                                                                254)),
+                                                      ),
+                                                      Divider(),
+                                                      Text(
+                                                        "${parentStudentListController.parentSListModel.value?.response[index].fee.totalBalanceAmount}",
+                                                        style: GoogleFonts.dmSans(
+                                                            fontStyle:
+                                                                FontStyle.normal,
+                                                            fontSize: 15.sp,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Color.fromARGB(
+                                                                255,
+                                                                255,
+                                                                254,
+                                                                254)),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 150,
+                                            ),
+                                            Positioned(
+                                              left: 0.1.sw,
+                                              top: 0.2.sh,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.spaceEvenly,
+                                                children: [
+                                                  Column(
+                                                    children: [
+                                                      Text(
+                                                        "Present",
+                                                        style: GoogleFonts.dmSans(
+                                                            fontStyle:
+                                                                FontStyle.normal,
+                                                            fontSize: 15.sp,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: const Color
+                                                                    .fromARGB(255,
+                                                                255, 254, 254)),
+                                                      ),
+                                                      Divider(),
+                                                      Text(
+                                                        "${parentStudentListController.parentSListModel.value?.response[index].attandance.present}",
+                                                        style: GoogleFonts.dmSans(
+                                                            fontStyle:
+                                                                FontStyle.normal,
+                                                            fontSize: 15.sp,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: const Color
+                                                                    .fromARGB(255,
+                                                                255, 254, 254)),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 150,
+                                                  ),
+                                                  Column(
+                                                    children: [
+                                                      Text(
+                                                        "Absent",
+                                                        style: GoogleFonts.dmSans(
+                                                            fontStyle:
+                                                                FontStyle.normal,
+                                                            fontSize: 15.sp,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: const Color
+                                                                    .fromARGB(255,
+                                                                255, 254, 254)),
+                                                      ),
+                                                      const Divider(),
+                                                      Text(
+                                                        "${parentStudentListController.parentSListModel.value?.response[index].attandance.absent}",
+                                                        style: GoogleFonts.dmSans(
+                                                            fontStyle:
+                                                                FontStyle.normal,
+                                                            fontSize: 15.sp,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: const Color
+                                                                    .fromARGB(255,
+                                                                255, 254, 254)),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Positioned(
-                                    top: 0.012.sh,
-                                    left: 0.33.sw,
-                                    right: 0.31.sw,
-                                    child: FractionalTranslation(
-                     translation: const Offset(0.0, -0.5),
-                     child: ClipOval(
-                       child: Align(
-                                  alignment: const FractionalOffset(0.5, 0.0),
-                         child: 
-                         CachedNetworkImage(
-                           placeholder: (context, url) => CircleAvatar(
-                             maxRadius:
-                             MediaQuery.of(context).size.width -
-                                 MediaQuery.of(context).size.width +
-                                 60,
-                             backgroundImage: const AssetImage(
-                               "assets/images/user1.png",
-                             ),
-                           ),
-                           imageUrl: parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage!=null ?"${ApiUrl.imagesUrl.toString()}${parentLoginController.parentStudentListModel.value?.response?[index]?.profileimage}":"https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                          
-                         ),
-                       ),
-                     ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    left: 0.33.sw,
-                                    top: 0.080.sh,
-                                    child: Column(
-                     mainAxisAlignment: MainAxisAlignment.center,
-                     crossAxisAlignment: CrossAxisAlignment.center,
-                     children: [
-                       Text(
-                       "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
-                                                 style: GoogleFonts.dmSans(
-                             fontStyle: FontStyle.normal,
-                             fontSize: 17.sp,
-                             fontWeight: FontWeight.bold,
-                             color: const Color.fromARGB(255, 255, 254, 254)),
-                       ),
-                                   
-                       Row(
-                         children: [
-                           Text(
-                              "${ parentLoginController.parentStudentListModel.value?.response?[index]?.responseClass}",
-    
-                        
-                                  style: GoogleFonts.dmSans(
-                             fontStyle: FontStyle.normal,
-                             fontSize: 14.sp,
-                             fontWeight: FontWeight.bold,
-                             color: Color.fromARGB(255, 255, 254, 254)),
-                           ),
-                                 
-                           SizedBox(width: 0.010.sw,),
-                           Text(
-                                 "${ parentLoginController.parentStudentListModel.value?.response?[index]?.section}",
-    
-                        
-                            style: GoogleFonts.dmSans(
-                             fontStyle: FontStyle.normal,
-                             fontSize: 16.sp,
-                             fontWeight: FontWeight.bold,
-                             color: Color.fromARGB(255, 255, 254, 254)),
-                           ),
-                                 
-                         ],
-                       ),
-                      
-                     ],
-                                    ),
-                                  ),
-                       Positioned(
-                                    left: 0.1.sw,
-                                    top: 0.13.sh,
-                                     child: Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                           children: [
-                           Column(
-                             children: [
-                               Text("Total Fee", style: GoogleFonts.dmSans(
-                               fontStyle: FontStyle.normal,
-                               fontSize: 15.sp,
-                               fontWeight: FontWeight.bold,
-                               color: Color.fromARGB(255, 255, 254, 254)),),
-                         Divider(),
-                               
-                               Text("${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalAmount}", style: GoogleFonts.dmSans(
-                               fontStyle: FontStyle.normal,
-                               fontSize: 15.sp,
-                               fontWeight: FontWeight.bold,
-                               color: Color.fromARGB(255, 255, 254, 254)),),
-                             ],
-                           ),
-                         const SizedBox(width: 140,),
-                           Column(
-                             children: [
-                               Text("Due Fee", style: GoogleFonts.dmSans(
-                               fontStyle: FontStyle.normal,
-                               fontSize: 15.sp,
-                               fontWeight: FontWeight.bold,
-                               color: Color.fromARGB(255, 255, 254, 254)),),
-                                             Divider(),
-                               
-                               
-                               Text("${ parentLoginController.parentStudentListModel.value?.response?[index]?.fee?.totalBalanceAmount}", style: GoogleFonts.dmSans(
-                               fontStyle: FontStyle.normal,
-                               fontSize: 15.sp,
-                               fontWeight: FontWeight.bold,
-                               color: Color.fromARGB(255, 255, 254, 254)),),
-                             ],
-                           )
-                         ],),
-                                   ),
-                         const SizedBox(width: 150,),
-                               
-                           Positioned(
-                                    left: 0.1.sw,
-                                    top: 0.2.sh,
-                         child: Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                           Column(
-                             children: [
-                               Text("Present", style: GoogleFonts.dmSans(
-                               fontStyle: FontStyle.normal,
-                               fontSize: 15.sp,
-                               fontWeight: FontWeight.bold,
-                               color: const Color.fromARGB(255, 255, 254, 254)),),
-                                             Divider(),
-                               
-                               
-                               Text("${ parentLoginController.parentStudentListModel.value?.response?[index]?.attandance?.present}", style: GoogleFonts.dmSans(
-                               fontStyle: FontStyle.normal,
-                               fontSize: 15.sp,
-                               fontWeight: FontWeight.bold,
-                               color: const Color.fromARGB(255, 255, 254, 254)),),
-                             ],
-                           ),
-                         const SizedBox(width: 150,),
-                               
-                           Column(
-                             children: [
-                               Text("Absent", style: GoogleFonts.dmSans(
-                               fontStyle: FontStyle.normal,
-                               fontSize: 15.sp,
-                               fontWeight: FontWeight.bold,
-                               color: const Color.fromARGB(255, 255, 254, 254)),),
-                               
-                                           const Divider(),
-                               
-                               
-                               Text("${ parentLoginController.parentStudentListModel.value?.response?[index]?.attandance?.absent}", style: GoogleFonts.dmSans(
-                               fontStyle: FontStyle.normal,
-                               fontSize: 15.sp,
-                               fontWeight: FontWeight.bold,
-                               color: const Color.fromARGB(255, 255, 254, 254)),),
-                             ],
-                           )
-                         ],),
-                       )
-                     ],
-                       ),
-                     ),
-                                    );
-                     },):Center(child:CircularProgressIndicator(color:Colors.blue),))
-                     ,
-                    ]),
-                     
-                  
-                  
-                  ],
+                                  );
+                                },
+                              )
+                          ),
+                      ]),
+                    ],
+                  ):Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 300),
+                          child: Center(child: CircularProgressIndicator(color: Colors.blue),),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
               bottomNavigationBar: Container(
                 color: const Color.fromARGB(255, 196, 236, 255),
                 child: Row(
-                
                   children: [
-                     Padding(
-                       padding:  EdgeInsets.only(left: 0.15.sw,top: 10),
-                       child: const Text("Powered By :-"),
-                     ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 0.15.sw, top: 10),
+                      child: const Text("Powered By :-"),
+                    ),
                     Image.asset(
                       "assets/images/b.png",
                       width: 0.5.sw,
@@ -511,23 +626,24 @@ var schoolname;
                 ClipOval(
                     child: Obx(() => _schoolsetting.loadingimage.value
                         ? Image.network(
-                      _schoolsetting.GetSchoolSettingControllerList[0]["response"]["image"],
-                      width: 100,
-                      height: 100,
-                    )
+                            _schoolsetting.GetSchoolSettingControllerList[0]
+                                ["response"]["image"],
+                            width: 100,
+                            height: 100,
+                          )
                         : CircularProgressIndicator())),
                 const SizedBox(height: 16.0),
                 Obx(() => _schoolsetting.loadingimage.value
                     ? Text(
-                  _schoolsetting.GetSchoolSettingControllerList[0]
-                  ["response"]["name"],
-                  style: GoogleFonts.dmSans(
-                    fontStyle: FontStyle.normal,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                )
+                        _schoolsetting.GetSchoolSettingControllerList[0]
+                            ["response"]["name"],
+                        style: GoogleFonts.dmSans(
+                          fontStyle: FontStyle.normal,
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      )
                     : const Text("")),
                 SizedBox(height: 20.0),
               ],
@@ -537,7 +653,6 @@ var schoolname;
             height: 0.052.sh,
             child: ListTile(
               onTap: () {
-
                 Get.toNamed(RoutesName.dashboard);
               },
               leading: const Icon(Icons.home, size: 20.0, color: Colors.white),
@@ -546,56 +661,54 @@ var schoolname;
               dense: true,
             ),
           ),
- ListTileTheme(
-            dense: true,
+//  ListTileTheme(
+//             dense: true,
 
-            child: ExpansionTile(
+//             child: ExpansionTile(
 
-              collapsedIconColor: Colors.white,
-              textColor: Colors.white,
-              title: Text(
-                "Select Student",
-                style: GoogleFonts.dmSans(
-                  fontStyle: FontStyle.normal,
-                  fontSize: 14.sp,
+//               collapsedIconColor: Colors.white,
+//               textColor: Colors.white,
+//               title: Text(
+//                 "Select Student",
+//                 style: GoogleFonts.dmSans(
+//                   fontStyle: FontStyle.normal,
+//                   fontSize: 14.sp,
 
-                  color: Colors.white,
-                ),
-              ),
-              leading: const Icon(Icons.book_outlined,
-                  size: 20.0, color: Colors.white),
+//                   color: Colors.white,
+//                 ),
+//               ),
+//               leading: const Icon(Icons.book_outlined,
+//                   size: 20.0, color: Colors.white),
 
-              childrenPadding: EdgeInsets.only(left: 60), //children padding
-              children: [
-             Obx(() =>  ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                    itemCount: parentLoginController.parentStudentListModel.value?.response!=null ?parentLoginController.parentStudentListModel.value?.response?.length:0,
-                itemBuilder: (context, index) {
-                return   SizedBox(
-                  height: 0.052.sh,
-                  child: ListTile(
-                      title:  Text( "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
-                        style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 14.sp,
+//               childrenPadding: EdgeInsets.only(left: 60), //children padding
+//               children: [
+//              Obx(() =>  ListView.builder(
+//                 shrinkWrap: true,
+//                 scrollDirection: Axis.vertical,
+//                     itemCount: parentLoginController.parentStudentListModel.value?.response!=null ?parentLoginController.parentStudentListModel.value?.response?.length:0,
+//                 itemBuilder: (context, index) {
+//                 return   SizedBox(
+//                   height: 0.052.sh,
+//                   child: ListTile(
+//                       title:  Text( "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
+//                         style: GoogleFonts.dmSans(
+//                           fontStyle: FontStyle.normal,
+//                           fontSize: 14.sp,
 
-                          color: Colors.white,
-                        ),),
-                      onTap:(){
-                     print( "${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}");
+//                           color: Colors.white,
+//                         ),),
+//                       onTap:(){
+//                      print( "${ parentLoginController.parentStudentListModel.value?.response?[index]?.studentId}");
 
-                      }
-                  ),
-                );
-              },),)
+//                       }
+//                   ),
+//                 );
+//               },),)
 
-               
-
-                //more child menu
-              ],
-            ),
-          ),
+//                 //more child menu
+//               ],
+//             ),
+//           ),
           SizedBox(
             height: 0.052.sh,
             child: ListTile(
@@ -612,7 +725,7 @@ var schoolname;
               // padding: EdgeInsets.zero,
             ),
           ),
-           
+
           SizedBox(
             height: 0.052.sh,
             child: ListTile(
@@ -623,8 +736,6 @@ var schoolname;
                 // if( studentattendance.AttendanceControllerList[0]["status"]==true){
                 //
                 // }
-
-
               },
               leading: const Icon(Icons.present_to_all,
                   size: 20.0, color: Colors.white),
@@ -669,15 +780,13 @@ var schoolname;
             height: 0.052.sh,
             child: ListTile(
               onTap: () {
-                if (GetSylabusStatus.GetSylabusStatusControllerList!=null){
-
+                if (GetSylabusStatus.GetSylabusStatusControllerList != null) {
                   Get.toNamed(RoutesName.lession);
                 }
-
               },
               leading: const Icon(Icons.play_lesson_outlined,
                   size: 20.0, color: Colors.white),
-              title:  Text("Syllabus Status"),
+              title: Text("Syllabus Status"),
 
               textColor: Colors.white,
               dense: true,
@@ -700,7 +809,7 @@ var schoolname;
             child: ListTile(
               onTap: () => Get.toNamed(RoutesName.homeWork),
               leading:
-              const Icon(Icons.home_work, size: 20.0, color: Colors.white),
+                  const Icon(Icons.home_work, size: 20.0, color: Colors.white),
               title: const Text("Home Work"),
               textColor: Colors.white,
               dense: true,
@@ -710,9 +819,7 @@ var schoolname;
           ),
           ListTileTheme(
             dense: true,
-
             child: ExpansionTile(
-
               collapsedIconColor: Colors.white,
               textColor: Colors.white,
               title: Text(
@@ -720,7 +827,6 @@ var schoolname;
                 style: GoogleFonts.dmSans(
                   fontStyle: FontStyle.normal,
                   fontSize: 14.sp,
-
                   color: Colors.white,
                 ),
               ),
@@ -732,42 +838,39 @@ var schoolname;
                 SizedBox(
                   height: 0.052.sh,
                   child: ListTile(
-
-                      title:  Text("Exam Time ",
+                      title: Text(
+                        "Exam Time ",
                         style: GoogleFonts.dmSans(
                           fontStyle: FontStyle.normal,
                           fontSize: 14.sp,
-
                           color: Colors.white,
-                        ),),
-                      onTap:(){
-                        if (getexamview.GetexamsScheduleControllerList!=null){
-
+                        ),
+                      ),
+                      onTap: () {
+                        if (getexamview.GetexamsScheduleControllerList !=
+                            null) {
                           Get.toNamed(RoutesName.examination);
                         }
-
-                      }
-                  ),
+                      }),
                 ),
 
                 SizedBox(
                   height: 0.062.sh,
                   child: ListTile(
-                      title:
-                      Text("Result",  style: GoogleFonts.dmSans(
-                        fontStyle: FontStyle.normal,
-                        fontSize: 14.sp,
-
-                        color: Colors.white,
-                      ),),
-                      onTap:(){
-                        if (GetexamsResult.GetexamsResultControllerList!=null){
-
+                      title: Text(
+                        "Result",
+                        style: GoogleFonts.dmSans(
+                          fontStyle: FontStyle.normal,
+                          fontSize: 14.sp,
+                          color: Colors.white,
+                        ),
+                      ),
+                      onTap: () {
+                        if (GetexamsResult.GetexamsResultControllerList !=
+                            null) {
                           Get.toNamed(RoutesName.examresult);
                         }
-
-                      }
-                  ),
+                      }),
                 ),
 
                 //more child menu
@@ -779,7 +882,7 @@ var schoolname;
             child: ListTile(
               onTap: () => Get.toNamed(RoutesName.downloadAll),
               leading:
-              const Icon(Icons.download, size: 20.0, color: Colors.white),
+                  const Icon(Icons.download, size: 20.0, color: Colors.white),
               title: const Text("Download"),
               textColor: Colors.white,
               dense: true,
@@ -817,7 +920,9 @@ var schoolname;
               onTap: () => Get.toNamed(RoutesName.notification),
               leading: const Icon(Icons.notifications,
                   size: 20.0, color: Colors.white),
-              title: const Text("Notification",),
+              title: const Text(
+                "Notification",
+              ),
               textColor: Colors.white,
               dense: true,
 

@@ -3,23 +3,18 @@ import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/attendance_controller.dart';
-import 'package:ecom_desgin/controller/getSylabusStatus_controller.dart';
-import 'package:ecom_desgin/controller/getclasstimetable_controller.dart';
-import 'package:ecom_desgin/controller/getexamsResult_controller.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule1_controller.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/home_word_controller.dart';
 import 'package:ecom_desgin/controller/notice_controller.dart';
+import 'package:ecom_desgin/controller/parent_Student_List_Controller.dart';
 import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/controller/student_login_update_controller.dart';
 import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:ecom_desgin/controller/teacher_by_Student_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
-import 'package:ecom_desgin/view/Attendance/Calendar.dart';
-import 'package:ecom_desgin/view/dashboard/drawer.dart';
-import 'package:ecom_desgin/view/examination/Exam_result.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
@@ -49,9 +44,10 @@ late  int? i= noticController.noticlist.value?.response?.length;
   GetexamsScheduleController getexamview=Get.put(GetexamsScheduleController());
 
   ParentLoginController parentLoginController=Get.put(ParentLoginController());
+  
   UserNameController userNameController=Get.put(UserNameController());
   GetTeacherByStudentController teacherbystudentController=Get.put(GetTeacherByStudentController());
-
+  final ParentStudentListController parentStudentListController =  Get.put(ParentStudentListController());
   final HomeWorkController _homeWorkController = Get.put(HomeWorkController());
   final StudentProfileController studentProfileController = Get.put(StudentProfileController());
   final NoticController noticController = Get.put(NoticController());
@@ -308,11 +304,10 @@ late  int? i= noticController.noticlist.value?.response?.length;
                   ),
                   PopupMenuButton<int>(
                     itemBuilder: (context)  {
-
                       return <PopupMenuEntry<int>>[
-                        PopupMenuItem(value: 0, child: InkWell(child: const Text('Logout'),
-                          onTap:() async { await SessionManager().remove("name");
-                          Get.toNamed(RoutesName.schoolId);
+                        PopupMenuItem(value: 0, child: const Text('Logout'),
+                         onTap:() async { await SessionManager().remove("name");
+                          Get.offAllNamed(RoutesName.schoolId);
                           // ignore: use_build_context_synchronously
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text("logout", style: GoogleFonts.dmSans(
@@ -325,7 +320,8 @@ late  int? i= noticController.noticlist.value?.response?.length;
                               backgroundColor: Colors.white,
                             ),
                           );
-                          },)),
+                          }
+                          ),
                         const PopupMenuItem(child: Text('about'), value: 1),
                       ];
                     },
@@ -373,23 +369,25 @@ late  int? i= noticController.noticlist.value?.response?.length;
                                 child: ClipOval(
                                   child: Align(
                                     alignment: FractionalOffset(0.5, 0.0),
-                                    child:
+                                    child:studentProfileController.studentProfileModel.value?.response.profileimage!=null?
                                      CachedNetworkImage(
                                       placeholder: (context, url) => CircleAvatar(
-                                        maxRadius:
-                                        MediaQuery.of(context).size.width -
-                                            MediaQuery.of(context).size.width +
+                                        maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
                                             52,
                                         backgroundImage: const AssetImage(
                                           "assets/images/user1.png",
                                         ),
                                       ),
-                                      imageUrl:
-
-                                      studentProfileController.studentProfileModel.value?.response.profileimage.toString()=="null"?'${ApiUrl.imagesUrl.toString()}${studentProfileController.studentProfileModel.value?.response.profileimage}':"https://e-gyan.co.in/uploads/student_images/5/1.jpg"
+                                      imageUrl: '${ApiUrl.imagesUrl.toString()}${studentProfileController.studentProfileModel.value?.response.profileimage}'
 
 
-                                    ),
+                                    ):CircleAvatar(
+                                        maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
+                                            52,
+                                        backgroundImage: const AssetImage(
+                                          "assets/images/user1.png",
+                                        ),
+                                      ),
                                   ),
                                 ),
                               ),
@@ -420,7 +418,6 @@ late  int? i= noticController.noticlist.value?.response?.length;
 
                                   InkWell(
                                     onTap: () {
-
                                     },
                                     child: Row(
                                       children: [
@@ -451,48 +448,48 @@ late  int? i= noticController.noticlist.value?.response?.length;
                     SizedBox(
                       height: 0.010.sh,
                     ),
-                    Container(
-                      color: Colors.blue,
-                      height: 0.080.sh,
-                      width: MediaQuery.of(context).size.width,
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            top: 0.001.sh,
-                            left: 0.06.sw,
-                            child: SlideTransition(
-                              position: _offsetAnimation,
-                              child: Icon(
-                                Icons.arrow_right,
-                                color: Colors.white,
-                                size: 52.sp,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 0.10.sw,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                bottom: 0.50.sh,
-                              ),
-                              child: SlideTransition(
-                                position: _Animation,
-                                child: Icon(
-                                  Icons.arrow_right,
-                                  color: Colors.white,
-                                  size: 55.sp,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 0.22.sw,
-                            top: 0.025.sh,
-                            child: GestureDetector(
+                     GestureDetector(
                               onTap: () => {
 
                                 Get.toNamed(RoutesName.dashboard),
                               },
+                      child: Container(
+                        color: Colors.blue,
+                        height: 0.080.sh,
+                        width: MediaQuery.of(context).size.width,
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              top: 0.001.sh,
+                              left: 0.06.sw,
+                              child: SlideTransition(
+                                position: _offsetAnimation,
+                                child: Icon(
+                                  Icons.arrow_right,
+                                  color: Colors.white,
+                                  size: 52.sp,
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              left: 0.10.sw,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: 0.50.sh,
+                                ),
+                                child: SlideTransition(
+                                  position: _Animation,
+                                  child: Icon(
+                                    Icons.arrow_right,
+                                    color: Colors.white,
+                                    size: 55.sp,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              left: 0.22.sw,
+                              top: 0.025.sh,
                               child: Text(
                                 "Tap Here For E-GYAN Services",
                                 style: GoogleFonts.dmSans(
@@ -503,8 +500,8 @@ late  int? i= noticController.noticlist.value?.response?.length;
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -518,10 +515,10 @@ late  int? i= noticController.noticlist.value?.response?.length;
                             color: Color.fromARGB(255, 134, 217, 248),
                             child: Center(
                               child: ScrollLoopAutoScroll(
-duration: Duration(seconds: 200),
+                                duration: Duration(seconds: 200),
                                 delay: Duration(seconds: 1),
                                 // delayAfterScrollInput: Duration(seconds: 10),
-enableScrollInput: true,
+                                enableScrollInput: true,
                                 scrollDirection: Axis.horizontal,
 
                                 child: Obx(()=>
@@ -885,7 +882,8 @@ enableScrollInput: true,
   child:   ListTileTheme(
                 dense: true,
     
-                child: parentLoginController.parentStudentListModel.value!=null? ExpansionTile(
+                child:parentStudentListController
+                                          .parentSListModel.value!=null? ExpansionTile(
     
                   collapsedIconColor: Colors.white,
                   textColor: Colors.white,
@@ -906,10 +904,13 @@ enableScrollInput: true,
                  Obx(() =>  ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
-                        itemCount: parentLoginController.parentStudentListModel.value?.response!=null ?parentLoginController.parentStudentListModel.value?.response?.length:0,
+                        itemCount: parentStudentListController
+                                          .parentSListModel.value?.response!=null ?parentStudentListController
+                                          .parentSListModel.value?.response.length:0,
                     itemBuilder: (context, index) {
                     return   ListTile(
-                        title:  Text( "${ parentLoginController.parentStudentListModel.value?.response?[index]?.name}",
+                        title:  Text( "${ parentStudentListController
+                                          .parentSListModel.value?.response?[index]?.name}",
                           style: GoogleFonts.dmSans(
                             fontStyle: FontStyle.normal,
                             fontSize: 14.sp,
@@ -918,7 +919,8 @@ enableScrollInput: true,
                          onTap: () {
                    studentLoginUpdateControllers.loadingstudentLoginData.value=true;
                     studentProfileController.isloading.value=false;
-                            studentProfileController.studentProfileApi(parentLoginController.parentStudentListModel.value?.response?[index]?.studentId);
+                            studentProfileController.studentProfileApi(parentStudentListController
+                                          .parentSListModel.value?.response[index].studentId);
 
                                 Get.toNamed(RoutesName.home,);  
                            toggleMenu(); 
