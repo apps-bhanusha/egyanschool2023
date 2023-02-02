@@ -64,6 +64,7 @@ class ParentLoginController extends GetxController{
         box.put("role_flag","P");
         box.put("username",username);
         box.put("password",password);
+        box.put("student_login","Parent_login");
           await sessionManager.set("name", username);
           await sessionManager.set("parentlogin", "parentlogin");
           await sessionManager.set("passward", password);

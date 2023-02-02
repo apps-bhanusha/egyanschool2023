@@ -132,11 +132,15 @@ class _ProfileState extends State<Profile> {
                           CircleAvatar(
                             backgroundColor: Colors.white70,
                             minRadius: 60.0,
-                            child: CircleAvatar(
-                              radius: 54.0,
-                              backgroundImage:
-                              NetworkImage('${ApiUrl.imagesUrl.toString()}${studentProfileController.studentProfileModel.value?.response.profileimage}'),
-                            ),
+                            child:    CircleAvatar(
+                                            foregroundImage: "${studentProfileController.studentProfileModel.value?.response.profileimage}"!="null"?
+                                                                       NetworkImage("${ApiUrl.imagesUrl.toString()}${studentProfileController.studentProfileModel.value?.response.profileimage}")
+                                                                    :  NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
+                                                                     ,
+                                                                       radius: 54.0,
+                                                                       backgroundImage:
+                                                                     NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
+                                                                     )
                           ),
                           // CircleAvatar(
                           //   backgroundColor: Colors.blue.shade300,

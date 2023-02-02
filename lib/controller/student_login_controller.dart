@@ -57,22 +57,22 @@ class UserNameController extends GetxController {
       isloading.value=true;
       // parentLoginController.parentLogin.value=false;
        box.put("role_flag","S");
-                     await sessionManager.set("name", username);
-               await sessionManager.set("passward", password);
-          await sessionManager.set("parentlogin", "student");
 
-      final userIsStored =
-      await saveUser(jsonEncode(response.body));
-      var sdata = jsonDecode(response.body);
+    var sdata = jsonDecode(response.body);
+      if (sdata["status"] == true) {
+          await sessionManager.set("name", username);
+          await sessionManager.set("passward", password);
+          await sessionManager.set("parentlogin", "student");
+           
+          final userIsStored = await saveUser(jsonEncode(response.body));
+     SchoolIdControllerList.add(sdata);
       // parentStudentListModel.value= ParentStudentListModel.fromJson(sdata);
        print("student login Responce");
        print(sdata);
-  
-  SchoolIdControllerList.add(sdata);
-      if (sdata["status"] == true) {
         var box = Hive.box("schoolData");
         box.put("username",username);
         box.put("student_login","student_login");
+        
         // box.put("password",password);
         // box.put("student_id",SchoolIdControllerList[0]["response"][0]["student_id"]);
         // box.put("exam_view", SchoolIdControllerList[0]['parent_info']["exam_view"]);
@@ -102,12 +102,11 @@ class UserNameController extends GetxController {
           //  return Get.to( const HomeScreen(),arguments: ['0',false]);
           // studentProfileController.isloading.value=false;
         box.put("student_id",SchoolIdControllerList[0]["response"][0]["student_id"]);
-
           studentLoginUpdateControllers.loadingstudentLoginData.value=true;
           //  Get.toNamed(RoutesName.home);
           //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const HomeScreen()));
             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-    HomeScreen()), (Route<dynamic> route) => false);
+    const HomeScreen()), (Route<dynamic> route) => false);
                             // studentProfileController.studentProfileApi(SchoolIdControllerList[0]["response"][0]["student_id"]);
           print("student profile get student id ckeck ");
           // print(SchoolIdControllerList[0]["response"][0]["student_id"]);

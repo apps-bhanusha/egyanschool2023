@@ -81,7 +81,7 @@ class _ParentStudentListState extends State<ParentStudentList>
   DateTime now = DateTime.now();
   late int lastday = DateTime(now.year, now.month + 1, 0).day;
   late int days = lastday;
-
+  var company_key;
   double progressFraction1 = 0.0;
   double percentage1 = 0;
   late Timer timer1;
@@ -103,7 +103,10 @@ class _ParentStudentListState extends State<ParentStudentList>
     var id = box.get("company_key");
     schoolname = box.get("schoolname");
     session = box.get("session");
-
+   company_key = box.get("company_key");
+    schoolname = box.get("schoolname");
+   session = box.get("session");
+    _schoolsetting.GetSchoolSettingapi(company_key,);
 
 parentLoginController.parentLogin.value=true;
     super.initState();
@@ -293,8 +296,7 @@ parentLoginController.parentLogin.value=true;
                                     child: InkWell(
                                         onTap: () {
                                               studentProfileController
-                                                  .isloading.value = false;
-                                             
+                                                  .isloading.value = false; 
                                               studentProfileController
                                                   .studentProfileApi(parentStudentListController.parentSListModel.value
                                                           ?.response[index]
@@ -325,33 +327,47 @@ parentLoginController.parentLogin.value=true;
                                                     alignment:
                                                         const FractionalOffset(
                                                             0.5, 0.0),
-                                                    child: CachedNetworkImage(
-                                                        placeholder:
-                                                            (context, url) =>
-                                                                CircleAvatar(
-                                                                  maxRadius: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width -
-                                                                      MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width +
-                                                                      60,
-                                                                  backgroundImage:
-                                                                      const AssetImage(
-                                                                    "assets/images/user1.png",
-                                                                  ),
-                                                                ),
-                                                        imageUrl: parentStudentListController
-                                                                    .parentSListModel
-                                                                    .value
-                                                                    ?.response[
-                                                                        index]
-                                                                    .profileimage !=
-                                                                null
-                                                            ? "${ApiUrl.imagesUrl.toString()}${parentStudentListController.parentSListModel.value?.response[index].profileimage}"
-                                                            : "https://cdn-icons-png.flaticon.com/512/149/149071.png"),
+                                                    child:        CircleAvatar(
+                            backgroundColor: Colors.white70,
+                             maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
+                                              52,
+                            child:CircleAvatar(
+                              radius: 54.0,
+                              foregroundImage:   parentStudentListController.parentSListModel.value?.response[index].profileimage != null?
+                              NetworkImage("${ApiUrl.imagesUrl.toString()}${parentStudentListController.parentSListModel.value?.response[index].profileimage}")
+                           :  NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU"),
+                              backgroundImage:  NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU"),
+                            
+                            ) 
+                          )
+                                     
+                                                    // CachedNetworkImage(
+                                                    //     placeholder:
+                                                    //         (context, url) =>
+                                                    //             CircleAvatar(
+                                                    //               maxRadius: MediaQuery.of(
+                                                    //                           context)
+                                                    //                       .size
+                                                    //                       .width -
+                                                    //                   MediaQuery.of(
+                                                    //                           context)
+                                                    //                       .size
+                                                    //                       .width +
+                                                    //                   60,
+                                                    //               backgroundImage:
+                                                    //                   const AssetImage(
+                                                    //                 "assets/images/user1.png",
+                                                    //               ),
+                                                    //             ),
+                                                    //     imageUrl: parentStudentListController
+                                                    //                 .parentSListModel
+                                                    //                 .value
+                                                    //                 ?.response[
+                                                    //                     index]
+                                                    //                 .profileimage !=
+                                                    //             null
+                                                    //         ? "${ApiUrl.imagesUrl.toString()}${parentStudentListController.parentSListModel.value?.response[index].profileimage}"
+                                                    //         : "https://cdn-icons-png.flaticon.com/512/149/149071.png"),
                                                   ),
                                                 ),
                                               ),
@@ -592,14 +608,25 @@ parentLoginController.parentLogin.value=true;
               bottomNavigationBar: Container(
                 color: const Color.fromARGB(255, 196, 236, 255),
                 child: Row(
+                 
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: 0.15.sw, top: 10),
-                      child: const Text("Powered By :-"),
-                    ),
+padding:  EdgeInsets.only(left: 0.09.sw),
+child: const ClipRRect(
+child: CircleAvatar(
+radius: 20.0,
+backgroundImage:
+AssetImage("assets/images/appstore.png"),
+),
+),
+),
+                     Padding(
+                       padding:  EdgeInsets.only(left: 0.05.sw,top: 10),
+                       child: const Text("Powered By :-"),
+                     ),
                     Image.asset(
                       "assets/images/b.png",
-                      width: 0.5.sw,
+                      width: 0.4.sw,
                       height: 0.070.sh,
                     ),
                   ],

@@ -34,7 +34,7 @@ class TeacherRatingController extends GetxController {
       Get.snackbar(
         sdata["status"],
         sdata["message"],
-        duration: 5.seconds, // it could be any reasonable time, but I set it lo-o-ong
+        duration: 2.seconds, // it could be any reasonable time, but I set it lo-o-ong
         snackPosition: SnackPosition.BOTTOM,
         showProgressIndicator: true,
 

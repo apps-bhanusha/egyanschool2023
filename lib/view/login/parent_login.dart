@@ -203,10 +203,6 @@ class _ParentLoginState extends State<ParentLogin> {
                       parentLoginController.loadingdata.value=false;
                   //  _allsetController.apicallpost(usersname.text,password.text,context);
                    parentLoginController.parentapi(usersname.text, password.text, context);
-                 await sessionManager.set("name", usersname.text);
-                 await sessionManager.set("passward", password.text);
-                 print("1111111000000878888888888800000000000000000000555555555555555555555555550");
-                 print(await sessionManager.set("name", usersname.text));
                     },
                   ),
                 )),
@@ -269,15 +265,25 @@ class _ParentLoginState extends State<ParentLogin> {
              color: const Color.fromARGB(255, 196, 236, 255),
 
         child:Row(
-                
+                 
                   children: [
+                    Padding(
+padding:  EdgeInsets.only(left: 0.09.sw),
+child: const ClipRRect(
+child: CircleAvatar(
+radius: 20.0,
+backgroundImage:
+AssetImage("assets/images/appstore.png"),
+),
+),
+),
                      Padding(
-                       padding:  EdgeInsets.only(left: 0.15.sw,top: 10),
+                       padding:  EdgeInsets.only(left: 0.05.sw,top: 10),
                        child: const Text("Powered By :-"),
                      ),
                     Image.asset(
                       "assets/images/b.png",
-                      width: 0.5.sw,
+                      width: 0.4.sw,
                       height: 0.070.sh,
                     ),
                   ],

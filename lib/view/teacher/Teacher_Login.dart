@@ -259,11 +259,30 @@ class _TeacherLoginState extends State<TeacherLogin> {
       ),
       bottomNavigationBar: Container(
         color: Colors.lightBlue,
-        child: Image.asset(
-          "assets/images/b.png",
-          width: MediaQuery.of(context).size.width,
-          height: 0.070.sh,
-        ),
+        child:Row(
+                 
+                  children: [
+                    Padding(
+padding:  EdgeInsets.only(left: 0.09.sw),
+child: const ClipRRect(
+child: CircleAvatar(
+radius: 20.0,
+backgroundImage:
+AssetImage("assets/images/appstore.png"),
+),
+),
+),
+                     Padding(
+                       padding:  EdgeInsets.only(left: 0.05.sw,top: 10),
+                       child: const Text("Powered By :-"),
+                     ),
+                    Image.asset(
+                      "assets/images/b.png",
+                      width: 0.4.sw,
+                      height: 0.070.sh,
+                    ),
+                  ],
+                ),
       ),
     );
   }

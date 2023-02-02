@@ -23,7 +23,6 @@ class _NotificationPageState extends State<NotificationPage> {
     notificationController.notifactionApi();
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +69,7 @@ class _NotificationPageState extends State<NotificationPage> {
                       // trailing: Text("${notificationController.notificationList.value?.response?[index]?.studentId}"),
                      ),
             );
-        },):const Center(child: CircularProgressIndicator(color: Colors.blue,),):const Center(child: CircularProgressIndicator(color: Colors.blue,),),
+        },):const Center(child: Text("Record Not Found"),):const Center(child: CircularProgressIndicator(color: Colors.blue,),),
       ),
     );
   }

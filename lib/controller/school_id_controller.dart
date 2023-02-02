@@ -43,11 +43,11 @@ import 'package:http/http.dart' as http;
         box.put("company_key",SchoolIdControllerList2[0]["response"]["company_key"]);
 
         _schoolsetting.GetSchoolSettingapi(SchoolIdControllerList2[0]["response"]["company_key"]);
-    isloading =true.obs;
+    isloading.value =true;
 
         if (_radioVal == 3) {
         box.put("role_flag","S");
-
+         
           Get.to( const StudentLogin());
           print("Student");
         }
@@ -63,6 +63,8 @@ import 'package:http/http.dart' as http;
                     }
                    
       } else {
+    isloading.value =true;
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(sdata["message"], style: GoogleFonts.dmSans(
             fontStyle: FontStyle.normal,
@@ -76,6 +78,19 @@ import 'package:http/http.dart' as http;
         );
         print("invalid id");
       }
+    }else{
+    isloading.value =true;
+  ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("something Wrong", style: GoogleFonts.dmSans(
+            fontStyle: FontStyle.normal,
+            fontSize: 15.sp,
+            fontWeight: FontWeight.bold,
+            color: Colors.red,
+          ),
+          ),
+            backgroundColor: Colors.white,
+          ),
+        );
     }
   }}
 // void postData(id) async {

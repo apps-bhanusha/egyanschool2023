@@ -94,20 +94,24 @@ class _SimpleLoginState extends State<SimpleLogin> {
               ClipPath(
                 clipper: WaveClipper3(),
                 child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 0.50.sh,
+
+                  decoration: const BoxDecoration(
+                      color: Colors.lightBlue
+                  ),
                   child: Column(   children: <Widget>[
                     SizedBox(
                       height: 0.040.sh,
                     ),
                     InkWell(
-                      child: Container(
-                        child: CircleAvatar(
-                          maxRadius: MediaQuery.of(context).size.width -
-                              MediaQuery.of(context).size.width +
-                              52,
-                          backgroundImage:
-                          AssetImage("assets/images/appstore.png"),
-                          // radius: 220,
-                        ),
+                      child: CircleAvatar(
+                        maxRadius: MediaQuery.of(context).size.width -
+                            MediaQuery.of(context).size.width +
+                            52,
+                        backgroundImage:
+                        const AssetImage("assets/images/appstore.png"),
+                        // radius: 220,
                       ),
                       // onTap:() {
                       //   setState(() {
@@ -132,12 +136,6 @@ class _SimpleLoginState extends State<SimpleLogin> {
                       ),
                     ),
                   ],
-                  ),
-                  width: MediaQuery.of(context).size.width,
-                  height: 0.50.sh,
-
-                  decoration: BoxDecoration(
-                      color: Colors.lightBlue
                   ),
                 ),
               ),
@@ -316,15 +314,25 @@ keyboardType: TextInputType.number,
       bottomNavigationBar: Container(
         color: Color.fromARGB(255, 196, 236, 255),
         child:Row(
-                
+                 
                   children: [
+                    Padding(
+padding:  EdgeInsets.only(left: 0.09.sw).r,
+child: const ClipRRect(
+child: CircleAvatar(
+radius: 20.0,
+backgroundImage:
+AssetImage("assets/images/appstore.png"),
+),
+),
+),
                      Padding(
-                       padding:  EdgeInsets.only(left: 0.15.sw,top: 10),
+                       padding:  EdgeInsets.only(left: 0.05.sw,top: 10),
                        child: const Text("Powered By :-"),
                      ),
                     Image.asset(
                       "assets/images/b.png",
-                      width: 0.5.sw,
+                      width: 0.4.sw,
                       height: 0.070.sh,
                     ),
                   ],

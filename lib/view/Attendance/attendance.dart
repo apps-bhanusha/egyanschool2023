@@ -354,23 +354,10 @@ var company_key;
       //
       // monthlypresentssummary.MonthlyPresentSummaryapi(student_id,company_key);
 
-      setState(() {
-        student_id = box.get("student_id");
-        company_key = box.get("company_key");
-        monthlypresentssummary.MonthlyPresentSummaryapi(student_id,company_key);
-        Attendanceapi(student_id ,company_key);
-      });
-      Timer timer;
-
-      timer = Timer.periodic(Duration(seconds: 3),(t){
-        student_id = box.get("student_id");
-        company_key = box.get("company_key");
-        monthlypresentssummary.MonthlyPresentSummaryapi(student_id,company_key);
-        Attendanceapi(student_id ,company_key);
-      });
-      return Future.delayed(
-        Duration(seconds: 1),
-      );
+      company_key = box.get("company_key");
+        monthlypresentssummary.MonthlyPresentSummaryapi(studentProfileController.studentProfileModel.value?.response.studentId,company_key);
+        Attendanceapi(studentProfileController.studentProfileModel.value?.response.studentId ,company_key);
+  
     }
     return Scaffold(
       appBar: AppBar(

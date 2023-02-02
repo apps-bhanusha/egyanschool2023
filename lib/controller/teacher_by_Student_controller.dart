@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 class GetTeacherByStudentController extends GetxController {
 
   List <dynamic> GetTeacherByStudentControllerList = [].obs;
-
+  List<String> dropdata = [];
 
 
   RxBool loadingGetTeacherByStudent =false.obs;
@@ -29,7 +29,7 @@ class GetTeacherByStudentController extends GetxController {
       GetTeacherByStudentControllerList.add(sdata) ;
       print("get dddddddddddddddddtreasher");
       print(GetTeacherByStudentControllerList);
-
+adddrop();
       // print(GetschoolsettingControllerLexam_idist[0]["response"]["total_discount_amount"]);
       if (sdata["status"] == true ) {
         loadingGetTeacherByStudent.value=true;
@@ -39,8 +39,17 @@ class GetTeacherByStudentController extends GetxController {
         print("invalid cccid");
       } }
     else {
-
       print("School ID Invailid");
     }
   }
+
+adddrop(){
+   dropdata = [];
+      if(GetTeacherByStudentControllerList.isNotEmpty){
+for(var i=0; i<GetTeacherByStudentControllerList[0]["response"].length; i++) {
+  dropdata.add(GetTeacherByStudentControllerList[0]["response"][i]["staff_name"]);
+}
+    }
+}
+
 }

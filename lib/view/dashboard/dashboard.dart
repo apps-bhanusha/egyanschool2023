@@ -354,14 +354,25 @@ class _GridViewallState extends State<GridViewall>
           bottomNavigationBar: Container(
               color: Color.fromARGB(255, 196, 236, 255),
             child: Row(
+                 
                   children: [
+                    Padding(
+padding:  EdgeInsets.only(left: 0.09.sw),
+child: const ClipRRect(
+child: CircleAvatar(
+radius: 20.0,
+backgroundImage:
+AssetImage("assets/images/appstore.png"),
+),
+),
+),
                      Padding(
-                       padding:  EdgeInsets.only(left: 0.15.sw,top: 10),
+                       padding:  EdgeInsets.only(left: 0.05.sw,top: 10),
                        child: const Text("Powered By :-"),
                      ),
                     Image.asset(
                       "assets/images/b.png",
-                      width: 0.5.sw,
+                      width: 0.4.sw,
                       height: 0.070.sh,
                     ),
                   ],
@@ -697,7 +708,7 @@ class _GridViewallState extends State<GridViewall>
               height: 0.052.sh,
               child: ListTile(
                 onTap: () => Get.toNamed(RoutesName.notification),
-                leading: const Icon(Icons.rate_review_rounded,
+                leading: const Icon(Icons.notifications,
                     size: 20.0, color: Colors.white),
                 title: const Text("Notification",),
                 textColor: Colors.white,
@@ -710,7 +721,7 @@ class _GridViewallState extends State<GridViewall>
               height: 0.052.sh,
               child: ListTile(
                 onTap: () => Get.toNamed(RoutesName.teacherreview),
-                leading: const Icon(Icons.accessibility,
+                leading: const Icon(Icons.rate_review_rounded,
                     size: 20.0, color: Colors.white),
                 title: const Text("Teacher Review"),
                 textColor: Colors.white,
@@ -723,7 +734,7 @@ class _GridViewallState extends State<GridViewall>
               height: 0.052.sh,
               child: ListTile(
                 onTap: () => Get.toNamed(RoutesName.leavestatus),
-                leading: const Icon(Icons.notifications,
+                leading: const Icon(Icons.holiday_village_sharp,
                     size: 20.0, color: Colors.white),
                 title: const Text("Leave Status"),
                 textColor: Colors.white,

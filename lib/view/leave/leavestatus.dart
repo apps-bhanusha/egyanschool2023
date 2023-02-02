@@ -358,19 +358,9 @@ class _LeaveStatusState extends State<LeaveStatus> {
         AlwaysScrollableScrollPhysics();
         setState(() {
           
-          StudentLeaveRecord.StudentLeaveRecordapi(company_key,id);
+          StudentLeaveRecord.StudentLeaveRecordapi(company_key,studentProfileController.studentProfileModel.value?.response.studentId);
         });
-        Timer timer;
-
-          timer = Timer.periodic(Duration(seconds: 3),(t){
-            StudentLeaveRecord.StudentLeaveRecordapi(company_key,id);
-          });
-
-        await Future.value({
-
-          Duration(seconds: 3),
-
-        });
+    
       },
     );
   }

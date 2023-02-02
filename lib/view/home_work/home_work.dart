@@ -225,7 +225,7 @@ void filepicker(){
                   });
                 },
                 child: Container(
-                  height: 0.58.sh,
+                  height: 0.65.sh,
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   decoration: const BoxDecoration(
                     color: Colors.white,
