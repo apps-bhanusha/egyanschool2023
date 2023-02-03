@@ -345,7 +345,7 @@ var company_key;
   Widget build(BuildContext context)  {
     // cHeight = MediaQuery.of(context).size.height;
     _onRefresh() async {
-      // await Future.delayed(Duration(milliseconds: 1000));
+      await Future.delayed(Duration(milliseconds: 1000));
       // Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context)=>super.widget));
       // student_id = box.get("student_id");
       // company_key = box.get("company_key");
@@ -357,7 +357,7 @@ var company_key;
       company_key = box.get("company_key");
         monthlypresentssummary.MonthlyPresentSummaryapi(studentProfileController.studentProfileModel.value?.response.studentId,company_key);
         Attendanceapi(studentProfileController.studentProfileModel.value?.response.studentId ,company_key);
-  
+  _refreshController.refreshCompleted();
     }
     return Scaffold(
       appBar: AppBar(
@@ -376,6 +376,7 @@ var company_key;
       ),
       body: SmartRefresher(
         controller: _refreshController,
+        
         onRefresh: _onRefresh,
         child: SingleChildScrollView(
 
@@ -423,24 +424,23 @@ name:"",
                       ) ,
 
                    Container(
-                     margin: EdgeInsets.symmetric(horizontal: 16.0).r,
-                    child:_calendarCarouselNoHeader =  CalendarCarousel<Event>(
+                     margin: const EdgeInsets.symmetric(horizontal: 16.0).r,
+                    child: CalendarCarousel<Event>(
                       height: 0.56.sh,
                       // height: cHeight * 0.54,
-                      weekendTextStyle: TextStyle(
+                      weekendTextStyle: const TextStyle(
                         color: Colors.red,
                       ),
                       todayButtonColor: Colors.blue,
-
                       markedDatesMap: _markedDateMap,
                       daysHaveCircularBorder: false,
                       markedDateShowIcon: true,
                       showOnlyCurrentMonthDate: true,
                       markedDateIconMaxShown: 1,
-                      markedDateMoreShowTotal: true,
+                      // markedDateMoreShowTotal: true,
                       minSelectedDate:DateFormat("yyyy-MM-dd").parse( AttendanceControllerList[0]["year_date"]["start_date"]),
                       maxSelectedDate:DateFormat("yyyy-MM-dd").parse(AttendanceControllerList[0]["year_date"]["end_date"]),
-                      thisMonthDayBorderColor: Color.fromARGB(255, 206, 204, 204),// null for not showing hidden events indicator
+                      thisMonthDayBorderColor: const Color.fromARGB(255, 206, 204, 204),// null for not showing hidden events indicator
                       markedDateIconBuilder: (event) {
                         return event.icon;
                       },

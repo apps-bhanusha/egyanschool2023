@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:ecom_desgin/constant/Colors.dart';
+import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/date_format.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/home_word_controller.dart';
@@ -170,7 +171,7 @@ class _HomeWorkState extends State<HomeWork> {
           //output:  /storage/emulated/0/Download/banner.png
 
           try {
-            await Dio().download(pdfurl, downloadsDirectory,
+            await Dio().download(ApiUrl.imagesUrl+pdfurl.toString(), savePath,
                 onReceiveProgress: (received, total) {
               if (total != -1) {
                 print((received / total * 100).toStringAsFixed(0) + "%");
