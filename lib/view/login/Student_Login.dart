@@ -68,6 +68,8 @@ class _StudentLoginState extends State<StudentLogin> {
                 clipper: WaveClipper3(),
                 child: Container(
 
+                  width: MediaQuery.of(context).size.width,height: 0.43.sh,decoration: const BoxDecoration(color: Colors.lightBlue),
+
                   child: Column(
                     children: <Widget>[SizedBox(height: 0.010.sh,),
                       ClipOval(child: Obx(()=> _schoolsetting.loadingimage.value?Image.network(_schoolsetting.GetSchoolSettingControllerList[0]["response"]["image"],width: 100,height: 100,):CircularProgressIndicator())),
@@ -83,7 +85,7 @@ class _StudentLoginState extends State<StudentLogin> {
                             ),
                           overflow:TextOverflow.ellipsis,
                         ):const Text("")),
-                      ),],),width: MediaQuery.of(context).size.width,height: 0.43.sh,decoration: const BoxDecoration(color: Colors.lightBlue),),),
+                      ),],),),),
            Positioned (
             top: 0.25.sh,
             left: 0.32.sw,

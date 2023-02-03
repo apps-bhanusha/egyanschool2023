@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class GetSchoolSettingController extends GetxController {
-  List <dynamic> GetSchoolSettingControllerList = [].obs;
+  RxList <dynamic> GetSchoolSettingControllerList = [].obs;
 
  RxBool loadingimage =false.obs;
   Future<List<GetSchoolSettingController>?> GetSchoolSettingapi(id, ) async {
@@ -25,7 +25,7 @@ class GetSchoolSettingController extends GetxController {
      var  sdata = jsonDecode(response.body);
       print("fddddddddddddddddddd33333333333344444433333333");
       print(sdata);
-   GetSchoolSettingControllerList=[];
+   GetSchoolSettingControllerList.value=[];
    GetSchoolSettingControllerList.add(sdata) ;
       print(GetSchoolSettingControllerList);
 // print(GetSchoolSettingControllerList[0]["response"]["image"]);
