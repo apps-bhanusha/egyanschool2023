@@ -7,7 +7,9 @@ import 'package:ecom_desgin/view/login/School_id_login.dart';
 import 'package:ecom_desgin/view/dashboard/drawer.dart';
 import 'package:ecom_desgin/view/dashboard/dashboard.dart';
 import 'package:ecom_desgin/view/parent/parent_student_list_change.dart';
+
 import 'package:ecom_desgin/view/teacher/home_work/home_work.dart';
+import 'package:ecom_desgin/view/teacher_main/teacher_home/teacher_home.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:get/get.dart';
@@ -49,6 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   var name;
   var parentlogin;
+  var teacherlogin;
   String url = "Your_URL";
   String? userlogin;
   String? manager;
@@ -62,7 +65,8 @@ class _SplashScreenState extends State<SplashScreen> {
     print(parentlogin);
     Future.delayed(
       const Duration(seconds: 7),
-          () => name!=null ? "parentlogin"==parentlogin? 
+          () => name!=null ?"teacherlogin"==teacherlogin?
+          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>const TeacherHome()), (Route<dynamic> route) => false): "parentlogin"==parentlogin?
            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>const ParentStudentList()), (Route<dynamic> route) => false)
           :Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>const HomeScreen()), (Route<dynamic> route) => false)
           : Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => SimpleLogin()), (Route<dynamic> route) => false)
@@ -81,6 +85,7 @@ class _SplashScreenState extends State<SplashScreen> {
 Future<void> usercheck() async {
   name=await SessionManager().get("name");
   parentlogin=await SessionManager().get("parentlogin");
+  teacherlogin=await SessionManager().get("teacherlogin");
 }
 // parentloginrecall(){
 //        var box = Hive.box("schoolData");

@@ -1,8 +1,10 @@
+import 'package:ecom_desgin/controller/teacher_controller/teacher_login_controller.dart';
+import 'package:ecom_desgin/main.dart';
 import 'package:ecom_desgin/view/dashboard/home.dart';
-import 'package:ecom_desgin/view/teacher/home_work/home_work.dart';
-import 'package:ecom_desgin/view/teacher/student%20_information.dart';
-import 'package:ecom_desgin/view/teacher/time_table_t/class_time_table.dart';
-import 'package:ecom_desgin/view/teacher/time_table_t/time_table.dart';
+
+import 'package:ecom_desgin/view/teacher_main/student%20_information.dart';
+
+import 'package:ecom_desgin/view/teacher_main/teacher_home/teacher_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,7 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
 import '../time_table/time_table.dart';
-import 'leave_teacher/leave_teacher.dart';
+
 class TeacherLogin extends StatefulWidget {
   const TeacherLogin({super.key});
 
@@ -20,7 +22,18 @@ class TeacherLogin extends StatefulWidget {
 }
 
 class _TeacherLoginState extends State<TeacherLogin> {
+  var  inputvalues = TextEditingController();
+
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
+
   TextEditingController _controller = new TextEditingController();
+  final TeacherLoginController _teacherLoginController =Get.put(TeacherLoginController());
+  @override
+  void initState() {
+
+    super.initState();
+  }
   bool _enabled = false;
   final _formkey = GlobalKey<FormState>();
   bool _isHidden = true;
@@ -99,6 +112,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
               elevation: 2.0,
               borderRadius: BorderRadius.all(Radius.circular(30)),
               child: TextField(
+                controller: username,
                 onChanged: (String value) {},
                 cursorColor: Color.fromRGBO(32,64,81,1.0),
 
@@ -128,6 +142,7 @@ class _TeacherLoginState extends State<TeacherLogin> {
               elevation: 2.0,
               borderRadius: BorderRadius.all(Radius.circular(30)),
               child: TextFormField(
+                controller: password,
                 obscureText: _isHidden,
                 onChanged: (String value) {},
                 cursorColor: Color.fromRGBO(32,64,81,1.0),
@@ -177,24 +192,27 @@ class _TeacherLoginState extends State<TeacherLogin> {
                   // color:  Colors.blue
                 ),
                 child: ElevatedButton(
-                  child:  Text(
-                    "Login",
-                    style: GoogleFonts.dmSans(
-                      fontStyle: FontStyle.normal,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                  child: Obx(
+    () => _teacherLoginController.teachertLogin.value?
+                   Text(
+                      "Login",
+                      style: GoogleFonts.dmSans(
+                        fontStyle: FontStyle.normal,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
 
+                    ):const Center(child: CircularProgressIndicator(color: Colors.white),),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                   ),
-                  onPressed: () {
+                  onPressed: () async{
+                    _teacherLoginController.teachertLogin.value = false;
+                    _teacherLoginController.teacherLoginApi(username.text,password.text,context);
 
-                  Get.to(LeaveTeacher());
-
-                  },
+                    },
                 ),
               )),
 
@@ -259,30 +277,11 @@ class _TeacherLoginState extends State<TeacherLogin> {
       ),
       bottomNavigationBar: Container(
         color: Colors.lightBlue,
-        child:Row(
-                 
-                  children: [
-                    Padding(
-padding:  EdgeInsets.only(left: 0.09.sw),
-child: const ClipRRect(
-child: CircleAvatar(
-radius: 20.0,
-backgroundImage:
-AssetImage("assets/images/appstore.png"),
-),
-),
-),
-                     Padding(
-                       padding:  EdgeInsets.only(left: 0.05.sw,top: 10),
-                       child: const Text("Powered By :-"),
-                     ),
-                    Image.asset(
-                      "assets/images/b.png",
-                      width: 0.4.sw,
-                      height: 0.070.sh,
-                    ),
-                  ],
-                ),
+        child: Image.asset(
+          "assets/images/b.png",
+          width: MediaQuery.of(context).size.width,
+          height: 0.070.sh,
+        ),
       ),
     );
   }

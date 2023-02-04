@@ -63,6 +63,7 @@ class UserNameController extends GetxController {
           await sessionManager.set("name", username);
           await sessionManager.set("passward", password);
           await sessionManager.set("parentlogin", "student");
+          await sessionManager.set("teacherlogin", "studentlogin");
            
           final userIsStored = await saveUser(jsonEncode(response.body));
      SchoolIdControllerList.add(sdata);

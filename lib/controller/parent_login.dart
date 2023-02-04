@@ -68,6 +68,7 @@ class ParentLoginController extends GetxController{
           await sessionManager.set("name", username);
           await sessionManager.set("parentlogin", "parentlogin");
           await sessionManager.set("passward", password);
+        await sessionManager.set("teacherlogin", "studentlogin");
           final userIsStored =  await saveUser(jsonEncode(response.body));
         parentStudentListModel= Rxn<ParentStudentListModel>();
     

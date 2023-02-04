@@ -3,9 +3,10 @@ import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
+import 'package:ecom_desgin/view/teacher_main/Teacher_Login.dart';
 import 'package:get/get.dart';
 import 'package:ecom_desgin/view/login/Student_Login.dart';
-import 'package:ecom_desgin/view/teacher/Teacher_Login.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

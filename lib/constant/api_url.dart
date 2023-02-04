@@ -29,4 +29,8 @@ class ApiUrl{
  static const String noticUrl="/messagingwebservices/getnotice";
  static const String studentProfileUrl="/parentwebservices/studentprofile";
  static const String parentProfile="/parentwebservices/parentprofile";
+
+
+//teaher url
+ static const String teacherloginUrl="/teacherwebservices/login";
 }

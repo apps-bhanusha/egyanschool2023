@@ -2,7 +2,7 @@ import 'package:ecom_desgin/controller/school_id_controller.dart';
 import 'package:ecom_desgin/main.dart';
 import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/login/Student_Login.dart';
-import 'package:ecom_desgin/view/teacher/Teacher_Login.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';

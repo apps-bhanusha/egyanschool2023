@@ -366,39 +366,40 @@ late  int? i= noticController.noticlist.value?.response?.length;
                                 ),
                               ),
                               Positioned(
-                                top: 0.012.sh,
+                                top: 0.005.sh,
                                 left: 0.33.sw,
                                 right: 0.31.sw,
                                 child: FractionalTranslation(
                                   translation: Offset(0.0, -0.5),
-                                  child: ClipOval(
-                                    child: Align(
-                                      alignment: FractionalOffset(0.5, 0.0),
-                                      child:
-                                    //  studentProfileController.studentProfileModel.value?.response.profileimage==null?  CachedNetworkImage(
-                                    //     placeholder: (context, url) => CircleAvatar(
-                                    //       maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
-                                    //           52,
-                                    //       backgroundImage: const AssetImage(
-                                    //         "assets/images/user1.png",
-                                    //       ),
-                                    //     ),
-                                    //     imageUrl: studentProfileController.studentProfileModel.value?.response.profileimage!=null?  '${ApiUrl.imagesUrl.toString()}${studentProfileController.studentProfileModel.value?.response.profileimage}':"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU"
-                                    //    ):
-    
-                                      
-                                           CircleAvatar(
-                                            foregroundImage: "${studentProfileController.studentProfileModel.value?.response.profileimage}"!="null"?
-                                                                       NetworkImage("${ApiUrl.imagesUrl.toString()}${studentProfileController.studentProfileModel.value?.response.profileimage}")
-                                                                    :  NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
-                                                                     ,
-                                                                       radius: 54.0,
-                                                                       backgroundImage:
-                                                                     NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
-                                                                     )
-                                       
-                                   
-                                    ),
+                                  child: Align(
+                                    alignment: FractionalOffset(0.5, 0.5),
+                                    child:
+                                  //  studentProfileController.studentProfileModel.value?.response.profileimage==null?  CachedNetworkImage(
+                                  //     placeholder: (context, url) => CircleAvatar(
+                                  //       maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
+                                  //           52,
+                                  //       backgroundImage: const AssetImage(
+                                  //         "assets/images/user1.png",
+                                  //       ),
+                                  //     ),
+                                  //     imageUrl: studentProfileController.studentProfileModel.value?.response.profileimage!=null?  '${ApiUrl.imagesUrl.toString()}${studentProfileController.studentProfileModel.value?.response.profileimage}':"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU"
+                                  //    ):
+
+
+                                         CircleAvatar(
+                                             maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
+                                                           39,
+                                          minRadius: 20,
+                                          foregroundImage: "${studentProfileController.studentProfileModel.value?.response.profileimage}"!="null"?
+                                                                     NetworkImage("${ApiUrl.imagesUrl.toString()}${studentProfileController.studentProfileModel.value?.response.profileimage}")
+                                                                  :  NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
+                                                                   ,
+                                                                     // radius: 54.0,
+                                                                     backgroundImage:
+                                                                   NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
+                                                                   )
+
+
                                   ),
                                 ),
                               ),
@@ -616,7 +617,7 @@ late  int? i= noticController.noticlist.value?.response?.length;
                                   width: 0.30.sw,
                                   child: LiquidLinearProgressIndicator(
     
-                                    value:studentProfileController.studentProfileModel.value?.response.fee.totalBalanceAmount!=null?double.parse('${studentProfileController.studentProfileModel.value?.response.fee.totalBalanceAmount}')*100/double.parse('${studentProfileController.studentProfileModel.value?.response.fee.totalAmount}'):0.0,// Defaults to 0.5.
+                                    value:studentProfileController.studentProfileModel.value?.response.fee.totalAmount!=null?double.parse('${studentProfileController.studentProfileModel.value?.response.fee.totalAmount}')/double.parse('${studentProfileController.studentProfileModel.value?.response.fee.totalAmount}'):0,// Defaults to 0.5.
                                     valueColor: const AlwaysStoppedAnimation(
                                       Color.fromARGB(255, 124, 200, 241),
                                     ), // Defaults to the current Theme's accentColor.
