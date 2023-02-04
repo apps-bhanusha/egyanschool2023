@@ -69,7 +69,7 @@ class _HomeWorkState extends State<HomeWork> {
   bool isdownloadin = true;
   int index = 0;
   var box = Hive.box("schoolData");
-  late var id = box.get("student_id");
+  late var id = studentProfileController.studentProfileModel.value?.response.studentId;
 
   String progressString = 'Now';
   late Directory _downloadsDirectory;
@@ -88,7 +88,7 @@ class _HomeWorkState extends State<HomeWork> {
   @override
   void initState() {
     company_key = box.get("company_key");
-    student_id = box.get("student_id");
+    student_id = studentProfileController.studentProfileModel.value?.response.studentId;
     _homeWorkController.homeworkapi(studentProfileController.studentProfileModel.value?.response.studentId );
     super.initState();
     initDownloadsDirectoryState();
@@ -202,8 +202,8 @@ void filepicker(){
 }
   void showCustomDialog(BuildContext context) {
     noteController.clear();
-                                            contenttileController.clear();
-                                             fileData="";
+    contenttileController.clear();
+    fileData="";
                                              
     showGeneralDialog(
       context: context,
@@ -701,19 +701,13 @@ void filepicker(){
         ),
         body: Obx(() => _homeWorkController.isloading.value
             ? RefreshIndicator(
-                onRefresh: () {
+                onRefresh: () async {
                   print("4444444444444444444444444444333");
                   setState(() {
                     _homeWorkController.homeworkapi(id);
                   });
-                  Timer timer;
+        
 
-                  timer = Timer.periodic(Duration(seconds: 3),(t){
-                    _homeWorkController.homeworkapi(id);
-                  });
-                  return Future.delayed(
-                    Duration(seconds: 1),
-                  );
                 },
                 child: ListView.builder(
                     itemCount:

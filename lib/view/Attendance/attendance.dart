@@ -106,7 +106,7 @@ var company_key;
     _tooltip = TooltipBehavior(enable: true);
 
 
-    student_id = box.get("student_id");
+    student_id = studentProfileController.studentProfileModel.value?.response.studentId;
    company_key = box.get("company_key");
     monthlypresentssummary.MonthlyPresentSummaryapi(studentProfileController.studentProfileModel.value?.response.studentId,company_key);
     Attendanceapi(studentProfileController.studentProfileModel.value?.response.studentId ,company_key);
@@ -169,7 +169,7 @@ var company_key;
       color: title=="Present"?Colors.green:title=="Holiday"?Colors.grey:title=="Late"?Colors.yellow:title=="Half Day"?Colors.orange:Color.fromARGB(255, 206, 204, 204),
       child: Text(
         day,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
 
         ),
