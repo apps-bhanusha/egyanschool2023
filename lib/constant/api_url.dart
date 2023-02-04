@@ -33,4 +33,6 @@ class ApiUrl{
 
 //teaher url
  static const String teacherloginUrl="/teacherwebservices/login";
+ static const String getstaffdetailUrl="/staffwebservices/getstaffdetail";
+
 }

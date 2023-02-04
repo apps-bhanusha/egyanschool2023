@@ -38,7 +38,7 @@ class _TeacherHomeState extends State<TeacherHome>
   late Animation<Offset> _offsetAnimation;
   late AnimationController _controller1;
   late Animation<Offset> _Animation;
-
+bool teachervisible=false;
   int totalSecs = 90;
   int secsRemaining = 90;
   double progressFraction = 0.6;
@@ -388,99 +388,102 @@ left: 0.10.sw,
                                       ),
                                     )),
 
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0).r,
-                                  child: Row(
+                          teachervisible?Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0).r,
+                                      child: Row(
 
-                                    children: [
-                                      Column(
                                         children: [
-                                          Text(
-                                            "Class",
-                                            style: GoogleFonts.dmSans(
-                                              fontStyle: FontStyle.normal,
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.grey,
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 0.070.sh,
-                                            width: 0.45.sw,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey[300],
-                                              borderRadius: BorderRadius.circular(3),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  offset: Offset(0, 1),
-                                                  blurRadius: 5,
-                                                  color: Colors.black.withOpacity(0.3),
-                                                ),
-                                              ],
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                "1st",
+                                          Column(
+                                            children: [
+                                              Text(
+                                               "Class",
                                                 style: GoogleFonts.dmSans(
                                                   fontStyle: FontStyle.normal,
                                                   fontSize: 15.sp,
                                                   fontWeight: FontWeight.bold,
-                                                  color: Colors.black,
+                                                  color: Colors.grey,
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(width: 0.030.sw,),
-                                      Column(
-                                        children: [
-                                          Text(
-                                            "Section",
-                                            style: GoogleFonts.dmSans(
-                                              fontStyle: FontStyle.normal,
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.grey,
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 0.070.sh,
-                                            width: 0.45.sw,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey[300],
-                                              borderRadius: BorderRadius.circular(3),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  offset: Offset(0, 1),
-                                                  blurRadius: 5,
-                                                  color: Colors.black.withOpacity(0.3),
+                                              Container(
+                                                height: 0.070.sh,
+                                                width: 0.45.sw,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey[300],
+                                                  borderRadius: BorderRadius.circular(3),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      offset: Offset(0, 1),
+                                                      blurRadius: 5,
+                                                      color: Colors.black.withOpacity(0.3),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                "A",
+                                                child: Center(
+                                                  child: Text(
+                                                    "1st",
+                                                    style: GoogleFonts.dmSans(
+                                                      fontStyle: FontStyle.normal,
+                                                      fontSize: 15.sp,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black,
+                                                    ),
+                                                  )
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(width: 0.030.sw,),
+                                          Column(
+                                            children: [
+                                              Text(
+                                                "Section",
                                                 style: GoogleFonts.dmSans(
                                                   fontStyle: FontStyle.normal,
                                                   fontSize: 15.sp,
                                                   fontWeight: FontWeight.bold,
-                                                  color: Colors.black,
+                                                  color: Colors.grey,
                                                 ),
                                               ),
-                                            ),
+                                              Container(
+                                                height: 0.070.sh,
+                                                width: 0.45.sw,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey[300],
+                                                  borderRadius: BorderRadius.circular(3),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      offset: Offset(0, 1),
+                                                      blurRadius: 5,
+                                                      color: Colors.black.withOpacity(0.3),
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    "A",
+                                                    style: GoogleFonts.dmSans(
+                                                      fontStyle: FontStyle.normal,
+                                                      fontSize: 15.sp,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black,
+                                                    ),
+                                                  )
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
-                                    ],
-                                  ),
-                                ),
+                                    ),
+
                           Column(
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(2.0).r,
                                 child: Text(
-                                  "Total students/Total Absent",
+                                 "Total students/Total Absent",
                                   style: GoogleFonts.dmSans(
                                     fontStyle: FontStyle.normal,
                                     fontSize: 15.sp,
@@ -494,8 +497,8 @@ SizedBox(height: 0.0010.sh),
                                 height: 0.070.sh,
                                 width: 0.45.sw,
                                 decoration: BoxDecoration(
-                                  color: Colors.grey[300],
-                                  borderRadius: BorderRadius.circular(3),
+                                  color:  teachervisible? Colors.grey[300]:Colors.blue,
+                                  borderRadius:  teachervisible? BorderRadius.circular(3):BorderRadius.circular(10),
                                   boxShadow: [
                                     BoxShadow(
                                       offset: Offset(0, 1),
@@ -511,15 +514,15 @@ SizedBox(height: 0.0010.sh),
                                       fontStyle: FontStyle.normal,
                                       fontSize: 15.sp,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.black,
+                                      color:   teachervisible?Colors.black:Colors.white,
                                     ),
                                   ),
                                 ),
-                              ),
+                              )
                             ],
                           ),
                                 SizedBox(height: 0.010.sh),
-                                SingleChildScrollView(
+                      SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
                                     child: Padding(
                                       padding: const EdgeInsets.all(1.0).r,
@@ -573,10 +576,209 @@ SizedBox(height: 0.0010.sh),
                                                 ),
                                               ),
                                             ),
+
+        ])
+
+    )
+    )]
+
+
+                                ):Column(
+                            children: [
+                              SizedBox(height: 0.040.sh,),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0).r,
+                                child: Row(
+mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    ClipRRect(
+                                      // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
+                                      child:   CircleAvatar(
+                                        radius: 25.0,
+                                        backgroundImage:
+                                        AssetImage(
+                                          "assets/images/manicon.jpg",
+
+                                        ),
+                                      ),
+                                    ),
+                                    ClipRRect(
+                                      // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
+                                      child:   CircleAvatar(
+                                        radius: 25.0,
+                                        backgroundImage:
+                                        AssetImage(
+                                          "assets/images/watch3.png",
+
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Column(
+                                          children: [
+                                            Text(
+                                            "Time In",
+                                              style: GoogleFonts.dmSans(
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: 15.sp,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color(0xFF26C6DA),
+                                              ),
+                                            ),
+                                            Text("10:11 AM", style: GoogleFonts.dmSans(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15.sp,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xFF26C6DA),
+                                            ),),
+
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+
+                                    Row(
+                                      children: [
+                                        ClipRRect(
+                                          // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
+                                          child:   CircleAvatar(
+                                            radius: 25.0,
+                                            backgroundImage:
+                                            AssetImage(
+                                              "assets/images/manicon.jpg",
+
+                                            ),
+                                          ),
+                                        ),
+
+                                        Column(
+                                          children: [
+                                            Text(
+                                             "Time Out",
+                                              style: GoogleFonts.dmSans(
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: 15.sp,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color(0xFF26C6DA),
+                                              ),
+                                            ),
+                                            Text("12:11 AM", style: GoogleFonts.dmSans(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15.sp,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xFF26C6DA),
+                                            ),),
+
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+SizedBox(height: 0.0220.sh,),
+                              Column(
+                                children: [
+                                  InkWell(
+                                    onTap: (){
+                                     if(teachervisible==false){
+                                       teachervisible=true;
+                                       setState(() {
+
+                                       });
+                                     }
+                                    },
+
+                                    child: Container(
+                                      height: 0.070.sh,
+                                      width: 0.55.sw,
+                                      decoration: BoxDecoration(
+                                        color:  Color(0xFF26C6DA),
+                                        borderRadius:BorderRadius.circular(60),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            offset: Offset(0, 1),
+                                            blurRadius: 20,
+                                            spreadRadius: 5,
+                                            color: Colors.black.withOpacity(0.10),
+                                          ),
                                         ],
                                       ),
-                                    )),
-                              ]),
+                                      child: Center(
+                                        child: Text(
+                                          "SAVE ATTENDANCE",
+                                          style: GoogleFonts.dmSans(
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color:   teachervisible?Colors.black:Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              // SingleChildScrollView(
+                              //     scrollDirection: Axis.horizontal,
+                              //     child: Padding(
+                              //       padding: const EdgeInsets.all(1.0).r,
+                              //       child: Row(
+                              //         children: [
+                              //           for (var i = 0; i < 3; i++)
+                              //             InkWell(
+                              //               onTap: () {},
+                              //               child: Card(
+                              //
+                              //                 elevation: 10,
+                              //                 child: Container(
+                              //                   height: 0.10.sh,
+                              //                   width: 0.50.sw,
+                              //                   color: Colors.grey[200],
+                              //                   child: Column(
+                              //                     mainAxisAlignment:
+                              //                     MainAxisAlignment
+                              //                         .center,
+                              //                     children: [
+                              //                       Text(
+                              //                         "Mid Sem Winter Exam",
+                              //                         style:
+                              //                         GoogleFonts.dmSans(
+                              //                           fontStyle:
+                              //                           FontStyle.normal,
+                              //                           fontSize: 15.sp,
+                              //                           fontWeight:
+                              //                           FontWeight.bold,
+                              //                           color: Colors.black,
+                              //                         ),
+                              //                       ),
+                              //                       SizedBox(
+                              //                         height: 0.015.sh,
+                              //                       ),
+                              //                       Text(
+                              //                         "20 to 27 Exam ",
+                              //                         style:
+                              //                         GoogleFonts.dmSans(
+                              //                           fontStyle:
+                              //                           FontStyle.normal,
+                              //                           fontSize: 12.sp,
+                              //                           fontWeight:
+                              //                           FontWeight.bold,
+                              //                           color:
+                              //                           Colors.lightBlue,
+                              //                         ),
+                              //                       ),
+                              //                     ],
+                              //                   ),
+                              //                 ),
+                              //               ),
+                              //             ),
+                              //         ],
+                              //       ),
+                              //     ))
+                            ],
+                          ), ]),
                               bottomNavigationBar: Container(
                                 color: Color.fromARGB(255, 196, 236, 255),
                                 child:Row(
