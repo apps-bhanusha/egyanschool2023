@@ -48,19 +48,23 @@ import 'package:http/http.dart' as http;
 
         if (_radioVal == 3) {
         box.put("role_flag","S");
-         
-          Get.to( const StudentLogin());
+
+          Get.to(StudentLogin(),arguments: [_radioVal]);
+          print("radiobutonnnnnnnnnnnnnnn");
+          print(_radioVal);
           print("Student");
         }
         if (_radioVal == 1) {
-           Get.to( const TeacherLogin());
+           Get.to(StudentLogin(),arguments: [_radioVal]);
           box.put("role_flag","T");
           print("teacher");
           // all.apicall(id.text);
         }
          if(_radioVal==2){
            box.put("role_flag","P");
-                      Get.toNamed(RoutesName.parentLogin);
+
+           Get.to(StudentLogin(),arguments: [_radioVal]);
+                      // Get.toNamed(RoutesName.parentLogin);
                     }
                    
       } else {

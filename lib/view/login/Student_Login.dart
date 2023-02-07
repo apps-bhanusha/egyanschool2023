@@ -1,5 +1,7 @@
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
+import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
+import 'package:ecom_desgin/controller/teacher_controller/teacher_login_controller.dart';
 import 'package:ecom_desgin/main.dart';
 import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/dashboard/home.dart';
@@ -14,14 +16,16 @@ import 'package:hive/hive.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 class StudentLogin extends StatefulWidget {
-  const StudentLogin({super.key});
+
+
+  const StudentLogin({super.key,});
 
   @override
   _StudentLoginState createState() => _StudentLoginState();
 }
 
 class _StudentLoginState extends State<StudentLogin> {
-
+  var rediobutton;
  var  inputvalues = TextEditingController();
 
   TextEditingController usersname = TextEditingController();
@@ -29,13 +33,16 @@ class _StudentLoginState extends State<StudentLogin> {
 
   final UserNameController _allsetController =Get.put( UserNameController());
   final GetSchoolSettingController _schoolsetting =Get.put(GetSchoolSettingController());
+ final ParentLoginController parentLoginController=Get.put(ParentLoginController());
+ final TeacherLoginController _teacherLoginController =Get.put(TeacherLoginController());
   List<UserNameController> _dataset = [];
   int _radioSelected = 0;
   late String _radioVal = "";
-  int rediobutton = 0;
+  // int rediobutton = 0;
 
   @override
   void initState() {
+    rediobutton=Get.arguments[0];
     super.initState();
   print("33333333333333333333333332222222222222222222222221111111111111");
 
@@ -90,13 +97,34 @@ class _StudentLoginState extends State<StudentLogin> {
             top: 0.25.sh,
             left: 0.32.sw,
             
-               child: Text("Student Login",style: GoogleFonts.dmSans(
+               child: rediobutton==1?rediobutton==2?rediobutton==3?Text("Student Login",style: GoogleFonts.dmSans(
                                 fontStyle: FontStyle.normal,
                                 fontSize: 23.sp,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
              
                               ),
+               ):Text("parent Login",style: GoogleFonts.dmSans(
+                 fontStyle: FontStyle.normal,
+                 fontSize: 23.sp,
+                 fontWeight: FontWeight.bold,
+                 color: Colors.white,
+
+               ),
+               ):Text("Teacher Login",style: GoogleFonts.dmSans(
+                 fontStyle: FontStyle.normal,
+                 fontSize: 23.sp,
+                 fontWeight: FontWeight.bold,
+                 color: Colors.white,
+
+               ),
+               ):Text(" ",style: GoogleFonts.dmSans(
+                 fontStyle: FontStyle.normal,
+                 fontSize: 23.sp,
+                 fontWeight: FontWeight.bold,
+                 color: Colors.white,
+
+               ),
                ),
              ),
             ],
@@ -197,9 +225,28 @@ class _StudentLoginState extends State<StudentLogin> {
                     backgroundColor: Colors.blue,
                   ),
                   onPressed: () async {
-                    _allsetController.isloading.value =false;
-                 _allsetController.apicallpost(usersname.text,password.text,context);
-                  },
+                    if(rediobutton==3) {
+                      print("student");
+                      print(rediobutton);
+                      _allsetController.isloading.value = false;
+                      _allsetController.apicallpost(
+                          usersname.text, password.text, context);
+                    }
+                    if(rediobutton==2) {
+                      print(rediobutton);
+                      print("parentll");
+                      parentLoginController.loadingdata.value=false;
+
+                      parentLoginController.parentapi(usersname.text, password.text, context);
+                    }
+                    if(rediobutton==1) {
+                      print(rediobutton);
+                      print("teacherll");
+                      _teacherLoginController.teachertLogin.value = false;
+                      _teacherLoginController.teacherLoginApi(usersname.text,password.text,context);
+                    }
+                    },
+
                 ),
               )),
           Align(

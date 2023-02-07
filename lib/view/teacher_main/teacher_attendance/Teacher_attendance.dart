@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
+import 'package:ecom_desgin/constant/date_format.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/attendance_controller.dart';
 import 'package:ecom_desgin/controller/monthly_present_summary_controller.dart';
 import 'package:ecom_desgin/controller/student_profile-Controller.dart';
+import 'package:ecom_desgin/controller/teacher_controller/staffmonthlypresentsummary_controller.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -22,10 +23,11 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:date_format/date_format.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-class Attendance extends StatefulWidget {
+import 'package:time/time.dart';
+class TeacherAttendance extends StatefulWidget {
 
   @override
-  _AttendanceState createState() => new _AttendanceState();
+  _TeacherAttendanceState createState() => new _TeacherAttendanceState();
 }
 var  lengthchart=0.0;
 var  length=0.0;
@@ -43,13 +45,12 @@ var  length=0.0;
 //   DateTime(2022, 12, 20),
 // ];
 
-class _AttendanceState extends State<Attendance> {
-
+class _TeacherAttendanceState extends State<TeacherAttendance> {
 
   final AttendanceController studentattendance = Get.put(AttendanceController());
   MonthlyPresentSummaryController monthlypresentssummary = Get.put(MonthlyPresentSummaryController());
   final StudentProfileController studentProfileController = Get.put(StudentProfileController());
-
+  StaffMonthlyPresentSummaryController _staffMonthlyPresentSummaryController=Get.put(StaffMonthlyPresentSummaryController());
   RefreshController _refreshController =
   RefreshController(initialRefresh: false);
 
@@ -61,13 +62,15 @@ class _AttendanceState extends State<Attendance> {
   //  var allsplit;
 
   var id;
-var student_id;
-var company_key;
-
+  var student_id;
+  var company_key;
+  var staff_id;
   final index=0;
   var year;
   var month;
   var days;
+   var year3;
+   var year4;
   late String present;
   late String months;
   var test;
@@ -77,6 +80,9 @@ var company_key;
   late String g = ('${now.year},${now.month}');
   late int month1=now.month;
   late int year1=now.year;
+  late String year_start_date;
+  late String  year_end_date;
+  var date_object;
 // var AttendanceControllerList;
   RxBool loadingmonthlyattendence =false.obs;
 
@@ -105,16 +111,26 @@ var company_key;
   void initState() {
 
     _tooltip = TooltipBehavior(enable: true);
+    print("dd");
+     year_start_date=box.get("year_start_date");
 
-    student_id = studentProfileController.studentProfileModel.value?.response.studentId;
+
+   year_end_date=box.get("year_end_date");
+    print(year_end_date);
+    print(year_start_date);
+    var date_object=DateTime.parse(year_end_date);
+    var date_object1=DateTime.parse(year_start_date);
+    year3=date_object.date.toString();
+    year4=date_object1.date.toString();
+    // print(year3);
+    // print(year4);
+    // print(date_object1);
+    // print(date_object);
     company_key = box.get("company_key");
-
-
-
-    monthlypresentssummary.MonthlyPresentSummaryapi(studentProfileController.studentProfileModel.value?.response.studentId,company_key);
-    Attendanceapi(studentProfileController.studentProfileModel.value?.response.studentId ,company_key);
-
-
+    staff_id=box.get("staff_id");
+    _staffMonthlyPresentSummaryController.StaffMonthlyPresentSummaryapi(company_key,staff_id);
+      teacherattendanceapi(company_key, staff_id);
+    date_object=DateTime.parse(year_end_date);
 
     // date=box.get("date");
 
@@ -163,13 +179,13 @@ var company_key;
 
   }
 
-  Widget _presentIcon(String day,String title) => ClipRect(
+  Widget _presentIcon(String day,String type) => ClipRect(
 
-    child: title!=""?Container(
+    child: type!=""?Container(
       height: 0.40.sh,
       width: 0.40.sw,
       alignment: Alignment.center,
-      color: title=="Present"?Colors.green:title=="Holiday"?Colors.grey:title=="Late"?Colors.yellow:title=="Half Day"?Colors.orange:Color.fromARGB(255, 206, 204, 204),
+      color: type=="Present"?Colors.green:type=="Holiday"?Colors.grey:type=="Late"?Colors.yellow:type=="Half Day"?Colors.orange:Color.fromARGB(255, 206, 204, 204),
       child: Text(
         day,
         style: const TextStyle(
@@ -222,10 +238,10 @@ var company_key;
     var a = Jiffy(DateTime(2019, 10, 18)).month.toString();
     print("444ddddddddd");
     print(a);
-    monthlypresentssummary.monthlyPresentSummaryModel.value?.response.forEach((element) {
-     var   present1=element.present.toString();
+    _staffMonthlyPresentSummaryController.staffMonthlyPresentSummaryModel.value?.response.forEach((element) {
+      var   present1=element.present.toString();
       data.add(_ChartData(element.month.toString(),present1=="null" ?0.0:double.parse(present1),
-        const Color.fromRGBO(37, 171, 29, 1.0)));
+          const Color.fromRGBO(37, 171, 29, 1.0)));
     });
 //   for (int i = 0; i <
 //       monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"]
@@ -261,7 +277,7 @@ var company_key;
           date:DateFormat("yyyy-MM-dd").parse(presentDates[i]["date"]),
           title: "event 5",
           icon: _presentIcon(
-              DateFormat("yyyy-MM-dd").parse(presentDates[i]["date"]).day.toString(),presentDates[i]["title"]
+              DateFormat("yyyy-MM-dd").parse(presentDates[i]["date"]).day.toString(),presentDates[i]["type"]
             // presentDates[i].date.day.toString(),
           ),
         ),
@@ -286,18 +302,15 @@ var company_key;
     });
   }
 
-
-
-
-  void Attendanceapi(student_id,company_key) async {
+  void teacherattendanceapi(company_key,staff_id) async {
     var body = json.encode({
-      "company_key": company_key,
-      "student_id": student_id,
+      "company_key":company_key,
+      "staff_id": staff_id,
 
     });
     print("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
     print(body);
-    final urlapi = Uri.parse(ApiUrl.baseUrl + ApiUrl.monthlyattendenceUrl);
+    final urlapi = Uri.parse(ApiUrl.baseUrl + ApiUrl.staffattandanceUrl);
     var response = await http.post(urlapi, body: body);
     print(response);
     if (response.statusCode == 200) {
@@ -318,14 +331,14 @@ var company_key;
       else {
         print("invalid cccid");
       }
-      addcalendardata();
+      addcalendardata1();
 
     }
     else {
       print("School ID Invailid");
     }
   }
-  void addcalendardata(){
+  void addcalendardata1(){
 
 
     for(var i=0; i<AttendanceControllerList[0]["response"].length; i++){
@@ -333,7 +346,7 @@ var company_key;
       presentDates.add(
           {
             "date": AttendanceControllerList[0]["response"][i]["date"],
-            "title": AttendanceControllerList[0]["response"][i]["title"]
+            "type": AttendanceControllerList[0]["response"][i]["type"]
           }
 
       );
@@ -343,7 +356,6 @@ var company_key;
       markedDatedMap();
     });
   }
-
 
   @override
   Widget build(BuildContext context)  {
@@ -359,14 +371,16 @@ var company_key;
       // monthlypresentssummary.MonthlyPresentSummaryapi(student_id,company_key);
 
       company_key = box.get("company_key");
-        monthlypresentssummary.MonthlyPresentSummaryapi(studentProfileController.studentProfileModel.value?.response.studentId,company_key);
-        Attendanceapi(studentProfileController.studentProfileModel.value?.response.studentId ,company_key);
-  _refreshController.refreshCompleted();
+      staff_id=box.get("staff_id");
+
+      teacherattendanceapi(company_key, staff_id);
+      _refreshController.refreshCompleted();
+
     }
     return Scaffold(
       appBar: AppBar(
         backgroundColor:AgentColor.appbarbackgroundColor,
-        title: Text('Student Atendance',style: MyGoogeFont.mydmSans),
+        title: Text('Teacher Atendance',style: MyGoogeFont.mydmSans),
         actions: [
           PopupMenuButton<int>(
             itemBuilder: (context) {
@@ -380,43 +394,46 @@ var company_key;
       ),
       body: SmartRefresher(
         controller: _refreshController,
-        
+
         onRefresh: _onRefresh,
         child: SingleChildScrollView(
 
 
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
 
-                SizedBox(
-                  height: 0.25.sh,
-                  child:SfCartesianChart(
-                        plotAreaBorderWidth: 0,
-                        primaryXAxis: CategoryAxis(
-                          majorGridLines: MajorGridLines(width: 0),
-                          axisLine: AxisLine(width: 0),
-                        ),
-                        primaryYAxis: NumericAxis(minimum: 0, maximum: 31, interval: 5,  numberFormat: NumberFormat.compact(),  majorGridLines: MajorGridLines(width: 0),
-                          axisLine: AxisLine(width: 0), ),
-                        tooltipBehavior: _tooltip,
-                        series: <ChartSeries<_ChartData, String>>[
-                          // for(var i=5; i<data.length; i++)
-                          ColumnSeries<_ChartData, String>(
-                            dataSource:data,
-                            xValueMapper: (_ChartData data, _) => data.x,
-                            yValueMapper: (_ChartData data, _) => data.y,
-name:"",
-                            pointColorMapper: (_ChartData data, _) => data.color,
-                            // dataLabelSettings: DataLabelSettings(isVisible: true)
-                          )
-                        ]
-                    ),
-                  ),
+              SizedBox(
+                height: 0.25.sh,
+                child:Obx(()=>
+                 _staffMonthlyPresentSummaryController.loadingMonthlyPresentSummary.value?SfCartesianChart(
+                      plotAreaBorderWidth: 0,
+                      primaryXAxis: CategoryAxis(
+                        majorGridLines: MajorGridLines(width: 0),
+                        axisLine: AxisLine(width: 0),
+                      ),
+                      primaryYAxis: NumericAxis(minimum: 0, maximum: 31, interval: 5,  numberFormat: NumberFormat.compact(),  majorGridLines: MajorGridLines(width: 0),
+                        axisLine: AxisLine(width: 0), ),
+                      tooltipBehavior: _tooltip,
+                      series: <ChartSeries<_ChartData, String>>[
+                        // for(var i=5; i<data.length; i++)
+                        ColumnSeries<_ChartData, String>(
+                          dataSource:data,
+                          xValueMapper: (_ChartData data, _) => data.x,
+                          yValueMapper: (_ChartData data, _) => data.y,
+                          name:"",
+                          pointColorMapper: (_ChartData data, _) => data.color,
+                          // dataLabelSettings: DataLabelSettings(isVisible: true)
+                        )
+                      ]
+                  ):CircularProgressIndicator(),
+                ),
+              ),
 
-                SizedBox(
-                  height: 0.60.sh,
-                  child: loadingmonthlyattendence.value?Card(margin: EdgeInsets.only(left: 16.0, right: 16.0,).r,child: Column(
+              SizedBox(
+                height: 0.60.sh,
+                child: Obx(()=>
+                  loadingmonthlyattendence.value?Card(margin: EdgeInsets.only(left: 16.0, right: 16.0,).r,child: Column(
                     children: [
                       Container(
                         decoration: const BoxDecoration(
@@ -427,29 +444,29 @@ name:"",
 
                       ) ,
 
-                   Container(
-                     margin: const EdgeInsets.symmetric(horizontal: 16.0).r,
-                    child: CalendarCarousel<Event>(
-                      height: 0.56.sh,
-                      // height: cHeight * 0.54,
-                      weekendTextStyle: const TextStyle(
-                        color: Colors.red,
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 16.0).r,
+                        child: CalendarCarousel<Event>(
+                          height: 0.56.sh,
+                          // height: cHeight * 0.54,
+                          weekendTextStyle: const TextStyle(
+                            color: Colors.red,
+                          ),
+                          todayButtonColor: Colors.blue,
+                          markedDatesMap: _markedDateMap,
+                          daysHaveCircularBorder: false,
+                          markedDateShowIcon: true,
+                          showOnlyCurrentMonthDate: true,
+                          markedDateIconMaxShown: 1,
+                          // markedDateMoreShowTotal: true,
+                          minSelectedDate:DateFormat("yyyy-MM-dd").parse(year_start_date),
+                          maxSelectedDate:DateFormat("yyyy-MM-dd").parse(year_end_date),
+                          thisMonthDayBorderColor: const Color.fromARGB(255, 206, 204, 204),// null for not showing hidden events indicator
+                          markedDateIconBuilder: (event) {
+                            return event.icon;
+                          },
+                        ),
                       ),
-                      todayButtonColor: Colors.blue,
-                      markedDatesMap: _markedDateMap,
-                      daysHaveCircularBorder: false,
-                      markedDateShowIcon: true,
-                      showOnlyCurrentMonthDate: true,
-                      markedDateIconMaxShown: 1,
-                      // markedDateMoreShowTotal: true,
-                      minSelectedDate:DateFormat("yyyy-MM-dd").parse( AttendanceControllerList[0]["year_date"]["start_date"]),
-                      maxSelectedDate:DateFormat("yyyy-MM-dd").parse(AttendanceControllerList[0]["year_date"]["end_date"]),
-                      thisMonthDayBorderColor: const Color.fromARGB(255, 206, 204, 204),// null for not showing hidden events indicator
-                      markedDateIconBuilder: (event) {
-                        return event.icon;
-                      },
-                    ),
-                  ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -512,10 +529,11 @@ name:"",
 
                   ):Center(child: CircularProgressIndicator()),
                 ),
-                // markerRepresent(Colors.red, "Absent"),
-                // markerRepresent(Colors.green, "Present"),
-              ],
-            ),
+              ),
+              // markerRepresent(Colors.red, "Absent"),
+              // markerRepresent(Colors.green, "Present"),
+            ],
+          ),
 
         ),
       ),

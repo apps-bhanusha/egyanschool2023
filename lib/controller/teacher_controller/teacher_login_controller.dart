@@ -58,10 +58,18 @@ class TeacherLoginController extends GetxController {
       var tdata = jsonDecode(response.body);
 
       print(tdata);
+      print(tdata["response"]["id"]);
       if (tdata["status"] == true) {
-        print("bugs all true");
+
+        print("bugss all trues");
+print(tdata["company"]["year_end_date"]);
+print(tdata["response"]["id"]);
         var box = Hive.box("schoolData");
+        box.put("role_flag","T");
         box.put("username",username);
+        box.put("staff_id",tdata["response"]["id"]);
+        box.put("year_start_date",tdata["company"]["year_start_date"]);
+        box.put("year_end_date",tdata["company"]["year_end_date"]);
         await sessionManager.set("teacherlogin", "teacherlogin");
         print(tdata);
         teacherListModel.value = TeacherLoginModel.fromJson(tdata);

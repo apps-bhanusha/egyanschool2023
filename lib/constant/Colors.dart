@@ -20,8 +20,6 @@ class AgentColor{
     static const appbarTextColor= Color(0xff000000);
     static const appbarbackgroundColor= Color(0xfff6f3f3);
     static const CustomerCardFirstrColor= Color(0xfff8dd0e5);
-
+    static const AttenanceColor= Color(0xFF26C6DA);
     
-    
-
 }

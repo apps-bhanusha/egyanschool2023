@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
 class SimpleLogin extends StatefulWidget {
+
   @override
 
   _SimpleLoginState createState() => _SimpleLoginState();
@@ -248,7 +249,7 @@ keyboardType: TextInputType.number,
 
                     print(value);
                     rediobutton=value;
-
+print(rediobutton);
                   });
 
                 },
@@ -285,7 +286,7 @@ keyboardType: TextInputType.number,
                   ),
                   onPressed: () async {
                    all.isloading.value=false;
-                  all.apicall( id.text,rediobutton,context);
+                  all.apicall(id.text,rediobutton,context);
                    // id.text= await (sessionManager.set("id", id.text));
                     //    if (all.SchoolIdControllerList[0]["status"]==true) {
                     //       if(_radioVal=="Student" ){

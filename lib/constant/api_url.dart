@@ -32,7 +32,11 @@ class ApiUrl{
 
 
 //teaher url
- static const String teacherloginUrl="/teacherwebservices/login";
+ static const String teacherloginUrl="/staffwebservices/login";
  static const String getstaffdetailUrl="/staffwebservices/getstaffdetail";
+ static const String getnoticeUrl="/messagingwebservices/getnotice";
+ static const String staffattandanceUrl="/staffwebservices/getstaffattandance";
+ static const String payslipUrl="/staffwebservices/getpayslip";
+ static const String staffmonthlypresentsummaryUrl="/staffwebservices/staffmonthlypresentsummary";
 
 }

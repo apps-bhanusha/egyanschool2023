@@ -1,13 +1,20 @@
 import 'dart:async';
 import 'package:ecom_desgin/constant/Colors.dart';
+import 'package:ecom_desgin/constant/api_url.dart';
 
 import 'package:ecom_desgin/constant/font.dart';
+import 'package:ecom_desgin/controller/teacher_controller/noticeboard_controller.dart';
+import 'package:ecom_desgin/controller/teacher_controller/staff_detial_contriller.dart';
 
 import 'package:ecom_desgin/routes/routes.dart';
+import 'package:ecom_desgin/view/Attendance/attendanceold.dart';
 import 'package:ecom_desgin/view/teacher_main/Attendance.dart';
 import 'package:ecom_desgin/view/teacher_main/home_work/teacher_homework.dart';
 import 'package:ecom_desgin/view/teacher_main/leave_teacher/leave_teacher.dart';
 import 'package:ecom_desgin/view/teacher_main/student%20_information.dart';
+import 'package:ecom_desgin/view/teacher_main/teacher_attendance/Teacher_attendance.dart';
+import 'package:ecom_desgin/view/teacher_main/teacher_payroll/teacher_payroll.dart';
+import 'package:ecom_desgin/view/teacher_main/teacher_profile/teacher_profile.dart';
 import 'package:ecom_desgin/view/teacher_main/teacher_upload_content/upload_Content_dailog.dart';
 import 'package:ecom_desgin/view/teacher_main/time_table_t/class_time_table.dart';
 import 'package:ecom_desgin/view/teacher_main/time_table_t/time_table.dart';
@@ -18,6 +25,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -38,6 +46,9 @@ class _TeacherHomeState extends State<TeacherHome>
   late Animation<Offset> _offsetAnimation;
   late AnimationController _controller1;
   late Animation<Offset> _Animation;
+  final StaffDetailController staffdetailsController = Get.put(StaffDetailController());
+  final NoticBoardController noticBoardController = Get.put(NoticBoardController());
+
 bool teachervisible=false;
   int totalSecs = 90;
   int secsRemaining = 90;
@@ -56,12 +67,19 @@ bool teachervisible=false;
   double percentage1 = 0;
   late Timer timer1;
   get progress1 => progressFraction1;
-
+  var box = Hive.box("schoolData");
 
   @override
   void initState() {
 
 
+    var id=box.get("staff_id");
+    print("staffidd");
+    print(id);
+    staffdetailsController.staffDetail(id);
+
+    var role_flag = box.get("role_flag");
+    noticBoardController.noticBoardapi(role_flag);
     super.initState();
 
     _controller = AnimationController(
@@ -248,47 +266,57 @@ left: 0.10.sw,
                                     top: 0.015.sh,
                                     child: Row(
                                       children: [
-                                        ClipRRect(
-                                          // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
-                                          child:   CircleAvatar(
-                                            radius: 42.0,
-                                            backgroundImage:
-                                            AssetImage("assets/images/user1.png"),
-                                          ),
+                                        Obx(()=>
+                                           staffdetailsController.isloding.value?ClipRRect(
+                                            // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
+                                            child:   CircleAvatar(
+                                              radius: 42.0,
+                                              backgroundImage:
+                                              NetworkImage("${ApiUrl.imagesUrl.toString()}${staffdetailsController.staffDetailModel.value?.response.image}"),
+                                            ),
+                                          ):ClipRRect(
+                              // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
+                              child:   CircleAvatar(
+                              radius: 42.0,
+                              backgroundImage:
+                              AssetImage("assets/images/user1.png"),
+                            ),),
                                         ),
 
                                         Padding(
-                                          padding: const EdgeInsets.only(left: 8.0).r,
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                              "Nikhil Shukla",
-                                                style: GoogleFonts.dmSans(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 13.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black),
-                                              ),
+                                          padding:  EdgeInsets.only(left: 8.0).r,
+                                          child:Obx(()=>
+                                            staffdetailsController.isloding.value? Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                            '${staffdetailsController.staffDetailModel.value?.response.name.toString().capitalizeFirst} ${staffdetailsController.staffDetailModel.value?.response.surname.toString().capitalizeFirst}',
+                                                  style: GoogleFonts.dmSans(
+                                                      fontStyle: FontStyle.normal,
+                                                      fontSize: 13.sp,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black),
+                                                ),
 
-                                              Text(
-                                                "shuklaanik25@gmail.com",
-                                                style: GoogleFonts.dmSans(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 13.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black),
-                                              ),
-                                              Text(
-                                                "8989401309",
-                                                style: GoogleFonts.dmSans(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 13.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black),
-                                              ),
-                                            ],
+                                                Text(
+                                                  '${staffdetailsController.staffDetailModel.value?.response.email}',
+                                                  style: GoogleFonts.dmSans(
+                                                      fontStyle: FontStyle.normal,
+                                                      fontSize: 13.sp,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black),
+                                                ),
+                                                Text(
+                                                  '${staffdetailsController.staffDetailModel.value?.response.contactNo}',
+                                                  style: GoogleFonts.dmSans(
+                                                      fontStyle: FontStyle.normal,
+                                                      fontSize: 13.sp,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black),
+                                                ),
+                                              ],
+                                            ):Text(""),
                                           ),
                                         ),
                                       ],
@@ -373,15 +401,17 @@ left: 0.10.sw,
                                           child: Row(
                                             children: [
                                               // for (var i = 0; i < 3; i++)
-                                                Text(
-                                                  "Notic Board Area ",
-                                                  style: GoogleFonts.dmSans(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 15.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black,
-                                                  ),
-                                                )
+                                              Obx(()=>
+                                                 noticBoardController.noticBoardModel.value?.response.length!=null?Text(
+                                                    Bidi.stripHtmlIfNeeded ('${noticBoardController.noticBoardModel.value?.response[0].title.toString().capitalizeFirst}   ${noticBoardController.noticBoardModel.value?.response[0].message.toString().capitalizeFirst}' ),
+                                                    style: GoogleFonts.dmSans(
+                                                      fontStyle: FontStyle.normal,
+                                                      fontSize: 15.sp,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ):Text("No Event"),
+                                              )
                                             ],
                                           ),
                                         ),
@@ -497,8 +527,8 @@ SizedBox(height: 0.0010.sh),
                                 height: 0.070.sh,
                                 width: 0.45.sw,
                                 decoration: BoxDecoration(
-                                  color:  teachervisible? Colors.grey[300]:Colors.blue,
-                                  borderRadius:  teachervisible? BorderRadius.circular(3):BorderRadius.circular(10),
+                                  color:   Colors.grey[300],
+                                  borderRadius:  BorderRadius.circular(3),
                                   boxShadow: [
                                     BoxShadow(
                                       offset: Offset(0, 1),
@@ -514,7 +544,7 @@ SizedBox(height: 0.0010.sh),
                                       fontStyle: FontStyle.normal,
                                       fontSize: 15.sp,
                                       fontWeight: FontWeight.bold,
-                                      color:   teachervisible?Colors.black:Colors.white,
+                                      color:  Colors.black,
                                     ),
                                   ),
                                 ),
@@ -583,118 +613,151 @@ SizedBox(height: 0.0010.sh),
     )]
 
 
-                                ):Column(
+                                ):Obx(()=>staffdetailsController.staffDetailModel.value!=null?
+                                Column(
                             children: [
                               SizedBox(height: 0.040.sh,),
                               Padding(
-                                padding: const EdgeInsets.all(8.0).r,
-                                child: Row(
-mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    ClipRRect(
-                                      // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
-                                      child:   CircleAvatar(
-                                        radius: 25.0,
-                                        backgroundImage:
-                                        AssetImage(
-                                          "assets/images/manicon.jpg",
-
-                                        ),
-                                      ),
-                                    ),
-                                    ClipRRect(
-                                      // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
-                                      child:   CircleAvatar(
-                                        radius: 25.0,
-                                        backgroundImage:
-                                        AssetImage(
-                                          "assets/images/watch3.png",
-
-                                        ),
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Text(
-                                            "Time In",
-                                              style: GoogleFonts.dmSans(
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 15.sp,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color(0xFF26C6DA),
-                                              ),
-                                            ),
-                                            Text("10:11 AM", style: GoogleFonts.dmSans(
-                                              fontStyle: FontStyle.normal,
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0xFF26C6DA),
-                                            ),),
-
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-
-                                    Row(
-                                      children: [
-                                        ClipRRect(
-                                          // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
-                                          child:   CircleAvatar(
-                                            radius: 25.0,
-                                            backgroundImage:
-                                            AssetImage(
-                                              "assets/images/manicon.jpg",
-
-                                            ),
+                                  padding: const EdgeInsets.only(left: 4.0 ,top:8.0).r,
+                                  child: Row(
+mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ClipRRect(
+                                        // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
+                                        child:
+                                          Image.asset(
+                                            "assets/images/man12.jpg",
+                                            fit: BoxFit.cover,
+height: 0.10.sh,
+                                            width: 0.26.sw,
                                           ),
-                                        ),
 
-                                        Column(
+                                      ),
+                                      // ClipRRect(
+                                      //   // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
+                                      //   child:   CircleAvatar(
+                                      //     radius: 25.0,
+                                      //     backgroundImage:
+                                      //     AssetImage(
+                                      //       "assets/images/watch3.png",
+                                      //
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
                                           children: [
-                                            Text(
-                                             "Time Out",
-                                              style: GoogleFonts.dmSans(
+                                            Column(
+                                              children: [
+                                                Text(
+                                                "Time In",
+                                                  style: GoogleFonts.dmSans(
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 15.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Color(0xFF26C6DA),
+                                                  ),
+                                                ),
+                                                '${staffdetailsController.staffDetailModel.value?.inoutTime.inTime}'!="null"?Text('${staffdetailsController.staffDetailModel.value?.inoutTime.inTime}', style: GoogleFonts.dmSans(
+                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color(0xFF26C6DA),
+                                                ),):Text("")
+
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+
+                                      Row(
+                                        children: [
+                                          ClipRRect(
+                                            // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
+                                            child:
+                                          Image.asset(
+                                                "assets/images/man13.jpg",
+                                            // fit: BoxFit.cover,
+                                            height: 0.1.sh,
+                                            width: 0.20.sw,
+                                              ),
+
+                                          ),
+
+                                          Column(
+                                            children: [
+                                              Text(
+                                               "Time Out",
+                                                style: GoogleFonts.dmSans(
+                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: AgentColor.AttenanceColor,
+                                                ),
+                                              ),
+                                              '${staffdetailsController.staffDetailModel.value?.inoutTime.outTime}'!="null"?Text('${staffdetailsController.staffDetailModel.value?.inoutTime.outTime}', style: GoogleFonts.dmSans(
                                                 fontStyle: FontStyle.normal,
                                                 fontSize: 15.sp,
                                                 fontWeight: FontWeight.bold,
-                                                color: Color(0xFF26C6DA),
-                                              ),
-                                            ),
-                                            Text("12:11 AM", style: GoogleFonts.dmSans(
-                                              fontStyle: FontStyle.normal,
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0xFF26C6DA),
-                                            ),),
+                                                color: AgentColor.AttenanceColor,
+                                              ),):Text(""),
 
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                               ),
 SizedBox(height: 0.0220.sh,),
                               Column(
-                                children: [
-                                  InkWell(
-                                    onTap: (){
-                                     if(teachervisible==false){
-                                       teachervisible=true;
-                                       setState(() {
+                                  children: [
+                                    InkWell(
+                                      onTap: (){
+                                       if(teachervisible==false){
+                                         teachervisible=true;
+                                         setState(() {
 
-                                       });
-                                     }
-                                    },
+                                         });
+                                       }
+                                      },
 
-                                    child: Container(
+                                      child: Container(
+                                        height: 0.070.sh,
+                                        width: 0.55.sw,
+                                        decoration: BoxDecoration(
+                                          color: AgentColor.AttenanceColor,
+                                          borderRadius:BorderRadius.circular(60),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              offset: Offset(0, 1),
+                                              blurRadius: 20,
+                                              spreadRadius: 5,
+                                              color: Colors.black.withOpacity(0.10),
+                                            ),
+                                          ],
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            "SAVE ATTENDANCE",
+                                            style: GoogleFonts.dmSans(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15.sp,
+                                              fontWeight: FontWeight.bold,
+                                              color:   teachervisible?Colors.black:Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 0.030.sh,),
+                                    Container(
                                       height: 0.070.sh,
                                       width: 0.55.sw,
                                       decoration: BoxDecoration(
-                                        color:  Color(0xFF26C6DA),
+                                        color:  AgentColor.AttenanceColor,
                                         borderRadius:BorderRadius.circular(60),
                                         boxShadow: [
                                           BoxShadow(
@@ -706,106 +769,51 @@ SizedBox(height: 0.0220.sh,),
                                         ],
                                       ),
                                       child: Center(
-                                        child: Text(
-                                          "SAVE ATTENDANCE",
-                                          style: GoogleFonts.dmSans(
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.bold,
-                                            color:   teachervisible?Colors.black:Colors.white,
-                                          ),
+                                        child:
+                                          Text(
+                                            '${staffdetailsController.staffDetailModel.value?.monthAttendance.present}/${staffdetailsController.staffDetailModel.value?.monthAttendance.daysinmonth}',
+                                            style: GoogleFonts.dmSans(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15.sp,
+                                              fontWeight: FontWeight.bold,
+                                              color:   teachervisible?Colors.black:Colors.white,
+                                            ),
+                                          )
                                         ),
                                       ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              // SingleChildScrollView(
-                              //     scrollDirection: Axis.horizontal,
-                              //     child: Padding(
-                              //       padding: const EdgeInsets.all(1.0).r,
-                              //       child: Row(
-                              //         children: [
-                              //           for (var i = 0; i < 3; i++)
-                              //             InkWell(
-                              //               onTap: () {},
-                              //               child: Card(
-                              //
-                              //                 elevation: 10,
-                              //                 child: Container(
-                              //                   height: 0.10.sh,
-                              //                   width: 0.50.sw,
-                              //                   color: Colors.grey[200],
-                              //                   child: Column(
-                              //                     mainAxisAlignment:
-                              //                     MainAxisAlignment
-                              //                         .center,
-                              //                     children: [
-                              //                       Text(
-                              //                         "Mid Sem Winter Exam",
-                              //                         style:
-                              //                         GoogleFonts.dmSans(
-                              //                           fontStyle:
-                              //                           FontStyle.normal,
-                              //                           fontSize: 15.sp,
-                              //                           fontWeight:
-                              //                           FontWeight.bold,
-                              //                           color: Colors.black,
-                              //                         ),
-                              //                       ),
-                              //                       SizedBox(
-                              //                         height: 0.015.sh,
-                              //                       ),
-                              //                       Text(
-                              //                         "20 to 27 Exam ",
-                              //                         style:
-                              //                         GoogleFonts.dmSans(
-                              //                           fontStyle:
-                              //                           FontStyle.normal,
-                              //                           fontSize: 12.sp,
-                              //                           fontWeight:
-                              //                           FontWeight.bold,
-                              //                           color:
-                              //                           Colors.lightBlue,
-                              //                         ),
-                              //                       ),
-                              //                     ],
-                              //                   ),
-                              //                 ),
-                              //               ),
-                              //             ),
-                              //         ],
-                              //       ),
-                              //     ))
-                            ],
-                          ), ]),
-                              bottomNavigationBar: Container(
-                                color: Color.fromARGB(255, 196, 236, 255),
-                                child:Row(
-
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0).r,
-                                      child: ClipRRect(
-                                        child:   CircleAvatar(
-                                          radius: 20.0,
-                                          backgroundImage:
-                                          AssetImage("assets/images/user1.png"),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:  EdgeInsets.only(left: 0.060.sw,top: 10),
-                                      child: const Text("Powered By :-"),
-                                    ),
-                                    Image.asset(
-                                      "assets/images/b.png",
-                                      width: 0.5.sw,
-                                      height: 0.070.sh,
-                                    ),
                                   ],
-                                )
                               ),
+
+                            ],
+                          ):Text(""),
+                                ), ]),
+                      bottomNavigationBar: Container(
+                        color: Color.fromARGB(255, 196, 236, 255),
+                        child:Row(
+
+                          children: [
+                            Padding(
+                              padding:  EdgeInsets.only(left: 0.09.sw),
+                              child: const ClipRRect(
+                                child: CircleAvatar(
+                                  radius: 20.0,
+                                  backgroundImage:
+                                  AssetImage("assets/images/appstore.png"),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:  EdgeInsets.only(left: 0.05.sw,top: 10),
+                              child: const Text("Powered By :-"),
+                            ),
+                            Image.asset(
+                              "assets/images/b.png",
+                              width: 0.4.sw,
+                              height: 0.070.sh,
+                            ),
+                          ],
+                        ),
+                      ),
                             )
                           )
                         )));
@@ -857,87 +865,87 @@ color: Colors.white
               ),
             ),
 
-            SizedBox(
-              height: 0.052.sh,
-              child: ListTile(
-                onTap: () {Get.to(StudentInformation());},
+            // SizedBox(
+            //   height: 0.052.sh,
+            //   child: ListTile(
+            //     onTap: () {Get.to(StudentInformation());},
+            //
+            //     leading: const Icon(Icons.verified_user,
+            //         size: 20.0, color: Colors.white),
+            //     title: const Text("Student Information"),
+            //     textColor: Colors.white,
+            //     dense: true,
+            //
+            //     // padding: EdgeInsets.zero,
+            //   ),
+            // ),
 
-                leading: const Icon(Icons.verified_user,
-                    size: 20.0, color: Colors.white),
-                title: const Text("Student Information"),
-                textColor: Colors.white,
-                dense: true,
-
-                // padding: EdgeInsets.zero,
-              ),
-            ),
-
-            SizedBox(
-              height: 0.052.sh,
-              child: ListTile(
-                onTap: () {Get.to(AttandanceAdd());},
-                leading: const Icon(Icons.present_to_all,
-                    size: 20.0, color: Colors.white),
-                title: const Text("Attendance"),
-                textColor: Colors.white,
-                dense: true,
-
-                // padding: EdgeInsets.zero,
-              ),
-            ),
-            ListTileTheme(
-              dense: true,
-              child: ExpansionTile(
-                collapsedIconColor: Colors.white,
-                textColor: Colors.white,
-                title: Text(
-                  "Exmaination",
-                  style: GoogleFonts.dmSans(
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14.sp,
-                    color: Colors.white,
-                  ),
-                ),
-                leading: const Icon(Icons.border_color_rounded,
-                    size: 20.0, color: Colors.white),
-
-                childrenPadding: EdgeInsets.only(left: 60), //children padding
-                children: [
-                  SizedBox(
-                    height: 0.052.sh,
-                    child: ListTile(
-
-                      title: Text(
-                        "Exam Time ",
-                        style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 14.sp,
-                          color: Colors.white,
-                        ),
-                      ),
-                      // onTap:(){Get.toNamed(RoutesName.examination);}
-                    ),
-                  ),
-
-                  SizedBox(
-                    height: 0.062.sh,
-                    child: ListTile(
-                      title: Text(
-                        "Result",
-                        style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 14.sp,
-                          color: Colors.white,
-                        ),
-                      ),
-                      // onTap:(){Get.toNamed(RoutesName.examresult);}
-                    ),
-                  ),
-
-                  //more child menu
-                ],
-              ),
-            ),
+            // SizedBox(
+            //   height: 0.052.sh,
+            //   child: ListTile(
+            //     onTap: () {Get.to(AttandanceAdd());},
+            //     leading: const Icon(Icons.present_to_all,
+            //         size: 20.0, color: Colors.white),
+            //     title: const Text("Attendance"),
+            //     textColor: Colors.white,
+            //     dense: true,
+            //
+            //     // padding: EdgeInsets.zero,
+            //   ),
+            // ),
+            // ListTileTheme(
+            //   dense: true,
+            //   child: ExpansionTile(
+            //     collapsedIconColor: Colors.white,
+            //     textColor: Colors.white,
+            //     title: Text(
+            //       "Exmaination",
+            //       style: GoogleFonts.dmSans(
+            //         fontStyle: FontStyle.normal,
+            //         fontSize: 14.sp,
+            //         color: Colors.white,
+            //       ),
+            //     ),
+            //     leading: const Icon(Icons.border_color_rounded,
+            //         size: 20.0, color: Colors.white),
+            //
+            //     childrenPadding: EdgeInsets.only(left: 60), //children padding
+            //     children: [
+            //       SizedBox(
+            //         height: 0.052.sh,
+            //         child: ListTile(
+            //
+            //           title: Text(
+            //             "Exam Time ",
+            //             style: GoogleFonts.dmSans(
+            //               fontStyle: FontStyle.normal,
+            //               fontSize: 14.sp,
+            //               color: Colors.white,
+            //             ),
+            //           ),
+            //
+            //         ),
+            //       ),
+            //
+            //       SizedBox(
+            //         height: 0.062.sh,
+            //         child: ListTile(
+            //           title: Text(
+            //             "Result",
+            //             style: GoogleFonts.dmSans(
+            //               fontStyle: FontStyle.normal,
+            //               fontSize: 14.sp,
+            //               color: Colors.white,
+            //             ),
+            //           ),
+            //
+            //         ),
+            //       ),
+            //
+            //       //more child menu
+            //     ],
+            //   ),
+            // ),
             ListTileTheme(
               dense: true,
               child: ExpansionTile(
@@ -959,6 +967,8 @@ color: Colors.white
                   SizedBox(
                     height: 0.052.sh,
                     child: ListTile(
+                      onTap: () {Get.to(TeacherProfile());},
+
                       title: Text(
                         "Profile",
                         style: GoogleFonts.dmSans(
@@ -967,13 +977,15 @@ color: Colors.white
                           color: Colors.white,
                         ),
                       ),
-                      // onTap:(){Get.toNamed(RoutesName.examination);}
+
                     ),
                   ),
 
                   SizedBox(
                     height: 0.062.sh,
                     child: ListTile(
+                      onTap: () {Get.to(TeacherPayroll());},
+
                       title: Text(
                         "Payroll",
                         style: GoogleFonts.dmSans(
@@ -982,7 +994,22 @@ color: Colors.white
                           color: Colors.white,
                         ),
                       ),
-                      // onTap:(){Get.toNamed(RoutesName.examresult);}
+
+                    ),
+                  ),
+                  SizedBox(
+                    height: 0.062.sh,
+                    child: ListTile(
+                      onTap: () {Get.to(TeacherAttendance());},
+                      title: Text(
+                        "Attendance",
+                        style: GoogleFonts.dmSans(
+                          fontStyle: FontStyle.normal,
+                          fontSize: 14.sp,
+                          color: Colors.white,
+                        ),
+                      ),
+
                     ),
                   ),
                   SizedBox(
@@ -1005,158 +1032,145 @@ color: Colors.white
                 ],
               ),
             ),
-            ListTileTheme(
-              dense: true,
-              child: ExpansionTile(
-                collapsedIconColor: Colors.white,
-                textColor: Colors.white,
-                title: Text(
-                  "Report",
-                  style: GoogleFonts.dmSans(
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14.sp,
-                    color: Colors.white,
-                  ),
-                ),
-                leading: const Icon(Icons.report,
-                    size: 20.0, color: Colors.white),
+            // ListTileTheme(
+            //   dense: true,
+            //   child: ExpansionTile(
+            //     collapsedIconColor: Colors.white,
+            //     textColor: Colors.white,
+            //     title: Text(
+            //       "Report",
+            //       style: GoogleFonts.dmSans(
+            //         fontStyle: FontStyle.normal,
+            //         fontSize: 14.sp,
+            //         color: Colors.white,
+            //       ),
+            //     ),
+            //     leading: const Icon(Icons.report,
+            //         size: 20.0, color: Colors.white),
+            //
+            //     childrenPadding: EdgeInsets.only(left: 60), //children padding
+            //     children: [
+            //       SizedBox(
+            //         height: 0.062.sh,
+            //         child: ListTile(
+            //           title: Text(
+            //             "Finace",
+            //             style: GoogleFonts.dmSans(
+            //               fontStyle: FontStyle.normal,
+            //               fontSize: 14.sp,
+            //               color: Colors.white,
+            //             ),
+            //           ),
+            //
+            //         ),
+            //       ),
+            //       //more child menu
+            //     ],
+            //   ),
+            // ),
+            // ListTileTheme(
+            //   dense: true,
+            //   child: ExpansionTile(
+            //     collapsedIconColor: Colors.white,
+            //     textColor: Colors.white,
+            //     title: Text(
+            //       "Class Time Table",
+            //       style: GoogleFonts.dmSans(
+            //         fontStyle: FontStyle.normal,
+            //         fontSize: 14.sp,
+            //         color: Colors.white,
+            //       ),
+            //     ),
+            //     leading: const Icon(Icons.timer,
+            //         size: 20.0, color: Colors.white),
+            //
+            //     childrenPadding: EdgeInsets.only(left: 60), //children padding
+            //     children: [
+            //       SizedBox(
+            //         height: 0.062.sh,
+            //         child: ListTile(
+            //           title: Text(
+            //             "Class Time Table",
+            //             style: GoogleFonts.dmSans(
+            //               fontStyle: FontStyle.normal,
+            //               fontSize: 14.sp,
+            //               color: Colors.white,
+            //             ),
+            //           ),
+            //           onTap:(){Get.to(ClassTimeTable());}
+            //         ),
+            //       ),
+            //       SizedBox(
+            //         height: 0.062.sh,
+            //         child: ListTile(
+            //           title: Text(
+            //             "Time Table",
+            //             style: GoogleFonts.dmSans(
+            //               fontStyle: FontStyle.normal,
+            //               fontSize: 14.sp,
+            //               color: Colors.white,
+            //             ),
+            //           ),
+            //           onTap:(){Get.to(TimeTableTeacher());}
+            //         ),
+            //       ),
+            //       //more child menu
+            //     ],
+            //   ),
+            // ),
 
-                childrenPadding: EdgeInsets.only(left: 60), //children padding
-                children: [
-                  SizedBox(
-                    height: 0.062.sh,
-                    child: ListTile(
-                      title: Text(
-                        "Finace",
-                        style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 14.sp,
-                          color: Colors.white,
-                        ),
-                      ),
-                      // onTap:(){Get.to(UploadContent());}
-                    ),
-                  ),
-                  //more child menu
-                ],
-              ),
-            ),
-            ListTileTheme(
-              dense: true,
-              child: ExpansionTile(
-                collapsedIconColor: Colors.white,
-                textColor: Colors.white,
-                title: Text(
-                  "Class Time Table",
-                  style: GoogleFonts.dmSans(
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14.sp,
-                    color: Colors.white,
-                  ),
-                ),
-                leading: const Icon(Icons.timer,
-                    size: 20.0, color: Colors.white),
-
-                childrenPadding: EdgeInsets.only(left: 60), //children padding
-                children: [
-                  SizedBox(
-                    height: 0.062.sh,
-                    child: ListTile(
-                      title: Text(
-                        "Class Time Table",
-                        style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 14.sp,
-                          color: Colors.white,
-                        ),
-                      ),
-                      onTap:(){Get.to(ClassTimeTable());}
-                    ),
-                  ),
-                  SizedBox(
-                    height: 0.062.sh,
-                    child: ListTile(
-                      title: Text(
-                        "Time Table",
-                        style: GoogleFonts.dmSans(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 14.sp,
-                          color: Colors.white,
-                        ),
-                      ),
-                      onTap:(){Get.to(TimeTableTeacher());}
-                    ),
-                  ),
-                  //more child menu
-                ],
-              ),
-            ),
-
-            ListTileTheme(
-              dense: true,
-              child: ExpansionTile(
-                collapsedIconColor: Colors.white,
-                textColor: Colors.white,
-                title: Text(
-                  "Download center",
-                  style: GoogleFonts.dmSans(
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14.sp,
-                    color: Colors.white,
-                  ),
-                ),
-                leading: const Icon(Icons.report,
-                    size: 20.0, color: Colors.white),
-
-                childrenPadding: EdgeInsets.only(left: 60), //children padding
-                children: [
-                  // SizedBox(
-                  //   height: 0.052.sh,
-                  //   child: ListTile(
-                  //       title: Text(
-                  //         "Upload Content",
-                  //         style: GoogleFonts.dmSans(
-                  //           fontStyle: FontStyle.normal,
-                  //           fontSize: 14.sp,
-                  //           color: Colors.white,
-                  //         ),
-                  //       ),
-                  //       // onTap:(){Get.to(UploadContentDailog());}
-                  //   ),
-                  // ),
-                  SizedBox(
-                    height: 0.062.sh,
-                    child: ListTile(
-                        title: Text(
-                          "Upload Content",
-                          style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize: 14.sp,
-                            color: Colors.white,
-                          ),
-                        ),
-                        onTap:(){Get.to(UploadContent());}
-                    ),
-                  ),
-                  //more child menu
-                ],
-              ),
-            ),
+            // ListTileTheme(
+            //   dense: true,
+            //   child: ExpansionTile(
+            //     collapsedIconColor: Colors.white,
+            //     textColor: Colors.white,
+            //     title: Text(
+            //       "Download center",
+            //       style: GoogleFonts.dmSans(
+            //         fontStyle: FontStyle.normal,
+            //         fontSize: 14.sp,
+            //         color: Colors.white,
+            //       ),
+            //     ),
+            //     leading: const Icon(Icons.report,
+            //         size: 20.0, color: Colors.white),
+            //
+            //     childrenPadding: EdgeInsets.only(left: 60), //children padding
+            //     children: [
+            //
+            //       SizedBox(
+            //         height: 0.062.sh,
+            //         child: ListTile(
+            //             title: Text(
+            //               "Upload Content",
+            //               style: GoogleFonts.dmSans(
+            //                 fontStyle: FontStyle.normal,
+            //                 fontSize: 14.sp,
+            //                 color: Colors.white,
+            //               ),
+            //             ),
+            //             onTap:(){Get.to(UploadContent());}
+            //         ),
+            //       ),
+            //       //more child menu
+            //     ],
+            //   ),
+            // ),
 
 
-            SizedBox(
-              height: 0.052.sh,
-              child:  ListTile(
-                onTap: () {Get.to(HomeWork());},
-                leading: Icon(Icons.book,
-                    size: 20.0, color: Colors.white),
-                title: Text("HomeWork"),
-                textColor: Colors.white,
-                dense: true,
-
-                // padding: EdgeInsets.zero,
-              ),
-            ),
+            // SizedBox(
+            //   height: 0.052.sh,
+            //   child:  ListTile(
+            //     onTap: () {Get.to(HomeWork());},
+            //     leading: Icon(Icons.book,
+            //         size: 20.0, color: Colors.white),
+            //     title: Text("HomeWork"),
+            //     textColor: Colors.white,
+            //     dense: true,
+            //
+            //     // padding: EdgeInsets.zero,
+            //   ),
+            // ),
 
             SizedBox(
               height: 0.052.sh,
@@ -1187,7 +1201,7 @@ color: Colors.white
             SizedBox(
               height: 0.052.sh,
               child: const ListTile(
-                // onTap: () {Get.toNamed(RoutesName.timetable);},
+
                 leading: Icon(Icons.logout,
                     size: 20.0, color: Colors.white),
                 title: Text("Logout"),
