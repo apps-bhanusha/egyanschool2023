@@ -16,26 +16,17 @@ class StudentLeaveRecordController extends GetxController {
       "id": id,
 
     });
-    print("leavddddddddddddddddddddddddddddddddddgfffffffffffffffff");
-    print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.studentLeaveRecordUrl);
-    print("Reeeeeeeeeeeeeeeeeeeeee");
     var response = await http.post(urlapi, body: body);
-    print("Reeeeeeeeeeeeeeeeeeeeee");
-    print(response);
     if (response.statusCode == 200) {
       var  sdata = jsonDecode(response.body);
       StudentLeaveRecordControllerList=[];
       StudentLeaveRecordControllerList.add(sdata) ;
         // loadingStudentLeaveRecord.value=true;
 
-      print("leavjhjjjjjjjjjjjjjjjjjjsssjjjjjj");
-      print(StudentLeaveRecordControllerList);
-
       // print(GetschoolsettingControllerLexam_idist[0]["response"]["total_discount_amount"]);
       if (sdata["status"] == true ) {
         loadingStudentLeaveRecord.value=true;
-        print("massage");
       }else  {
        isloading.value=true;
       } }

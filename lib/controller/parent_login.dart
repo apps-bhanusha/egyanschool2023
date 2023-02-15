@@ -74,8 +74,6 @@ class ParentLoginController extends GetxController{
     
       parentStudentListModel.value=ParentStudentListModel.fromJson(pdata);
     //  loginUpdateControllers.studentLoginModelList.value = StudentLoginModel.fromJson(pdata);
-       print("parent responce data ");
-       print(parentStudentListModel.value?.parentInfo?["parent_id"]);
         box.put("parent_id",parentStudentListModel.value?.parentInfo?["parent_id"]);
       loadingdata.value=true;
       parentLogin.value=true;

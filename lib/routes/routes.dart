@@ -3,9 +3,7 @@ import 'package:ecom_desgin/view/bus_routes/track_bus.dart';
 import 'package:ecom_desgin/view/Attendance/attendance.dart';
 import 'package:ecom_desgin/view/examination/Exam_result.dart';
 import 'package:ecom_desgin/view/fees/fees.dart';
-import 'package:ecom_desgin/view/leave/addleave.dart';
 import 'package:ecom_desgin/view/leave/leavestatus.dart';
-import 'package:ecom_desgin/view/login/parent_login.dart';
 import 'package:ecom_desgin/view/notification/notification.dart';
 import 'package:ecom_desgin/view/profile/profile.dart';
 import 'package:ecom_desgin/view/bus_routes/bus_routes.dart';
@@ -19,8 +17,7 @@ import 'package:ecom_desgin/view/home_work/home_work.dart';
 import 'package:ecom_desgin/view/login/School_id_login.dart';
 import 'package:ecom_desgin/view/login/Student_Login.dart';
 
-import 'package:ecom_desgin/view/syllabus/subject.dart';
-import 'package:ecom_desgin/view/syllabus/syllabus.dart';
+import 'package:ecom_desgin/view/syllabus/Syllebus.dart';
 import 'package:ecom_desgin/view/teacher/teacher_review.dart';
 import 'package:ecom_desgin/view/time_table/time_table.dart';
 import 'package:get/route_manager.dart';
@@ -70,16 +67,13 @@ final getpages=[
  GetPage(name: RoutesName.downloadAll, page: () =>  const DownloadAll(),transition: Transition.circularReveal),
  GetPage(name: RoutesName.timetable, page: () =>  const TimeTable(),transition: Transition.topLevel),
  GetPage(name: RoutesName.timetable, page: () =>  const TimeTable(),transition: Transition.zoom),
- GetPage(name: RoutesName.syllabus, page: () =>  const Syllabus(),transition: Transition.upToDown),
   GetPage(name: RoutesName.lession, page: () =>  const SubjectLession(),transition: Transition.cupertinoDialog),
  GetPage(name: RoutesName.chatPage, page: () =>  const ChatPage(),transition: Transition.cupertinoDialog),
  GetPage(name: RoutesName.attendance, page: () => Attendance(),transition: Transition.cupertino),
  GetPage(name: RoutesName.busRoute, page: () =>   const BusRoute(),transition: Transition.circularReveal),
   GetPage(name: RoutesName.profile, page: () =>   Profile(),transition: Transition.circularReveal),
- GetPage(name: RoutesName.addleave, page: () => const AddLeave(),transition: Transition.circularReveal),
  GetPage(name: RoutesName.leavestatus, page: () => const LeaveStatus(),transition: Transition.circularReveal),
  GetPage(name: RoutesName.examresult, page: () => const ExamResult(),transition: Transition.circularReveal),
- GetPage(name: RoutesName.parentLogin, page: () => const ParentLogin(),transition: Transition.circularReveal),
   GetPage(name: RoutesName.trackbus, page: () =>  TrackBus(),transition: Transition.circularReveal),
   GetPage(name: RoutesName.teacherreview, page: () =>  TeacherReview(),transition: Transition.circularReveal),
   GetPage(name: RoutesName.notification, page: () =>  NotificationPage(),transition: Transition.circularReveal),

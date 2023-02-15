@@ -1,10 +1,7 @@
 import 'dart:convert';
 
 import 'package:ecom_desgin/model/Teacher_model/staff_detail_model.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
@@ -24,20 +21,16 @@ try {
     var body = json.encode({
       "company_key":company_key,
       "staff_id":id});
-    print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.getstaffdetailUrl);
     var response = await http.post(urlapi, body: body);
 
     if (response.statusCode == 200) {
       var tdata = jsonDecode(response.body);
-      print(tdata);
         staffDetailModel.value=StaffDetailModel.fromJson(tdata);
         print("tdataall");
 
       if (tdata["status"] == true) {
         isloding.value=true;
-        print("Staffsss Name");
-       print(staffDetailModel.value?.response.name);
 
 // print('${ApiUrl.imagesUrl.toString()}${staffDetailModel.value?.response["image"]}');
       } else {

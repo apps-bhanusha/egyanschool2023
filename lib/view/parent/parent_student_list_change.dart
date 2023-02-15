@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecom_desgin/controller/force_logout.dart';
 import 'package:ecom_desgin/controller/parent_Student_List_Controller.dart';
 import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/controller/student_login_update_controller.dart';
@@ -50,6 +51,7 @@ class _ParentStudentListState extends State<ParentStudentList>
       Get.put(StudentProfileController());
   final ParentStudentListController parentStudentListController =
       Get.put(ParentStudentListController());
+      final ForceLogout forceLogout = Get.put(ForceLogout());
 
   GetexamsScheduleController getexamview =
       Get.put(GetexamsScheduleController());
@@ -99,6 +101,8 @@ class _ParentStudentListState extends State<ParentStudentList>
     var pass = box.get("password").toString();
     var parent_id = box.get("parent_id").toString();
     parentStudentListController.parentStudentListMethod(parent_id);
+           forceLogout.forceLogout(parent_id, context);
+
     print("model data ckeck.........................");
     var id = box.get("company_key");
     schoolname = box.get("schoolname");
@@ -184,6 +188,8 @@ parentLoginController.parentLogin.value=true;
           type: SideMenuType.shrikNRotate,
           onChange: (isOpened) {
             setState(() => isOpened = isOpened);
+          var parent_id = box.get("parent_id").toString();
+            forceLogout.forceLogout(parent_id, context);
           },
           child: IgnorePointer(
             ignoring: isOpened,
@@ -295,6 +301,8 @@ parentLoginController.parentLogin.value=true;
                                         .r,
                                     child: InkWell(
                                         onTap: () {
+                                  var parent_id = box.get("parent_id").toString();
+                                  forceLogout.forceLogout(parent_id, context);
                                               studentProfileController
                                                   .isloading.value = false; 
                                               studentProfileController

@@ -21,9 +21,6 @@ class GetexamsSchedule1Controller extends GetxController {
       "company_key": company_key,
       "exam_id": exam_id
     });
-    print(
-        "4ffffffffffffffffffffgggggggggggggggggggggggggggggggggggggggbbbbbbbbbbbbbbb");
-    print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl + ApiUrl.getexamsScheduleUrl);
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
@@ -31,10 +28,6 @@ class GetexamsSchedule1Controller extends GetxController {
 
       GetexamsSchedule1ControllerList = [];
       GetexamsSchedule1ControllerList.add(sdata);
-      print("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-      print(GetexamsSchedule1ControllerList);
-      print(
-          GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][0]["subject_name"]);
 
       // print(GetschoolsettingControllerList[0]["response"]["total_discount_amount"]);
       if (sdata["status"] == true) {

@@ -38,5 +38,36 @@ class ApiUrl{
  static const String staffattandanceUrl="/staffwebservices/getstaffattandance";
  static const String payslipUrl="/staffwebservices/getpayslip";
  static const String staffmonthlypresentsummaryUrl="/staffwebservices/staffmonthlypresentsummary";
+ static const String staffattendanceUrl="/staffwebservices/staffattendance";
+ static const String addstaffLeaveRecordUrl="/leavewebservices/addstaffLeaveRecord";
+ static const String staffLeaveRecordUrl="/leavewebservices/staffLeaveRecord";
+
+ static const String teachernotificationUrl="/messagingwebservices/getnotification";
+ static const String teachernotificationcountUrl="/messagingwebservices/getnotificationcount";
+ static const String teachersetnotificationreadUrl="/messagingwebservices/setnotificationread";
+ static const String staffLeaveTypeUrl="/leavewebservices/staffLeaveType";
+
+
+ static const String forcelogoutUrl="/configwebservices/force_logout";
+ static const String aboutusEgyan="/configwebservices/aboutus_egyan";
+ static const String aboutusSchools="/configwebservices/aboutus_schools";
+
+ static const String classlistUrl="/staffwebservices/classlist";
+ static const String classsectionUrl="/staffwebservices/classsection";
+ static const String classAttendanceListUrl="/staffwebservices/classtendencelist";
+ static const String getstudentattendanceTypeUrl="/staffwebservices/getstudentattandancetype";
+ static const String savestudentattendanceUrl="/staffwebservices/savestudentattendance";
+ static const String getStudentListByClassSectionUrl="/staffwebservices/getStudentListByClassSection";
+ static const String studentsearchUrl="/staffwebservices/studentsearch";
+ static const String teacherSyllebuschUrl="/parentwebservices/getSylabusStatus";
+
+
+
+static const String getSubjectByClassSectionUrl="/staffwebservices/getSubjectByClassSection";
+static const String teacherclassTimeTableUrl="/parentwebservices/getclassTimeTable";
+static const String getteacherTimeTableUrl="/staffwebservices/getteacherTimeTable";
+static const String homeworkAddUrl="/homework/homeworkcreate";
+
 
 }
+

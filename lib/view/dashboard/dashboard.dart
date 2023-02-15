@@ -1,5 +1,6 @@
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
+import 'package:ecom_desgin/controller/force_logout.dart';
 import 'package:ecom_desgin/controller/getclasstimetable_controller.dart';
 import 'package:ecom_desgin/controller/getexamsResult_controller.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule_controller.dart';
@@ -38,6 +39,8 @@ class _GridViewallState extends State<GridViewall>
       Get.put(ParentStudentListController());
   final GetSchoolSettingController _schoolsetting =
   Get.put(GetSchoolSettingController());
+      final ForceLogout forceLogout = Get.put(ForceLogout());
+
   late AnimationController _controller;
   // late AnimationController controller;
   // late Animation colorAnimation;
@@ -67,6 +70,17 @@ class _GridViewallState extends State<GridViewall>
   @override
   void initState() {
     super.initState();
+          var  role_flag = box.get("role_flag"); 
+    if(role_flag.toString()=="P"){
+     var parent_id = box.get("parent_id").toString();
+       forceLogout.forceLogout(parent_id, context);
+}
+          var  student_id = box.get("student_id");
+          var  student_login = box.get("student_login");
+       if(student_login=="student_login"){
+         studentProfileController.studentProfileApi(student_id);      
+        forceLogout.forceLogout(student_id, context);
+       }
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
@@ -194,6 +208,12 @@ class _GridViewallState extends State<GridViewall>
       type: SideMenuType.shrikNRotate,
       onChange: (isOpened) {
         setState(() => isOpened = isOpened);
+                     var  student_id = box.get("student_id");
+          var  student_login = box.get("student_login");
+       if(student_login=="student_login"){
+         studentProfileController.studentProfileApi(student_id);      
+        forceLogout.forceLogout(student_id, context);
+       }
       },
       child: IgnorePointer(
         ignoring: isOpened,
@@ -358,13 +378,7 @@ class _GridViewallState extends State<GridViewall>
                   children: [
                     Padding(
 padding:  EdgeInsets.only(left: 0.09.sw),
-child: const ClipRRect(
-child: CircleAvatar(
-radius: 20.0,
-backgroundImage:
-AssetImage("assets/images/appstore.png"),
-),
-),
+child: Image.asset("assets/images/appstore.png",width: 50,height: 50,),
 ),
                      Padding(
                        padding:  EdgeInsets.only(left: 0.05.sw,top: 10),

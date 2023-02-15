@@ -14,8 +14,6 @@ class AddStudentLeaveRecordController extends GetxController {
 
   RxBool loadingAddStudentLeaveRecord1 =false.obs;
   Future<List<AddStudentLeaveRecordController>?> AddStudentLeaveRecordapi(company_key,student_id,from_date,to_date,message,userfile) async {
-    print("dddddddddddddccccccccccsss");
-    print(userfile);
     var headers = {
       'Cookie': 'ci_session=8e6de003d84c4a149a3c80a6be1fff63b6c73cfa'
     };
@@ -61,8 +59,6 @@ class AddStudentLeaveRecordController extends GetxController {
       );
     }
     else {
-      print(response.reasonPhrase);
-      print(response.stream.toList());
     }
 
   }

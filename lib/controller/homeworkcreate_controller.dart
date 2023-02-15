@@ -26,27 +26,20 @@ var sdata;
       'content_title': content_title,
       'note': note,
       'homework_id': homework_id});
-    print("ddddzzz");
-    print(request.fields);
-    print(request.files);
     request.files.add(await http.MultipartFile.fromPath('file', file));
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-
-      print("dddddddddddddddsss");
       loadingHomeWorkCreate.value=true;
     var  sdata=await response.stream.bytesToString();
-print(sdata);
 var  alldata =jsonDecode(sdata);
       HomeWorkCreateControllerList.add(sdata);
       // print(await response.stream.bytesToString());
       var box = Hive.box("schoolData");
       late  var student_id = box.get("student_id");
       _homeWorkController.homeworkapi(student_id);
-     print(alldata.toString());
       Get.snackbar(
         alldata["status"].toString(),
         alldata["message"].toString(),

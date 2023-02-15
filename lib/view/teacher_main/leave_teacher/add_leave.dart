@@ -1,8 +1,6 @@
 import 'package:ecom_desgin/constant/date_format.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -123,7 +121,7 @@ class _AddLeaveTeacherState extends State<AddLeaveTeacher> {
                                               child: Padding(
                                                 padding: const EdgeInsets.only(top:15,left: 3.0).r,
                                                 child: TextFormField(
-readOnly: true,
+                                              readOnly: true,
                                                   decoration:  InputDecoration(
 
                                                     hintText: dateStr,hintStyle: TextStyle(color: Colors.grey),
@@ -181,11 +179,11 @@ readOnly: true,
                                   hint: Text(selectdata1),
                                   items: countries1.map((country){
                                     return DropdownMenuItem(
+                                      value: country,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(country),
                                       ),
-                                      value: country,
                                     );
                                   }).toList(),
                                   onChanged: (country){

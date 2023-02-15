@@ -135,16 +135,7 @@ print(dateall);
         appBar: AppBar(
           backgroundColor:AgentColor.appbarbackgroundColor,
           title: Text('Payroll ',style: MyGoogeFont.mydmSans),
-          actions: [
-            PopupMenuButton<int>(
-              itemBuilder: (context) {
-                return <PopupMenuEntry<int>>[
-                  const PopupMenuItem(child: Text('0'), value: 0),
-                  const PopupMenuItem(child: Text('1'), value: 1),
-                ];
-              },
-            ),
-          ],
+
         ),
         body: Obx(
                 () =>  staffdetailsController.isloding.value ?
@@ -235,18 +226,12 @@ print(dateall);
                               fontWeight: FontWeight.normal,
                               color: Colors.black,
                             ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: '*',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.red)),
-                            ],
+                            
                           ),
                         ),
                       ),
                       Container(
-                        height: 0.060.sh,
+                        height: 0.050.sh,
                         decoration: BoxDecoration(
                           shape: BoxShape.rectangle,
                           border: Border.all(
@@ -264,16 +249,16 @@ print(dateall);
 
                           items: countries1.map((country){
                             return DropdownMenuItem(
+                              value: country,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(country),
                               ),
-                              value: country,
                             );
                           }).toList(),
-                          hint: Center(
+                          hint: const Center(
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.0),
                               child: Text("Select Year",style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 14,
@@ -283,22 +268,9 @@ print(dateall);
                           onChanged: (country){
                             // print("You selected: $country");
                             selectdata1=country!;
-
-                            // var box = Hive.box("schoolData");
-                            // var year_end_date=box.get("year_end_date");
-                            // var date_object=DateTime.parse(year_end_date);
-                            //
-                            //
-                            // print(date_object);
-                            // print("fdffddddddatetime");
-                            // print(date_object.year);
-                            //
-                            //
-                            // var id=box.get("staff_id");
-                            // paySlipController.PaySlipapi(id,date_object.year,selectdata1);
-                            // paySlipController.isloding.value=false;
                             setState(() {
                               paySlipController.isloding.value=false;
+                              paySlipController.isSelectMonth.value=false;
                               isselected=true;
                             });
                           },
@@ -320,18 +292,12 @@ print(dateall);
                             fontWeight: FontWeight.normal,
                             color: Colors.black,
                           ),
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: '*',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red)),
-                          ],
+                     
                         ),
                       ),
 
                   Container(
-                    height: 0.060.sh,
+                    height: 0.050.sh,
                     decoration: BoxDecoration(
                       shape: BoxShape.rectangle,
                       border: Border.all(
@@ -349,16 +315,16 @@ print(dateall);
 
                       items: isselected==true?countries.map((country){
                         return DropdownMenuItem(
+                          value: country,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(country),
                           ),
-                          value: country,
                         );
                       }).toList():null,
-                      hint: Center(
+                      hint: const Center(
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.0),
                           child: Text("Select Month",style: TextStyle(
                               color: Colors.black,
                               fontSize: 14,
@@ -379,9 +345,10 @@ print(dateall);
 
                         var id=box.get("staff_id");
                         paySlipController.PaySlipapi(id,selectdata1,selectdata);
-                        paySlipController.isloding.value=false;
+                     
                         setState(() {
-
+                           paySlipController.isloding.value=false;
+                   paySlipController.isSelectMonth.value=true;
                         });
 }
 
@@ -392,7 +359,7 @@ print(dateall);
                     ],
                   ),
                   Obx(()=>
-                     paySlipController.isloding.value ?selectdata=='${paySlipController.paySlipModel.value?.response?[0].month}'?Padding(
+                     paySlipController.isloding.value ?Padding(
                       padding: const EdgeInsets.only(top: 5,left: 10,right: 10).r,
                       child: Column(
                         children: [
@@ -446,7 +413,7 @@ print(dateall);
                                           width: 0.3.sw,
                                           child: Center(
                                             child: Text(
-                                              '${paySlipController.paySlipModel.value?.response?[0].month.substring(0,3).capitalizeFirst}-${paySlipController.paySlipModel.value?.response?[0].year}',
+                                              '${paySlipController.paySlipModel.value?.response[0].month.substring(0,3).capitalizeFirst}-${paySlipController.paySlipModel.value?.response[0].year}',
                                               style: GoogleFonts.dmSans(
                                                 fontStyle: FontStyle.normal,
                                                 fontSize: 15.sp,
@@ -491,7 +458,7 @@ Container(height: 0.01.sh,color: Colors.grey[200]),
                                           width: 0.3.sw,
                                           child: Center(
                                             child: Text(
-                                              '${paySlipController.paySlipModel.value?.response?[0].basic}',
+                                              '${paySlipController.paySlipModel.value?.response[0].basic}',
                                               style: GoogleFonts.dmSans(
                                                 fontStyle: FontStyle.normal,
                                                 fontSize: 15.sp,
@@ -535,7 +502,7 @@ Container(height: 0.01.sh,color: Colors.grey[200]),
                                           width: 0.3.sw,
                                           child: Center(
                                             child: Text(
-                                              '${paySlipController.paySlipModel.value?.response?[0].totalAllowance}',
+                                              '${paySlipController.paySlipModel.value?.response[0].totalAllowance}',
                                               style: GoogleFonts.dmSans(
                                                 fontStyle: FontStyle.normal,
                                                 fontSize: 15.sp,
@@ -579,7 +546,7 @@ Container(height: 0.01.sh,color: Colors.grey[200]),
                                           width: 0.3.sw,
                                           child: Center(
                                             child: Text(
-                                              '${paySlipController.paySlipModel.value?.response?[0].totalDeduction}',
+                                              '${paySlipController.paySlipModel.value?.response[0].totalDeduction}',
                                               style: GoogleFonts.dmSans(
                                                 fontStyle: FontStyle.normal,
                                                 fontSize: 15.sp,
@@ -623,7 +590,7 @@ Container(height: 0.01.sh,color: Colors.grey[200]),
                                           width: 0.3.sw,
                                           child: Center(
                                             child: Text(
-                                              '${paySlipController.paySlipModel.value?.response?[0].leaveDeduction}',
+                                              '${paySlipController.paySlipModel.value?.response[0].leaveDeduction}',
                                               style: GoogleFonts.dmSans(
                                                 fontStyle: FontStyle.normal,
                                                 fontSize: 15.sp,
@@ -667,7 +634,7 @@ Container(height: 0.01.sh,color: Colors.grey[200]),
                                           width: 0.3.sw,
                                           child: Center(
                                             child: Text(
-                                              '${paySlipController.paySlipModel.value?.response?[0].tax}',
+                                              '${paySlipController.paySlipModel.value?.response[0].tax}',
                                               style: GoogleFonts.dmSans(
                                                 fontStyle: FontStyle.normal,
                                                 fontSize: 15.sp,
@@ -711,7 +678,7 @@ Container(height: 0.01.sh,color: Colors.grey[200]),
                                           width: 0.3.sw,
                                           child: Center(
                                             child: Text(
-                                              '${paySlipController.paySlipModel.value?.response?[0].netSalary}',
+                                              '${paySlipController.paySlipModel.value?.response[0].netSalary}',
                                               style: GoogleFonts.dmSans(
                                                 fontStyle: FontStyle.normal,
                                                 fontSize: 15.sp,
@@ -756,7 +723,7 @@ Container(height: 0.01.sh,color: Colors.grey[200]),
                                           width: 0.3.sw,
                                           child: Center(
                                             child: Text(
-                                              '${paySlipController.paySlipModel.value?.response?[0].status.toString().capitalizeFirst}',
+                                              '${paySlipController.paySlipModel.value?.response[0].status.toString().capitalizeFirst}',
                                               style: GoogleFonts.dmSans(
                                                 fontStyle: FontStyle.normal,
                                                 fontSize: 15.sp,
@@ -771,19 +738,41 @@ Container(height: 0.01.sh,color: Colors.grey[200]),
                                     ),
                                   ),
                                 ],
-                              ):Text(""),
+                              ):Center(child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text("No Data Found"),
+                              )),
                             ),
                           ),
                         ],
                       ),
-                    ):Text(""):Padding(
-                      padding: const EdgeInsets.all(100.0).r,
-                      child: Center(child: Text("No Data found")),
-                    ),
+                    ): paySlipController.isSelectMonth.value?
+                    Center(child: Padding(
+                      padding: const EdgeInsets.only(top: 200),
+                      child: CircularProgressIndicator(color: Colors.blue,),
+                    )):Padding(
+                      padding: const EdgeInsets.only(top: 5,left: 10,right: 10).r,
+                      child: Column(
+                        children: [
+                          Container(
+                              height: 0.010.sh,
+                              width: 0.99.sw,
+                              color:Colors.blue
+                          ),
+
+                          Container(
+                            // color: Colors.grey[200],
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [BoxShadow(blurRadius: 5, color: Colors.grey)]),
+                            child:Text(""))
+                        ],
+                      ),
+                    )
                   )
                 ],
               ),
-            ):Center(child: CircularProgressIndicator())
+            ):Center(child: CircularProgressIndicator(color: Colors.blue,))
         ),
       ),
     );

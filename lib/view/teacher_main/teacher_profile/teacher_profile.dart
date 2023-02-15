@@ -8,7 +8,9 @@ import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/controller/student_login_update_controller.dart';
 import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/staff_detial_contriller.dart';
+import 'package:ecom_desgin/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -53,8 +55,24 @@ class _TeacherProfileState extends State<TeacherProfile> {
             PopupMenuButton<int>(
               itemBuilder: (context) {
                 return <PopupMenuEntry<int>>[
-                  const PopupMenuItem(child: Text('0'), value: 0),
-                  const PopupMenuItem(child: Text('1'), value: 1),
+                    PopupMenuItem(
+                                      onTap:() async { await SessionManager().remove("name");
+                                      Get.toNamed(RoutesName.schoolId);
+                                      // ignore: use_build_context_synchronously
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text("logout", style: GoogleFonts.dmSans(
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 15.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.red,
+                                        ),
+                                        ),
+                                          backgroundColor: Colors.white,
+                                        ),
+                                      );
+                                      },
+                                      value: 0, child: const Text('Logout')),
+                  const PopupMenuItem(child: Text('Aboute'), value: 1),
                 ];
               },
             ),
@@ -79,7 +97,7 @@ class _TeacherProfileState extends State<TeacherProfile> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           // CircleAvatar(
                           //   backgroundColor: Colors.blue.shade300,
@@ -139,6 +157,7 @@ class _TeacherProfileState extends State<TeacherProfile> {
                 ),
                 Container(
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Expanded(
                         child: Container(
@@ -245,9 +264,8 @@ class _TeacherProfileState extends State<TeacherProfile> {
                                   ),
                            ),
 Spacer(),
-                                 SizedBox(
-                                   width:0.4.sw,
-                                   height: 0.070.sh,
+                                 Padding(
+                                   padding: const EdgeInsets.only(right: 15),
                                    child: Text(
                                     '${staffdetailsController.staffDetailModel.value?.response.email}',
                                     style: GoogleFonts.dmSans(
@@ -256,7 +274,7 @@ Spacer(),
                                       fontWeight: FontWeight.bold,
                                       color: Colors.blue,
                                     ),
-                                ),
+                                                                 ),
                                  ),
 
                             ],
@@ -282,9 +300,8 @@ Spacer(),
                                   ),
                               ),
                               Spacer(),
-                             SizedBox(
-                               width:0.4.sw,
-                               height: 0.070.sh,
+                             Padding(
+                               padding: const EdgeInsets.only(right:17),
                                child: Text(
                                     '${staffdetailsController.staffDetailModel.value?.response.localAddress}',
                                     style: GoogleFonts.dmSans(

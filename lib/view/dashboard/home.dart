@@ -3,6 +3,7 @@ import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/attendance_controller.dart';
+import 'package:ecom_desgin/controller/force_logout.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule1_controller.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
@@ -44,6 +45,7 @@ late  int? i= noticController.noticlist.value?.response?.length;
   GetexamsScheduleController getexamview=Get.put(GetexamsScheduleController());
 
   ParentLoginController parentLoginController=Get.put(ParentLoginController());
+      final ForceLogout forceLogout = Get.put(ForceLogout());
   
   UserNameController userNameController=Get.put(UserNameController());
   GetTeacherByStudentController teacherbystudentController=Get.put(GetTeacherByStudentController());
@@ -159,12 +161,20 @@ late  int? i= noticController.noticlist.value?.response?.length;
     password =box.get("password");
     // studentLoginUpdateControllers.apicallpost(username,password);
     company_key = box.get("company_key");
-  var  student_id = box.get("student_id");
-  var  student_login = box.get("student_login");
+       var  student_id = box.get("student_id");
+    
+       var  student_login = box.get("student_login");
         // studentLoginUpdateControllers.loadingstudentLoginData.value=true;
        if(student_login=="student_login"){
-         studentProfileController.studentProfileApi(student_id);
+         studentProfileController.studentProfileApi(student_id);      
+               forceLogout.forceLogout(student_id, context);
        }
+var  role_flag = box.get("role_flag"); 
+if(role_flag.toString()=="P"){
+     var parent_id = box.get("parent_id").toString();
+       forceLogout.forceLogout(parent_id, context);
+}
+       
     getexamview1.GetexamsSchedule1api( company_key, 0);
 
     // teacherbystudentController.GetTeacherByStudentapi(company_key, studentProfileController.studentProfileModel.value?.response.studentId.toString());
@@ -258,6 +268,17 @@ late  int? i= noticController.noticlist.value?.response?.length;
             type: SideMenuType.shrikNRotate,
             onChange: (isOpened) {
               setState(() => isOpened = isOpened);
+           var  role_flag = box.get("role_flag"); 
+if(role_flag.toString()=="P"){
+     var parent_id = box.get("parent_id").toString();
+       forceLogout.forceLogout(parent_id, context);
+}   
+          var  student_id = box.get("student_id");
+          var  student_login = box.get("student_login");
+       if(student_login=="student_login"){
+         studentProfileController.studentProfileApi(student_id);      
+        forceLogout.forceLogout(student_id, context);
+       }
             },
             child: IgnorePointer(
               ignoring: isOpened,
@@ -819,13 +840,7 @@ late  int? i= noticController.noticlist.value?.response?.length;
                   children: [
                     Padding(
 padding:  EdgeInsets.only(left: 0.09.sw),
-child: const ClipRRect(
-child: CircleAvatar(
-radius: 20.0,
-backgroundImage:
-AssetImage("assets/images/appstore.png"),
-),
-),
+child: Image.asset("assets/images/appstore.png",width: 50,height: 50,),
 ),
                      Padding(
                        padding:  EdgeInsets.only(left: 0.05.sw,top: 10),

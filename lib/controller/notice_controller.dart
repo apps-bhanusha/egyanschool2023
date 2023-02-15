@@ -47,12 +47,11 @@ class NoticController extends GetxController{
     if (response.statusCode == 200) {
       isloading.value=true;
       var notic = jsonDecode(response.body);
-      log(notic.toString());
+
       if (notic["status"] == true ) {
         noticlist.value = NoticModel.fromJson(notic);
         showDataList=[];
         showDataList.add(notic);
-        print("dfdfdfvvv");
 
         isloading.value=true;
       } else {print("invalid id");}

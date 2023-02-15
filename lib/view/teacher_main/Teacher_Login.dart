@@ -1,10 +1,7 @@
 import 'package:ecom_desgin/controller/teacher_controller/teacher_login_controller.dart';
 import 'package:ecom_desgin/main.dart';
 import 'package:ecom_desgin/view/dashboard/home.dart';
-
-import 'package:ecom_desgin/view/teacher_main/student%20_information.dart';
-
-import 'package:ecom_desgin/view/teacher_main/teacher_home/teacher_home.dart';
+import 'package:ecom_desgin/view/teacher_main/teacher_home/teacher_home_T.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';

@@ -6,17 +6,14 @@ import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/addstudentLeaveRecord_controller.dart';
 import 'package:ecom_desgin/controller/studentLeaveRecord_controller.dart';
 import 'package:ecom_desgin/controller/student_profile-Controller.dart';
-import 'package:ecom_desgin/model/user.dart';
 import 'package:ecom_desgin/view/leave/user_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:flutter/material.dart';
 
 class LeaveStatus extends StatefulWidget {
   const LeaveStatus({Key? key}) : super(key: key);
@@ -39,7 +36,7 @@ class _LeaveStatusState extends State<LeaveStatus> {
   DateTime today = DateTime.now();
 
   DateFormat currentDate=DateFormat.yMd();
-  List<User> userList = [];
+
 
   get dateStr => "${today.day}-${today.month}-${today.year}";
   var box = Hive.box("schoolData");
@@ -56,10 +53,7 @@ class _LeaveStatusState extends State<LeaveStatus> {
 
   @override
   Widget build(BuildContext context) {
-    void addUserData(User user) {
-      setState(() {
-        userList.add(user);
-      });
+    void addUserData() {
     }
 
     void showUserDialog() {
@@ -68,7 +62,7 @@ class _LeaveStatusState extends State<LeaveStatus> {
         builder: (_) =>
          AlertDialog(
            content: AddUserDialog(
-             addUserData,
+             
            ),
            shape: RoundedRectangleBorder(
              borderRadius: BorderRadius.circular(10),
@@ -83,16 +77,6 @@ class _LeaveStatusState extends State<LeaveStatus> {
         appBar: AppBar(
           backgroundColor:AgentColor.appbarbackgroundColor,
           title: Text('Leave Status',style: MyGoogeFont.mydmSans),
-          actions: [
-            PopupMenuButton<int>(
-              itemBuilder: (context) {
-                return <PopupMenuEntry<int>>[
-                  const PopupMenuItem(child: Text('0'), value: 0),
-                  const PopupMenuItem(child: Text('1'), value: 1),
-                ];
-              },
-            ),
-          ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: showUserDialog,

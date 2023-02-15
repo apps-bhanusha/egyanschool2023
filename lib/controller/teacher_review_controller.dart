@@ -20,13 +20,8 @@ class TeacherRatingController extends GetxController {
       "comment":comment.toString(),
       "rate":rate.toString(),
       "student_id":student_id.toString()});
-    print("leavddddddddddddddddddddddddddddddddddgfffffffffffffffff");
-    print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.teacherratingUrl);
-    print("Reeeeeeeeeeeeeeeesseeeeee");
     var response = await http.post(urlapi, body: body);
-    print("Reeeeeeeeeeeeeessseeeeeeee");
-    print(response);
     if (response.statusCode == 200) {
       var  sdata = jsonDecode(response.body);
       TeacherRatingControllerList=[];
@@ -48,13 +43,10 @@ class TeacherRatingController extends GetxController {
 
             )),
       );
-      print("leavjhjjjjjjjjjjjjjjjjjjsssssssssssssssjjjjjj");
-      print(TeacherRatingControllerList);
 
       // print(GetschoolsettingControllerLexam_idist[0]["response"]["total_discount_amount"]);
       if (sdata["status"] == true ) {
         loadingTeacherRating.value=true;
-        print("massage");
 
 
 

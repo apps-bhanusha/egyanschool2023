@@ -12,9 +12,9 @@ class GetexamsScheduleController extends GetxController {
   late DateTime examtimes;
   late DateTime examtimedate;
   var starttime;
-
-
+  RxList<String> endtimeList = <String>[].obs;
   RxBool loadingGetexamsSchedule = false.obs;
+  RxBool loadingtime = false.obs;
 RxBool loadingExam=false.obs;
   Future<List<GetexamsScheduleController>?> GetexamsScheduleapi(company_key,
       exam_id) async {
@@ -41,6 +41,7 @@ RxBool loadingExam=false.obs;
       if (sdata["status"] == true) {
         loadingGetexamsSchedule.value = true;
         loadingExam.value = false;
+        loadingtime.value=true;
         groupid();
 
         print("massage");
@@ -70,11 +71,17 @@ RxBool loadingExam=false.obs;
               .toString())));
       print(
           "rbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbxxxxxxxxxxxvvvvvvvvvvvvvvvvvvvnnnnnnnnnnnnaaaaaaaaaaaan");
-      print(examtimedate);
-
+      // print(examtimedate);
+      loadingtime.value=true;
       starttime = formatDate(examtimedate, [HH, ':', nn, ':', ss]);
-      box.put("starttime", starttime);
+      print("start time");
+// print(starttime);
+//       print(starttime);
+      endtimeList.add(starttime);
+      print(endtimeList);
+
     }
+
   }
 
 }

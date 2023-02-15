@@ -16,21 +16,14 @@ class StudentProfileController extends GetxController{
       "company_key":company_key,
       "student_id":studentId,
     });
-    print(body);
    try {
       final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.studentProfileUrl);
    
     var response = await http.post(urlapi, body: body);
-     print(response.body);
     if (response.statusCode == 200) {
         var profileData = jsonDecode(response.body);
-        print("student profile data");
-        print(profileData);
         isloading.value=true;
        studentProfileModel.value= StudentProfileModel.fromJson(profileData);
-       
-       print("is loading value true");
-       print(studentProfileModel.value);
   }
     else {
       

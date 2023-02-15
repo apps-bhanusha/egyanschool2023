@@ -1,7 +1,6 @@
 import 'package:ecom_desgin/constant/date_format.dart';
 import 'package:ecom_desgin/controller/addstudentLeaveRecord_controller.dart';
 import 'package:ecom_desgin/controller/studentLeaveRecord_controller.dart';
-import 'package:ecom_desgin/model/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -24,9 +23,8 @@ import 'package:custom_floating_action_button/custom_floating_action_button.dart
 import 'package:intl/intl.dart';
 
 class AddUserDialog extends StatefulWidget {
-  final Function(User) addUser;
 
-  AddUserDialog(this.addUser);
+  AddUserDialog();
 
   @override
   _AddUserDialogState createState() => _AddUserDialogState();

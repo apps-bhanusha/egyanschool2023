@@ -16,14 +16,11 @@ class HomeWorkController extends GetxController {
     var company_key = box.get("company_key");
 
     var body = json.encode({"company_key": company_key, "student_id":student_id});
-    print(body);
     final urlapi = Uri.parse(
        ApiUrl.baseUrl+ApiUrl.homeWorkUrl);
     var response = await http.post(urlapi, body: body);
-   print(response);
     if (response.statusCode == 200) {
       var homeWorkData = jsonDecode(response.body);
-      print( homeWorkData);
          if (homeWorkData["status"] == true ) {
            isloading.value=true;
          homeWorkControllerList.add(homeWorkData["response"]);

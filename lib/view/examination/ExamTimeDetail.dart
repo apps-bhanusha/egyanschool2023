@@ -6,10 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:date_format/date_format.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:intl/intl.dart';
-import 'package:jiffy/jiffy.dart';
 
 class ExamTimeDetail extends StatefulWidget {
   const ExamTimeDetail({super.key});
@@ -23,16 +19,16 @@ class _ExamTimeDetailState extends State<ExamTimeDetail> {
 
 
   GetexamsScheduleController getexamview=Get.put(GetexamsScheduleController());
-  var company_key;
-var starttime;
-  var box = Hive.box("schoolData");
+
+
+
 
   @override
   void initState() {
 
     super.initState();
-
-      starttime = box.get("starttime");
+print("Time Calculate in fl");
+print(getexamview.starttime);
 
   }
 
@@ -235,13 +231,21 @@ SizedBox(height: 0.010.sh,),
                                           width: 0.24.sw,
                                           height: 0.001.sh,
                                         ),
-                                       Text(starttime!=null?'${starttime??""}':"",
-                                          style: GoogleFonts.dmSans(
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),),
+                                       Obx(()=>getexamview.loadingtime.value?
+                                         Text('${getexamview.endtimeList[i]}',
+                                            style: GoogleFonts.dmSans(
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 15.sp,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),):Text('',
+                                         style: GoogleFonts.dmSans(
+                                           fontStyle: FontStyle.normal,
+                                           fontSize: 15.sp,
+                                           fontWeight: FontWeight.bold,
+                                           color: Colors.white,
+                                         ),),
+                                       ),
                                       ],
                                     ),
                                         ],

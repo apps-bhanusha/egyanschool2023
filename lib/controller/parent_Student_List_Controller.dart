@@ -35,20 +35,12 @@ class ParentStudentListController extends GetxController{
        "company_key":company_key,
       "parent_id":pid
     });
-
-    print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.parentProfile);
     var response = await http.post(urlapi, body: body);
-    print("parent student list Respomnce");
-    print(response.body);
     if (response.statusCode == 200) {
         parentSListModel= Rxn<ParentSListModel>();
       var pdata = jsonDecode(response.body);
       parentSListModel.value=ParentSListModel.fromJson(pdata);
-    //  loginUpdateControllers.studentLoginModelList.value = StudentLoginModel.fromJson(pdata);
-    
-      
-       print("parent list data ");
       if (pdata["status"] == true) {
       loadingdata.value=true;
       parentLogin.value=true;

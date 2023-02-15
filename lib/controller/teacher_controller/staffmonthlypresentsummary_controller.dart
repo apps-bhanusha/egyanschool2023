@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/model/Teacher_model/staff_presentMonthly_summary_model.dart';
-import 'package:ecom_desgin/model/model.dart';
 import 'package:ecom_desgin/model/monthly_summry_model.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -17,24 +16,20 @@ class StaffMonthlyPresentSummaryController extends GetxController {
       "company_key":company_key,
       "staff_id": staff_id
     });
-    print("monthly summry");
 
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.staffmonthlypresentsummaryUrl);
     print(urlapi);
     var response = await http.post(urlapi, body: body);
-    print("mohthsumry detail");
+    print("###################################");
     print(response.body);
+    print("###################################");
+
     if (response.statusCode == 200) {
       var  sdata = jsonDecode(response.body);
 
       MonthlyPresentSummaryControllerList=[];
       staffMonthlyPresentSummaryModel.value=StaffMonthlyPresentSummaryModel.fromJson(sdata);
       MonthlyPresentSummaryControllerList.add(sdata) ;
-
-      print("ddddddddddffffdfffffdffffsumryyyyyyyyyyy");
-      print(MonthlyPresentSummaryControllerList);
-      print(MonthlyPresentSummaryControllerList[0]["response"][0]["month"]);
-
 
 
 

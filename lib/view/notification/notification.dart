@@ -29,16 +29,7 @@ class _NotificationPageState extends State<NotificationPage> {
       appBar: AppBar(
         backgroundColor:AgentColor.appbarbackgroundColor,
         title: Text('Notification',style: MyGoogeFont.mydmSans),
-        actions: [
-          PopupMenuButton<int>(
-            itemBuilder: (context) {
-              return <PopupMenuEntry<int>>[
-                const PopupMenuItem(value: 0, child: Text('0')),
-                const PopupMenuItem(value: 1, child: Text('1')),
-              ];
-            },
-          ),
-        ],
+
       ),
       body: Obx(
       () =>  notificationController.isloading.value ? notificationController.notificationList.value?.response?.length != null? ListView.builder(
@@ -48,7 +39,7 @@ class _NotificationPageState extends State<NotificationPage> {
           itemBuilder: (context, index) {
             return  Card(
               
-              color:"${notificationController.notificationList.value?.response?[index]?.isRead}"=="1"?Colors.white:const Color.fromARGB(255, 181, 216, 255) ,
+              color:"${notificationController.notificationList.value?.response?[index]?.isRead}"=="1"?Color.fromARGB(255, 255, 255, 255):const Color.fromARGB(255, 181, 216, 255) ,
               elevation: 10,
               child: ListTile(
                 onTap: (){

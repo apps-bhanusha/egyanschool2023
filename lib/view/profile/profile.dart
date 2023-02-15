@@ -6,7 +6,9 @@ import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/controller/student_login_update_controller.dart';
 import 'package:ecom_desgin/controller/student_profile-Controller.dart';
+import 'package:ecom_desgin/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -93,8 +95,24 @@ class _ProfileState extends State<Profile> {
               PopupMenuButton<int>(
                 itemBuilder: (context) {
                   return <PopupMenuEntry<int>>[
-                    const PopupMenuItem(child: Text('0'), value: 0),
-                    const PopupMenuItem(child: Text('1'), value: 1),
+                    PopupMenuItem(
+                                      onTap:() async { await SessionManager().remove("name");
+                                      Get.toNamed(RoutesName.schoolId);
+                                      // ignore: use_build_context_synchronously
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text("logout", style: GoogleFonts.dmSans(
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 15.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.red,
+                                        ),
+                                        ),
+                                          backgroundColor: Colors.white,
+                                        ),
+                                      );
+                                      },
+                                      value: 0, child: const Text('Logout')),
+                    const PopupMenuItem(child: Text('Aboute'), value: 1),
                   ];
                 },
               ),

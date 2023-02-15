@@ -50,7 +50,6 @@ void notifactionApi() async {
     if (response.statusCode == 200) {
       isloading.value=true;
       var homeWorkData = jsonDecode(response.body);
-      log(homeWorkData.toString());
          if (homeWorkData["status"] == true ) {
            notificationList.value = NotificationModel.fromJson(homeWorkData);
            isloading.value=true;
@@ -59,8 +58,6 @@ void notifactionApi() async {
   }
   void getnotificationcountmethod() async {
     id = "${studentProfileController.studentProfileModel.value?.response.studentId}";
-
-  print("notification count");
     var box = Hive.box("schoolData");
     var companyKey = box.get("company_key");
      
@@ -71,8 +68,6 @@ void notifactionApi() async {
     if (response.statusCode == 200) {
       isloading.value=true;
       var homeWorkData = jsonDecode(response.body);
-      print('notifiaction count...................');
-      log(homeWorkData.toString());
          if (homeWorkData["status"] == true ) {
            getnotificationcount.value=homeWorkData["response"][0]["count"];
       } else {print("invalid id");}
@@ -81,8 +76,6 @@ void notifactionApi() async {
 
 void setnotificationread(notiid) async {
     id = "${studentProfileController.studentProfileModel.value?.response.studentId}";
-
-  print("notificaion read");
     var box = Hive.box("schoolData");
     var companyKey = box.get("company_key");
     
@@ -93,9 +86,8 @@ void setnotificationread(notiid) async {
     if (response.statusCode == 200) {
        isloading.value=true;
       var homeWorkData = jsonDecode(response.body);
-      log(homeWorkData.toString());
          if (homeWorkData["status"] == true ) {
-          Get.snackbar(homeWorkData["message"],"");
+          
           getnotificationcountmethod();
           notifactionApi();
           //  assignmentDownloadModel.value = DownloadModel.fromJson(homeWorkData);

@@ -15,19 +15,12 @@ class GetSchoolSettingController extends GetxController {
       "company_key":id,
 
     });
-    print("465555555555555555555555555544444444");
-    print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.getschoolsettingUrl);
-    print("SETINGGGGGGGGGGGGGGG");
     var response = await http.post(urlapi, body: body);
-    print(response.body);
     if (response.statusCode == 200) {
      var  sdata = jsonDecode(response.body);
-      print("fddddddddddddddddddd33333333333344444433333333");
-      print(sdata);
    GetSchoolSettingControllerList.value=[];
    GetSchoolSettingControllerList.add(sdata) ;
-      print(GetSchoolSettingControllerList);
 // print(GetSchoolSettingControllerList[0]["response"]["image"]);
 // print(GetSchoolSettingControllerList[0]["response"]["name"]);
      var box = Hive.box("schoolData");

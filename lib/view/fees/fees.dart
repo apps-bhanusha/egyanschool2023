@@ -1,18 +1,15 @@
 import 'dart:async';
 
 import 'package:ecom_desgin/constant/Colors.dart';
+import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/student_profile-Controller.dart';
-import 'package:ecom_desgin/old/api.dart';
 import 'package:ecom_desgin/controller/fees_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/controller/student_login_update_controller.dart';
-import 'package:ecom_desgin/view/dashboard/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pie_chart/pie_chart.dart';
@@ -145,16 +142,6 @@ Get.put(GetSchoolSettingController());
         appBar: AppBar(
           backgroundColor:AgentColor.appbarbackgroundColor,
           title: Text('Fees',style: MyGoogeFont.mydmSans),
-          actions: [
-            PopupMenuButton<int>(
-              itemBuilder: (context) {
-                return <PopupMenuEntry<int>>[
-                  const PopupMenuItem(child: Text('0'), value: 0),
-                  const PopupMenuItem(child: Text('1'), value: 1),
-                ];
-              },
-            ),
-          ],
         ),
         body:Obx(()=>
          feeController.loadingfees.value? SingleChildScrollView(

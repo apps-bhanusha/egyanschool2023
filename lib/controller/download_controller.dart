@@ -36,8 +36,6 @@ class DownloadAllController extends GetxController{
 
 void assignmentDownload(url) async {
     id = "${studentProfileController.studentProfileModel.value?.response.studentId}";
-
-  print("call assingment select");
     var box = Hive.box("schoolData");
     var companyKey = box.get("company_key");
      
@@ -48,7 +46,6 @@ void assignmentDownload(url) async {
     if (response.statusCode == 200) {
       isloading.value=true;
       var homeWorkData = jsonDecode(response.body);
-      log(homeWorkData.toString());
          if (homeWorkData["status"] == true ) {
            assignmentDownloadModel.value = DownloadModel.fromJson(homeWorkData);
            isloading.value=true;
@@ -57,8 +54,6 @@ void assignmentDownload(url) async {
   }
   void otherDownload(url) async {
     id = "${studentProfileController.studentProfileModel.value?.response.studentId}";
-
-  print("call time table select");
     var box = Hive.box("schoolData");
     var companyKey = box.get("company_key");
      
@@ -69,7 +64,6 @@ void assignmentDownload(url) async {
     if (response.statusCode == 200) {
       isloading.value=true;
       var homeWorkData = jsonDecode(response.body);
-      log(homeWorkData.toString());
          if (homeWorkData["status"] == true ) {
            assignmentDownloadModel.value = DownloadModel.fromJson(homeWorkData);
       } else {print("invalid id");}
@@ -78,8 +72,6 @@ void assignmentDownload(url) async {
 
 void syllebusDownload(url) async {
     id = "${studentProfileController.studentProfileModel.value?.response.studentId}";
-
-  print("call syllebus select");
     var box = Hive.box("schoolData");
     var companyKey = box.get("company_key");
     
@@ -90,7 +82,6 @@ void syllebusDownload(url) async {
     if (response.statusCode == 200) {
        isloading.value=true;
       var homeWorkData = jsonDecode(response.body);
-      log(homeWorkData.toString());
          if (homeWorkData["status"] == true ) {
            assignmentDownloadModel.value = DownloadModel.fromJson(homeWorkData);
       } else {print("invalid id");}
@@ -99,8 +90,6 @@ void syllebusDownload(url) async {
 
 
   selectDropdown(selectdropdata){
-    print("controller");   
-    print(selectdropdata);
     selectDrop.value=selectdropdata;
     if(selectdropdata=="Assinment"){
         assignmentDownload(ApiUrl.assignmentDownloadurl);

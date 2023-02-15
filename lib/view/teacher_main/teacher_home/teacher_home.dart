@@ -1,24 +1,32 @@
 import 'dart:async';
 import 'package:ecom_desgin/constant/Colors.dart';
-import 'package:ecom_desgin/constant/api_url.dart';
 
 import 'package:ecom_desgin/constant/font.dart';
+import 'package:ecom_desgin/controller/About_Controller.dart';
+import 'package:ecom_desgin/controller/force_logout.dart';
+import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/noticeboard_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/staff_detial_contriller.dart';
+import 'package:ecom_desgin/controller/teacher_controller/teacher_login_controller.dart';
 
 import 'package:ecom_desgin/routes/routes.dart';
-import 'package:ecom_desgin/view/Attendance/attendanceold.dart';
-import 'package:ecom_desgin/view/teacher_main/Attendance.dart';
-import 'package:ecom_desgin/view/teacher_main/home_work/teacher_homework.dart';
-import 'package:ecom_desgin/view/teacher_main/leave_teacher/leave_teacher.dart';
-import 'package:ecom_desgin/view/teacher_main/student%20_information.dart';
+import 'package:ecom_desgin/view/About_app/about_e-gayn.dart';
+import 'package:ecom_desgin/view/teacher/home_work/home_work.dart';
+import 'package:ecom_desgin/view/teacher/upload_content.dart';
+import 'package:ecom_desgin/view/teacher_main/Teacher_styllebus/Teacher_Syllebus.dart';
+import 'package:ecom_desgin/view/teacher_main/exam_shadule/exam_time_table.dart';
+import 'package:ecom_desgin/view/teacher_main/exam_shadule/teacher_exam_result.dart';
+import 'package:ecom_desgin/view/teacher_main/staffAttendance/staff_attendance_scan.dart';
+import 'package:ecom_desgin/view/teacher_main/student_information/Attendance.dart';
+import 'package:ecom_desgin/view/teacher_main/student_information/student%20_information.dart';
 import 'package:ecom_desgin/view/teacher_main/teacher_attendance/Teacher_attendance.dart';
+import 'package:ecom_desgin/view/teacher_main/teacher_fees/student_fees_display.dart';
+import 'package:ecom_desgin/view/teacher_main/teacher_home/dashboard.dart';
+import 'package:ecom_desgin/view/teacher_main/teacher_notification/teacher_notificaion.dart';
 import 'package:ecom_desgin/view/teacher_main/teacher_payroll/teacher_payroll.dart';
 import 'package:ecom_desgin/view/teacher_main/teacher_profile/teacher_profile.dart';
-import 'package:ecom_desgin/view/teacher_main/teacher_upload_content/upload_Content_dailog.dart';
-import 'package:ecom_desgin/view/teacher_main/time_table_t/class_time_table.dart';
-import 'package:ecom_desgin/view/teacher_main/time_table_t/time_table.dart';
-import 'package:ecom_desgin/view/teacher_main/teacher_upload_content/upload_content.dart';
+import 'package:ecom_desgin/view/teacher_main/time_table_t/teacher_class_time_table.dart';
+import 'package:ecom_desgin/view/teacher_main/time_table_t/teacher_time_table.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
@@ -27,11 +35,10 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 
 import 'package:hive/hive.dart';
+import '../leave_teacher/ohter_teacher_leave.dart';
 
 class TeacherHome extends StatefulWidget {
   const TeacherHome({super.key});
@@ -48,6 +55,10 @@ class _TeacherHomeState extends State<TeacherHome>
   late Animation<Offset> _Animation;
   final StaffDetailController staffdetailsController = Get.put(StaffDetailController());
   final NoticBoardController noticBoardController = Get.put(NoticBoardController());
+      final GetSchoolSettingController _schoolsetting = Get.put(GetSchoolSettingController());
+      final ForceLogout forceLogout = Get.put(ForceLogout());
+      final AboutController aboutController = Get.put(AboutController());
+       TeacherLoginController teacherLoginController=Get.put(TeacherLoginController());
 
 bool teachervisible=false;
   int totalSecs = 90;
@@ -57,7 +68,8 @@ bool teachervisible=false;
   var username;
   var password;
   var present;
-
+var schoolname;
+var session;
   late Timer timer;
   get progress => progressFraction;
   DateTime now = DateTime.now();
@@ -68,19 +80,32 @@ bool teachervisible=false;
   late Timer timer1;
   get progress1 => progressFraction1;
   var box = Hive.box("schoolData");
+  
 
   @override
   void initState() {
-
-
+    staffdetailsController.isloding.value=false;
     var id=box.get("staff_id");
+    var company_key=box.get("company_key");
+_schoolsetting.GetSchoolSettingapi(company_key);
+  forceLogout.forceLogout(id, context);
     print("staffidd");
     print(id);
     staffdetailsController.staffDetail(id);
-
+ schoolname = box.get("schoolname");
+ session = box.get("session");
+ var activestudentinfo = box.get("activatestudentInfo");
     var role_flag = box.get("role_flag");
     noticBoardController.noticBoardapi(role_flag);
     super.initState();
+print("TTTTTTTTTTTTTTTTTTTTTT");
+print(activestudentinfo);
+if(activestudentinfo.toString().toLowerCase()=="teacher"){
+           teacherLoginController.activatestudentInfo.value=true; 
+
+        }else{
+        teacherLoginController.activatestudentInfo.value=false; 
+        }
 
     _controller = AnimationController(
       duration: const Duration(milliseconds: 500),
@@ -136,19 +161,20 @@ bool teachervisible=false;
     }
   }
 
+  _getRequests(){
+var id=box.get("staff_id");
+    print("staffidd");
+    print(id);
+    staffdetailsController.staffDetail(id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
         onRefresh: () async {
-          AlwaysScrollableScrollPhysics();
+          const AlwaysScrollableScrollPhysics();
           setState(() {});
-          Timer timer;
-
-          timer = Timer.periodic(Duration(seconds: 3), (t) {});
-
-          await Future.value({
-            Duration(seconds: 3),
-          });
+ 
         },
         child: SafeArea(
             child: SideMenu(
@@ -158,12 +184,14 @@ bool teachervisible=false;
                 type: SideMenuType.shrikNRotate,
                 onChange: (isOpened) {
                   setState(() => isOpened = isOpened);
+                   var id=box.get("staff_id");
+                  forceLogout.forceLogout(id, context);
                 },
                 child: IgnorePointer(
 
                     ignoring: isOpened,
                     child: Scaffold(
-                        appBar: AppBar(
+                     appBar: AppBar(
                           // centerTitle: true,
                           leading: IconButton(
                             icon: const Icon(
@@ -178,53 +206,75 @@ bool teachervisible=false;
                             children: [
                               SizedBox(
                                   width: 0.45.sw,
-                                  child: Text(
-                                    "E-gyan Demo School",
+                                  child:  Text(
+                                    schoolname??"",
+                                    // _schoolsetting.GetSchoolSettingControllerList[0]["response"]["name"],
                                     style: MyGoogeFont.mydmSans1,
                                     overflow: TextOverflow.ellipsis,
-                                  )),
+                                  )
+
+                              ),
+
+
                             ],
                           ),
                           actions: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 0, top: 10).r,
-                              child: Column(
-                                children: [
-                                  Text(
-                                    'Session',
-                                    style: MyGoogeFont.mydmSans2,
-                                  ),
-                                  Text(
-                                    "2022-23",
-                                    style: MyGoogeFont.mydmSans2,
-                                  ),
-                                ],
-                              ),
-                            ),
+                        Padding(
+                        padding: const EdgeInsets.only(left: 0, top: 10).r,
+                      child: Column(
+                        children: [
+                          Text(
+                            'Session',
+                            style: MyGoogeFont.mydmSans2,
+                          ),
+                          Text(
+                            session??"",
+                            // _schoolsetting.GetSchoolSettingControllerList[0]["response"]["session"],
+                            style: MyGoogeFont.mydmSans2,
+                          ),
+                        ],
+                      ),
+                    ),
                             PopupMenuButton<int>(
                               itemBuilder: (context)  {
 
                                 return <PopupMenuEntry<int>>[
-                                  PopupMenuItem(
-                                      onTap:() async { await SessionManager().remove("name");
-                                      Get.toNamed(RoutesName.schoolId);
-                                      // ignore: use_build_context_synchronously
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text("logout", style: GoogleFonts.dmSans(
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 15.sp,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.red,
-                                        ),
-                                        ),
-                                          backgroundColor: Colors.white,
-                                        ),
-                                      );
-                                      },
-                                      value: 0, child: const Text('Logout')),
-                                  PopupMenuItem(child: Text('about'), value: 1),
+                                 const PopupMenuItem(value: 0, child: Text('Logout'),),
+                                 const PopupMenuItem(value: 1, child: Text("About E-Gyan"),
+                      
+                            ),
+                            //    PopupMenuItem(value: 1, child: const Text('AboutE-Gyan'),
+                          
+                            // ),
                                 ];
+                              },
+                              onSelected: (value) async {
+                                if(value==0){
+                            await SessionManager().remove("name");
+                        // await SessionManager().remove("parentlogin");
+                            Get.offAllNamed(RoutesName.schoolId);
+                            // ignore: use_build_context_synchronously
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("logout", style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                              ),
+                              ),
+                                backgroundColor: Colors.white,
+                              ),
+                            );
+                            
+                                }
+
+                            if(value==1){
+                    aboutController.isloading.value=false;
+
+                          aboutController.aboutEgyan();
+                          Navigator.push( context, MaterialPageRoute( builder: (context) => const AboutEgyan(),));
+                            
+                            }    
                               },
                             ),
                           ],
@@ -247,7 +297,7 @@ bool teachervisible=false;
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(
+                              padding: const EdgeInsets.only(
                                       left:18, right: 15, top: 70.0)
                                   .r,
                               child:  Stack(
@@ -262,29 +312,64 @@ bool teachervisible=false;
                                   ),
 
                                   Positioned(
-left: 0.10.sw,
+                            left: 0.10.sw,
                                     top: 0.015.sh,
                                     child: Row(
                                       children: [
-                                        Obx(()=>
-                                           staffdetailsController.isloding.value?ClipRRect(
-                                            // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
-                                            child:   CircleAvatar(
-                                              radius: 42.0,
-                                              backgroundImage:
-                                              NetworkImage("${ApiUrl.imagesUrl.toString()}${staffdetailsController.staffDetailModel.value?.response.image}"),
-                                            ),
-                                          ):ClipRRect(
-                              // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
-                              child:   CircleAvatar(
-                              radius: 42.0,
-                              backgroundImage:
-                              AssetImage("assets/images/user1.png"),
-                            ),),
-                                        ),
+                                    //  staffdetailsController.staffDetailModel.value?.response.image!=null?   FractionalTranslation(
+                                    //         translation: const Offset(0.0, -0.0),
+                                    //         child: Align(
+                                    //             alignment: const FractionalOffset(0.5, 0.5),
+                                    //             child: CircleAvatar(
+                                    //                 maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
+                                    //                     39,
+                                    //                 minRadius: 20,
+                                    //                 foregroundImage: 
+                                    //                 NetworkImage("${ApiUrl.imagesUrl.toString()}${staffdetailsController.staffDetailModel.value?.response.image}")
+                                                        
+                                    //                 ,
+                                    //             )
+
+
+                                    //         ),
+                                    //       ): FractionalTranslation(
+                                    //         translation: const Offset(0.0, -0.0),
+                                    //         child: Align(
+                                    //             alignment: const FractionalOffset(0.5, 0.5),
+                                    //             child: CircleAvatar(
+                                    //                 maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
+                                    //                     39,
+                                    //                 minRadius: 20,
+                                    //                 foregroundImage: const NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
+                                 
+                                    //                 ,
+                                    //                 // radius: 54.0,
+                                    //                 backgroundImage:
+                                    //                 const NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
+                                    //             )
+
+
+                                    //         ),
+                                    //       ),
+                            //             Obx(()=>
+                            //                staffdetailsController.isloding.value?ClipRRect(
+                            //                 // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
+                            //                 child:   CircleAvatar(
+                            //                   radius: 42.0,
+                            //                   backgroundImage:
+                            //                   NetworkImage("${ApiUrl.imagesUrl.toString()}${staffdetailsController.staffDetailModel.value?.response.image}"),
+                            //                 ),
+                            //               ):const ClipRRect(
+                            //   // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
+                            //   child:   CircleAvatar(
+                            //   radius: 42.0,
+                            //   backgroundImage:
+                            //   AssetImage("assets/images/user1.png"),
+                            // ),),
+                            //             ),
 
                                         Padding(
-                                          padding:  EdgeInsets.only(left: 8.0).r,
+                                          padding:  const EdgeInsets.only(left: 8.0).r,
                                           child:Obx(()=>
                                             staffdetailsController.isloding.value? Column(
                                               mainAxisAlignment: MainAxisAlignment.start,
@@ -316,7 +401,7 @@ left: 0.10.sw,
                                                       color: Colors.black),
                                                 ),
                                               ],
-                                            ):Text(""),
+                                            ):const Text(""),
                                           ),
                                         ),
                                       ],
@@ -327,47 +412,48 @@ left: 0.10.sw,
                             ),
                           ]),
 
-                                Container(
-                                  color: Colors.blue,
-                                  height: 0.080.sh,
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Stack(
-                                    children: [
-                                      Positioned(
-                                        top: 0.001.sh,
-                                        left: 0.06.sw,
-                                        child: SlideTransition(
-                                          position: _offsetAnimation,
-                                          child: Icon(
-                                            Icons.arrow_right,
-                                            color: Colors.white,
-                                            size: 52.sp,
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        left: 0.10.sw,
-                                        child: Padding(
-                                          padding: EdgeInsets.only(
-                                            bottom: 0.50.sh,
-                                          ),
+                              GestureDetector(
+                                          onTap: () => {
+                                             Get.to(Tdashboard()),
+
+                                          },
+                                  child: Container(
+                                    color: Colors.blue,
+                                    height: 0.080.sh,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Stack(
+                                      children: [
+                                        Positioned(
+                                          top: 0.001.sh,
+                                          left: 0.06.sw,
                                           child: SlideTransition(
-                                            position: _Animation,
+                                            position: _offsetAnimation,
                                             child: Icon(
                                               Icons.arrow_right,
                                               color: Colors.white,
-                                              size: 55.sp,
+                                              size: 52.sp,
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      Positioned(
-                                        left: 0.22.sw,
-                                        top: 0.025.sh,
-                                        child: GestureDetector(
-                                          onTap: () => {
-                                            Get.toNamed(RoutesName.dashboard),
-                                          },
+                                        Positioned(
+                                          left: 0.10.sw,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                              bottom: 0.50.sh,
+                                            ),
+                                            child: SlideTransition(
+                                              position: _Animation,
+                                              child: Icon(
+                                                Icons.arrow_right,
+                                                color: Colors.white,
+                                                size: 55.sp,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          left: 0.22.sw,
+                                          top: 0.025.sh,
                                           child: Text(
                                             "Tap Here For E-GYAN Services",
                                             style: GoogleFonts.dmSans(
@@ -378,45 +464,45 @@ left: 0.10.sw,
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
                                   height: 0.010.sh,
                                 ),
-                                SizedBox(
-                                    height: 0.08.sh,
-                                    // width: 0.500.sw,
-                                    child: Card(
-                                      color: Color.fromARGB(255, 134, 217, 248),
-                                      child: Center(
-                                        child: ScrollLoopAutoScroll(
-                                          duration: Duration(seconds: 200),
-                                          delay: Duration(seconds: 1),
-                                          // delayAfterScrollInput: Duration(seconds: 10),
-                                          enableScrollInput: true,
-                                          scrollDirection: Axis.horizontal,
+                                // SizedBox(
+                                //     height: 0.08.sh,
+                                //     // width: 0.500.sw,
+                                //     child: Card(
+                                //       color: Color.fromARGB(255, 134, 217, 248),
+                                //       child: Center(
+                                //         child: ScrollLoopAutoScroll(
+                                //           duration: Duration(seconds: 200),
+                                //           delay: Duration(seconds: 1),
+                                //           // delayAfterScrollInput: Duration(seconds: 10),
+                                //           enableScrollInput: true,
+                                //           scrollDirection: Axis.horizontal,
 
-                                          child: Row(
-                                            children: [
-                                              // for (var i = 0; i < 3; i++)
-                                              Obx(()=>
-                                                 noticBoardController.noticBoardModel.value?.response.length!=null?Text(
-                                                    Bidi.stripHtmlIfNeeded ('${noticBoardController.noticBoardModel.value?.response[0].title.toString().capitalizeFirst}   ${noticBoardController.noticBoardModel.value?.response[0].message.toString().capitalizeFirst}' ),
-                                                    style: GoogleFonts.dmSans(
-                                                      fontStyle: FontStyle.normal,
-                                                      fontSize: 15.sp,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ):Text("No Event"),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    )),
+                                //           child: Row(
+                                //             children: [
+                                //               // for (var i = 0; i < 3; i++)
+                                //               Obx(()=>
+                                //                  noticBoardController.noticBoardModel.value?.response.length!=null?Text(
+                                //                     Bidi.stripHtmlIfNeeded ('${noticBoardController.noticBoardModel.value?.response[0].title.toString().capitalizeFirst}   ${noticBoardController.noticBoardModel.value?.response[0].message.toString().capitalizeFirst}' ),
+                                //                     style: GoogleFonts.dmSans(
+                                //                       fontStyle: FontStyle.normal,
+                                //                       fontSize: 15.sp,
+                                //                       fontWeight: FontWeight.bold,
+                                //                       color: Colors.black,
+                                //                     ),
+                                //                   ):Text("No Event"),
+                                //               )
+                                //             ],
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     )),
 
                           teachervisible?Column(
                                   children: [
@@ -444,7 +530,7 @@ left: 0.10.sw,
                                                   borderRadius: BorderRadius.circular(3),
                                                   boxShadow: [
                                                     BoxShadow(
-                                                      offset: Offset(0, 1),
+                                                      offset: const Offset(0, 1),
                                                       blurRadius: 5,
                                                       color: Colors.black.withOpacity(0.3),
                                                     ),
@@ -484,7 +570,7 @@ left: 0.10.sw,
                                                   borderRadius: BorderRadius.circular(3),
                                                   boxShadow: [
                                                     BoxShadow(
-                                                      offset: Offset(0, 1),
+                                                      offset: const Offset(0, 1),
                                                       blurRadius: 5,
                                                       color: Colors.black.withOpacity(0.3),
                                                     ),
@@ -531,7 +617,7 @@ SizedBox(height: 0.0010.sh),
                                   borderRadius:  BorderRadius.circular(3),
                                   boxShadow: [
                                     BoxShadow(
-                                      offset: Offset(0, 1),
+                                      offset: const Offset(0, 1),
                                       blurRadius: 5,
                                       color: Colors.black.withOpacity(0.3),
                                     ),
@@ -629,7 +715,7 @@ mainAxisAlignment: MainAxisAlignment.center,
                                             "assets/images/man12.jpg",
                                             fit: BoxFit.cover,
 height: 0.10.sh,
-                                            width: 0.26.sw,
+                                            width: 0.32.sw,
                                           ),
 
                                       ),
@@ -656,15 +742,15 @@ height: 0.10.sh,
                                                     fontStyle: FontStyle.normal,
                                                     fontSize: 15.sp,
                                                     fontWeight: FontWeight.bold,
-                                                    color: Color(0xFF26C6DA),
+                                                    color: const Color(0xFF26C6DA),
                                                   ),
                                                 ),
                                                 '${staffdetailsController.staffDetailModel.value?.inoutTime.inTime}'!="null"?Text('${staffdetailsController.staffDetailModel.value?.inoutTime.inTime}', style: GoogleFonts.dmSans(
                                                   fontStyle: FontStyle.normal,
                                                   fontSize: 15.sp,
                                                   fontWeight: FontWeight.bold,
-                                                  color: Color(0xFF26C6DA),
-                                                ),):Text("")
+                                                  color: const Color(0xFF26C6DA),
+                                                ),):const Text("")
 
                                               ],
                                             ),
@@ -702,7 +788,7 @@ height: 0.10.sh,
                                                 fontSize: 15.sp,
                                                 fontWeight: FontWeight.bold,
                                                 color: AgentColor.AttenanceColor,
-                                              ),):Text(""),
+                                              ),):const Text(""),
 
                                             ],
                                           ),
@@ -716,12 +802,15 @@ SizedBox(height: 0.0220.sh,),
                                   children: [
                                     InkWell(
                                       onTap: (){
-                                       if(teachervisible==false){
-                                         teachervisible=true;
-                                         setState(() {
-
-                                         });
-                                       }
+                                        //  Get.to(const Scanner());
+                                         Navigator.of(context).push(MaterialPageRoute(builder: (_)=> const Scanner()),);
+        // .then((val)=>val?_getRequests():null);
+                                      //  if(teachervisible==false){
+                                      //    teachervisible=true;
+                                      //    setState(() {
+                               
+                                      //    });
+                                      //  }
                                       },
 
                                       child: Container(
@@ -732,7 +821,7 @@ SizedBox(height: 0.0220.sh,),
                                           borderRadius:BorderRadius.circular(60),
                                           boxShadow: [
                                             BoxShadow(
-                                              offset: Offset(0, 1),
+                                              offset: const Offset(0, 1),
                                               blurRadius: 20,
                                               spreadRadius: 5,
                                               color: Colors.black.withOpacity(0.10),
@@ -753,6 +842,20 @@ SizedBox(height: 0.0220.sh,),
                                       ),
                                     ),
                                     SizedBox(height: 0.030.sh,),
+                                     RichText(
+                                      text: TextSpan(
+                                        text: 'Present/Days In Month',
+                                        style: GoogleFonts.dmSans(
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 15.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: AgentColor.AttenanceColor,
+                                        ),
+                                     
+                                      ),
+                                    ),
+                                    SizedBox(height: 0.01.sh,),
+
                                     Container(
                                       height: 0.070.sh,
                                       width: 0.55.sw,
@@ -761,7 +864,7 @@ SizedBox(height: 0.0220.sh,),
                                         borderRadius:BorderRadius.circular(60),
                                         boxShadow: [
                                           BoxShadow(
-                                            offset: Offset(0, 1),
+                                            offset: const Offset(0, 1),
                                             blurRadius: 20,
                                             spreadRadius: 5,
                                             color: Colors.black.withOpacity(0.10),
@@ -770,14 +873,37 @@ SizedBox(height: 0.0220.sh,),
                                       ),
                                       child: Center(
                                         child:
-                                          Text(
-                                            '${staffdetailsController.staffDetailModel.value?.monthAttendance.present}/${staffdetailsController.staffDetailModel.value?.monthAttendance.daysinmonth}',
-                                            style: GoogleFonts.dmSans(
-                                              fontStyle: FontStyle.normal,
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color:   teachervisible?Colors.black:Colors.white,
-                                            ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                staffdetailsController.staffDetailModel.value?.monthAttendance.present??"",
+                                                style: GoogleFonts.dmSans(
+                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  color:   teachervisible?Colors.black:Colors.white,
+                                                ),
+                                              ),
+                                                 Text(
+                                                "/",
+                                                style: GoogleFonts.dmSans(
+                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  color:   teachervisible?Colors.black:Colors.white,
+                                                ),
+                                              ),
+                                                  Text(
+                                                staffdetailsController.staffDetailModel.value?.monthAttendance.daysinmonth??"",
+                                                style: GoogleFonts.dmSans(
+                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  color:   teachervisible?Colors.black:Colors.white,
+                                                ),
+                                              ),
+                                            ],
                                           )
                                         ),
                                       ),
@@ -785,42 +911,36 @@ SizedBox(height: 0.0220.sh,),
                               ),
 
                             ],
-                          ):Text(""),
+                          ):const Text(""),
                                 ), ]),
                       bottomNavigationBar: Container(
-                        color: Color.fromARGB(255, 196, 236, 255),
+                        color: const Color.fromARGB(255, 196, 236, 255),
                         child:Row(
-
-                          children: [
-                            Padding(
-                              padding:  EdgeInsets.only(left: 0.09.sw),
-                              child: const ClipRRect(
-                                child: CircleAvatar(
-                                  radius: 20.0,
-                                  backgroundImage:
-                                  AssetImage("assets/images/appstore.png"),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:  EdgeInsets.only(left: 0.05.sw,top: 10),
-                              child: const Text("Powered By :-"),
-                            ),
-                            Image.asset(
-                              "assets/images/b.png",
-                              width: 0.4.sw,
-                              height: 0.070.sh,
-                            ),
-                          ],
-                        ),
+                 
+                  children: [
+                    Padding(
+                  padding:  EdgeInsets.only(left: 0.09.sw),
+                  child: Image.asset("assets/images/appstore.png",width: 50,height: 50,),
+),
+                     Padding(
+                       padding:  EdgeInsets.only(left: 0.05.sw,top: 10),
+                       child: const Text("Powered By :-"),
+                     ),
+                    Image.asset(
+                      "assets/images/b.png",
+                      width: 0.4.sw,
+                      height: 0.070.sh,
+                    ),
+                  ],
+                ),
                       ),
                             )
                           )
                         )));
   }
 
-  Widget buildMenu() {
-    return SingleChildScrollView(
+   Widget buildMenu() {
+    return  SingleChildScrollView(
       child: Container(
 
         child: Column(
@@ -828,124 +948,48 @@ SizedBox(height: 0.0220.sh,),
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 40.0).r,
-              child: ClipRRect(
-                // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
-                child:   CircleAvatar(
-                  radius: 35.0,
-                  backgroundImage:
-                  AssetImage(
-                    "assets/images/appstore.png",
-
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0).r,
-              child: Text(
-                'E-gyan Demo School',
-                style: GoogleFonts.dmSans(
-                  fontStyle: FontStyle.normal,
-                  fontSize:15.sp,
-                  fontWeight: FontWeight.bold,
-color: Colors.white
-                ),
+              padding: const EdgeInsets.only(left: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ClipOval(
+                      child: Obx(() => _schoolsetting.loadingimage.value
+                          ? Image.network(
+                        _schoolsetting.GetSchoolSettingControllerList[0]["response"]["image"],
+                        width: 100,
+                        height: 100,
+                      )
+                          : const CircularProgressIndicator())),
+                  const SizedBox(height: 16.0),
+                  Obx(() => _schoolsetting.loadingimage.value
+                      ? Text(
+                    _schoolsetting.GetSchoolSettingControllerList[0]
+                    ["response"]["name"],
+                    style: GoogleFonts.dmSans(
+                      fontStyle: FontStyle.normal,
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  )
+                      : const Text("")),
+                  const SizedBox(height: 20.0),
+                ],
               ),
             ),
             SizedBox(
               height: 0.052.sh,
-              child: ListTile(
+              child: const ListTile(
 
                 leading:
-                    const Icon(Icons.home, size: 20.0, color: Colors.white),
-                title: const Text("Home"),
+                    Icon(Icons.home, size: 20.0, color: Colors.white),
+                title: Text("Home"),
                 textColor: Colors.white,
                 dense: true,
               ),
             ),
 
-            // SizedBox(
-            //   height: 0.052.sh,
-            //   child: ListTile(
-            //     onTap: () {Get.to(StudentInformation());},
-            //
-            //     leading: const Icon(Icons.verified_user,
-            //         size: 20.0, color: Colors.white),
-            //     title: const Text("Student Information"),
-            //     textColor: Colors.white,
-            //     dense: true,
-            //
-            //     // padding: EdgeInsets.zero,
-            //   ),
-            // ),
 
-            // SizedBox(
-            //   height: 0.052.sh,
-            //   child: ListTile(
-            //     onTap: () {Get.to(AttandanceAdd());},
-            //     leading: const Icon(Icons.present_to_all,
-            //         size: 20.0, color: Colors.white),
-            //     title: const Text("Attendance"),
-            //     textColor: Colors.white,
-            //     dense: true,
-            //
-            //     // padding: EdgeInsets.zero,
-            //   ),
-            // ),
-            // ListTileTheme(
-            //   dense: true,
-            //   child: ExpansionTile(
-            //     collapsedIconColor: Colors.white,
-            //     textColor: Colors.white,
-            //     title: Text(
-            //       "Exmaination",
-            //       style: GoogleFonts.dmSans(
-            //         fontStyle: FontStyle.normal,
-            //         fontSize: 14.sp,
-            //         color: Colors.white,
-            //       ),
-            //     ),
-            //     leading: const Icon(Icons.border_color_rounded,
-            //         size: 20.0, color: Colors.white),
-            //
-            //     childrenPadding: EdgeInsets.only(left: 60), //children padding
-            //     children: [
-            //       SizedBox(
-            //         height: 0.052.sh,
-            //         child: ListTile(
-            //
-            //           title: Text(
-            //             "Exam Time ",
-            //             style: GoogleFonts.dmSans(
-            //               fontStyle: FontStyle.normal,
-            //               fontSize: 14.sp,
-            //               color: Colors.white,
-            //             ),
-            //           ),
-            //
-            //         ),
-            //       ),
-            //
-            //       SizedBox(
-            //         height: 0.062.sh,
-            //         child: ListTile(
-            //           title: Text(
-            //             "Result",
-            //             style: GoogleFonts.dmSans(
-            //               fontStyle: FontStyle.normal,
-            //               fontSize: 14.sp,
-            //               color: Colors.white,
-            //             ),
-            //           ),
-            //
-            //         ),
-            //       ),
-            //
-            //       //more child menu
-            //     ],
-            //   ),
-            // ),
             ListTileTheme(
               dense: true,
               child: ExpansionTile(
@@ -962,7 +1006,7 @@ color: Colors.white
                 leading: const Icon(Icons.insert_drive_file_outlined,
                     size: 20.0, color: Colors.white),
 
-                childrenPadding: EdgeInsets.only(left: 60), //children padding
+                childrenPadding: const EdgeInsets.only(left: 60), //children padding
                 children: [
                   SizedBox(
                     height: 0.052.sh,
@@ -1015,7 +1059,7 @@ color: Colors.white
                   SizedBox(
                     height: 0.062.sh,
                     child: ListTile(
-                      onTap: () {Get.to(LeaveTeacher());},
+                      onTap: () {Get.to(const TeacherLeaveStatus());},
                       title: Text(
                         "Leave",
                         style: GoogleFonts.dmSans(
@@ -1032,145 +1076,266 @@ color: Colors.white
                 ],
               ),
             ),
-            // ListTileTheme(
-            //   dense: true,
-            //   child: ExpansionTile(
-            //     collapsedIconColor: Colors.white,
-            //     textColor: Colors.white,
-            //     title: Text(
-            //       "Report",
-            //       style: GoogleFonts.dmSans(
-            //         fontStyle: FontStyle.normal,
-            //         fontSize: 14.sp,
-            //         color: Colors.white,
-            //       ),
-            //     ),
-            //     leading: const Icon(Icons.report,
-            //         size: 20.0, color: Colors.white),
-            //
-            //     childrenPadding: EdgeInsets.only(left: 60), //children padding
-            //     children: [
-            //       SizedBox(
-            //         height: 0.062.sh,
-            //         child: ListTile(
-            //           title: Text(
-            //             "Finace",
-            //             style: GoogleFonts.dmSans(
-            //               fontStyle: FontStyle.normal,
-            //               fontSize: 14.sp,
-            //               color: Colors.white,
-            //             ),
-            //           ),
-            //
-            //         ),
-            //       ),
-            //       //more child menu
-            //     ],
-            //   ),
-            // ),
-            // ListTileTheme(
-            //   dense: true,
-            //   child: ExpansionTile(
-            //     collapsedIconColor: Colors.white,
-            //     textColor: Colors.white,
-            //     title: Text(
-            //       "Class Time Table",
-            //       style: GoogleFonts.dmSans(
-            //         fontStyle: FontStyle.normal,
-            //         fontSize: 14.sp,
-            //         color: Colors.white,
-            //       ),
-            //     ),
-            //     leading: const Icon(Icons.timer,
-            //         size: 20.0, color: Colors.white),
-            //
-            //     childrenPadding: EdgeInsets.only(left: 60), //children padding
-            //     children: [
-            //       SizedBox(
-            //         height: 0.062.sh,
-            //         child: ListTile(
-            //           title: Text(
-            //             "Class Time Table",
-            //             style: GoogleFonts.dmSans(
-            //               fontStyle: FontStyle.normal,
-            //               fontSize: 14.sp,
-            //               color: Colors.white,
-            //             ),
-            //           ),
-            //           onTap:(){Get.to(ClassTimeTable());}
-            //         ),
-            //       ),
-            //       SizedBox(
-            //         height: 0.062.sh,
-            //         child: ListTile(
-            //           title: Text(
-            //             "Time Table",
-            //             style: GoogleFonts.dmSans(
-            //               fontStyle: FontStyle.normal,
-            //               fontSize: 14.sp,
-            //               color: Colors.white,
-            //             ),
-            //           ),
-            //           onTap:(){Get.to(TimeTableTeacher());}
-            //         ),
-            //       ),
-            //       //more child menu
-            //     ],
-            //   ),
-            // ),
+            Visibility(
+              visible:teacherLoginController.activatestudentInfo.value,
+         child: ListTileTheme(
+                      dense: true,
+                      child: ExpansionTile(
+                        collapsedIconColor: Colors.white,
+                        textColor: Colors.white,
+                        title: Text(
+                          "Student Information",
+                          style: GoogleFonts.dmSans(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 14.sp,
+                            color: Colors.white,
+                          ),
+                        ),
+                        leading: const Icon(Icons.insert_drive_file_outlined,
+                            size: 20.0, color: Colors.white),
 
-            // ListTileTheme(
-            //   dense: true,
-            //   child: ExpansionTile(
-            //     collapsedIconColor: Colors.white,
-            //     textColor: Colors.white,
-            //     title: Text(
-            //       "Download center",
-            //       style: GoogleFonts.dmSans(
-            //         fontStyle: FontStyle.normal,
-            //         fontSize: 14.sp,
-            //         color: Colors.white,
-            //       ),
-            //     ),
-            //     leading: const Icon(Icons.report,
-            //         size: 20.0, color: Colors.white),
-            //
-            //     childrenPadding: EdgeInsets.only(left: 60), //children padding
-            //     children: [
-            //
-            //       SizedBox(
-            //         height: 0.062.sh,
-            //         child: ListTile(
-            //             title: Text(
-            //               "Upload Content",
-            //               style: GoogleFonts.dmSans(
-            //                 fontStyle: FontStyle.normal,
-            //                 fontSize: 14.sp,
-            //                 color: Colors.white,
-            //               ),
-            //             ),
-            //             onTap:(){Get.to(UploadContent());}
-            //         ),
-            //       ),
-            //       //more child menu
-            //     ],
-            //   ),
-            // ),
+                        childrenPadding: const EdgeInsets.only(left: 20), //children padding
+                        children: [
+                             SizedBox(
+                                  height: 0.062.sh,
+                                  child: ListTile(
+                                     leading: const Icon(Icons.info,
+                                  size: 20.0, color: Colors.white),
+                                    onTap: () {Get.to(const StudentInformation());},
+                                    title: Text(
+                                      "Student Details",
+                                      style: GoogleFonts.dmSans(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 14.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+
+                                  ),
+                                ),
+                                   SizedBox(
+                                  // height: 0.02.sh,
+                                  child: ListTile(
+                                     leading: const Icon(Icons.present_to_all,
+                                  size: 20.0, color: Colors.white),
+                                    onTap: () {Get.to(const AttandanceAdd());},
+                                    
+                                    title: Text(
+                                      "Attendance",
+                                      style: GoogleFonts.dmSans(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 14.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+
+                                  ),
+                                ),
+                      
+                          SizedBox(
+                            height: 0.052.sh,
+                            child: ListTile(
+                              onTap: () {Get.to(const StudentFees());},
+                              leading: const Icon(Icons.currency_rupee,
+                                  size: 20.0, color: Colors.white),
+                              title: Text(
+                                "Fees",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+
+                            ),
+                          ),
+
+                          SizedBox(
+                            height: 0.062.sh,
+                            child: ListTile(
+                              leading: const Icon(Icons.access_time_filled_outlined,
+                                  size: 20.0, color: Colors.white),
+                              onTap: () {
+
+                                  Get.to(const TeacherClassTimeTable());
 
 
-            // SizedBox(
-            //   height: 0.052.sh,
-            //   child:  ListTile(
-            //     onTap: () {Get.to(HomeWork());},
-            //     leading: Icon(Icons.book,
-            //         size: 20.0, color: Colors.white),
-            //     title: Text("HomeWork"),
-            //     textColor: Colors.white,
-            //     dense: true,
-            //
-            //     // padding: EdgeInsets.zero,
-            //   ),
-            // ),
+                                },
+
+                              title: Text(
+                                "Class TimeTable",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+
+                            ),
+                          ),
+                          SizedBox(
+                            height: 0.062.sh,
+                            child: ListTile(
+                              leading: const Icon(Icons.access_time_filled_outlined,
+                                  size: 20.0, color: Colors.white),
+                              onTap: () {
+
+                                Get.to(const TeacherTimeTable());
+                              },
+
+                              title: Text(
+                                "Teacher TimeTable",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+
+                            ),
+                          ),
+                          SizedBox(
+                            height: 0.062.sh,
+                            child: ListTile(
+                              leading: const Icon(Icons.upload_file,
+                                  size: 20.0, color: Colors.white),
+                              onTap: () {Get.to(const UploadContent());},
+                              title: Text(
+                                "Upload center",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+
+                            ),
+                          ),
+
+                          SizedBox(
+                            height: 0.062.sh,
+                            child: ListTile(
+                              leading: const Icon(Icons.book_online,
+                                  size: 20.0, color: Colors.white),
+                              onTap: () {
+
+                                  Get.to(const HomeWork());
+
+                              },
+                              title: Text(
+                                "HomeWork",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+
+                            ),
+                          ),
+                          ListTileTheme(
+                            dense: true,
+                            child: ExpansionTile(
+                              collapsedIconColor: Colors.white,
+                              textColor: Colors.white,
+                              title: Text(
+                                "Exam",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              leading: const Icon(Icons.book,
+                                  size: 20.0, color: Colors.white),
+
+                              childrenPadding: const EdgeInsets.only(left: 70), //children padding
+                              children: [
+                                SizedBox(
+                                  height: 0.062.sh,
+                                  child: ListTile(
+                                    onTap: () {
+                                      Get.to(const TeacherExamTimeTable());
+
+
+
+                                    },
+                                    title: Text(
+                                      "Exam Shedule",
+                                      style: GoogleFonts.dmSans(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 14.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+
+                                  ),
+                                ),
+                                SizedBox(
+                                  // height: 0.02.sh,
+                                  child: ListTile(
+                                    onTap: () {
+                                      Get.to(const ExamResultall());
+
+
+
+                                    },
+                                    title: Text(
+                                      "Exam Result",
+                                      style: GoogleFonts.dmSans(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 14.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+
+                                  ),
+                                ),
+
+                                //more child menu
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 0.062.sh,
+                            child: ListTile(
+                              onTap: () {Get.to(TeacherProfile());},
+                              leading: const Icon(Icons.leave_bags_at_home,
+                                  size: 20.0, color: Colors.white),
+                              title: Text(
+                                "Leave",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+
+                            ),
+                          ),
+                          SizedBox(
+                            height: 0.062.sh,
+                            child: ListTile(
+                              onTap: () {Get.to(const TeacherSyllebus());},
+                              leading: const Icon(Icons.book,
+                                  size: 20.0, color: Colors.white),
+                              title: Text(
+                                "Syllabus",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+
+                            ),
+                          ), 
+                          
+                        ],
+                      ),
+                    ),
+       ),
+
 
             SizedBox(
               height: 0.052.sh,
@@ -1188,10 +1353,10 @@ color: Colors.white
             SizedBox(
               height: 0.052.sh,
               child:  ListTile(
-                // onTap: () {Get.to(HomeWork());},
-                leading: Icon(Icons.notifications,
+                onTap: () {Get.to(TeacherNotificationPage());},
+                leading: const Icon(Icons.notifications,
                     size: 20.0, color: Colors.white),
-                title: Text("Notification"),
+                title: const Text("Notification"),
                 textColor: Colors.white,
                 dense: true,
 
@@ -1211,8 +1376,6 @@ color: Colors.white
                 // padding: EdgeInsets.zero,
               ),
             ),
-
-
             SizedBox(
               height: 0.05.sh,
             ),

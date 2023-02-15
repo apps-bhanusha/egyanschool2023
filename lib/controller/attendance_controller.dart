@@ -22,8 +22,7 @@ class AttendanceController extends GetxController {
       "month": month,
       "year": year,
     });
-    print("46555555555555555555555554444444444444444444fgggggggggg55544444444");
-    print(body);
+
     final urlapi = Uri.parse(ApiUrl.baseUrl + ApiUrl.attendanceUrl);
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
@@ -31,14 +30,8 @@ class AttendanceController extends GetxController {
 
       AttendanceControllerList = [];
       AttendanceControllerList.add(sdata);
-      print(AttendanceControllerList);
-      print(AttendanceControllerList[0]["response"][0]["date"]);
-      print(AttendanceControllerList[0]["response"][0]["title"]);
-      print(
-          "555555555555555555555jjjjjjjj444444444444444444444444ggggggggggjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
       var box = Hive.box("schoolData");
-      print("5555555555555555555555555555554444444444444");
-
+   
 
       box.put("date", AttendanceControllerList[0]["response"][0]["date"]);
 
@@ -57,8 +50,6 @@ class AttendanceController extends GetxController {
   }
   void addcalendardata(){
     for(var i=0; i<AttendanceControllerList[0]["response"][i].length-1; i++){
-      print("4444444444444444444444444444kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-      print(AttendanceControllerList[0]["response"][i]["date"]);
       presentDates.add(DateFormat("yyyy-MM-dd").parse(AttendanceControllerList[0]["response"][i]["date"]));
     }
   }

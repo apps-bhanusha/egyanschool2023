@@ -185,7 +185,7 @@ keyboardType: TextInputType.number,
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Teachers",
+              Text("Staff",
                 style: GoogleFonts.dmSans(
                   fontStyle: FontStyle.normal,
                   fontSize: 15.sp,
@@ -319,13 +319,7 @@ print(rediobutton);
                   children: [
                     Padding(
 padding:  EdgeInsets.only(left: 0.09.sw).r,
-child: const ClipRRect(
-child: CircleAvatar(
-radius: 20.0,
-backgroundImage:
-AssetImage("assets/images/appstore.png"),
-),
-),
+child: Image.asset("assets/images/appstore.png",width: 50,height: 50,),
 ),
                      Padding(
                        padding:  EdgeInsets.only(left: 0.05.sw,top: 10),

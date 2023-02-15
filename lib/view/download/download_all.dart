@@ -96,16 +96,7 @@ class _DownloadAllState extends State<DownloadAll> {
       appBar: AppBar(
         backgroundColor:AgentColor.appbarbackgroundColor,
         title: Text('Download',style: MyGoogeFont.mydmSans),
-        actions: [
-          PopupMenuButton<int>(
-            itemBuilder: (context) {
-              return <PopupMenuEntry<int>>[
-                const PopupMenuItem(child: Text('0'), value: 0),
-                const PopupMenuItem(child: Text('1'), value: 1),
-              ];
-            },
-          ),
-        ],
+
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

@@ -3,7 +3,6 @@ import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
-import 'package:ecom_desgin/view/teacher_main/Teacher_Login.dart';
 import 'package:get/get.dart';
 import 'package:ecom_desgin/view/login/Student_Login.dart';
 
@@ -37,35 +36,36 @@ import 'package:http/http.dart' as http;
       // SchoolIdModel.fromJson(sdata);
       if (sdata["status"] == true ) {
         print("3sadddddddddddddddddddddddddddddddddd44ddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-
+          print(sdata["response"]["lat"]);
+          print(sdata["response"]["lang"]);
         var box = Hive.box("schoolData");
-
+        box.put("lat",sdata["response"]["lat"]);
+        box.put("lang",sdata["response"]["lang"]);
 
         box.put("company_key",SchoolIdControllerList2[0]["response"]["company_key"]);
 
         _schoolsetting.GetSchoolSettingapi(SchoolIdControllerList2[0]["response"]["company_key"]);
-    isloading.value =true;
 
-        if (_radioVal == 3) {
+    
+      Future.delayed(Duration(seconds: 3),(){
+  if (_radioVal == 3) {
         box.put("role_flag","S");
-
+             isloading.value =true;
           Get.to(StudentLogin(),arguments: [_radioVal]);
-          print("radiobutonnnnnnnnnnnnnnn");
-          print(_radioVal);
-          print("Student");
         }
         if (_radioVal == 1) {
+              isloading.value =true;
            Get.to(StudentLogin(),arguments: [_radioVal]);
           box.put("role_flag","T");
-          print("teacher");
           // all.apicall(id.text);
         }
          if(_radioVal==2){
            box.put("role_flag","P");
-
+    isloading.value =true;
            Get.to(StudentLogin(),arguments: [_radioVal]);
                       // Get.toNamed(RoutesName.parentLogin);
                     }
+      });
                    
       } else {
     isloading.value =true;

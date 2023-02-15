@@ -1,4 +1,5 @@
 
+import 'package:ecom_desgin/controller/teacher_controller/class_list_controller.dart';
 import 'package:ecom_desgin/view/teacher_main/home_work/evaluate_homework.dart';
 import 'package:ecom_desgin/view/teacher_main/home_work/teacher_add_homwork.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,6 +15,8 @@ class HomeWork extends StatefulWidget {
 }
 
 class _HomeWorkState extends State<HomeWork> {
+
+  ClassListController classListController=Get.put(ClassListController());
   List<String> countries = ["1st", "Russia", "USA", "China", "United Kingdom", "USA", "India"];
   List<String> countries1 = ["A", "Russia", "USA", "China", "United Kingdom", "USA", "India"];
   bool value = false;
@@ -120,8 +123,12 @@ class _HomeWorkState extends State<HomeWork> {
                         const Text("Content List ",style:TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20)),
                         InkWell(
                           onTap: (){
-                            Get.to(TeacherAddHomeWork());
-                          },
+
+
+                              Get.to(TeacherAddHomeWork());
+
+
+      } ,
                           child: Container(
                             color: Colors.blue,
                             width: 100,

@@ -48,13 +48,11 @@ class UserNameController extends GetxController {
       "company_key":company_key,
     
     });
-    print("Student Login ");
-    print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.studentLoginUrl);
     var response = await http.post(urlapi, body: body);
    
     if (response.statusCode == 200) {
-      isloading.value=true;
+      isloading.value=false;
       // parentLoginController.parentLogin.value=false;
        box.put("role_flag","S");
 
@@ -67,9 +65,6 @@ class UserNameController extends GetxController {
            
           final userIsStored = await saveUser(jsonEncode(response.body));
      SchoolIdControllerList.add(sdata);
-      // parentStudentListModel.value= ParentStudentListModel.fromJson(sdata);
-       print("student login Responce");
-       print(sdata);
         var box = Hive.box("schoolData");
         box.put("username",username);
         box.put("student_login","student_login");
@@ -109,13 +104,13 @@ class UserNameController extends GetxController {
             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
     const HomeScreen()), (Route<dynamic> route) => false);
                             // studentProfileController.studentProfileApi(SchoolIdControllerList[0]["response"][0]["student_id"]);
-          print("student profile get student id ckeck ");
           // print(SchoolIdControllerList[0]["response"][0]["student_id"]);
           //  studentProfileController.studentProfileApi(SchoolIdControllerList[0]["response"][0]["student_id"]);
           //     Get.offAllNamed(RoutesName.home);
            parentLoginController.parentLogin.value=false;                
       }
       else  {
+         isloading.value=true;
         ScaffoldMessenger.of (context).showSnackBar(SnackBar(content: Text(sdata["message"], style: GoogleFonts.dmSans(
             fontStyle: FontStyle.normal,
             fontSize: 15.sp,
@@ -129,6 +124,7 @@ class UserNameController extends GetxController {
         print("invalid id");
       } }
     else {
+         isloading.value=true;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Blank Field Not Allowed",style: GoogleFonts.dmSans(fontStyle: FontStyle.normal,
         fontSize: 15.sp,
         fontWeight: FontWeight.bold,

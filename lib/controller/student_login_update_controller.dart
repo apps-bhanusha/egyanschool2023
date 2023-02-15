@@ -39,8 +39,6 @@ class StudentLoginUpdateController extends GetxController {
       "company_key":company_key,
       "password":password,
     });
-    print("465555555555555555555555555544444444");
-    print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.studentLoginUrl);
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
@@ -50,9 +48,6 @@ class StudentLoginUpdateController extends GetxController {
       final userIsStored =
       await saveUser(jsonEncode(response.body));
       var sdata = jsonDecode(response.body);
-
-      print(sdata);
-
 
       if (sdata["status"] == true) {
         studentLoginModelList.value = StudentLoginModel.fromJson(sdata);

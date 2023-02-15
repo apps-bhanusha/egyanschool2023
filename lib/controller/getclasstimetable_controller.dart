@@ -16,8 +16,6 @@ class GetclassTimeTableController extends GetxController {
       "company_key":company_key,
       "id": id
     });
-    print("4rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-    print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.getclassTimeTableUrl);
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
@@ -25,8 +23,6 @@ class GetclassTimeTableController extends GetxController {
     
       GetclassTimeTableControllerList=[];
       GetclassTimeTableControllerList.add(sdata) ;
-      print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmvvvvvvvvvvvvvvv");
-      print(GetclassTimeTableControllerList);
        loadingGetclassTimeTable.value=true;
       // print(GetschoolsettingControllerList[0]["response"]["total_discount_amount"]);
       if (sdata["status"] == true ) {

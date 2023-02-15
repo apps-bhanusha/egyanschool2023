@@ -62,11 +62,11 @@ class InoutTime {
 
 class MonthAttendance {
     MonthAttendance({
-        required this.present,
+        this.present,
         required this.daysinmonth,
     });
 
-    String present;
+    dynamic present;
     String daysinmonth;
 
     factory MonthAttendance.fromJson(Map<String, dynamic> json) => MonthAttendance(
@@ -108,6 +108,7 @@ class Response {
         required this.userId,
         required this.isActive,
         this.deviceToken,
+        required this.forceLogout,
         required this.roleId,
         required this.userType,
     });
@@ -138,6 +139,7 @@ class Response {
     String userId;
     String isActive;
     dynamic deviceToken;
+    String forceLogout;
     String roleId;
     String userType;
 
@@ -168,6 +170,7 @@ class Response {
         userId: json["user_id"],
         isActive: json["is_active"],
         deviceToken: json["device_token"],
+        forceLogout: json["force_logout"],
         roleId: json["role_id"],
         userType: json["user_type"],
     );
@@ -199,6 +202,7 @@ class Response {
         "user_id": userId,
         "is_active": isActive,
         "device_token": deviceToken,
+        "force_logout": forceLogout,
         "role_id": roleId,
         "user_type": userType,
     };

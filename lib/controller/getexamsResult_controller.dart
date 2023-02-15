@@ -19,8 +19,7 @@ class GetexamsResultController extends GetxController {
       "id": id,
 "exam_id":exam_id
     });
-    print("4ffffffffffffffffffffoooooooooooooooooo444444444444444444ffffffffffffff");
-    print(body);
+
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.getexamsResultUrl);
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
@@ -28,9 +27,6 @@ class GetexamsResultController extends GetxController {
 
       GetexamsResultControllerList=[];
       GetexamsResultControllerList.add(sdata) ;
-      print("exammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmddddddddddddd");
-      print(GetexamsResultControllerList);
-      print(GetexamsResultControllerList[0]["response"]["examResult"][0]["subject_name"]);
       // print(GetschoolsettingControllerLexam_idist[0]["response"]["total_discount_amount"]);
       if (sdata["status"] == true ) {
         loadingGetexamsResult.value=true;

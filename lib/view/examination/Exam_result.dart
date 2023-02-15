@@ -50,16 +50,7 @@ class _ExamResultState extends State<ExamResult> {
       appBar: AppBar(
         backgroundColor: AgentColor.appbarbackgroundColor,
         title: Text('Result', style: MyGoogeFont.mydmSans),
-        actions: [
-          PopupMenuButton<int>(
-            itemBuilder: (context) {
-              return <PopupMenuEntry<int>>[
-                const PopupMenuItem(child: Text('0'), value: 0),
-                const PopupMenuItem(child: Text('1'), value: 1),
-              ];
-            },
-          ),
-        ],
+
       ),
       body: Obx(
             () => getexamview1.loadingGetexamsSchedule1.value

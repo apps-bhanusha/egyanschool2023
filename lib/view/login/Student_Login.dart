@@ -97,62 +97,49 @@ class _StudentLoginState extends State<StudentLogin> {
             top: 0.25.sh,
             left: 0.32.sw,
             
-               child: rediobutton==1?rediobutton==2?rediobutton==3?Text("Student Login",style: GoogleFonts.dmSans(
+               child: Text(rediobutton==1?"Staff Login":rediobutton==2?"Parent Login":"Student Login",style: GoogleFonts.dmSans(
                                 fontStyle: FontStyle.normal,
                                 fontSize: 23.sp,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
              
                               ),
-               ):Text("parent Login",style: GoogleFonts.dmSans(
-                 fontStyle: FontStyle.normal,
-                 fontSize: 23.sp,
-                 fontWeight: FontWeight.bold,
-                 color: Colors.white,
 
+               )
                ),
-               ):Text("Teacher Login",style: GoogleFonts.dmSans(
-                 fontStyle: FontStyle.normal,
-                 fontSize: 23.sp,
-                 fontWeight: FontWeight.bold,
-                 color: Colors.white,
+            ] ),
 
-               ),
-               ):Text(" ",style: GoogleFonts.dmSans(
-                 fontStyle: FontStyle.normal,
-                 fontSize: 23.sp,
-                 fontWeight: FontWeight.bold,
-                 color: Colors.white,
 
-               ),
-               ),
-             ),
-            ],
-          ),
           
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32).r,
+            padding: const EdgeInsets.symmetric(horizontal: 30).r,
             child: Material(
               elevation: 2.0,
-              borderRadius: BorderRadius.all(Radius.circular(30)),
+              borderRadius: const BorderRadius.all(Radius.circular(30)),
               child: TextField(
+                keyboardType: TextInputType.emailAddress,
                 controller: usersname,
                 onChanged: (String value) {},
-                cursorColor: Color.fromRGBO(32, 64, 81, 1.0),
+                cursorColor: const Color.fromRGBO(32, 64, 81, 1.0),
                 decoration: const InputDecoration(
                   hintText: " UserName",
-                  prefixIcon: Material(
-                    elevation: 2,
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    child: Icon(
-                      Icons.account_circle_rounded,
-                      color: Color.fromRGBO(32, 64, 81, 1.0),
+                  prefixIcon: Padding(
+                    padding:  EdgeInsets.all(8),
+                    child: Material(
+                      elevation: 2,
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      child: Icon(
+                        Icons.account_circle_rounded,
+                        color: Color.fromRGBO(32, 64, 81, 1.0),
+                      ),
                     ),
                   ),
                   border: InputBorder.none,
                   contentPadding:
                   EdgeInsets.symmetric(horizontal: 25, vertical: 13),
+                  
                 ),
+                
               ),
             ),
           ),
@@ -160,41 +147,44 @@ class _StudentLoginState extends State<StudentLogin> {
             height: 0.015.sh,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32).r,
+            padding: const EdgeInsets.symmetric(horizontal: 30).r,
             child: Material(
               elevation: 2.0,
-              borderRadius: BorderRadius.all(Radius.circular(30)),
+              borderRadius: const BorderRadius.all(Radius.circular(30)),
               child: TextFormField(
                 controller: password,
                 obscureText: _isHidden,
                 onChanged: (String value) {},
-                cursorColor: Color.fromRGBO(32, 64, 81, 1.0),
+                cursorColor: const Color.fromRGBO(32, 64, 81, 1.0),
                 decoration: InputDecoration(
-                  hintText: "Password",
-                  prefixIcon: const Material(
-                    elevation: 2,
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    child: Icon(
-                      Icons.account_circle_rounded,
-                      color: Color.fromRGBO(32, 64, 81, 1.0),
+                  hintText: " Password",
+                  prefixIcon: const Padding(
+                    padding:  EdgeInsets.all(8),
+                    child:  Material(
+                      elevation: 2,
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      child: Icon(
+                        Icons.account_circle_rounded,
+                        color: Color.fromRGBO(32, 64, 81, 1.0),
+                      ),
                     ),
                   ),
                   suffix: InkWell(
                     onTap: _togglePasswordView,
-                    child: Icon(Icons.visibility),
+                    child: const Icon(Icons.visibility),
                   ),
                   border: InputBorder.none,
                   contentPadding:
                   const EdgeInsets.symmetric(horizontal: 25, vertical: 13),
                 ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Password  cannot be empty";
-                  } else if (value.length < 6) {
-                    return "Password length should be atleast 6";
-                  }
-                  return null;
-                },
+                // validator: (value) {
+                //   if (value!.isEmpty) {
+                //     return "Password  cannot be empty";
+                //   } else if (value.length < 6) {
+                //     return "Password length should be atleast 6";
+                //   }
+                //   return null;
+                // },
               ),
             ),
           ),
@@ -202,7 +192,7 @@ class _StudentLoginState extends State<StudentLogin> {
             height: 0.015.sh,
           ),
           Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32).r,
+              padding: const EdgeInsets.symmetric(horizontal: 32).r,
               child: Container(
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(100)),
@@ -219,27 +209,54 @@ class _StudentLoginState extends State<StudentLogin> {
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
-                    ):const Center(child: CircularProgressIndicator(color: Colors.white),),
+                    ):  parentLoginController.loadingdata.value ? Text(
+                      "Login",
+                      style: GoogleFonts.dmSans(
+                        fontStyle: FontStyle.normal,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ): _teacherLoginController.teachertLogin.value? Text(
+                      "Login",
+                      style: GoogleFonts.dmSans(
+                        fontStyle: FontStyle.normal,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ):const Center(child: CircularProgressIndicator(color: Colors.white),)
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                   ),
                   onPressed: () async {
+                    
                     if(rediobutton==3) {
                       print("student");
                       print(rediobutton);
-                      _allsetController.isloading.value = false;
+                      _allsetController.isloading.value=false;
+                      parentLoginController.loadingdata.value=false;
+                     _teacherLoginController.teachertLogin.value = false;
                       _allsetController.apicallpost(
                           usersname.text, password.text, context);
+                       
                     }
                     if(rediobutton==2) {
                       print(rediobutton);
+                      _allsetController.isloading.value=false;
                       print("parentll");
                       parentLoginController.loadingdata.value=false;
 
                       parentLoginController.parentapi(usersname.text, password.text, context);
                     }
                     if(rediobutton==1) {
+                    
+                    _allsetController.isloading.value=false;
+                      parentLoginController.loadingdata.value=false;
+                     _teacherLoginController.teachertLogin.value = false;
+                      // parentLoginController.loadingdata.value=false;
+                      // _allsetController.isloading.value =false;
                       print(rediobutton);
                       print("teacherll");
                       _teacherLoginController.teachertLogin.value = false;
@@ -249,38 +266,7 @@ class _StudentLoginState extends State<StudentLogin> {
 
                 ),
               )),
-          Align(
-            alignment: Alignment.topRight,
-            child: Container(
-              margin: const EdgeInsets.only(right: 30).r,
-              child: Text(
-                "Forget Passsword",
-                style: GoogleFonts.dmSans(
-                  fontStyle: FontStyle.normal,
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-          ),
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0).r,
-          //   child: Align(
-          //     alignment: Alignment.center,
-          //     child: Container(
-          //       child: Text(
-          //         "EGYAN Demo School",
-          //         style: GoogleFonts.dmSans(
-          //           fontStyle: FontStyle.normal,
-          //           fontSize: 20.sp,
-          //           fontWeight: FontWeight.bold,
-          //           color: Colors.lightBlue,
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
+
           Padding(
             padding: const EdgeInsets.all(16.0).r,
             child: Align(
@@ -311,13 +297,7 @@ class _StudentLoginState extends State<StudentLogin> {
                   children: [
                     Padding(
 padding:  EdgeInsets.only(left: 0.09.sw),
-child: const ClipRRect(
-child: CircleAvatar(
-radius: 20.0,
-backgroundImage:
-AssetImage("assets/images/appstore.png"),
-),
-),
+child:  Image.asset("assets/images/appstore.png",width: 50,height: 50,),
 ),
                      Padding(
                        padding:  EdgeInsets.only(left: 0.05.sw,top: 10),

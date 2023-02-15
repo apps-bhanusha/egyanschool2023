@@ -1,4 +1,4 @@
-package com.example.ecom_desgin
+package com.bhanushainfosoft.schoolapp
 
 import io.flutter.embedding.android.FlutterActivity
 

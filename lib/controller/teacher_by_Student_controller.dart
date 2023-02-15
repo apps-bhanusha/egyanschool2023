@@ -18,8 +18,6 @@ class GetTeacherByStudentController extends GetxController {
       "company_key":company_key,
       "student_id": student_id
     });
-    print("teacher bylllllllllllllllllllllllstud");
-    print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.getteacherbystudentUrl);
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
@@ -27,8 +25,6 @@ class GetTeacherByStudentController extends GetxController {
 
       GetTeacherByStudentControllerList=[];
       GetTeacherByStudentControllerList.add(sdata) ;
-      print("get dddddddddddddddddtreasher");
-      print(GetTeacherByStudentControllerList);
 adddrop();
       // print(GetschoolsettingControllerLexam_idist[0]["response"]["total_discount_amount"]);
       if (sdata["status"] == true ) {

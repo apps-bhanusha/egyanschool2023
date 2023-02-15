@@ -35,15 +35,12 @@ class NoticBoardController extends GetxController{
 
         if (tdata["status"] == true) {
           isloding.value=true;
-          print("Noticboard Name");
-          print(noticBoardModel.value?.response?[0].title);
 
         } else {
 
         } }else {
       }
     } catch (e) {
-      print(e);
       print("Something Error");
     }
 

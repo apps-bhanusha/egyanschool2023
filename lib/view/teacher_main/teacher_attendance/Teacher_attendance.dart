@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
-import 'package:ecom_desgin/constant/date_format.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/attendance_controller.dart';
 import 'package:ecom_desgin/controller/monthly_present_summary_controller.dart';
@@ -20,7 +19,6 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:date_format/date_format.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:time/time.dart';
@@ -132,51 +130,7 @@ class _TeacherAttendanceState extends State<TeacherAttendance> {
       teacherattendanceapi(company_key, staff_id);
     date_object=DateTime.parse(year_end_date);
 
-    // date=box.get("date");
-
-    // AttendanceControllerList=box.get("AttendanceControllerList");
-
-    // print(AttendanceControllerList);
-
-    // print(absentDates);
-    // print(DateTime(2022, 1,4),);
-    //  allsplit=date.toString().split("-");
-    //  print(allsplit);
-    //  dateapi=allsplit.join(", ");
-    // print(dateapi);
-
-    // var a = Jiffy(DateTime(int.parse(date))).yMMMMd;
-    // print(year);
-    // print(month);
-    // print(days);
-    // print(dateapi.days);
-    // print(dateapi.year);
-    // print(dateapi.month);
-
-    // var formattedDate = DateTime.parse(dateapi);
-    // print(formattedDate);
-    // int? test = int.parse(dateapi);
-    //
-    // print("$test");
-
-    // outputFormat = DateFormat('yy,M,d').format(date);
-    //   print(formatDate(DateTime((int.parse(date.toString()))), [yyyy, ',', mm, ',', dd]));
-
-// print(dateTime);
-    // DateTime outputFormat = DateFormat('y,MM,dd').parse(date);
-    // print(date);
-    // print(title);
-// print(outputFormat);
-
-    // presentDates.add(DateTime(year,month,days));
-
-    // title=box.get("title");
-
-
-
-
     super.initState();
-
   }
 
   Widget _presentIcon(String day,String type) => ClipRect(
@@ -212,67 +166,23 @@ class _TeacherAttendanceState extends State<TeacherAttendance> {
   late CalendarCarousel _calendarCarouselNoHeader;
 
   double count=0.0;
-// late String months=presentDates[0]["date"];
 
-
-  // var len = min(absentDates.length, presentDates.length);
-  // late double cHeight;
   void markedDatedMap(){
-    print("sssss");
-
-    // data.add( _ChartData(months,present, Color.fromRGBO(37, 171, 29, 1.0)));
-
-
-    // for (var s=0; s<monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"].length;s++)
-    // if (monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"][s]["present"]=="Present"){
-    //
-    //   count+=monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"][s]["present"].length.toDouble();
-    //   print("3333ffff");
-    //   print(count);
-    //   late String monthconvert='${DateFormat('MMMM').format(DateFormat("yyyy-MM-dd").parse(monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"][s]["month"]))}';
-    //   print(monthconvert);
-    //
-    //   data.add( _ChartData(monthconvert,count, Color.fromRGBO(37, 171, 29, 1.0)));
-    // }
-
+    print("(******************************");
+    print(_staffMonthlyPresentSummaryController.staffMonthlyPresentSummaryModel);
     var a = Jiffy(DateTime(2019, 10, 18)).month.toString();
-    print("444ddddddddd");
-    print(a);
     _staffMonthlyPresentSummaryController.staffMonthlyPresentSummaryModel.value?.response.forEach((element) {
       var   present1=element.present.toString();
+      print(element);
       data.add(_ChartData(element.month.toString(),present1=="null" ?0.0:double.parse(present1),
           const Color.fromRGBO(37, 171, 29, 1.0)));
     });
-//   for (int i = 0; i <
-//       monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"]
-//           .length; i++) {
-// //     print( monthlypresentssummary.MonthlyPresentSummaryControllerList[0]["response"]
-// //         .length);
-// // print(monthlypresentssummary
-// //     .MonthlyPresentSummaryControllerList[0]["response"][i]["present"]);
-// //
-// //     double present =monthlypresentssummary
-// //         .MonthlyPresentSummaryControllerList[0]["response"][i]["present"] ?? 0.0;
-// //     print(present.runtimeType);
-// //     print(present);
-//
-//     // months = monthlypresentssummary
-//     //     .MonthlyPresentSummaryControllerList[0]["response"][i]["month"];
-//     data.add(_ChartData(monthlypresentssummary
-//             .MonthlyPresentSummaryControllerList[0]["response"][i]["month"].toString(),5.5,
-//         const Color.fromRGBO(37, 171, 29, 1.0)));
-//   }
 
     for (int i = 0; i <presentDates.length; i++) {
-
-// if(length==0){
-//   lengthchart=double.parse(length.toString());
-// }
-
-
+       print(i);
       _markedDateMap.add(
         DateFormat("yyyy-MM-dd").parse(presentDates[i]["date"]),
-
+ 
         Event(
           date:DateFormat("yyyy-MM-dd").parse(presentDates[i]["date"]),
           title: "event 5",
@@ -283,20 +193,6 @@ class _TeacherAttendanceState extends State<TeacherAttendance> {
         ),
       );
     }
-
-    // for (int i = 0; i < absentDates.length; i++) {
-    //   _markedDateMap.add(
-    //     absentDates[i],
-    //     new Event(
-    //       date: absentDates[i],
-    //       title: 'Event 5',
-    // fo
-    //       icon: _absentIcon(
-    //         absentDates[i].day.toString(),
-    //       ),
-    //     ),
-    //   );
-    // }
     setState(() {
       print(_markedDateMap);
     });
@@ -339,8 +235,6 @@ class _TeacherAttendanceState extends State<TeacherAttendance> {
     }
   }
   void addcalendardata1(){
-
-
     for(var i=0; i<AttendanceControllerList[0]["response"].length; i++){
 
       presentDates.add(
@@ -351,10 +245,12 @@ class _TeacherAttendanceState extends State<TeacherAttendance> {
 
       );
     }
-    setState(() {
+  Future.delayed(Duration(seconds: 2),(){
+      setState(() {
       print(presentDates);
-      markedDatedMap();
+       markedDatedMap();
     });
+  });
   }
 
   @override
@@ -362,13 +258,6 @@ class _TeacherAttendanceState extends State<TeacherAttendance> {
     // cHeight = MediaQuery.of(context).size.height;
     _onRefresh() async {
       await Future.delayed(Duration(milliseconds: 1000));
-      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context)=>super.widget));
-      // student_id = box.get("student_id");
-      // company_key = box.get("company_key");
-      // Attendanceapi(student_id ,company_key);
-      // _refreshController.loadComplete();
-      //
-      // monthlypresentssummary.MonthlyPresentSummaryapi(student_id,company_key);
 
       company_key = box.get("company_key");
       staff_id=box.get("staff_id");
@@ -380,17 +269,7 @@ class _TeacherAttendanceState extends State<TeacherAttendance> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor:AgentColor.appbarbackgroundColor,
-        title: Text('Teacher Atendance',style: MyGoogeFont.mydmSans),
-        actions: [
-          PopupMenuButton<int>(
-            itemBuilder: (context) {
-              return <PopupMenuEntry<int>>[
-                const PopupMenuItem(child: Text('0'), value: 0),
-                const PopupMenuItem(child: Text('1'), value: 1),
-              ];
-            },
-          ),
-        ],
+        title: Text('Staff Atendance',style: MyGoogeFont.mydmSans),
       ),
       body: SmartRefresher(
         controller: _refreshController,
@@ -426,7 +305,10 @@ class _TeacherAttendanceState extends State<TeacherAttendance> {
                           // dataLabelSettings: DataLabelSettings(isVisible: true)
                         )
                       ]
-                  ):CircularProgressIndicator(),
+                  ):const Expanded(child: Center(child: Padding(
+                    padding: EdgeInsets.only(top: 150),
+                    child: CircularProgressIndicator(color: Colors.blue,),
+                  ))),
                 ),
               ),
 
@@ -527,7 +409,7 @@ class _TeacherAttendanceState extends State<TeacherAttendance> {
                     ],
                   ),
 
-                  ):Center(child: CircularProgressIndicator()),
+                  ):Text(""),
                 ),
               ),
               // markerRepresent(Colors.red, "Absent"),
