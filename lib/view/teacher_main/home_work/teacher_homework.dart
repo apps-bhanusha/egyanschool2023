@@ -16,7 +16,7 @@ class HomeWork extends StatefulWidget {
 
 class _HomeWorkState extends State<HomeWork> {
 
-  ClassListController classListController=Get.put(ClassListController());
+  ClassCLSController classListController=Get.put(ClassCLSController());
   List<String> countries = ["1st", "Russia", "USA", "China", "United Kingdom", "USA", "India"];
   List<String> countries1 = ["A", "Russia", "USA", "China", "United Kingdom", "USA", "India"];
   bool value = false;

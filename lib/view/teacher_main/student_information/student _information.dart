@@ -311,7 +311,7 @@ onChanged:(value) {
                         () => studentSearchController.isSearch.value?studentSearchController.listisempty.value? const Center(child: Text("No Record Found"),): ListView.builder(
                             
                             shrinkWrap: true,
-                            itemCount: studentSearchController.studentInformationListModal.value?.response.length,
+                            itemCount: studentSearchController.studentInformationListModal.value?.response.length??0,
                             itemBuilder: (context, index) {
                             return   SizedBox(
                                   height: 0.05.sh,

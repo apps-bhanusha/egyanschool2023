@@ -13,8 +13,8 @@ class ClassTimeTable extends StatefulWidget {
 }
 
 class _ClassTimeTableState extends State<ClassTimeTable> {
-  ClassListController classListController =
-  Get.put(ClassListController());
+  ClassCLSController classListController =
+  Get.put(ClassCLSController());
   ClassSectionController sectionTimeTableController =
   Get.put(ClassSectionController());
   List day = ["Mon", "Tus", "Wed", "Thu", "Fri", "Sat", "Sun"];

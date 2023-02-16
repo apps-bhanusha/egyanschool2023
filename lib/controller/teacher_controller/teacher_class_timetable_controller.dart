@@ -8,7 +8,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class TeacherclassTimeTableController extends GetxController {
-  ClassListController classListController = Get.put(ClassListController());
+  ClassCLSController classListController = Get.put(ClassCLSController());
   List <dynamic> TeacherclassTimeTableControllerList = [].obs;
   // Rxn<ClassTimeTableModel> classtimetableModel = Rxn<ClassTimeTableModel>();
   String classId = "";

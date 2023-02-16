@@ -1,76 +1,75 @@
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/class_list_controller.dart';
-import 'package:ecom_desgin/model/student/studeny_information_model.dart';
+import 'package:ecom_desgin/model/Teacher_model/all_content_model.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 
 
 import 'package:ecom_desgin/constant/api_url.dart';
-import 'package:ecom_desgin/model/student/Class_attendaceModel.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:date_format/date_format.dart';
 class UploadContentController extends GetxController{
 
 
-   final ClassListController classListController = Get.put(ClassListController());
-   Rxn<StudentInformationListModal> studentInformationListModal = Rxn<StudentInformationListModal>();
+   final ClassListController cListController = Get.put(ClassListController());
+   Rxn<AllContentModal> allContentModal = Rxn<AllContentModal>();
 
 
 
 
 
-RxBool isSearch=true.obs;
+RxBool isloading=true.obs;
 RxBool isSearchbutton=true.obs;
 RxBool  listisempty=false.obs;
- String sectionID='';
+RxBool  saveisloading=false.obs;
+String sectionID='';
 
 
 
 
-    void studentSearchapi(searchname) async {
+
+    void uploadContentpi() async {
     try {
-     if(searchname.toString().isNotEmpty){
+     
        var box = Hive.box("schoolData");
       var company_key = box.get("company_key");
       var currentTime  =formatDate(DateTime.now(),[yyyy, '-', mm, '-', dd]);
       print(currentTime);
       var body = json.encode({
         "company_key":company_key,
-        "search":"search_full",
-        "search_text":searchname
       });
       print(body);
-      final urlapi = Uri.parse(ApiUrl.baseUrl + ApiUrl.studentsearchUrl);
+      final urlapi = Uri.parse(ApiUrl.baseUrl + ApiUrl.getallcontentUrl);
       var response = await http.post(urlapi, body: body);
       print("student search attendace responce");
             print(response.body);
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-      studentInformationListModal.value =StudentInformationListModal.fromJson(data);
+      allContentModal.value =AllContentModal.fromJson(data);
       print("SSSSSSSSSSSSSSSSSSSMMMMMMMMMMMMMMMMMMMMMMM");
-      print(studentInformationListModal.value?.response[0].studentName);
+      print(allContentModal.value?.response[0].title);
         if (data["status"] == true) {
           
-       isSearchbutton.value=true;
+       isloading.value=true;
          
         } else {
-         isSearchbutton.value=true;
+         isloading.value=true;
 
         } }else {
-          isSearchbutton.value=true;
+          isloading.value=true;
       }
 
-     }
+     
     } catch (e) {
        print(e);
-          isSearch.value=true;
+          isloading.value=true;
       print("Something Error");
     }
   }
 
-
-    void classSectiontInfoapi(selectdrop) async {
-         classListController.classSectionModel.value?.response.forEach((element) {
+  Future<String?> saveUploadContentpi(selectdrop,visibility,title,type,note,file) async {
+       cListController.classSectionModel.value?.response.forEach((element) {
      if(element.sectionName.toLowerCase()==selectdrop.toString().toLowerCase()){
                sectionID=element.sectionId;
                print("@@@@@@@@@@@@@@@@@@@@@");
@@ -79,55 +78,128 @@ RxBool  listisempty=false.obs;
         
       });
     try {
-     if(classListController.classId.isNotEmpty&&sectionID.isNotEmpty){
        var box = Hive.box("schoolData");
       var company_key = box.get("company_key");
+      var staff_id = box.get("staff_id");
       var currentTime  =formatDate(DateTime.now(),[yyyy, '-', mm, '-', dd]);
       print(currentTime);
       var body = json.encode({
-        "company_key":company_key,
-        "class_id":classListController.classId,
-        "section_id":sectionID,
-        
+        "company_key":company_key.toString(),
+        "visibility":visibility.toString(),
+        "class_id":cListController.classId.toString(),
+        "section_id":sectionID.toString(),
+        "content_title":title.toString(),
+        "content_type":type.toString(),
+        "note":note.toString(),
+        "upload_date":currentTime.toString(),
+        "file":file,
+        "teacher_id":staff_id.toString(),
       });
-      print("student information ...................");
       print(body);
-      final urlapi = Uri.parse(ApiUrl.baseUrl + ApiUrl.getStudentListByClassSectionUrl);
-      var response = await http.post(urlapi, body: body);
-      print("class attendace responce");
+      final urlapi = Uri.parse(ApiUrl.baseUrl + ApiUrl.saveUploadContentUrl);
+      var response = await http.post(urlapi, body: {
+        "company_key":company_key.toString(),
+        "visibility":visibility.toString(),
+        "class_id":cListController.classId.toString(),
+        "section_id":sectionID.toString(),
+        "content_title":title.toString(),
+        "content_type":type.toString(),
+        "note":note.toString(),
+        "upload_date":currentTime.toString(),
+        "file":file,
+        "teacher_id":staff_id.toString(),
+      });
+      print("student search attendace responce");
             print(response.body);
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-      studentInformationListModal.value =StudentInformationListModal.fromJson(data);
+ 
         if (data["status"] == true) {
-          var i=0;
-        studentInformationListModal.value!.response.forEach((element) {
-          
-          print(element.studentId);
-          i++;
-        }) ;
-        print("^^^^^^^^^^^^^^^^^^^^^^^^");
-        print(i);
-        if(i==0){
-          listisempty.value=true;
-        }else{
-          listisempty.value=false;
-        }
-       isSearch.value=true;
-        
-// print('${ApiUrl.imagesUrl.toString()}${staffDetailModel.value?.response["image"]}');
+          uploadContentpi() ;
+       saveisloading.value=false;
+            Get.snackbar(
+        data["message"].toString(),
+        "",
+        duration: 5.seconds, // it could be any reasonable time, but I set it lo-o-ong
+        snackPosition: SnackPosition.BOTTOM,
+        showProgressIndicator: true,
+
+        isDismissible: true,
+        backgroundColor: Colors.lightGreen,
+        colorText: Colors.white,
+        mainButton: TextButton(
+            onPressed: Get.back,
+            child: const Text(
+                "Close"
+
+            )),
+      );  
+      return "true";
         } else {
-         isSearch.value=true;
+              Get.snackbar(
+        "Upload Error",
+        "",
+        duration: 5.seconds, // it could be any reasonable time, but I set it lo-o-ong
+        snackPosition: SnackPosition.BOTTOM,
+        showProgressIndicator: true,
+
+        isDismissible: true,
+        backgroundColor: Colors.lightGreen,
+        colorText: Colors.white,
+        mainButton: TextButton(
+            onPressed: Get.back,
+            child: const Text(
+                "Close"
+
+            )),
+      ); 
+         saveisloading.value=false;
 
         } }else {
-          isSearch.value=true;
-      }
+                  Get.snackbar(
+        "Upload Error",
+        "",
+        duration: 5.seconds, // it could be any reasonable time, but I set it lo-o-ong
+        snackPosition: SnackPosition.BOTTOM,
+        showProgressIndicator: true,
 
-     }
+        isDismissible: true,
+        backgroundColor: Colors.lightGreen,
+        colorText: Colors.white,
+        mainButton: TextButton(
+            onPressed: Get.back,
+            child: const Text(
+                "Close"
+
+            )),
+      );
+          saveisloading.value=false;
+      }
+     
     } catch (e) {
+              Get.snackbar(
+        "Upload Error",
+        "",
+        duration: 5.seconds, // it could be any reasonable time, but I set it lo-o-ong
+        snackPosition: SnackPosition.BOTTOM,
+        showProgressIndicator: true,
+
+        isDismissible: true,
+        backgroundColor: Colors.lightGreen,
+        colorText: Colors.white,
+        mainButton: TextButton(
+            onPressed: Get.back,
+            child: const Text(
+                "Close"
+
+            )),
+      );
        print(e);
-          isSearch.value=true;
+          saveisloading.value=false;
       print("Something Error");
     }
   }
+
+
+//  
 }

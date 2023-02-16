@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
-class ClassListController extends GetxController {
+class ClassCLSController extends GetxController {
   Rxn<ClassListModel> classListModel = Rxn<ClassListModel>();
   Rxn<ClassSectionModel> classSectionModel = Rxn<ClassSectionModel>();
   Rxn<ClassSubjectModel> classSubjectModel = Rxn<ClassSubjectModel>();
@@ -195,9 +195,9 @@ class ClassListController extends GetxController {
         request.fields.addAll({
           'company_key': company_key,
           'staff_id': staff_id,
-          'class_id': '1',
-          'section_id': '1',
-          'subject_id': '2',
+          'class_id': classId,
+          'section_id': sectionId,
+          'subject_id': subjectId,
           'homework_date': homework_date,
           'submit_date': submit_date,
           'description': description

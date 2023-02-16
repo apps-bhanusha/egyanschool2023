@@ -20,7 +20,7 @@ class TeacherClassTimeTable extends StatefulWidget {
 }
 
 class _TeacherClassTimeTableState extends State<TeacherClassTimeTable> {
-  ClassListController classListController = Get.put(ClassListController());
+  ClassCLSController classListController = Get.put(ClassCLSController());
   GetclassTimeTableController GetclassTimeTable = Get.put(
       GetclassTimeTableController());
   final TeacherclassTimeTableController teacherclassTimeTableController = Get.put(TeacherclassTimeTableController());

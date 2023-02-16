@@ -16,7 +16,7 @@ class TeacherAddHomeWork extends StatefulWidget {
 }
 
 class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
-  ClassListController classListController = Get.put(ClassListController());
+  ClassCLSController classListController = Get.put(ClassCLSController());
   String dropdownValue = 'Dog';
   bool valuefirst = false;
   bool valuesecond = false;

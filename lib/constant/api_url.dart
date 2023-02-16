@@ -67,6 +67,8 @@ static const String getSubjectByClassSectionUrl="/staffwebservices/getSubjectByC
 static const String teacherclassTimeTableUrl="/parentwebservices/getclassTimeTable";
 static const String getteacherTimeTableUrl="/staffwebservices/getteacherTimeTable";
 static const String homeworkAddUrl="/homework/homeworkcreate";
+static const String getallcontentUrl="/staffwebservices/getallcontent";
+static const String saveUploadContentUrl="/staffwebservices/uploadcontent";
 
 
 }

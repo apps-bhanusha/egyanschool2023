@@ -1,4 +1,6 @@
 
+import 'package:ecom_desgin/constant/date_format.dart';
+import 'package:ecom_desgin/controller/teacher_controller/upload_content_Controller.dart';
 import 'package:ecom_desgin/view/teacher_main/teacher_upload_content/techer_upload_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +18,21 @@ class _UploadContentState extends State<UploadContent> {
   List<String> countries = ["1st", "Russia", "USA", "China", "United Kingdom", "USA", "India"];
   List<String> countries1 = ["A", "Russia", "USA", "China", "United Kingdom", "USA", "India"];
   bool value = false;
+   final UploadContentController uploadContentController = Get.put(UploadContentController());
+
+
+  @override
+  void initState() {
+
+    super.initState();
+    uploadContentController.isloading.value=false;
+uploadContentController.uploadContentpi();
+
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,36 +158,50 @@ class _UploadContentState extends State<UploadContent> {
               padding: const EdgeInsets.all(5.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children:const [
                   Text("Content Title",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
                   Text("Tyle",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
                   Text("Date",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
                   Text("Available for",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
-                  Text("Action",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                 
                 ],
               ),
             ) ,
             const SizedBox( height: 10,),
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                children: [
-                  SizedBox( width: 90, child: Text("Text Other",style: TextStyle(fontSize: 14),)),
-                  SizedBox( width: 60,child: Text("syllabus",style: TextStyle(fontSize: 14),)),
-                  SizedBox(width: 90,child: Text("30-01-2023",style: TextStyle(fontSize: 14),)),
-                  SizedBox(width: 40,child: Text("1st",style: TextStyle(fontSize: 14),)),
-                  Row(
-                    children: [
-                      Icon(Icons.download),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Icon(Icons.close)
-                    ],
+            SizedBox(
+              height: 0.67.sh,
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: SingleChildScrollView(
+                  child: Obx(
+                  () => uploadContentController.isloading.value? ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: uploadContentController.allContentModal.value?.response.length??0,
+                      itemBuilder: (context, index) {
+                      return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              
+                      children: [
+                        SizedBox(height: 35, width: 90, child: Obx(() =>  Text("${uploadContentController.allContentModal.value?.response[index].title}",style: TextStyle(fontSize: 14),))),
+                        SizedBox(height: 35, width: 115,child:  Obx(() =>  Text("${uploadContentController.allContentModal.value?.response[index].type}",style: TextStyle(fontSize: 14),))),
+                        SizedBox(height: 35,width: 90,child:  Obx(() =>  Text(MyDateFormat.dateformatmethod("${uploadContentController.allContentModal.value?.response[index].date}"),style: TextStyle(fontSize: 14),))),
+                        SizedBox(height: 35,width: 40,child:  Obx(() =>  Row(
+                          children: [
+                            Text(uploadContentController.allContentModal.value?.response[index].responseClass??"All",style: const TextStyle(fontSize: 14),),
+                            Text("/",style: const TextStyle(fontSize: 14),),
+                            Text(uploadContentController.allContentModal.value?.response[index].section??"",style: const TextStyle(fontSize: 14),),
+                          ],
+                        ))),
+                     
+                      ],
+                    );
+                    },):const Center(child:Padding(
+                      padding: EdgeInsets.only(top: 260),
+                      child: CircularProgressIndicator(color: Colors.blue,),
+                    ),),
                   ),
-                ],
+                )
               ),
             ) ,
           ],

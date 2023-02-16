@@ -1,7 +1,9 @@
-import 'package:ecom_desgin/constant/font.dart';
+import 'package:ecom_desgin/constant/date_format.dart';
+import 'package:ecom_desgin/controller/teacher_controller/student_Controller/class_list_controller.dart';
+import 'package:ecom_desgin/controller/teacher_controller/upload_content_Controller.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_utils/src/extensions/string_extensions.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,23 +15,33 @@ class UploadContent1 extends StatefulWidget {
 }
 
 class _UploadContent1State extends State<UploadContent1> {
+   final UploadContentController uploadContentController = Get.put(UploadContentController());
+   final ClassListController classListController = Get.put(ClassListController());
+
+     TextEditingController contentTitler = TextEditingController();
+     TextEditingController description = TextEditingController();
+
   DateTime today = DateTime.now();
   var dateStr;
   @override
   void initState() {
  dateStr = "${today.day}-${today.month}-${today.year}";
     super.initState();
+    classListController.classListapi();
   }
   String dropdownValue = 'Dog';
   bool valuefirst = false;
   bool valuesecond = false;
- var  selectdata="india";
- var  selectdata1="india";
+ var  selecttype="Select Content Type";
+ var  selectclass="Select Class";
+ var  selectsection="Select Section";
+ var  visibility="";
+ var  filePath="";
+ var  fileName="";
   var countries = [
-    "india",
-    "pakistan",
-    "hindustan",
-        "afiganistan"
+    "Assinment",
+    "Syllebus",
+    "Other",
   ];
   var countries1 = [
     "india",
@@ -123,7 +135,7 @@ Padding(
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0).r,
                                 child: TextFormField(
-
+controller: contentTitler,
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
                                   ),
@@ -183,21 +195,19 @@ Padding(
                                   isExpanded: true,
                                   isDense: true,
                                   iconSize: 35,
-                                  // alignment: Alignment.center,
-                                  value: selectdata,
-                                  hint: Text(selectdata),
+                                  hint: Text(selecttype),
                                   items: countries.map((country){
                                     return DropdownMenuItem(
+                                      value: country,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(country),
                                       ),
-                                      value: country,
                                     );
                                   }).toList(),
                                   onChanged: (country){
                                     // print("You selected: $country");
-                                    selectdata=country!;
+                                    selecttype=country!;
                                     setState(() {
 
                                     });
@@ -205,61 +215,8 @@ Padding(
                                 ),
                               ),
                             ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0).r,
-                          child: Text("Available For",style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20.0).r,
-                          child: Row(
-                            children: [
-                              Checkbox(
-                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                visualDensity: VisualDensity.compact,
-                                value: this.value,
-                                onChanged: (value) {
-                                  setState(() {
-                                    this.value = value!;
-                                  });
-                                },
-                              ),
-                              Text("All Super Admin", style: GoogleFonts.dmSans(
-                                fontStyle: FontStyle.normal,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),)
-                            ],
-                          ),
-                        ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20.0).r,
-                              child: Row(
-                                children: [
-                                  Checkbox(
-                                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                    visualDensity: VisualDensity.compact,
-                                    value: this.value1,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        this.value1 = value!;
-                                      });
-                                    },
-                                  ),
-                                  Text("Student", style: GoogleFonts.dmSans(
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.black,
-                                  ),)
-                                ],
-                              ),
-                            ),
+                     
+                          
                             Container(height: 0.005.sh,color: Colors.grey[300],),
                             Padding(
                               padding: const EdgeInsets.only(left: 20.0).r,
@@ -272,7 +229,10 @@ Padding(
                                     value: this.value2,
                                     onChanged: (value) {
                                       setState(() {
+                                        print(value2);
                                         this.value2 = value!;
+
+                                    
                                       });
                                     },
                                   ),
@@ -319,23 +279,21 @@ Padding(
                                   isExpanded: true,
                                   isDense: true,
                                   iconSize: 35,
-                                  // alignment: Alignment.center,
-                                  value: selectdata,
-                                  hint: Text(selectdata),
-                                  items: countries.map((country){
+                                  hint: Text(selectclass),
+                                  items: classListController.classList.map((country){
                                     return DropdownMenuItem(
+                                      value: country,
                                       child:Padding(
                                         padding:  EdgeInsets.all(8.0),
                                         child: Text(country),
                                       ),
-                                      value: country,
                                     );
                                   }).toList(),
                                   onChanged: (country){
                                     // print("You selected: $country");
-                                    selectdata=country!;
+                                    selectclass=country!;
                                     setState(() {
-
+                              classListController.classSectionapi(country);
                                     });
                                   },
                                 ):DropdownButton(
@@ -343,17 +301,14 @@ Padding(
                                   isExpanded: true,
                                   isDense: true,
                                   iconSize: 35,
-                                  // alignment: Alignment.center,
-                                  value: selectdata,
-                                  disabledHint: Text(selectdata),
-
+                                 hint: Text(selectsection),
                                   items: countries.map((country){
                                     return DropdownMenuItem(
+                                      value: country,
                                       child:Padding(
                                         padding:  EdgeInsets.all(8.0),
                                         child: Text(country),
                                       ),
-                                      value: country,
                                     );
                                   }).toList(),
                                   onChanged: null
@@ -394,15 +349,13 @@ Padding(
                                     width: 1.0,
                                   ),
                                 ),
-                                child:this.value2==false? DropdownButton(
+                                child:this.value2==false?Obx(() =>  DropdownButton(
 
                                   isExpanded: true,
                                   isDense: true,
                                   iconSize: 35,
-                                  // alignment: Alignment.center,
-                                  value: selectdata1,
-                                  hint: Text(selectdata1),
-                                  items: countries1.map((country){
+                                  hint:  classListController.isloding2.value ?SizedBox(width: 110,height:20,child: Text(selectsection)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+                                  items: classListController.classSection.map((country){
                                     return DropdownMenuItem(
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -413,19 +366,18 @@ Padding(
                                   }).toList(),
                                   onChanged: (country){
                                     // print("You selected: $country");
-                                    selectdata1=country!;
+                                    selectsection=country!;
                                     setState(() {
 
                                     });
                                   },
-                                ):DropdownButton(
+                                )):DropdownButton(
 
                                   isExpanded: true,
                                   isDense: true,
                                   iconSize: 35,
-                                  // alignment: Alignment.center,
-                                  value: selectdata1,
-                                  disabledHint: Text(selectdata1),
+                             
+                                  hint: Text(selectsection),
                                   items: countries1.map((country){
                                     return DropdownMenuItem(
                                       child: Padding(
@@ -535,7 +487,7 @@ Padding(
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0).r,
                                   child: TextFormField(
-
+controller: description,
                                     decoration: const InputDecoration(
 
                                       border: InputBorder.none,
@@ -565,7 +517,7 @@ Padding(
                                     color: Colors.black,
                                   ),
                                   children: <TextSpan>[
-                                    TextSpan(
+                                    const TextSpan(
                                         text: '*',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
@@ -579,7 +531,10 @@ Padding(
                               child: InkWell(
                                 onTap: () async {
                                   FilePickerResult? result =
-                                      await FilePicker.platform.pickFiles();
+                                      await FilePicker.platform.pickFiles(
+                                        type: FileType.any,
+                                        
+                                      );
 
                                   if (result != null) {
                                     PlatformFile file = result.files.first;
@@ -589,9 +544,9 @@ Padding(
                                     print(file.size);
                                     print(file.extension);
                                     print(file.path);
-
+                                    filePath=file.path!;
                                     setState(() {
-
+                                    fileName=file.name;
                                     });
                                   } else {
                                     print('No file selected');
@@ -610,9 +565,7 @@ Padding(
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0).r,
-                                    child: Text("Click Here To Pic File"
-
-                                    ),
+                                    child: fileName!=""? Text(fileName):const Text("Click Here To Pic File"),
                                   ),
                                 ),
                               ),
@@ -628,16 +581,53 @@ Padding(
                                   color: Colors.blue,
                                   child: TextButton(
 
-                                    onPressed: () {},
+                                    onPressed: () {
+uploadContentController.saveisloading.value=true;
 
-                                    child: Text("SAVE".toUpperCase(),
-                                         style: GoogleFonts.dmSans(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+                                  if(value2==true){
+                                    visibility='Yes';
+                                  }else{
+                                   visibility='No'; 
+                                  }
+                                    print(contentTitler.text);
+                                    print(selecttype);
+                                    print(visibility);
+                                    print(selectclass);
+                                    print(selectsection);
+                                    print(description.text);
+                                    print(filePath);
+                                var save= uploadContentController.saveUploadContentpi(selectsection, visibility, contentTitler.text, selecttype, description.text, filePath);
+                               print("%^%^%^%^%^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                                print(save.then((value) {
+                                     if(value=="true"){
+              setState(() {
+                 contentTitler.text="";
+                                   selecttype="Select Content Type";
+                                    visibility="";
+                                    selectclass="Select Class";
+                                    selectsection="Select Section";
+                                   description.text="";
+                                    fileName="";
+              });          
+              Navigator.pop(context);
+                                  }
+                                }));
+                               
 
-                                    ),
+                                  
+                                    },
+
+                                    child: Obx(
+                                      () => uploadContentController.saveisloading.value? SizedBox( width: 20,height: 20, child: CircularProgressIndicator(color: Colors.white,strokeWidth: 2))
+                                      :Text("SAVE".toUpperCase(),
+                                           style: GoogleFonts.dmSans(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                    
+                                      ),
+                                      )
                                     ),
                                   ),
                                 ),
