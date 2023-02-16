@@ -13,6 +13,7 @@ import 'package:ecom_desgin/controller/teacher_controller/teacher_login_controll
 import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/About_app/about_e-gayn.dart';
 import 'package:ecom_desgin/view/teacher/home_work/home_work.dart';
+import 'package:ecom_desgin/view/teacher_main/S_leave/student_leave.dart';
 import 'package:ecom_desgin/view/teacher_main/Teacher_styllebus/Teacher_Syllebus.dart';
 import 'package:ecom_desgin/view/teacher_main/exam_shadule/exam_time_table.dart';
 import 'package:ecom_desgin/view/teacher_main/exam_shadule/teacher_exam_result.dart';
@@ -33,7 +34,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 
@@ -1300,7 +1300,7 @@ SizedBox(height: 0.0220.sh,),
                           SizedBox(
                             height: 0.062.sh,
                             child: ListTile(
-                              onTap: () {Get.to(TeacherProfile());},
+                              onTap: () {Get.to(const StudentLeave());},
                               leading: const Icon(Icons.leave_bags_at_home,
                                   size: 20.0, color: Colors.white),
                               title: Text(

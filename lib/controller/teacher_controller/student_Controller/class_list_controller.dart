@@ -82,6 +82,8 @@ isloding.value=true;
       print("Something Error");
     }
   }
+///////////////////////////////////////////////////////////////////////
+///
 
 /////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
@@ -389,7 +391,50 @@ attendencetypelsit(){
   }
 
 
+void allstudentList() async {
+  islodingstudentlist.value=false;
+    try {
+     
+       var box = Hive.box("schoolData");
+      var company_key = box.get("company_key");
+     print("Student List.............for drop");
+      var body = json.encode(
+        {
+"company_key":company_key,
+"class_id":"0",
+"section_id":"0"
+}
+      );
+      print(body);
+      final urlapi = Uri.parse(ApiUrl.baseUrl + ApiUrl.getStudentListByClassSectionUrl);
+      var response = await http.post(urlapi, body: body);
+      print("class attendace responce");
+            print(response.body);
+      if (response.statusCode == 200) {
+        studentListDrop = <String>[].obs;
+        var tdata = jsonDecode(response.body);
+        studentListModel.value=StudentListModel.fromJson(tdata);
+        if (tdata["status"] == true) {
+          
+      islodingstudentlist.value=true;
+             studentListModel.value?.response.forEach((element) {
+              studentListDrop.add(element.studentName);
+            
+      });
+// print('${ApiUrl.imagesUrl.toString()}${staffDetailModel.value?.response["image"]}');
+        } else {
+          islodingstudentlist.value=true;
 
+        } }else {
+      }
+
+     
+    } catch (e) {
+       print(e);
+          islodingstudentlist.value=true;
+      print("Something Error");
+    }
+  }
 
 
 
