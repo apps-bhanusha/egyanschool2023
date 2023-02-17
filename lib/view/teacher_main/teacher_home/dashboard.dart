@@ -1,23 +1,29 @@
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
+import 'package:ecom_desgin/controller/About_Controller.dart';
 import 'package:ecom_desgin/controller/force_logout.dart';
-import 'package:ecom_desgin/controller/getclasstimetable_controller.dart';
-import 'package:ecom_desgin/controller/getexamsResult_controller.dart';
-import 'package:ecom_desgin/controller/getexamsSchedule_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
-import 'package:ecom_desgin/controller/parent_Student_List_Controller.dart';
-import 'package:ecom_desgin/controller/parent_login.dart';
-import 'package:ecom_desgin/controller/student_login_controller.dart';
-import 'package:ecom_desgin/controller/student_profile-Controller.dart';
+import 'package:ecom_desgin/controller/teacher_controller/teacher_login_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
+import 'package:ecom_desgin/view/About_app/about_e-gayn.dart';
 import 'package:ecom_desgin/view/About_app/about_egyan.dart';
+import 'package:ecom_desgin/view/teacher_main/S_leave/student_leave.dart';
+import 'package:ecom_desgin/view/teacher_main/Teacher_styllebus/Teacher_Syllebus.dart';
+import 'package:ecom_desgin/view/teacher_main/exam_shadule/exam_time_table.dart';
+import 'package:ecom_desgin/view/teacher_main/exam_shadule/teacher_exam_result.dart';
+import 'package:ecom_desgin/view/teacher_main/home_work/teacher_homework.dart';
 import 'package:ecom_desgin/view/teacher_main/leave_teacher/ohter_teacher_leave.dart';
+import 'package:ecom_desgin/view/teacher_main/student_information/Attendance.dart';
+import 'package:ecom_desgin/view/teacher_main/student_information/student%20_information.dart';
 import 'package:ecom_desgin/view/teacher_main/teacher_attendance/Teacher_attendance.dart';
+import 'package:ecom_desgin/view/teacher_main/teacher_fees/student_fees_display.dart';
 import 'package:ecom_desgin/view/teacher_main/teacher_home/teacher_home.dart';
-import 'package:ecom_desgin/view/teacher_main/teacher_home/teacher_home_T.dart';
 import 'package:ecom_desgin/view/teacher_main/teacher_notification/teacher_notificaion.dart';
 import 'package:ecom_desgin/view/teacher_main/teacher_payroll/teacher_payroll.dart';
 import 'package:ecom_desgin/view/teacher_main/teacher_profile/teacher_profile.dart';
+import 'package:ecom_desgin/view/teacher_main/teacher_upload_content/upload_content.dart';
+import 'package:ecom_desgin/view/teacher_main/time_table_t/teacher_class_time_table.dart';
+import 'package:ecom_desgin/view/teacher_main/time_table_t/teacher_time_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
@@ -37,7 +43,8 @@ class _TdashboardState extends State<Tdashboard>
   final GetSchoolSettingController _schoolsetting =
   Get.put(GetSchoolSettingController());
       final ForceLogout forceLogout = Get.put(ForceLogout());
-
+       TeacherLoginController teacherLoginController=Get.put(TeacherLoginController());
+final AboutController aboutController = Get.put(AboutController());
   late AnimationController _controller;
   // late AnimationController controller;
   // late Animation colorAnimation;
@@ -92,6 +99,21 @@ var session;
 
     schoolname = box.get("schoolname");
     session = box.get("session");
+/////////////teacher login student info show
+
+ var activestudentinfo = box.get("activatestudentInfo");
+print("TTTTTTTTTTTTTTTTTTTTTT");
+print(activestudentinfo);
+if(activestudentinfo.toString().toLowerCase()=="teacher"){
+           teacherLoginController.activatestudentInfo.value=true; 
+
+        }else{
+        teacherLoginController.activatestudentInfo.value=false; 
+        }
+
+
+
+
   }
 @override
   void dispose(){
@@ -259,30 +281,47 @@ var session;
                 ),
               ),
               PopupMenuButton<int>(
-                itemBuilder: (context)  {
+                              itemBuilder: (context)  {
 
-                  return <PopupMenuEntry<int>>[
-                    PopupMenuItem(
-                            onTap:() async { await SessionManager().remove("name");
-                          Get.offAllNamed(RoutesName.schoolId);
-                          // ignore: use_build_context_synchronously
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("logout", style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red,
+                                return <PopupMenuEntry<int>>[
+                                 const PopupMenuItem(value: 0, child: Text('Logout'),),
+                                 const PopupMenuItem(value: 1, child: Text("About E-Gyan"),
+                      
                             ),
-                            ),
-                              backgroundColor: Colors.white,
-                            ),
-                          );
-                          },
-                      child: const Text('Logout'), value: 0),
-                    const PopupMenuItem(child: Text('about'), value: 1),
-                  ];
-                },
-              ),
+                            //    PopupMenuItem(value: 1, child: const Text('AboutE-Gyan'),
+                          
+                            // ),
+                                ];
+                              },
+                              onSelected: (value) async {
+                                if(value==0){
+                            await SessionManager().remove("name");
+                        // await SessionManager().remove("parentlogin");
+                            Get.offAllNamed(RoutesName.schoolId);
+                            // ignore: use_build_context_synchronously
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("logout", style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                              ),
+                              ),
+                                backgroundColor: Colors.white,
+                              ),
+                            );
+                            
+                                }
+
+                            if(value==1){
+                    aboutController.isloading.value=false;
+
+                          aboutController.aboutEgyan();
+                          Navigator.push( context, MaterialPageRoute( builder: (context) => const AboutEgyan(),));
+                            
+                            }    
+                              },
+                            )
             ],
           ),
          
@@ -608,6 +647,265 @@ Widget buildMenu() {
               ],
             ),
           ),
+            Visibility(
+              visible:teacherLoginController.activatestudentInfo.value,
+         child: ListTileTheme(
+                      dense: true,
+                      child: ExpansionTile(
+                        collapsedIconColor: Colors.white,
+                        textColor: Colors.white,
+                        title: Text(
+                          "Student Information",
+                          style: GoogleFonts.dmSans(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 14.sp,
+                            color: Colors.white,
+                          ),
+                        ),
+                        leading: const Icon(Icons.insert_drive_file_outlined,
+                            size: 20.0, color: Colors.white),
+
+                        childrenPadding: const EdgeInsets.only(left: 20), //children padding
+                        children: [
+                             SizedBox(
+                                  height: 0.062.sh,
+                                  child: ListTile(
+                                     leading: const Icon(Icons.info,
+                                  size: 20.0, color: Colors.white),
+                                    onTap: () {Get.to(const StudentInformation());},
+                                    title: Text(
+                                      "Student Details",
+                                      style: GoogleFonts.dmSans(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 14.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+
+                                  ),
+                                ),
+                                   SizedBox(
+                                  // height: 0.02.sh,
+                                  child: ListTile(
+                                     leading: const Icon(Icons.present_to_all,
+                                  size: 20.0, color: Colors.white),
+                                    onTap: () {Get.to(const AttandanceAdd());},
+                                    
+                                    title: Text(
+                                      "Attendance",
+                                      style: GoogleFonts.dmSans(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 14.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+
+                                  ),
+                                ),
+                      
+                          SizedBox(
+                            height: 0.052.sh,
+                            child: ListTile(
+                              onTap: () {Get.to(const StudentFees());},
+                              leading: const Icon(Icons.currency_rupee,
+                                  size: 20.0, color: Colors.white),
+                              title: Text(
+                                "Fees",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+
+                            ),
+                          ),
+
+                          SizedBox(
+                            height: 0.062.sh,
+                            child: ListTile(
+                              leading: const Icon(Icons.access_time_filled_outlined,
+                                  size: 20.0, color: Colors.white),
+                              onTap: () {
+
+                                  Get.to(const TeacherClassTimeTable());
+
+
+                                },
+
+                              title: Text(
+                                "Class TimeTable",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+
+                            ),
+                          ),
+                          SizedBox(
+                            height: 0.062.sh,
+                            child: ListTile(
+                              leading: const Icon(Icons.access_time_filled_outlined,
+                                  size: 20.0, color: Colors.white),
+                              onTap: () {
+
+                                Get.to(const TeacherTimeTable());
+                              },
+
+                              title: Text(
+                                "Teacher TimeTable",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+
+                            ),
+                          ),
+                          SizedBox(
+                            height: 0.062.sh,
+                            child: ListTile(
+                              leading: const Icon(Icons.upload_file,
+                                  size: 20.0, color: Colors.white),
+                              onTap: () {Get.to(const UploadContent());},
+                              title: Text(
+                                "Upload center",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+
+                            ),
+                          ),
+
+                          SizedBox(
+                            height: 0.062.sh,
+                            child: ListTile(
+                              leading: const Icon(Icons.book_online,
+                                  size: 20.0, color: Colors.white),
+                              onTap: () {
+
+                                  Get.to(const HomeWork());
+
+                              },
+                              title: Text(
+                                "HomeWork",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+
+                            ),
+                          ),
+                          ListTileTheme(
+                            dense: true,
+                            child: ExpansionTile(
+                              collapsedIconColor: Colors.white,
+                              textColor: Colors.white,
+                              title: Text(
+                                "Exam",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              leading: const Icon(Icons.book,
+                                  size: 20.0, color: Colors.white),
+
+                              childrenPadding: const EdgeInsets.only(left: 70), //children padding
+                              children: [
+                                SizedBox(
+                                  height: 0.062.sh,
+                                  child: ListTile(
+                                    onTap: () {
+                                      Get.to(const TeacherExamTimeTable());
+
+
+
+                                    },
+                                    title: Text(
+                                      "Exam Shedule",
+                                      style: GoogleFonts.dmSans(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 14.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+
+                                  ),
+                                ),
+                                SizedBox(
+                                  // height: 0.02.sh,
+                                  child: ListTile(
+                                    onTap: () {
+                                      Get.to(const ExamResultall());
+
+
+
+                                    },
+                                    title: Text(
+                                      "Exam Result",
+                                      style: GoogleFonts.dmSans(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 14.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+
+                                  ),
+                                ),
+
+                                //more child menu
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 0.062.sh,
+                            child: ListTile(
+                              onTap: () {Get.to(const StudentLeave());},
+                              leading: const Icon(Icons.leave_bags_at_home,
+                                  size: 20.0, color: Colors.white),
+                              title: Text(
+                                "Leave",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+
+                            ),
+                          ),
+                          SizedBox(
+                            height: 0.062.sh,
+                            child: ListTile(
+                              onTap: () {Get.to(const TeacherSyllebus());},
+                              leading: const Icon(Icons.book,
+                                  size: 20.0, color: Colors.white),
+                              title: Text(
+                                "Syllabus",
+                                style: GoogleFonts.dmSans(
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+
+                            ),
+                          ), 
+                          
+                        ],
+                      ),
+                    ),
+       ),
           // ListTileTheme(
           //   dense: true,
           //   child: ExpansionTile(

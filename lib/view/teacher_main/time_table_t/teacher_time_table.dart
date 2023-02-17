@@ -173,16 +173,6 @@ class _TeacherTimeTableState extends State<TeacherTimeTable> {
         appBar: AppBar(
           backgroundColor:AgentColor.appbarbackgroundColor,
           title: Text('Teacher Time Table',style: MyGoogeFont.mydmSans),
-          actions: [
-            PopupMenuButton<int>(
-              itemBuilder: (context) {
-                return <PopupMenuEntry<int>>[
-                  const PopupMenuItem(child: Text('0'), value: 0),
-                  const PopupMenuItem(child: Text('1'), value: 1),
-                ];
-              },
-            ),
-          ],
         ),
         body:Obx(()=>teacherTimeTableController.TeacherTimeTableControllerList.isNotEmpty?
         teacherTimeTableController.loadingTimeTable.value? Column(
@@ -221,7 +211,7 @@ class _TeacherTimeTableState extends State<TeacherTimeTable> {
                         ],
                       ),
                     ),
-                  ):Center(child: CircularProgressIndicator()),
+                  ):const Center(child: CircularProgressIndicator()),
                   );
                 },
               ),
@@ -491,7 +481,7 @@ class _TeacherTimeTableState extends State<TeacherTimeTable> {
               ),
             ),
           ],
-        ):Center(child: Text("Is Loodaing", style: GoogleFonts.dmSans(
+        ):Center(child: Text("is loodaing", style: GoogleFonts.dmSans(
           fontStyle: FontStyle.normal,
           fontSize: 15.sp,
           fontWeight: FontWeight.bold,

@@ -1,4 +1,5 @@
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/class_list_controller.dart';
+import 'package:ecom_desgin/controller/teacher_controller/student_Controller/set_student_Leave_Status.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/student_leave_controller.dart';
 import 'package:ecom_desgin/view/teacher_main/S_leave/add_leave.dart';
 import 'package:flutter/material.dart';
@@ -19,10 +20,13 @@ class StudentLeave extends StatefulWidget {
 
 class _StudentLeaveState extends State<StudentLeave> {
    final ClassListController classListController = Get.put(ClassListController());
+   final SetStudentLeavestatus setStudentLeavestatus = Get.put(SetStudentLeavestatus());
 
   StudentLeaveController studentLeaveController=Get.put(StudentLeaveController());
 String selectStudent="Select Student";
-
+String thumb="";
+late int? indexset;
+bool islike=false;
     void showUserDialog() {
       showDialog(
         context: context,
@@ -350,14 +354,57 @@ String selectStudent="Select Student";
                                      ],
                                      ),
                                      const SizedBox(height: 9,),
-                                                     studentLeaveController.StudentLeaveRecordControllerList[0]["response"][index]["leave_status"].toString().toLowerCase()=="Pending"?  
+                                                     studentLeaveController.StudentLeaveRecordControllerList[0]["response"][index]["leave_status"].toString().toLowerCase()=="Pending".toLowerCase()?  
                                                      
                                    Row(
                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                       children:const [
-                                    Icon(LineIcons.fileDownload,color: Colors.blue),
-                                    Icon(LineIcons.thumbsUp,color: Colors.blue),
-                                    Icon(LineIcons.thumbsDown,color: Colors.blue),
+                                       children: [
+                                     studentLeaveController.StudentLeaveRecordControllerList[0]["response"][index]["docs"]!=null?Icon(LineIcons.fileDownload,color: Colors.blue):Icon(LineIcons.fileDownload,color: Colors.grey),
+                                    InkWell(
+                                      onTap:() {
+                                        print("Like");
+                                         setState(() {
+                                              if(islike==false){
+                                             islike=true;
+                                             thumb="1";
+                                             indexset=index;
+                                               setStudentLeavestatus.setstatus(
+                                          studentLeaveController.StudentLeaveRecordControllerList[0]["response"][index]["id"].toString(), 
+                                          thumb, 
+                                          );
+                                          }else{
+                                            //  islike=false;
+                                            //  thumb="";
+ 
+                                        
+                                          } });
+                                      },
+                                      child: thumb=="1"&&indexset==index?Icon( Icons.thumb_up_alt_sharp,color: Colors.green, ):Icon( Icons.thumb_up_outlined,color: Colors.green, ),),
+                                    InkWell(
+                                      onTap:() {
+                                        print("Like");
+                                          setState(() {
+                                    indexset=index;
+                                          
+                                               if(islike==false){
+                                             islike=true;
+                                             thumb="-1";
+                                              setStudentLeavestatus.setstatus(
+                                          studentLeaveController.StudentLeaveRecordControllerList[0]["response"][index]["id"].toString(), 
+                                          thumb, 
+                                          );
+                                          }else{
+                                             islike=false;
+                                             thumb="";
+
+                                          }
+                                           
+                                       
+
+                         
+                                         });
+                                      },
+                                      child: thumb=="-1"&&indexset==index?Icon( Icons.thumb_down_alt_sharp,color: Colors.green, ):Icon( Icons.thumb_down_outlined,color: Colors.green, ),),
                                          
                                      ],):      Row(
                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -365,7 +412,7 @@ String selectStudent="Select Student";
                                     Icon(LineIcons.fileDownload,color: Colors.grey,),
                                     Icon(LineIcons.thumbsUp,color: Colors.grey),
                                     Icon(LineIcons.thumbsDown,color: Colors.grey),
-                                         
+                                        
                                      ],)
                                    ],
                                  ),

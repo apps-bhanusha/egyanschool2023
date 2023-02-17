@@ -404,7 +404,7 @@ if(role_flag.toString()=="P"){
                                   //       ),
                                   //     ),
                                   //     imageUrl: studentProfileController.studentProfileModel.value?.response.profileimage!=null?  '${ApiUrl.imagesUrl.toString()}${studentProfileController.studentProfileModel.value?.response.profileimage}':"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU"
-                                  //    ):
+                                  //    ):s
 
 
                                          CircleAvatar(

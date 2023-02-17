@@ -115,10 +115,8 @@ String studentId="";
        cListController.classSectionModel.value?.response.forEach((element) {
      if(element.sectionName.toLowerCase()==selectdrop.toString().toLowerCase()){
                sectionID=element.sectionId;
-               print("@@@@@@@@@@@@@@@@@@@@@");
-               
-     }
-        
+               print("@@@@@@@@@@@@@@@@@@@@@");         
+     }   
       });
     try {
        var box = Hive.box("schoolData");

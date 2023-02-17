@@ -48,10 +48,14 @@ class _AboutSchoolState extends State<AboutSchool> {
           Obx(
             () => aboutController.isloading.value? Html( data:"${aboutController.aboutModel.value?.response.description}" , 
                   style: {
-            "hr":Style(
-                 padding: const EdgeInsets.all(0)
+            // "hr":Style(
+            //      padding: const EdgeInsets.all(0)
                   
+            //  ),
+             "br":Style(
+                padding: EdgeInsets.only(right: 50)
              )
+
                   },) :const Center(
                     child: Padding(
                           padding: EdgeInsets.only(top: 300),
