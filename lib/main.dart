@@ -3,7 +3,6 @@ import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/dashboard/home.dart';
 import 'package:ecom_desgin/view/login/School_id_login.dart';
 import 'package:ecom_desgin/view/parent/parent_student_list_change.dart';
-import 'package:ecom_desgin/view/teacher_main/teacher_home/teacher_home_T.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
-
 import 'view/teacher_main/teacher_home/teacher_home.dart';
 var sessionManager = SessionManager();
 Future<void> main(List<String> args) async {
@@ -26,7 +24,7 @@ Future<void> main(List<String> args) async {
     theme: ThemeData(
       fontFamily: GoogleFonts.dmSans().fontFamily,
       primarySwatch: Colors.lightGreen,
-      useMaterial3: true,
+      // useMaterial3: true,
     ),
     home: const SplashScreen(),
     initialRoute: RoutesName.splashScreen,

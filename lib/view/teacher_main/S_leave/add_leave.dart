@@ -1,8 +1,6 @@
 import 'package:ecom_desgin/constant/date_format.dart';
-import 'package:ecom_desgin/controller/addstudentLeaveRecord_controller.dart';
 import 'package:ecom_desgin/controller/studentLeaveRecord_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/student_add_leave_Controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -11,21 +9,20 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart' show rootBundle;
+// ignore: depend_on_referenced_packages
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-import 'package:date_format/date_format.dart';
 import 'package:open_filex/open_filex.dart';
+// ignore: depend_on_referenced_packages
 import 'package:path_provider/path_provider.dart';
+// ignore: depend_on_referenced_packages
 import 'package:uuid/uuid.dart';
-import 'package:custom_floating_action_button/custom_floating_action_button.dart';
-import 'package:intl/intl.dart';
 
 class StudentAddUserDialog extends StatefulWidget {
-
-  StudentAddUserDialog();
+ String  student;
+  StudentAddUserDialog(this.student);
 
   @override
   _StudentAddUserDialogDialogState createState() => _StudentAddUserDialogDialogState();
@@ -238,7 +235,7 @@ class _StudentAddUserDialogDialogState extends State<StudentAddUserDialog>
                                   labelText: 'From Date',
                                   contentPadding: EdgeInsets.all(5).r,
                                   labelStyle:
-                                      TextStyle(color: Colors.grey[400])),
+                                      TextStyle(color: Color.fromARGB(255, 5, 5, 5))),
                               style: GoogleFonts.dmSans(
                                 fontStyle: FontStyle.normal,
                                 fontSize: 15.sp,
@@ -249,7 +246,9 @@ class _StudentAddUserDialogDialogState extends State<StudentAddUserDialog>
                                 DateTimeRange? pickedRange =
                                     await showDateRangePicker(
                                         context: context,
+
                                         initialDateRange: DateTimeRange(
+         
                                           start: DateTime.now(),
                                           end: DateTime.now(),
                                         ),
@@ -264,7 +263,9 @@ class _StudentAddUserDialogDialogState extends State<StudentAddUserDialog>
                                         errorInvalidText: 'Out of range.',
                                         errorInvalidRangeText: 'Invalid range.',
                                         fieldStartHintText: 'Start Date',
-                                        fieldEndLabelText: 'End Date');
+                                        fieldEndLabelText: 'End Date'
+
+                                        );
 
                                 if (pickedRange != null) {
                                   print(
@@ -445,11 +446,12 @@ Row(
 
                                 AddStudentLeaveRecord.StudentAddStudentLeaveapi(
                                     company_key,
-                                    student_id,
                                     from_date,
                                     to_date,
                                     message,
-                                    userfile,staff_id);
+                                    userfile,staff_id,widget.student);
+                                    print(from_date);
+                                    print(to_date);
 
                           Navigator.of(context).pop();
                               } else {
