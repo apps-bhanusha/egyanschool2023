@@ -29,7 +29,7 @@ class Scanner extends StatefulWidget {
 class _ScannerState extends State<Scanner> {
     final GetSchoolSettingController _schoolsetting =
   Get.put(GetSchoolSettingController());
-  final TeacherLoginController teacherLoginController= Get.put(TeacherLoginController());
+  // final TeacherLoginController teacherLoginController= Get.put(TeacherLoginController());
     final StaffDetailController staffdetailsController = Get.put(StaffDetailController());
 
     var box = Hive.box("schoolData");
@@ -59,8 +59,8 @@ class _ScannerState extends State<Scanner> {
   late Position position;
   // ignore: prefer_typing_uninitialized_variables
   var  distense;
-  late double lat1;
-  late double lon1;
+  late double? lat1;
+  late double? lon1;
   late double lat2;
   late double lon2;
   late StreamSubscription<Position> positionStream;
@@ -75,8 +75,8 @@ class _ScannerState extends State<Scanner> {
   }
 
   getsavedata() {
-    String lt = box.get("lat").toString()??"4332.3243";
-    String lg = box.get("lang").toString()??"324324324.324";
+    String lt = box.get("lat")??"4332.3243";
+    String lg = box.get("lang")??"324324324.324";
     String alw = box.get("50")??"10";
     setState(() {
       lat2 = double.parse(lt);
@@ -192,12 +192,14 @@ class _ScannerState extends State<Scanner> {
           textColor: Colors.white,
           fontSize: 17.0);
       print("company id not match");
-      Future.delayed(Duration(seconds: 3),(){
-        setState(() async {
-
-          await controller!.resumeCamera();
+      Future.delayed(Duration(seconds: 4),() async {
+        attendanceloading = false;
+           await controller!.resumeCamera();
+        setState(() {
+          Navigator.pop(context);
         });
-      });
+            
+       });
     }
     if (distense <= alloweddistance) {
       print("distance allow");
@@ -211,12 +213,14 @@ class _ScannerState extends State<Scanner> {
           backgroundColor: Colors.black54,
           textColor: Colors.white,
           fontSize: 17.0);
-      Future.delayed(Duration(seconds: 3),(){
-        setState(() async {
-
-          await controller!.resumeCamera();
+     Future.delayed(Duration(seconds: 4),() async {
+        attendanceloading = false;
+           await controller!.resumeCamera();
+        setState(() {
+          Navigator.pop(context);
         });
-      });
+            
+       });
     }
       print("**************************");
       print(qcompany_id);
@@ -229,12 +233,13 @@ class _ScannerState extends State<Scanner> {
       // attendance api call
    final urlapi = Uri.parse(ApiUrl.baseUrl + ApiUrl.staffattendanceUrl);
       // final urlpost = Uri.parse(
-
+ 
+            var id=box.get("staff_id");
       //     "https://demo.bhanushainfosoft.com/scanq_scanner/api/attendance");
     
                     var body = json.encode({
                                 "company_key":company_key.toString(),
-                                "staff_id":"17",
+                                "staff_id":id,
                                 "lat":lat1.toString(),
                                 "lang":lon2.toString()
 
@@ -245,10 +250,6 @@ class _ScannerState extends State<Scanner> {
         if (response.statusCode == 200) {
           var time=0;
           var data = jsonDecode(response.body.toString());
-          print("responce.............");
-          print(data);
-          print(data);
-          print('successfully');
           setState(() {
             setState(() {
               _data = [data];
@@ -257,10 +258,8 @@ class _ScannerState extends State<Scanner> {
           print('responce /.................................');
           print(data);
           if(data["status"]==true){
-            setState(() async {
-              await controller!.resumeCamera();
-            });
-            var id=box.get("staff_id");
+         
+           
             staffdetailsController.staffDetail(id);
             if(time==0){
   String timeIn = DateFormat("yyyy-MM-dd hh:mm:ss").format(DateTime.now());
@@ -279,17 +278,18 @@ class _ScannerState extends State<Scanner> {
               backgroundColor: Colors.black54,
               textColor: Colors.white,
               fontSize: 18.0);
-            Future.delayed(Duration(seconds: 3),(){
-              setState(() async {
-                attendanceloading = false;
-                await controller!.resumeCamera();
-              });
-            });
+           Future.delayed(const Duration(seconds: 4),() async {
+        attendanceloading = false;
+           await controller!.resumeCamera();
+        setState(() {
+          Navigator.pop(context);
+        });
+            
+       });
           }
          
         
         } else {
-     ;
 
           print("bad responce");
           setState(() {
@@ -302,17 +302,19 @@ class _ScannerState extends State<Scanner> {
               backgroundColor: Colors.black54,
               textColor: Colors.white,
               fontSize: 17.0);
-     Future.delayed(Duration(seconds: 3),(){
-       setState(() async {
-         attendanceloading = false;
-         await controller!.resumeCamera();
+      Future.delayed(Duration(seconds: 4),() async {
+        attendanceloading = false;
+           await controller!.resumeCamera();
+        setState(() {
+           Navigator.pop(context);
+        });
+            
        });
-     });
         }
       } catch (e) {
 
         print(e);
-        await controller!.resumeCamera();
+      
         Fluttertoast.showToast(
             msg: "Error$e",
             toastLength: Toast.LENGTH_SHORT,
@@ -320,12 +322,14 @@ class _ScannerState extends State<Scanner> {
             backgroundColor: Colors.black54,
             textColor: Colors.white,
             fontSize: 17.0);
-        Future.delayed(Duration(seconds: 3),(){
-          setState(() async {
-            attendanceloading = false;
-            await controller!.resumeCamera();
-          });
+        Future.delayed(Duration(seconds: 4),() async {
+        attendanceloading = false;
+           await controller!.resumeCamera();
+        setState(() {
+           Navigator.pop(context);
         });
+            
+       });
       }
     } else {
 
@@ -345,7 +349,7 @@ class _ScannerState extends State<Scanner> {
       //   });
       // });
 
-       Get.back();
+     
     }
   }
 
@@ -354,6 +358,7 @@ class _ScannerState extends State<Scanner> {
 // qrcode validetion
     print("A");
     if (result != null) {
+       await controller?.pauseCamera();
       print("B");
       // qr code data find
 /////////////////////////////////////////////////////
@@ -427,13 +432,15 @@ class _ScannerState extends State<Scanner> {
             // colorText: Colors.white,
             maxWidth: 400,
             duration: const Duration(seconds: 3));
-      //  Future.delayed(Duration(seconds: 2),(){
-      //    setState(() async {
-      //      attendanceloading = false;
-      //      await controller!.resumeCamera();
-      //    });
-      //  });
-       Get.back();
+       Future.delayed(Duration(seconds: 4),() async {
+        attendanceloading = false;
+           await controller!.resumeCamera();
+        setState(() {
+        Navigator.pop(context);
+        });
+            
+       });
+          
 
       }
       // attendance();
@@ -456,10 +463,14 @@ class _ScannerState extends State<Scanner> {
           // colorText: Colors.white,
           maxWidth: 400,
           duration: const Duration(seconds: 3));
-      setState(() async {
+      Future.delayed(Duration(seconds: 4),() async {
         attendanceloading = false;
-        await controller!.resumeCamera();
-      });
+           await controller!.resumeCamera();
+        setState(() {
+           Navigator.pop(context);
+        });
+            
+       });
     }
   }
 
@@ -656,15 +667,14 @@ child: Image.asset("assets/images/appstore.png",width: 50,height: 50,),
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
 
-    controller.scannedDataStream.listen((scanData) {
-      setState(() async {
+    controller.scannedDataStream.listen((scanData)  {
+     
         result = scanData;
         print("qr result");
         print(result?.code);
-        await controller.pauseCamera();
-        qrcodevalidetions();
-
-      });
+        
+          qrcodevalidetions();
+    
 
 
     });

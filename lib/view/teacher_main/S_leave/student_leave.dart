@@ -1,3 +1,6 @@
+import 'package:dio/dio.dart';
+import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/class_list_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/set_student_Leave_Status.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/student_leave_controller.dart';
@@ -11,6 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:permission_handler/permission_handler.dart';
 class StudentLeave extends StatefulWidget {
   const StudentLeave({super.key});
 
@@ -25,8 +29,14 @@ class _StudentLeaveState extends State<StudentLeave> {
   StudentLeaveController studentLeaveController=Get.put(StudentLeaveController());
 String selectStudent="Select Student";
 String thumb="";
-late int? indexset;
+late int indexset=0;
 bool islike=false;
+  double progress = 0;
+
+  bool didDownloadPDF = false;
+  bool isdownloadin = true;
+  int index=0;
+ String progressString = 'Now.';
     void showUserDialog() {
       showDialog(
         context: context,
@@ -51,6 +61,65 @@ bool islike=false;
  
   
   }
+ pdfDownload(pdfurl,value) async {
+    print('dkkdkdkd');
+    print(pdfurl);
+    setState(() {
+      isdownloadin=false;
+      indexset=value;
+
+    });
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.storage,
+      //add more permission to request here.
+    ].request();
+    String i = "";
+    i=DateTime.now().toString();
+   if(pdfurl.toString().isNotEmpty){
+     if (statuses[Permission.storage]!.isGranted) {
+      await Permission.storage.request();
+        var dir = await DownloadsPathProvider.downloadsDirectory;
+          // Directory dir = Directory('/storage/emulated/0/Download');
+      if (dir != null) { 
+        String savename = "file.pdf";
+        String savePath = "${dir.path}/$savename";
+        print(savePath);
+        //output:  /storage/emulated/0/Download/banner.png
+         print("${ApiUrl.imagesUrl}"+pdfurl.toString());
+        try {
+          await Dio().download(ApiUrl.imagesUrl+pdfurl.toString(), savePath,
+              onReceiveProgress: (received, total) {
+            if (total != -1) {
+              print((received / total * 100).toStringAsFixed(0) +"%");
+              setState(() {
+                progressString =(received / total * 100).toStringAsFixed(0) +"%";
+              });
+              //you can build progressbar feature too
+            }
+          });
+          isdownloadin=true;
+          Get.snackbar(
+              "download Succesfull", "File is saved to download folder");
+        } on DioError catch (e) {
+          print(e.message);
+          Get.snackbar(
+              e.toString(), "");
+        }
+      }
+    } else {
+      print("No permission to read and write.");
+      Get.snackbar(
+              "No permission to read and write.", "");
+    }
+   }else{
+    Get.snackbar(
+              "File Not Available", "");
+   }
+  }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -354,12 +423,17 @@ bool islike=false;
                                      ],
                                      ),
                                      const SizedBox(height: 9,),
-                                                     studentLeaveController.StudentLeaveRecordControllerList[0]["response"][index]["leave_status"].toString().toLowerCase()=="Pending".toLowerCase()?  
+                                                     studentLeaveController.StudentLeaveRecordControllerList[0]["response"][index]["leave_status"].toString().toLowerCase()!="Pending".toLowerCase()?  
                                                      
                                    Row(
                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                        children: [
-                                     studentLeaveController.StudentLeaveRecordControllerList[0]["response"][index]["docs"]!=null?Icon(LineIcons.fileDownload,color: Colors.blue):Icon(LineIcons.fileDownload,color: Colors.grey),
+                                     studentLeaveController.StudentLeaveRecordControllerList[0]["response"][index]["docs"]!=null?InkWell(
+                                      onTap: (){
+                                       
+                                         pdfDownload("${studentLeaveController.StudentLeaveRecordControllerList[0]["response"][index]["docs"]}",index);
+                                      },
+                                      child: indexset==index?Icon(LineIcons.download,color: Colors.blueAccent): Icon(LineIcons.fileDownload,color: Colors.blue)):Icon(LineIcons.fileDownload,color: Colors.grey),
                                     InkWell(
                                       onTap:() {
                                         print("Like");
