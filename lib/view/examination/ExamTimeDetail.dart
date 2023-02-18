@@ -38,16 +38,7 @@ print(getexamview.starttime);
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         title: Text("Exam schedule",style: MyGoogeFont.mydmSans),
-        actions: [
-          PopupMenuButton<int>(
-            itemBuilder: (context) {
-              return <PopupMenuEntry<int>>[
-                const PopupMenuItem(value: 0, child: Text('0')),
-                const PopupMenuItem(value: 1, child: Text('1')),
-              ];
-            },
-          ),
-        ],
+       
       ),
 
       body:Obx(()=>

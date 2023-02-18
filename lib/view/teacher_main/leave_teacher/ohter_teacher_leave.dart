@@ -85,16 +85,7 @@ class _TeacherLeaveStatusState extends State<TeacherLeaveStatus> {
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           title: Text('Staff Leave Status',style: MyGoogeFont.mydmSans),
-          actions: [
-            PopupMenuButton<int>(
-              itemBuilder: (context) {
-                return <PopupMenuEntry<int>>[
-                  const PopupMenuItem(child: Text('0'), value: 0),
-                  const PopupMenuItem(child: Text('1'), value: 1),
-                ];
-              },
-            ),
-          ],
+     
         ),
         floatingActionButton: FloatingActionButton(
           onPressed:

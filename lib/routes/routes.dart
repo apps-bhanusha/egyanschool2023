@@ -3,6 +3,7 @@ import 'package:ecom_desgin/view/bus_routes/track_bus.dart';
 import 'package:ecom_desgin/view/Attendance/attendance.dart';
 import 'package:ecom_desgin/view/examination/Exam_result.dart';
 import 'package:ecom_desgin/view/fees/fees.dart';
+import 'package:ecom_desgin/view/home_work/home_work.dart';
 import 'package:ecom_desgin/view/leave/leavestatus.dart';
 import 'package:ecom_desgin/view/notification/notification.dart';
 import 'package:ecom_desgin/view/profile/profile.dart';
@@ -60,13 +61,13 @@ final getpages=[
  GetPage(name: RoutesName.schoolId, page: () =>  SimpleLogin(),transition: Transition.downToUp),
  GetPage(name: RoutesName.stundetLogin, page: () =>   StudentLogin(),transition: Transition.fade),
  GetPage(name: RoutesName.fees, page: () =>  const Fees(),transition: Transition.fadeIn),
-//  GetPage(name: RoutesName.homeWork, page: () =>  const HomeWork(),transition: Transition.leftToRight),
+ GetPage(name: RoutesName.homeWork, page: () =>  const HomeWork(),transition: Transition.leftToRight),
  GetPage(name: RoutesName.examination, page: () =>  const ExamTimeTable(),transition: Transition.leftToRightWithFade),
  GetPage(name: RoutesName.examiTimeDetial, page: () =>  const ExamTimeDetail(),transition: Transition.rightToLeftWithFade),
  GetPage(name: RoutesName.downloadAll, page: () =>  const DownloadAll(),transition: Transition.circularReveal),
  GetPage(name: RoutesName.timetable, page: () =>  const TimeTable(),transition: Transition.topLevel),
  GetPage(name: RoutesName.timetable, page: () =>  const TimeTable(),transition: Transition.zoom),
-  GetPage(name: RoutesName.lession, page: () =>  const SubjectLession(),transition: Transition.cupertinoDialog),
+ GetPage(name: RoutesName.lession, page: () =>  const SubjectLession(),transition: Transition.cupertinoDialog),
  GetPage(name: RoutesName.chatPage, page: () =>  const ChatPage(),transition: Transition.cupertinoDialog),
  GetPage(name: RoutesName.attendance, page: () => Attendance(),transition: Transition.cupertino),
  GetPage(name: RoutesName.busRoute, page: () =>   const BusRoute(),transition: Transition.circularReveal),

@@ -319,41 +319,41 @@ var id=box.get("staff_id");
                                     top: 0.015.sh,
                                     child: Row(
                                       children: [
-                                    //  staffdetailsController.staffDetailModel.value?.response.image!=null?   FractionalTranslation(
-                                    //         translation: const Offset(0.0, -0.0),
-                                    //         child: Align(
-                                    //             alignment: const FractionalOffset(0.5, 0.5),
-                                    //             child: CircleAvatar(
-                                    //                 maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
-                                    //                     39,
-                                    //                 minRadius: 20,
-                                    //                 foregroundImage: 
-                                    //                 NetworkImage("${ApiUrl.imagesUrl.toString()}${staffdetailsController.staffDetailModel.value?.response.image}")
+                                     staffdetailsController.staffDetailModel.value?.response.image!=null?   FractionalTranslation(
+                                            translation: const Offset(0.0, -0.0),
+                                            child: Align(
+                                                alignment: const FractionalOffset(0.5, 0.5),
+                                                child: CircleAvatar(
+                                                    maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
+                                                        39,
+                                                    minRadius: 20,
+                                                    foregroundImage: 
+                                                    NetworkImage("${ApiUrl.imagesUrl.toString()}${staffdetailsController.staffDetailModel.value?.response.image}")
                                                         
-                                    //                 ,
-                                    //             )
+                                                    ,
+                                                )
 
 
-                                    //         ),
-                                    //       ): FractionalTranslation(
-                                    //         translation: const Offset(0.0, -0.0),
-                                    //         child: Align(
-                                    //             alignment: const FractionalOffset(0.5, 0.5),
-                                    //             child: CircleAvatar(
-                                    //                 maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
-                                    //                     39,
-                                    //                 minRadius: 20,
-                                    //                 foregroundImage: const NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
+                                            ),
+                                          ): FractionalTranslation(
+                                            translation: const Offset(0.0, -0.0),
+                                            child: Align(
+                                                alignment: const FractionalOffset(0.5, 0.5),
+                                                child: CircleAvatar(
+                                                    maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
+                                                        39,
+                                                    minRadius: 20,
+                                                    foregroundImage: const NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
                                  
-                                    //                 ,
-                                    //                 // radius: 54.0,
-                                    //                 backgroundImage:
-                                    //                 const NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
-                                    //             )
+                                                    ,
+                                                    // radius: 54.0,
+                                                    backgroundImage:
+                                                    const NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
+                                                )
 
 
-                                    //         ),
-                                    //       ),
+                                            ),
+                                          ),
                             //             Obx(()=>
                             //                staffdetailsController.isloding.value?ClipRRect(
                             //                 // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
