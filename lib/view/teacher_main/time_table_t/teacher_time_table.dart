@@ -175,7 +175,7 @@ class _TeacherTimeTableState extends State<TeacherTimeTable> {
           title: Text('Teacher Time Table',style: MyGoogeFont.mydmSans),
         ),
         body:Obx(()=>teacherTimeTableController.TeacherTimeTableControllerList.isNotEmpty?
-        teacherTimeTableController.loadingTimeTable.value? Column(
+      teacherTimeTableController.loadingTimeTable.value  ? Column(
           children: [
             const SizedBox(height: 20,),
             SizedBox(
@@ -481,7 +481,7 @@ class _TeacherTimeTableState extends State<TeacherTimeTable> {
               ),
             ),
           ],
-        ):Center(child: Text("is loodaing", style: GoogleFonts.dmSans(
+        ):Center(child: Text("", style: GoogleFonts.dmSans(
           fontStyle: FontStyle.normal,
           fontSize: 15.sp,
           fontWeight: FontWeight.bold,

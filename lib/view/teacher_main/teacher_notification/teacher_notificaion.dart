@@ -30,16 +30,6 @@ class _TeacherNotificationPageState extends State<TeacherNotificationPage> {
       appBar: AppBar(
         backgroundColor:AgentColor.appbarbackgroundColor,
         title: Text('Notification',style: MyGoogeFont.mydmSans),
-        actions: [
-          PopupMenuButton<int>(
-            itemBuilder: (context) {
-              return <PopupMenuEntry<int>>[
-                const PopupMenuItem(value: 0, child: Text('0')),
-                const PopupMenuItem(value: 1, child: Text('1')),
-              ];
-            },
-          ),
-        ],
       ),
       body: Obx(
             () =>  teahernotificationController.isloading.value ? teahernotificationController.teachernotificationList.value?.response?.length != null? ListView.builder(

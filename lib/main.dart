@@ -20,12 +20,16 @@ Future<void> main(List<String> args) async {
   await Hive.initFlutter();
   var schoolData = await Hive.openBox("schoolData");
 
-  runApp(GetMaterialApp(
+  runApp(
+    GetMaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       fontFamily: GoogleFonts.dmSans().fontFamily,
-      primarySwatch: Colors.lightGreen,
-      // useMaterial3: true,
+      primarySwatch: Colors.blue,
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.blue
+      ),
+      useMaterial3: true,
     ),
     home: const SplashScreen(),
     initialRoute: RoutesName.splashScreen,
@@ -90,7 +94,8 @@ Future<void> usercheck() async {
                 fit: BoxFit.fitHeight,
                 width: w,
                 height: h,
-              ));
+              )
+              );
 
         }
     );

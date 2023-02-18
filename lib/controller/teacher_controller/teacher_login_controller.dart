@@ -42,8 +42,8 @@ class TeacherLoginController extends GetxController {
     box.put("password",password);
 
     final urlapi = Uri.parse(ApiUrl.baseUrl + ApiUrl.teacherloginUrl);
-    var response = await http.post(urlapi, body: body);
-    print("xcmvlsdmvlsdmvlsmdlvdlclsdmc");
+   try {
+      var response = await http.post(urlapi, body: body);
     print(response.body);
     if (response.statusCode == 200) {
 
@@ -92,7 +92,7 @@ class TeacherLoginController extends GetxController {
       teachertLogin.value = true;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
-          "Blank Field Not Allowed",
+          "Something Error",
           style: GoogleFonts.dmSans(
             fontStyle: FontStyle.normal,
             fontSize: 15.sp,
@@ -104,6 +104,10 @@ class TeacherLoginController extends GetxController {
       ));
  teachertLogin.value = true;
     }
+   } catch (e) {
+    print("Server error");
+     print(e);
+   }
   }
 
   saveUser(String jsonEncode) {}

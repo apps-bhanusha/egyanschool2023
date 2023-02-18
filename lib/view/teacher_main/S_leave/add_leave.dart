@@ -235,7 +235,7 @@ class _StudentAddUserDialogDialogState extends State<StudentAddUserDialog>
                                   labelText: 'From Date',
                                   contentPadding: EdgeInsets.all(5).r,
                                   labelStyle:
-                                      TextStyle(color: Color.fromARGB(255, 5, 5, 5))),
+                                       TextStyle(color: Colors.grey[400]),),
                               style: GoogleFonts.dmSans(
                                 fontStyle: FontStyle.normal,
                                 fontSize: 15.sp,

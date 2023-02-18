@@ -30,7 +30,7 @@ class _ExamResultStudentState extends State<ExamResultStudent> {
   StudentListController studentListController=Get.put(StudentListController());
   // int autohight=0;
   var company_key;
-  var selectdata;
+  var selectdata="Select Student";
   bool datafull=false;
   @override
   void initState() {
@@ -164,9 +164,9 @@ class _ExamResultStudentState extends State<ExamResultStudent> {
                     }).toList():[],
                     hint: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("selectdata"),
+                      child: Text(selectdata),
                     ),
-                    onChanged: (country){
+                    onChanged: (dynamic country){
                       // print("You selected: $country");
                       selectdata=country!;
                       studentListController.GetexamsResultapi(selectdata,widget.exam_id);
@@ -274,7 +274,7 @@ class _ExamResultStudentState extends State<ExamResultStudent> {
                                   },
                                   itemCount: studentListController.examResultModel.value?.response.examResult
                                       .length,
-                                ):Center(child:Text("Data is not Found") ):Center(child: Text("Is Loading"),
+                                ):Center(child:Text("Data is not Found") ):Center(child: Text(""),
                                  )
                               )
                          )

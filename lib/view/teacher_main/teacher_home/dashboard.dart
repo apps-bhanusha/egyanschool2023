@@ -747,7 +747,7 @@ Widget buildMenu() {
                           SizedBox(
                             height: 0.062.sh,
                             child: ListTile(
-                              leading: const Icon(Icons.access_time_filled_outlined,
+                              leading: const Icon(Icons.timelapse,
                                   size: 20.0, color: Colors.white),
                               onTap: () {
 
@@ -817,7 +817,7 @@ Widget buildMenu() {
                                   color: Colors.white,
                                 ),
                               ),
-                              leading: const Icon(Icons.book,
+                              leading: const Icon(Icons.add_comment_outlined,
                                   size: 20.0, color: Colors.white),
 
                               childrenPadding: const EdgeInsets.only(left: 70), //children padding
@@ -1074,8 +1074,25 @@ Widget buildMenu() {
           ),
           SizedBox(
             height: 0.052.sh,
-            child: const ListTile(
-
+            child:  ListTile(
+onTap: () async {
+                            await SessionManager().remove("name");
+                        // await SessionManager().remove("parentlogin");
+                            Get.offAllNamed(RoutesName.schoolId);
+                            // ignore: use_build_context_synchronously
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("logout", style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                              ),
+                              ),
+                                backgroundColor: Colors.white,
+                              ),
+                            );
+                            
+                                },
               leading: Icon(Icons.logout,
                   size: 20.0, color: Colors.white),
               title: Text("Logout"),
@@ -1091,7 +1108,7 @@ Widget buildMenu() {
               onTap: (){
                 Get.to(const AboutSchool());
               },
-              leading: Icon(Icons.logout,
+                leading: const Icon(Icons.info,
                   size: 20.0, color: Colors.white),
               title: Text("Aobut School"),
               textColor: Colors.white,
