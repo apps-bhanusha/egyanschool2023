@@ -169,18 +169,9 @@ print(index);
       child: Scaffold(
         backgroundColor: Colors.lightBlue,
         appBar: AppBar(
-          backgroundColor:AgentColor.appbarbackgroundColor,
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text('Class Time Table',style: MyGoogeFont.mydmSans),
-          actions: [
-            PopupMenuButton<int>(
-              itemBuilder: (context) {
-                return <PopupMenuEntry<int>>[
-                  const PopupMenuItem(child: Text('0'), value: 0),
-                  const PopupMenuItem(child: Text('1'), value: 1),
-                ];
-              },
-            ),
-          ],
+         
         ),
         body:Obx(()=>
           GetclassTimeTable.loadingGetclassTimeTable.value? Column(

@@ -36,7 +36,7 @@ print(getexamview.starttime);
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:AgentColor.appbarbackgroundColor,
+        backgroundColor: Theme.of(context).primaryColor,
         title: Text("Exam schedule",style: MyGoogeFont.mydmSans),
         actions: [
           PopupMenuButton<int>(

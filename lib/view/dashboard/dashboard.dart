@@ -219,6 +219,7 @@ class _GridViewallState extends State<GridViewall>
         ignoring: isOpened,
         child: Scaffold(
           appBar: AppBar(
+            
             // centerTitle: true,
             leading: IconButton(
 
@@ -227,7 +228,7 @@ class _GridViewallState extends State<GridViewall>
               onPressed: () => toggleMenu(),
             ),
             automaticallyImplyLeading: false,
-            backgroundColor:AgentColor.appbarbackgroundColor,
+           backgroundColor: Theme.of(context).primaryColor,
             // iconTheme: IconThemeData(color: Colors.black),
             title: Row(
               children: [
@@ -236,7 +237,7 @@ class _GridViewallState extends State<GridViewall>
                     child:  Text(
                       schoolname??"",
                       // _schoolsetting.GetSchoolSettingControllerList[0]["response"]["name"],
-                      style: MyGoogeFont.mydmSans1,
+                      style: MyGoogeFont.mydmSans,
                       overflow: TextOverflow.ellipsis,
                     )
 

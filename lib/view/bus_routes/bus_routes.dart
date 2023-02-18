@@ -40,7 +40,7 @@ static const _heightPercentages = [
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor:AgentColor.appbarbackgroundColor,
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text('Bus route',style: MyGoogeFont.mydmSans),
 
         ),

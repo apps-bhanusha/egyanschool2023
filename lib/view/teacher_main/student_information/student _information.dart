@@ -1,7 +1,7 @@
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/class_list_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/studnet_search_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -58,8 +58,8 @@ Future<List<String>> _fetchSuggestions(String searchValue) async {
   Widget build(BuildContext context) {
     return Scaffold(
           appBar:   AppBar(
-        backgroundColor: Colors.blue,
-        title: const Text("Student Information",style: TextStyle(color: Colors.white),),),
+        backgroundColor: Theme.of(context).primaryColor,
+        title:  Text("Student Information",style: MyGoogeFont.mydmSans),),
       // EasySearchBar(
 
       //   iconTheme: const IconThemeData(

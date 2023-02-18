@@ -41,7 +41,8 @@ class _ExamResult1State extends State<ExamResult1> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Result"),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text("Result",style: MyGoogeFont.mydmSans),
       ),
       body: Container(
         margin: const EdgeInsets.symmetric(

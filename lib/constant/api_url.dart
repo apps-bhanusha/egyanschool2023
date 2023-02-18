@@ -72,5 +72,10 @@ static const String saveUploadContentUrl="/staffwebservices/uploadcontent";
 static const String setstudentLeaveStatusUrl="/leavewebservices/setstudentLeaveStatus";
 
 
+static const String getteacherhomeworkUrl="/staffwebservices/getteacherhomework";
+static const String getteacherhomeworkforevaluationUrl="/staffwebservices/getteacherhomeworkforevaluation";
+static const String addEvaluationUrl="/staffwebservices/add_evaluation";
+
+
 }
 

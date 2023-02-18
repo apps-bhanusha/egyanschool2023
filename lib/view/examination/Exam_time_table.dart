@@ -2,6 +2,7 @@ import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule1_controller.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule_controller.dart';
+import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/examination/ExamTimeDetail.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class ExamTimeTable extends StatefulWidget {
 
 class _ExamTimeTableState extends State<ExamTimeTable> {
 
-
+  final StudentProfileController studentProfileController = Get.put(StudentProfileController());
   GetexamsSchedule1Controller getexamview1=Get.put(GetexamsSchedule1Controller());
   GetexamsScheduleController getexamview=Get.put(GetexamsScheduleController());
   var company_key;
@@ -31,7 +32,7 @@ class _ExamTimeTableState extends State<ExamTimeTable> {
 void initState() {
         super.initState();
         company_key = box.get("company_key");
-        getexamview1.GetexamsSchedule1api(company_key, 0);
+        getexamview1.GetexamsSchedule1api(company_key, 0,studentProfileController.studentProfileModel.value?.response.studentId);
         print("dddddsvvv");
 
 
@@ -42,7 +43,7 @@ void initState() {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor:AgentColor.appbarbackgroundColor,
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text('Examination',style: MyGoogeFont.mydmSans),
 
         ),

@@ -140,7 +140,7 @@ Get.put(GetSchoolSettingController());
       child: Scaffold(
 
         appBar: AppBar(
-          backgroundColor:AgentColor.appbarbackgroundColor,
+         backgroundColor: Theme.of(context).primaryColor,
           title: Text('Fees',style: MyGoogeFont.mydmSans),
         ),
         body:Obx(()=>

@@ -1,9 +1,10 @@
 import 'dart:convert';
-
+import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/model/Teacher_model/class_section_timetable_model.dart';
 import 'package:ecom_desgin/model/Teacher_model/class_subject_model.dart';
 import 'package:ecom_desgin/model/Teacher_model/class_timetable_model.dart';
+import 'package:ecom_desgin/view/teacher_main/Teacher_home_work/teacher_homework.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -173,12 +174,12 @@ class ClassCLSController extends GetxController {
 
 ///////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
-  void HomeworkAddListapi(homework_date,submit_date,description,userfile,dropdata) async {
+  void HomeworkAddListapi(homework_date,submit_date,description,userfile,dropdata,context) async {
     classSubjectModel.value?.response.forEach((element) {
       print("dropdataffffffffffffff");
       print(dropdata);
       if (element.name.toString() == dropdata) {
-        subjectId = element.name;
+        subjectId = element.subjectId;
         print(subjectId);
       }
     });
@@ -216,12 +217,13 @@ class ClassCLSController extends GetxController {
         if (response.statusCode == 200) {
           var sdata = await response.stream.bytesToString();
           print("dddddddalddddtaa");
+
           var alldata = jsonDecode(sdata);
           // print(await response.stream.bytesToString());
           Get.snackbar(
             alldata["message"].toString(),
             "",
-            duration: 5.seconds,
+            duration: 2.seconds,
             // it could be any reasonable time, but I set it lo-o-ong
             snackPosition: SnackPosition.BOTTOM,
             showProgressIndicator: true,
@@ -231,7 +233,10 @@ class ClassCLSController extends GetxController {
             colorText: Colors.white,
             mainButton:
             TextButton(onPressed: Get.back, child: const Text("Close")),
+
           );
+          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+          const TeacherHomeWorkDiplay()), (Route<dynamic> route) => false);
         } else {}
       }
 

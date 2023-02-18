@@ -1,4 +1,5 @@
 import 'package:ecom_desgin/constant/date_format.dart';
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/teacher_controller/class_list_controller.dart';
 
 import 'package:file_picker/file_picker.dart';
@@ -55,15 +56,9 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
             icon: Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          backgroundColor: Colors.blue,
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text(
-            "Add Home Work",
-            style: GoogleFonts.dmSans(
-              fontStyle: FontStyle.normal,
-              fontSize: 15.sp,
-              fontWeight: FontWeight.normal,
-              color: Colors.white,
-            ),
+            "Add Home Work",style: MyGoogeFont.mydmSans,
           ),
         ),
         body: SingleChildScrollView(
@@ -672,7 +667,7 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                                   submit_date,
                                                   descriptionController.text,
                                                   userfile,
-                                                  dropdata);
+                                                  dropdata,context);
                                             }
                                           });
                                         },

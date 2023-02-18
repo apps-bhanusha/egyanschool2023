@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -50,12 +51,7 @@ class _AddLeaveTeacherState extends State<AddLeaveTeacher> {
             onPressed: () => Navigator.of(context).pop(),
           ),
           backgroundColor: Colors.blue,
-          title: Text("Add Leave", style: GoogleFonts.dmSans(
-            fontStyle: FontStyle.normal,
-            fontSize: 15.sp,
-            fontWeight: FontWeight.normal,
-            color: Colors.white,
-          ),),
+          title: Text("Add Leave", style: MyGoogeFont.mydmSans,),
         ),
         body: Column(
           children: [

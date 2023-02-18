@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'package:ecom_desgin/constant/api_url.dart';
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/staff_detial_contriller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/teacher_login_controller.dart';
@@ -505,9 +506,10 @@ class _ScannerState extends State<Scanner> {
               backgroundColor: Colors.transparent,
               // appbar with title text
               appBar: AppBar(
-                title: const Text(
+                backgroundColor: Theme.of(context).primaryColor,
+                title:  Text(
                   'Staff Attendance',
-                  
+                  style: MyGoogeFont.mydmSans
                 ),
 
               ),

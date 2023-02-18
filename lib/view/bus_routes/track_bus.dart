@@ -1,4 +1,5 @@
 import 'package:custom_map_markers/custom_map_markers.dart';
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -105,7 +106,8 @@ class _TrackBusState extends State<TrackBus> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Map"),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text("Map",   style: MyGoogeFont.mydmSans1,),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

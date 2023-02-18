@@ -79,7 +79,7 @@ void dispose() {
       child: Scaffold(
 
         appBar: AppBar(
-          backgroundColor:AgentColor.appbarbackgroundColor,
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text('Syllabus Status',style: MyGoogeFont.mydmSans),
 
         ),

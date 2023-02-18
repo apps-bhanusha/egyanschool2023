@@ -1,4 +1,5 @@
 import 'package:ecom_desgin/constant/date_format.dart';
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/addstudentLeaveRecord_controller.dart';
 import 'package:ecom_desgin/controller/studentLeaveRecord_controller.dart';
 import 'package:flutter/cupertino.dart';
@@ -197,7 +198,8 @@ class _AddUserDialogState extends State<AddUserDialog>
         height: 0.55.sh,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("Add Leave"),
+            backgroundColor: Theme.of(context).primaryColor,
+            title: Text("Add Leave",style: MyGoogeFont.mydmSans),
           ),
           body: Container(
             child: SingleChildScrollView(

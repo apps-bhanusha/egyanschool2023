@@ -1,4 +1,5 @@
 import 'package:ecom_desgin/constant/date_format.dart';
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/addstudentLeaveRecord_controller.dart';
 import 'package:ecom_desgin/controller/studentLeaveRecord_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/other_teacher_add_leave_controller.dart';
@@ -190,7 +191,8 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
         height: 0.58.sh,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("Add Staff Leave"),
+            backgroundColor: Theme.of(context).primaryColor,
+            title:  Text("Add Staff Leave",style: MyGoogeFont.mydmSans),
           ),
           body: Container(
             child: SingleChildScrollView(

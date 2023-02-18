@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,13 +21,8 @@ int index=0;
           icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        backgroundColor: Colors.blue,
-        title: Text("Time Table", style: GoogleFonts.dmSans(
-          fontStyle: FontStyle.normal,
-          fontSize: 15.sp,
-          fontWeight: FontWeight.normal,
-          color: Colors.white,
-        ),),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text("Time Table",style: MyGoogeFont.mydmSans),
       ),
         body: Column(
           children: [

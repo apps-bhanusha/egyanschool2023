@@ -268,7 +268,7 @@ class _TeacherAttendanceState extends State<TeacherAttendance> {
     }
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:AgentColor.appbarbackgroundColor,
+       backgroundColor: Theme.of(context).primaryColor,
         title: Text('Staff Atendance',style: MyGoogeFont.mydmSans),
       ),
       body: SmartRefresher(

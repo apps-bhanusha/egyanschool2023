@@ -41,8 +41,8 @@ String selectSection="select Section";
       child: Scaffold(
 
         appBar: AppBar(
-          backgroundColor:Colors.blue,
-          title: const Text('Syllabus Status',style: TextStyle(color: Colors.white)),
+         backgroundColor: Theme.of(context).primaryColor,
+          title: Text('Syllabus Status',style: MyGoogeFont.mydmSans),
 
         ),
         body: Column(

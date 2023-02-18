@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:ecom_desgin/constant/api_url.dart';
+import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:date_format/date_format.dart';
@@ -16,10 +17,11 @@ class GetexamsSchedule1Controller extends GetxController {
   RxBool loadingGetexamsSchedule1 = false.obs;
 
   Future<List<GetexamsSchedule1Controller>?> GetexamsSchedule1api(company_key,
-      exam_id) async {
+      exam_id,sID) async {
     var body = json.encode({
       "company_key": company_key,
-      "exam_id": exam_id
+      "exam_id": exam_id,
+      "student_id": sID,
     });
     final urlapi = Uri.parse(ApiUrl.baseUrl + ApiUrl.getexamsScheduleUrl);
     var response = await http.post(urlapi, body: body);

@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/view/teacher/leave_teacher/add_leave.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +20,7 @@ List<String> countries1 = ["A", "Russia", "USA", "China", "United Kingdom", "USA
     return Scaffold(
       appBar:   AppBar(
         backgroundColor: Colors.blue,
-        title: const Text("Leave",style: TextStyle(color: Colors.white),),),
+        title: Text("Leave",style:MyGoogeFont.mydmSans,),),
     //       Padding(
     //   padding: const EdgeInsets.only(top: 0, right: 15, left: 0),
 

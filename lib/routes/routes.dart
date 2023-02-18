@@ -13,7 +13,6 @@ import 'package:ecom_desgin/view/dashboard/dashboard.dart';
 import 'package:ecom_desgin/view/download/download_all.dart';
 import 'package:ecom_desgin/view/examination/ExamTimeDetail.dart';
 import 'package:ecom_desgin/view/examination/Exam_time_table.dart';
-import 'package:ecom_desgin/view/home_work/home_work.dart';
 import 'package:ecom_desgin/view/login/School_id_login.dart';
 import 'package:ecom_desgin/view/login/Student_Login.dart';
 
@@ -61,7 +60,7 @@ final getpages=[
  GetPage(name: RoutesName.schoolId, page: () =>  SimpleLogin(),transition: Transition.downToUp),
  GetPage(name: RoutesName.stundetLogin, page: () =>   StudentLogin(),transition: Transition.fade),
  GetPage(name: RoutesName.fees, page: () =>  const Fees(),transition: Transition.fadeIn),
- GetPage(name: RoutesName.homeWork, page: () =>  const HomeWork(),transition: Transition.leftToRight),
+//  GetPage(name: RoutesName.homeWork, page: () =>  const HomeWork(),transition: Transition.leftToRight),
  GetPage(name: RoutesName.examination, page: () =>  const ExamTimeTable(),transition: Transition.leftToRightWithFade),
  GetPage(name: RoutesName.examiTimeDetial, page: () =>  const ExamTimeDetail(),transition: Transition.rightToLeftWithFade),
  GetPage(name: RoutesName.downloadAll, page: () =>  const DownloadAll(),transition: Transition.circularReveal),

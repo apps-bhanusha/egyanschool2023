@@ -686,7 +686,7 @@ void filepicker(){
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: AgentColor.appbarbackgroundColor,
+         backgroundColor: Theme.of(context).primaryColor,
           title: Text('Home Work', style: MyGoogeFont.mydmSans),
         ),
         body: Obx(() => _homeWorkController.isloading.value

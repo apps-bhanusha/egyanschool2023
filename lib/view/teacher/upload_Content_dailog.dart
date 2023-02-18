@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,7 +15,7 @@ class _UploadContentDailogState extends State<UploadContentDailog> {
     return Scaffold(
          appBar:   AppBar(
         backgroundColor: Colors.blue,
-        title: const Text("Upload Content",style: TextStyle(color: Colors.white),),),
+        title: Text("Upload Content",style:MyGoogeFont.mydmSans,),),
       body: Column(
         children: [
            const SizedBox(height: 15,),

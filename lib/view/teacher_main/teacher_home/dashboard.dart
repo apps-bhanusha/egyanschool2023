@@ -8,10 +8,10 @@ import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/About_app/about_e-gayn.dart';
 import 'package:ecom_desgin/view/About_app/about_egyan.dart';
 import 'package:ecom_desgin/view/teacher_main/S_leave/student_leave.dart';
+import 'package:ecom_desgin/view/teacher_main/Teacher_home_work/teacher_homework.dart';
 import 'package:ecom_desgin/view/teacher_main/Teacher_styllebus/Teacher_Syllebus.dart';
 import 'package:ecom_desgin/view/teacher_main/exam_shadule/exam_time_table.dart';
 import 'package:ecom_desgin/view/teacher_main/exam_shadule/teacher_exam_result.dart';
-import 'package:ecom_desgin/view/teacher_main/home_work/teacher_homework.dart';
 import 'package:ecom_desgin/view/teacher_main/leave_teacher/ohter_teacher_leave.dart';
 import 'package:ecom_desgin/view/teacher_main/student_information/Attendance.dart';
 import 'package:ecom_desgin/view/teacher_main/student_information/student%20_information.dart';
@@ -245,7 +245,7 @@ if(activestudentinfo.toString().toLowerCase()=="teacher"){
               onPressed: () => toggleMenu(),
             ),
             automaticallyImplyLeading: false,
-            backgroundColor:AgentColor.appbarbackgroundColor,
+           backgroundColor: Theme.of(context).primaryColor,
             // iconTheme: IconThemeData(color: Colors.black),
             title: Row(
               children: [
@@ -790,7 +790,7 @@ Widget buildMenu() {
                                   size: 20.0, color: Colors.white),
                               onTap: () {
 
-                                  Get.to(const HomeWork());
+                                  Get.to(const TeacherHomeWorkDiplay());
 
                               },
                               title: Text(

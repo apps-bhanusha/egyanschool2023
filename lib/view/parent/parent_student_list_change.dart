@@ -203,7 +203,7 @@ parentLoginController.parentLogin.value=true;
                   onPressed: () => toggleMenu(),
                 ),
                 automaticallyImplyLeading: false,
-                backgroundColor: AgentColor.appbarbackgroundColor,
+                backgroundColor: Theme.of(context).primaryColor,
                 // iconTheme: IconThemeData(color: Colors.black),
                 title: Row(
                   children: [

@@ -49,7 +49,7 @@ class _TeacherProfileState extends State<TeacherProfile> {
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor:AgentColor.appbarbackgroundColor,
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text('Profile ',style: MyGoogeFont.mydmSans),
           actions: [
             PopupMenuButton<int>(

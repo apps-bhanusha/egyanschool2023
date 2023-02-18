@@ -84,7 +84,7 @@ late Animation<double> _animation;
       
         body: Scaffold(
           appBar: AppBar(
-            backgroundColor:AgentColor.appbarbackgroundColor,
+            backgroundColor: Theme.of(context).primaryColor,
             title: Text('Chat',style: MyGoogeFont.mydmSans),
 
           ),

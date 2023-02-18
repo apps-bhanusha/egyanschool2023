@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/view/teacher_main/teacher_upload_content/techer_upload_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,13 +21,8 @@ class _UploadContentDailogState extends State<UploadContentDailog> {
           icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        backgroundColor: Colors.blue,
-        title: Text("Upload Content", style: GoogleFonts.dmSans(
-          fontStyle: FontStyle.normal,
-          fontSize: 15.sp,
-          fontWeight: FontWeight.normal,
-          color: Colors.white,
-        ),),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text("Upload Content",style: MyGoogeFont.mydmSans),
       ),
       body: Column(
         children: [

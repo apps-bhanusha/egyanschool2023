@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:ecom_desgin/constant/api_url.dart';
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/class_list_controller.dart';
 import 'package:ecom_desgin/model/student/student_calendar_List_model.dart';
 import 'package:flutter/material.dart';
@@ -183,8 +184,8 @@ setState(() {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:   AppBar(
-        backgroundColor: Colors.blue,
-        title: const Text("Attandance",style: TextStyle(color: Colors.white),),),
+       backgroundColor: Theme.of(context).primaryColor,
+        title:  Text("Attandance",style: MyGoogeFont.mydmSans,),),
 
         
       body:  Column(

@@ -94,7 +94,7 @@ class _DownloadAllState extends State<DownloadAll> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:AgentColor.appbarbackgroundColor,
+       backgroundColor: Theme.of(context).primaryColor,
         title: Text('Download',style: MyGoogeFont.mydmSans),
 
       ),

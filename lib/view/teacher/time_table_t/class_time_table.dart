@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,7 +23,7 @@ String selectdata="Select";
     return Scaffold(
      appBar:   AppBar(
         backgroundColor: Colors.blue,
-        title: const Text("Class Time Table",style: TextStyle(color: Colors.white),),),
+        title: Text("Class Time Table",style: MyGoogeFont.mydmSans,),),
         body: Column(
           children: [
             const SizedBox(height: 10,),

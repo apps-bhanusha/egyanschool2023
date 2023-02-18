@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/teacher_controller/class_section_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/class_list_controller.dart';
 import 'package:flutter/material.dart';
@@ -50,15 +51,9 @@ class _ClassTimeTableState extends State<ClassTimeTable> {
           icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        backgroundColor: Colors.blue,
+       backgroundColor: Theme.of(context).primaryColor,
         title: Text(
-          "Class Time Table",
-          style: GoogleFonts.dmSans(
-            fontStyle: FontStyle.normal,
-            fontSize: 15.sp,
-            fontWeight: FontWeight.normal,
-            color: Colors.white,
-          ),
+          "Class Time Table",style: MyGoogeFont.mydmSans
         ),
       ),
       body: Column(

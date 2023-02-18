@@ -3,6 +3,7 @@ import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/getexamsResult_controller.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule1_controller.dart';
+import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:ecom_desgin/view/teacher_main/exam_shadule/teacher_exam_result_display.dart';
 
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class _ExamResultallState extends State<ExamResultall> {
   GetexamsSchedule1Controller getexamview1 =
   Get.put(GetexamsSchedule1Controller());
   GetexamsResultController GetexamsResult = Get.put(GetexamsResultController());
+  final StudentProfileController studentProfileController = Get.put(StudentProfileController());
 
 
   var id;
@@ -37,7 +39,7 @@ class _ExamResultallState extends State<ExamResultall> {
 
     company_key = box.get("company_key");
 
-    getexamview1.GetexamsSchedule1api(company_key, 0);
+    getexamview1.GetexamsSchedule1api(company_key, 0,studentProfileController.studentProfileModel.value?.response.studentId);
 
     super.initState();
   }
@@ -47,7 +49,7 @@ class _ExamResultallState extends State<ExamResultall> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 211, 245, 255),
       appBar: AppBar(
-        backgroundColor: AgentColor.appbarbackgroundColor,
+        backgroundColor: Theme.of(context).primaryColor,
         title: Text('Result', style: MyGoogeFont.mydmSans),
       ),
       body: Obx(

@@ -171,7 +171,7 @@ class _TeacherTimeTableState extends State<TeacherTimeTable> {
       child: Scaffold(
         backgroundColor: Colors.lightBlue,
         appBar: AppBar(
-          backgroundColor:AgentColor.appbarbackgroundColor,
+        backgroundColor: Theme.of(context).primaryColor,
           title: Text('Teacher Time Table',style: MyGoogeFont.mydmSans),
         ),
         body:Obx(()=>teacherTimeTableController.TeacherTimeTableControllerList.isNotEmpty?

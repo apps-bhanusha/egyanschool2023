@@ -178,7 +178,7 @@ class _TeacherClassTimeTableState extends State<TeacherClassTimeTable> {
     return Scaffold(
       backgroundColor: Colors.lightBlue,
       appBar: AppBar(
-        backgroundColor:AgentColor.appbarbackgroundColor,
+        backgroundColor: Theme.of(context).primaryColor,
         title: Text('Class Time Table',style: MyGoogeFont.mydmSans),
       ),
       body: Column(

@@ -17,7 +17,7 @@ class AgentColor{
     static const offerGIFTColor= Color(0xffFAC336);
     static const achiveOfferColor= Color(0xffF36A8FA);
     static const CustomerCardSecondrColor= Color(0xfffb02cd1);
-    static const appbarTextColor= Color(0xff000000);
+    static const appbarTextColor= Color.fromARGB(255, 255, 255, 255);
     static const appbarbackgroundColor= Color(0xfff6f3f3);
     static const CustomerCardFirstrColor= Color(0xfff8dd0e5);
     static const AttenanceColor= Color(0xFF26C6DA);

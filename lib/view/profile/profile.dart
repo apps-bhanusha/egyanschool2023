@@ -89,7 +89,7 @@ class _ProfileState extends State<Profile> {
       },
       child: Scaffold(
           appBar: AppBar(
-            backgroundColor:AgentColor.appbarbackgroundColor,
+            backgroundColor: Theme.of(context).primaryColor,
             title: Text('Profile ',style: MyGoogeFont.mydmSans),
             actions: [
               PopupMenuButton<int>(

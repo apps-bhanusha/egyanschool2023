@@ -75,7 +75,7 @@ class _LeaveStatusState extends State<LeaveStatus> {
     return RefreshIndicator(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor:AgentColor.appbarbackgroundColor,
+         backgroundColor: Theme.of(context).primaryColor,
           title: Text('Leave Status',style: MyGoogeFont.mydmSans),
         ),
         floatingActionButton: FloatingActionButton(

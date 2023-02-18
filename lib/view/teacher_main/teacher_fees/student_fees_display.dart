@@ -147,7 +147,7 @@ class _StudentFeesState extends State<StudentFees> {
       child: Scaffold(
 
         appBar: AppBar(
-          backgroundColor:AgentColor.appbarbackgroundColor,
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text('Fees',style: MyGoogeFont.mydmSans),
         ),
         body: SingleChildScrollView(

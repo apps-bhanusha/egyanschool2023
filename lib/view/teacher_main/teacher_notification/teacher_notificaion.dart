@@ -28,8 +28,8 @@ class _TeacherNotificationPageState extends State<TeacherNotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:AgentColor.appbarbackgroundColor,
-        title: Text('Notification',style: MyGoogeFont.mydmSans),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text('Notification',style: MyGoogeFont.mydmSans,),
       ),
       body: Obx(
             () =>  teahernotificationController.isloading.value ? teahernotificationController.teachernotificationList.value?.response?.length != null? ListView.builder(

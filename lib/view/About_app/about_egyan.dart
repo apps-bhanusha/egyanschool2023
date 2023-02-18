@@ -1,4 +1,5 @@
 
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/About_Controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,11 @@ class _AboutSchoolState extends State<AboutSchool> {
      
 
     return Scaffold(
-      appBar: AppBar(title: const Text("About")),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        title:  Text(
+            style: MyGoogeFont.mydmSans,
+        "About")),
       body:  SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

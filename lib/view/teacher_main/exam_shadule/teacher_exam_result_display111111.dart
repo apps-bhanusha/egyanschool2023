@@ -1,5 +1,6 @@
 
 
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/getexamsResult_controller.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule1_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_list_controller.dart';
@@ -41,8 +42,9 @@ class _ExamResultStudentState extends State<ExamResultStudent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Result"),
-      ),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text("Result",style: MyGoogeFont.mydmSans,)),
+      
       body: Container(
         margin: const EdgeInsets.symmetric(
           vertical: 1.0,

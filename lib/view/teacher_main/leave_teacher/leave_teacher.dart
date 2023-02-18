@@ -1,4 +1,5 @@
 
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/view/teacher_main/leave_teacher/add_leave.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,13 +25,8 @@ List<String> countries1 = ["A", "Russia", "USA", "China", "United Kingdom", "USA
             icon: Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          backgroundColor: Colors.blue,
-          title: Text("Leave", style: GoogleFonts.dmSans(
-            fontStyle: FontStyle.normal,
-            fontSize: 15.sp,
-            fontWeight: FontWeight.normal,
-            color: Colors.white,
-          ),),
+          backgroundColor: Theme.of(context).primaryColor,
+          title: Text("Leave",style: MyGoogeFont.mydmSans),
         ),
     //       Padding(
     //   padding: const EdgeInsets.only(top: 0, right: 15, left: 0),

@@ -83,7 +83,7 @@ class _TeacherLeaveStatusState extends State<TeacherLeaveStatus> {
     return RefreshIndicator(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor:AgentColor.appbarbackgroundColor,
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text('Staff Leave Status',style: MyGoogeFont.mydmSans),
           actions: [
             PopupMenuButton<int>(

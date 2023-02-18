@@ -365,7 +365,7 @@ var company_key;
     }
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:AgentColor.appbarbackgroundColor,
+        backgroundColor: Theme.of(context).primaryColor,
         title: Text('Student Atendance',style: MyGoogeFont.mydmSans),
 
       ),

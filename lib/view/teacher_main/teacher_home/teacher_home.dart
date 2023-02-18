@@ -13,8 +13,8 @@ import 'package:ecom_desgin/controller/teacher_controller/teacher_login_controll
 import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/About_app/about_e-gayn.dart';
 import 'package:ecom_desgin/view/About_app/about_egyan.dart';
-import 'package:ecom_desgin/view/teacher/home_work/home_work.dart';
 import 'package:ecom_desgin/view/teacher_main/S_leave/student_leave.dart';
+import 'package:ecom_desgin/view/teacher_main/Teacher_home_work/teacher_homework.dart';
 import 'package:ecom_desgin/view/teacher_main/Teacher_styllebus/Teacher_Syllebus.dart';
 import 'package:ecom_desgin/view/teacher_main/exam_shadule/exam_time_table.dart';
 import 'package:ecom_desgin/view/teacher_main/exam_shadule/teacher_exam_result.dart';
@@ -202,7 +202,7 @@ var id=box.get("staff_id");
                             onPressed: () => toggleMenu(),
                           ),
                           automaticallyImplyLeading: false,
-                          backgroundColor: AgentColor.appbarbackgroundColor,
+                         backgroundColor: Theme.of(context).primaryColor,
                           // iconTheme: IconThemeData(color: Colors.black),
                           title: Row(
                             children: [
@@ -211,8 +211,9 @@ var id=box.get("staff_id");
                                   child:  Text(
                                     schoolname??"",
                                     // _schoolsetting.GetSchoolSettingControllerList[0]["response"]["name"],
-                                    style: MyGoogeFont.mydmSans1,
+                                    style: MyGoogeFont.mydmSans,
                                     overflow: TextOverflow.ellipsis,
+                                    
                                   )
 
                               ),
@@ -1221,7 +1222,7 @@ SizedBox(height: 0.0220.sh,),
                                   size: 20.0, color: Colors.white),
                               onTap: () {
 
-                                  Get.to(const HomeWork());
+                                  Get.to(const TeacherHomeWorkDiplay());
 
                               },
                               title: Text(

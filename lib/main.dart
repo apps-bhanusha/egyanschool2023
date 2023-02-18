@@ -25,9 +25,10 @@ Future<void> main(List<String> args) async {
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       fontFamily: GoogleFonts.dmSans().fontFamily,
-      primarySwatch: Colors.blue,
+      primaryColor: Colors.blue,
       appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.blue
+        foregroundColor: Colors.white,
+     
       ),
       useMaterial3: true,
     ),

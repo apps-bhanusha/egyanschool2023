@@ -1,5 +1,6 @@
 
 import 'package:ecom_desgin/constant/date_format.dart';
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/teacher_controller/upload_content_Controller.dart';
 import 'package:ecom_desgin/view/teacher_main/teacher_upload_content/techer_upload_content.dart';
 import 'package:flutter/material.dart';
@@ -41,13 +42,8 @@ uploadContentController.uploadContentpi();
             icon: Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          backgroundColor: Colors.blue,
-          title: Text("Upload Content", style: GoogleFonts.dmSans(
-            fontStyle: FontStyle.normal,
-            fontSize: 15.sp,
-            fontWeight: FontWeight.normal,
-            color: Colors.white,
-          ),),
+        backgroundColor: Theme.of(context).primaryColor,
+          title: Text("Upload Content",style: MyGoogeFont.mydmSans),
         ),
         //       Padding(
         //   padding: const EdgeInsets.only(top: 0, right: 15, left: 0),

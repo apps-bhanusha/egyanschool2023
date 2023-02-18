@@ -38,7 +38,7 @@ class _ExamResultState extends State<ExamResult> {
 
     company_key = box.get("company_key");
 
-    getexamview1.GetexamsSchedule1api(company_key, 0);
+    getexamview1.GetexamsSchedule1api(company_key, 0,studentProfileController.studentProfileModel.value?.response.studentId);
 
     super.initState();
   }
@@ -48,7 +48,7 @@ class _ExamResultState extends State<ExamResult> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 211, 245, 255),
       appBar: AppBar(
-        backgroundColor: AgentColor.appbarbackgroundColor,
+        backgroundColor: Theme.of(context).primaryColor,
         title: Text('Result', style: MyGoogeFont.mydmSans),
 
       ),

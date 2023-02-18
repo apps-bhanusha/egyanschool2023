@@ -125,7 +125,7 @@ bool islike=false;
   Widget build(BuildContext context) {
     return   Scaffold(
         appBar: AppBar(
-          backgroundColor:AgentColor.appbarbackgroundColor,
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text('Leave ',style: MyGoogeFont.mydmSans),
         ),
         floatingActionButton: FloatingActionButton(

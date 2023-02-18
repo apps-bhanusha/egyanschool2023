@@ -174,8 +174,8 @@ if(role_flag.toString()=="P"){
      var parent_id = box.get("parent_id").toString();
        forceLogout.forceLogout(parent_id, context);
 }
-       
-    getexamview1.GetexamsSchedule1api( company_key, 0);
+       print("#*****************************");
+   
 
     // teacherbystudentController.GetTeacherByStudentapi(company_key, studentProfileController.studentProfileModel.value?.response.studentId.toString());
 
@@ -248,7 +248,7 @@ if(role_flag.toString()=="P"){
             password =box.get("password");
             // studentLoginUpdateControllers.apicallpost(username,password);
             company_key = box.get("company_key");
-            getexamview1.GetexamsSchedule1api( company_key, 0);
+            getexamview1.GetexamsSchedule1api( company_key, 0,studentProfileController.studentProfileModel.value?.response.studentId);
     
             // teacherbystudentController.GetTeacherByStudentapi(company_key, studentProfileController.studentProfileModel.value?.response.studentId);
     
@@ -292,7 +292,7 @@ if(role_flag.toString()=="P"){
                     onPressed: () => toggleMenu(),
                   ),
                   automaticallyImplyLeading: false,
-                  backgroundColor:AgentColor.appbarbackgroundColor,
+                  backgroundColor: Theme.of(context).primaryColor,
                   // iconTheme: IconThemeData(color: Colors.black),
                   title: Row(
                     children: [

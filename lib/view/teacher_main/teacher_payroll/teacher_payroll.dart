@@ -133,7 +133,7 @@ print(dateall);
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor:AgentColor.appbarbackgroundColor,
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text('Payroll ',style: MyGoogeFont.mydmSans),
 
         ),

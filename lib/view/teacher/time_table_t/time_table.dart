@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/constant/font.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,7 +17,7 @@ int index=0;
     return Scaffold(
      appBar:   AppBar(
         backgroundColor: Colors.blue,
-        title: const Text("Home Work",style: TextStyle(color: Colors.white),),),
+        title: Text("Home Work",style: MyGoogeFont.mydmSans,),),
         body: Column(
           children: [
 
