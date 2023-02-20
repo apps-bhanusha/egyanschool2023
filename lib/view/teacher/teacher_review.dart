@@ -44,25 +44,16 @@ var show;
   }
 
   var commentController = TextEditingController();
-  String _selectdrop = "Select";
+  String _selectdrop = "Select Teacher";
 
 
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
-        backgroundColor:AgentColor.appbarbackgroundColor,
+        backgroundColor:Theme.of(context).primaryColor,
         title: Text('Teacher Reviews ',style: MyGoogeFont.mydmSans),
-        actions: [
-          PopupMenuButton<int>(
-            itemBuilder: (context) {
-              return <PopupMenuEntry<int>>[
-                const PopupMenuItem(child: Text('0'), value: 0),
-                const PopupMenuItem(child: Text('1'), value: 1),
-              ];
-            },
-          ),
-        ],
+   
       ),
 body: SingleChildScrollView(
   child:   Obx(
@@ -72,25 +63,19 @@ body: SingleChildScrollView(
   SizedBox(height: 0.050.sh,),
         Padding(
           padding: const EdgeInsets.only(left: 15,right: 15).r,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                    colors: [
-                      Colors.white,
-                      Colors.white,
-                      Colors.white
-                      //add more colors
-                    ]),
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: const <BoxShadow>[
-                  BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.57), //shadow for button
-                      blurRadius: 5) //blur radius of shadow
-                ]
-            ),
+          child: Container(
+             height: 0.050.sh,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 1.0,
+                  ),
+                ),
             child: Padding(
               padding: const EdgeInsets.only(left: 30,right: 30),
               child: DropdownButton<String>(
+                iconSize: 35,
                 isExpanded: true,
                 isDense: false,
                 underline: Container(), //empty line
@@ -99,6 +84,7 @@ body: SingleChildScrollView(
                 fontSize: 15.sp,
                 fontWeight: FontWeight.normal,
                 color: Colors.white,
+              
               ),
                 dropdownColor: Colors.white,
                 iconEnabledColor: Colors.white,
@@ -119,11 +105,11 @@ body: SingleChildScrollView(
                     _selectdrop = newValue!;
                     dataset(newValue);
                   });
-  
+            
                 },
-  
+            
               ),
-  
+            
             ),
           ),
         ),
@@ -180,6 +166,7 @@ body: SingleChildScrollView(
             child: Column(
               children: [
                 SmoothStarRating(
+                
                   rating: selectteacher?rating:0.0,
                   size: 40,
                   filledIconData: Icons.star,

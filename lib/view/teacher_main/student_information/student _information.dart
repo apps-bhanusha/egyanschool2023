@@ -164,6 +164,8 @@ onChanged:(value) {
                   onTap: (){
                    if(controller.text.isNotEmpty){
                     studentSearchController.isSearchbutton.value=false;
+                    studentSearchController.listisempty.value=false;
+                    // studentSearchController.isSearch.value=true;
                     studentSearchController.studentSearchapi(controller.text);
                    }else{
                     Get.snackbar("Please Enter Any Name", "",snackPosition:SnackPosition.BOTTOM );
@@ -185,45 +187,68 @@ onChanged:(value) {
       Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-     Obx(() =>   DropdownButton(
-      iconSize: 35,
-        alignment: Alignment.center,
-    hint:  classListController.isloding.value? SizedBox( width: 110,height:20,child: Text(selectClass)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
-        items: controller.text.isEmpty? classListController.classList.map((country){
-        return DropdownMenuItem( 
-            child: Text(country),
-            value: country,
-        );
-        }).toList():[],
-        onChanged: (dynamic country){
-          selectClass=country;
-        
-         classListController.classSectionapi(country);
-         setState(() {
-           
-         });
-
-        },
-      ),),
-         Obx(() =>   DropdownButton(
-      iconSize: 35,
-        alignment: Alignment.center,
-    hint:  classListController.isloding2.value ?SizedBox(width: 110,height:20,child: Text(selectSection)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
-        items: controller.text.isEmpty? classListController.classSection.map((country){
-        return DropdownMenuItem( 
-            child: Text(country),
-            value: country,
-        );
-        }).toList():[],
-        onChanged: (dynamic country){
-      selectSection=country;
-      setState(() {
-       
-        studentSearchController.isSearch.value=false;
-        studentSearchController.classSectiontInfoapi(country);
-      });
-        },
-      )),
+     Container(
+             height: 0.050.sh,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                  ),
+       child: Obx(() =>   DropdownButton(
+        underline: const SizedBox(),
+        iconSize: 35,
+          alignment: Alignment.center,
+         hint:  classListController.isloding.value? SizedBox( width: 110,height:20,child: Text(selectClass)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+          items: controller.text.isEmpty? classListController.classList.map((country){
+          return DropdownMenuItem( 
+              child: Text(country),
+              value: country,
+          );
+          }).toList():[],
+          onChanged: (dynamic country){
+            selectClass=country;
+          
+           classListController.classSectionapi(country);
+           setState(() {
+             
+           });
+     
+          },
+        ),),
+     ),
+         Container(
+            height: 0.050.sh,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                  ),
+           child: Obx(() =>   DropdownButton(
+            underline: const SizedBox(),
+               iconSize: 35,
+                 alignment: Alignment.center,
+             hint:  classListController.isloding2.value ?SizedBox(width: 110,height:20,child: Text(selectSection)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+                 items: controller.text.isEmpty? classListController.classSection.map((country){
+                 return DropdownMenuItem( 
+              child: Text(country),
+              value: country,
+                 );
+                 }).toList():[],
+                 onChanged: (dynamic country){
+               selectSection=country;
+               setState(() {
+                
+                 studentSearchController.isSearch.value=false;
+                 
+                 studentSearchController.classSectiontInfoapi(country);
+               });
+                 },
+               )),
+         ),
                 ],
               ),
               ],

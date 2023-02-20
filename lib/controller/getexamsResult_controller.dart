@@ -17,7 +17,7 @@ class GetexamsResultController extends GetxController {
     var body = json.encode({
       "company_key":company_key,
       "id": id,
-"exam_id":exam_id
+      "exam_id":exam_id
     });
 
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.getexamsResultUrl);

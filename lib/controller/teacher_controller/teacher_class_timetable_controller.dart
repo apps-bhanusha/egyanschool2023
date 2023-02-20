@@ -13,11 +13,10 @@ class TeacherclassTimeTableController extends GetxController {
   // Rxn<ClassTimeTableModel> classtimetableModel = Rxn<ClassTimeTableModel>();
   String classId = "";
   String sectionId = "";
-
+List <dynamic>datalist = [].obs;
   RxBool loadingclassTimeTable =true.obs;
-  RxBool empty =false.obs;
+  RxBool empty =true.obs;
   Future<List<TeacherclassTimeTableController>?> TeacherclassTimeTableapi(selectdata,selectdata1) async {
-    loadingclassTimeTable.value=false;
 
   classListController.classListModel.value?.response.forEach((element) {
   if (element.name.toString() == selectdata) {
@@ -38,14 +37,19 @@ class TeacherclassTimeTableController extends GetxController {
     var response = await http.post(urlapi, body: body);
     if (response.statusCode == 200) {
       var  sdata = jsonDecode(response.body);
+      print("kdsmfkdsmfksdmfksmfk");
+      print(sdata);
       TeacherclassTimeTableControllerList=[];
       TeacherclassTimeTableControllerList.add(sdata) ;
       if (sdata["status"] == true ) {
-      loadingclassTimeTable.value=true;
-       empty.value=false;
+     Future.delayed(Duration(seconds: 2),(){
+       loadingclassTimeTable.value=true;
+       empty.value=true;
+     });
         print("massage");
       }else  {
-         empty.value=true;
+         empty.value=false;
+         loadingclassTimeTable.value=true;
         print("invalid cccid");
       } }
     else {

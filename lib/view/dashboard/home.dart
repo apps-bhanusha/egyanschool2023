@@ -101,7 +101,7 @@ late  int? i= noticController.noticlist.value?.response?.length;
    session = box.get("session");
     _schoolsetting.GetSchoolSettingapi(company_key,);
    
- studenttotalfees = studentProfileController.studentProfileModel.value?.response.fee.totalAmount;
+    studenttotalfees = studentProfileController.studentProfileModel.value?.response.fee.totalAmount;
     studentduefees = studentProfileController.studentProfileModel.value?.response.fee.totalBalanceAmount;
 
 

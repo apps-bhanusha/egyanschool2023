@@ -18,6 +18,8 @@ class ClassCLSController extends GetxController {
   RxBool isloding = false.obs;
   RxBool isloding2 = true.obs;
   RxBool isloding3 = true.obs;
+  RxBool buttonclick = false.obs;
+
 
   RxList<String> classList = <String>[].obs;
   RxList<String> classSection = <String>[].obs;
@@ -48,13 +50,13 @@ class ClassCLSController extends GetxController {
         if (tdata["status"] == true) {
           classList = <String>[].obs;
           print("Staff Name");
-
+        
           print(classListModel.value?.response[0].id);
 
           classListModel.value?.response.forEach((element) {
             classList.add(element.name.toString());
           });
-
+          
           isloding.value = true;
 
 // print('${ApiUrl.imagesUrl.toString()}${staffDetailModel.value?.response["image"]}');
@@ -220,14 +222,16 @@ class ClassCLSController extends GetxController {
 
           var alldata = jsonDecode(sdata);
           // print(await response.stream.bytesToString());
-          Get.snackbar(
+          if(alldata["status"]==true){
+             buttonclick.value = true;
+               Get.snackbar(
             alldata["message"].toString(),
             "",
             duration: 2.seconds,
             // it could be any reasonable time, but I set it lo-o-ong
             snackPosition: SnackPosition.BOTTOM,
             showProgressIndicator: true,
-
+             
             isDismissible: true,
             backgroundColor: Colors.lightGreen,
             colorText: Colors.white,
@@ -235,8 +239,11 @@ class ClassCLSController extends GetxController {
             TextButton(onPressed: Get.back, child: const Text("Close")),
 
           );
-          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
           const TeacherHomeWorkDiplay()), (Route<dynamic> route) => false);
+          }
+        
+        
         } else {}
       }
 

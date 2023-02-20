@@ -134,6 +134,7 @@ bool islike=false;
         ),//StudentLeaveRecord.loadingStudentLeaveRecord.value?
         body: Column(
           children: [
+            SizedBox(height: 10,),
                 Center(
           child: Container(
       
@@ -157,25 +158,36 @@ bool islike=false;
               ),
               const SizedBox( height: 10,),
       
-     Obx(() =>   DropdownButton(
-      iconSize: 35,
-        alignment: Alignment.center,
-    hint:  classListController.islodingstudentlist.value ?SizedBox(width: 110,height:20, child: Text(selectStudent)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
-        items: classListController.studentListDrop.map((country){
-        return DropdownMenuItem( 
-            value: country, 
-            child: Text(country),
-        );
-        }).toList(),
-        onChanged: (dynamic country){
-      selectStudent=country;
-      setState(() {
-         studentLeaveController.studentLeaveRecord(country);
-         studentLeaveController.isloading2.value=false;
-         studentLeaveController.isloading.value=false;
-      });
-        },
-      )),
+     Container(
+       height: 0.050.sh,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                  ),
+       child: Obx(() =>   DropdownButton(
+        iconSize: 35,
+        underline: const SizedBox(),
+          alignment: Alignment.center,
+         hint:  classListController.islodingstudentlist.value ?SizedBox(width: 110,height:20, child: Text(selectStudent)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+          items: classListController.studentListDrop.map((country){
+          return DropdownMenuItem( 
+              value: country, 
+              child: Text(country),
+          );
+          }).toList(),
+          onChanged: (dynamic country){
+        selectStudent=country;
+        setState(() {
+           studentLeaveController.studentLeaveRecord(country);
+           studentLeaveController.isloading2.value=false;
+           studentLeaveController.isloading.value=false;
+        });
+          },
+        )),
+     ),
      
       
             ],

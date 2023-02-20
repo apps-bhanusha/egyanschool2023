@@ -297,7 +297,7 @@ controller: contentTitler,
                                   isExpanded: true,
                                   isDense: true,
                                   iconSize: 35,
-                                 hint: Text(selectsection),
+                                 hint: Text(selectclass),
                                   items: countries.map((country){
                                     return DropdownMenuItem(
                                       value: country,

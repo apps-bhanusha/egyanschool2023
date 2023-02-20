@@ -216,67 +216,98 @@ setState(() {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-     Obx(() =>   DropdownButton(
- 
-      iconSize: 35,
-        alignment: Alignment.center,
-    hint: classListController.isloding.value? SizedBox(width: 110,height:20,child: Text(selectDrop)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
-        items: classListController.classList.map((country){
-        return DropdownMenuItem( 
-            value: country, 
-            child: Text(country),
-        );
-        }).toList(),
-        onChanged: (dynamic country){
-          selectDrop=country;
-        
-         classListController.classSectionapi(country);
-         setState(() {
-            isFdrop=true;
-         });
-
-        },
-      ),),
-         Obx(() =>   DropdownButton(
-      iconSize: 35,
-      
-
-        alignment: Alignment.center,
-    hint:  classListController.isloding2.value ?SizedBox(width: 110,height:20, child: Text(selectSection)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,))),),
-        items: classListController.classSection.map((country){
-        return DropdownMenuItem( 
-            value: country, 
-            child: Text(country),
-        );
-        }).toList(),
-        onChanged: (dynamic country){
-      selectSection=country;
-      setState(() {
-        isSdrop=true;
-        classListController.islodingstudentlist.value=false;
-        classListController.studentList(country);
-      });
-        },
-      )),
+     Container( height: 0.050.sh,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                  ),
+       child: Obx(() =>   DropdownButton(
+      underline: const SizedBox(),
+        iconSize: 35,
+          alignment: Alignment.center,
+         hint: classListController.isloding.value? SizedBox(width: 110,height:20,child: Text(selectDrop)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+          items: classListController.classList.map((country){
+          return DropdownMenuItem( 
+              value: country, 
+              child: Text(country),
+          );
+          }).toList(),
+          onChanged: (dynamic country){
+            selectDrop=country;
+          
+           classListController.classSectionapi(country);
+           setState(() {
+              isFdrop=true;
+           });
+     
+          },
+        ),),
+     ),
+         Container(
+           height: 0.050.sh,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                  ),
+           child: Obx(() =>   DropdownButton(
+               iconSize: 35,
+               underline: const SizedBox(),
+         
+                 alignment: Alignment.center,
+             hint:  classListController.isloding2.value ?SizedBox(width: 110,height:20, child: Text(selectSection)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,))),),
+                 items: classListController.classSection.map((country){
+                 return DropdownMenuItem( 
+              value: country, 
+              child: Text(country),
+                 );
+                 }).toList(),
+                 onChanged: (dynamic country){
+               selectSection=country;
+               setState(() {
+                 isSdrop=true;
+                 classListController.islodingstudentlist.value=false;
+                 classListController.studentList(country);
+               });
+                 },
+               )),
+         ),
                 ],
               ),
-     Obx(() =>   DropdownButton(
-      iconSize: 35,
-        alignment: Alignment.center,
-    hint:  classListController.islodingstudentlist.value ?SizedBox(width: 110,height:20, child: Text(selectStudent)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
-        items: classListController.studentListDrop.map((country){
-        return DropdownMenuItem( 
-            value: country, 
-            child: Text(country),
-        );
-        }).toList(),
-        onChanged: (dynamic country){
-      selectStudent=country;
-      setState(() {
-        isTdrop=true;
-      });
-        },
-      )),
+              const SizedBox(height: 10,),
+     Container(
+       height: 0.050.sh,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                  ),
+       child: Obx(() =>   DropdownButton(
+        underline: const SizedBox(),
+        iconSize: 35,
+          alignment: Alignment.center,
+         hint:  classListController.islodingstudentlist.value ?SizedBox(width: 110,height:20, child: Text(selectStudent)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+          items: classListController.studentListDrop.map((country){
+          return DropdownMenuItem( 
+              value: country, 
+              child: Text(country),
+          );
+          }).toList(),
+          onChanged: (dynamic country){
+        selectStudent=country;
+        setState(() {
+          isTdrop=true;
+        });
+          },
+        )),
+     ),
               const SizedBox( height: 20,),
            Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

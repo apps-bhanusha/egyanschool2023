@@ -1,12 +1,9 @@
 
 
 import 'package:ecom_desgin/constant/font.dart';
-import 'package:ecom_desgin/controller/getexamsResult_controller.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule1_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_list_controller.dart';
-import 'package:ecom_desgin/model/Teacher_model/exam_result_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -142,15 +139,14 @@ class _ExamResultStudentState extends State<ExamResultStudent> {
                     width: 1.0,
                   ),
                 ),
-                child: Obx(()=>studentListController.loadingStudentList.value?
+                child: Obx(()=>studentListController.loadingStudentListdrop.value?
                    DropdownButton(
 
                     isExpanded: true,
                     isDense: true,
                     iconSize: 35,
                     // alignment: Alignment.center,
-                    value: selectdata,
-
+                   
 
                     items: studentListController
                         .studentList !=
@@ -173,7 +169,7 @@ class _ExamResultStudentState extends State<ExamResultStudent> {
                       selectdata=country!;
                       studentListController.GetexamsResultapi(selectdata,widget.exam_id);
                       studentListController.loadingStudentList1.value=false;
-                      studentListController.examResultModel.value=[] as ExamResultModel?;
+                      
 
                       setState(() {
 
@@ -212,7 +208,7 @@ class _ExamResultStudentState extends State<ExamResultStudent> {
                           ),
                          Expanded(
                               child:Obx(()=>
-                                 studentListController.examResultModel.value!=null? studentListController.examResultModel.value!.response.examResult.isNotEmpty?ListView.builder(
+                                studentListController.loadingStudentList1.value?studentListController.loadingStudentList.value? ListView.builder(
                                   itemBuilder:
                                       (BuildContext context,
                                       int index) {
@@ -275,9 +271,8 @@ class _ExamResultStudentState extends State<ExamResultStudent> {
                                       ));
                                   },
                                   itemCount: studentListController.examResultModel.value?.response.examResult
-                                      .length,
-                                ):Center(child:Text("Data is not Found") ):Center(child: Text(""),
-                                 )
+                                      .length??0,
+                                ):const Center(child:Text("Data not Found") ):const Center(child: CircularProgressIndicator(color: Colors.blue,),)
                               )
                          )
 

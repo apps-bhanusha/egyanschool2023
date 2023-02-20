@@ -103,14 +103,21 @@ class _DownloadAllState extends State<DownloadAll> {
         child: Column(
           children: [
             Center(
-              child: Card(
-                color: const Color.fromARGB(255, 164, 229, 255),
-                elevation: 10,
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Column(
-                    children: [
-                      DropdownButton<String>(
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  children: [
+                    Container(
+                       height: 0.060.sh,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                  ),
+                      child: DropdownButton<String>(
+                        underline: const SizedBox(),
                         autofocus: true,
                         isExpanded: true,
                         hint: Obx(
@@ -137,8 +144,8 @@ class _DownloadAllState extends State<DownloadAll> {
                           _downloadAllController.isloading.value=false;
                         },
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

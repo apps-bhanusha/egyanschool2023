@@ -30,7 +30,6 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
   var submit_date;
   var fileData;
   bool fileSelected = false;
-  bool buttonclick=false;
   var countries = ["india", "pakistan", "hindustan", "afiganistan"];
   var countries1 = ["india", "pakistan", "hindustan", "afiganistan"];
 
@@ -112,9 +111,7 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                               padding:
                                   const EdgeInsets.only(left: 18.0, right: 18.0)
                                       .r,
-                              child: Obx(
-                                () => classListController.isloding.value
-                                    ? Container(
+                              child: Container(
                                         height: 0.060.sh,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.rectangle,
@@ -123,7 +120,9 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                             width: 1.0,
                                           ),
                                         ),
-                                        child: DropdownButton(
+                                        child: Obx(
+                                () => classListController.isloding.value
+                                    ? DropdownButton(
                                           isExpanded: true,
                                           isDense: true,
                                           iconSize: 35,
@@ -156,10 +155,10 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                                 .classSectionapi(selectdata);
                                             setState(() {});
                                           },
-                                        ))
-                                    : Center(
+                                        )      : Center(
                                         child: Container(width: 0.05.sw,
-                                            height: 0.025.sh,child: CircularProgressIndicator(color: Colors.blue,))),
+                                            height: 0.025.sh,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2))),)
+                              
                               ),
                             ),
                             Padding(
@@ -236,7 +235,7 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                             },
                                           ): Center(
                                                       child: Container(width: 0.05.sw,
-                                                          height: 0.025.sh,child: CircularProgressIndicator(color: Colors.blue,))),
+                                                          height: 0.025.sh,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2))),
                                           )),
                               )
 
@@ -274,9 +273,7 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                   padding: const EdgeInsets.only(
                                           left: 18.0, right: 18.0)
                                       .r,
-                                  child: Obx(
-                                    () => classListController.isloding3.value
-                                        ? Container(
+                                  child:Container(
                                             height: 0.060.sh,
                                             decoration: BoxDecoration(
                                               shape: BoxShape.rectangle,
@@ -285,7 +282,9 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                                 width: 1.0,
                                               ),
                                             ),
-                                            child: DropdownButton(
+                                            child:  Obx(
+                                    () => classListController.isloding3.value
+                                        ? DropdownButton(
                                               isExpanded: true,
                                               isDense: true,
                                               iconSize: 35,
@@ -319,11 +318,11 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
 
                                                 setState(() {});
                                               },
-                                            ),
-                                          )
-                                        : Center(
+                                            ): Center(
                                         child: Container(width: 0.05.sw,
-                                            height: 0.025.sh,child: CircularProgressIndicator(color: Colors.blue,))),
+                                            height: 0.025.sh,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,))),
+                                          )
+                                        
                                   ),
                                 ),
                                 Padding(
@@ -339,8 +338,9 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                         fontWeight: FontWeight.normal,
                                         color: Colors.black,
                                       ),
+                                      // ignore: prefer_const_literals_to_create_immutables
                                       children: <TextSpan>[
-                                        TextSpan(
+                                        const TextSpan(
                                             text: '*',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -653,13 +653,8 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
 
                                       child: TextButton(
                                         onPressed: () {
-                                          setState(() {
-                                            buttonclick=true;
-                                          });
-                                          Future.delayed(Duration(seconds: 3),(){
-                                            setState(() {
-                                              buttonclick=false;
-                                          });
+                                         classListController.buttonclick.value = true;
+                                        
                                             if(fileSelected==true) {
                                               classListController
                                                   .HomeworkAddListapi(
@@ -669,11 +664,11 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                                   userfile,
                                                   dropdata,context);
                                             }
-                                          });
+                                          
                                         },
-                                        child: buttonclick?Center(
-                                            child: Container(width: 0.05.sw,
-                                                height: 0.025.sh,child: CircularProgressIndicator(color: Colors.blue,))):Text(
+                                        child:Obx(() =>  classListController.buttonclick.value?Center(
+                                            child: SizedBox(width: 0.05.sw,
+                                                height: 0.025.sh,child: const CircularProgressIndicator(color: Colors.white,strokeWidth: 2,))):Text(
                                           "SAVE",
                                           style: GoogleFonts.dmSans(
                                             fontStyle: FontStyle.normal,
@@ -681,7 +676,7 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white,
                                           ),
-                                        ),
+                                        ),),
                                       )
                                     ),
                                   ),

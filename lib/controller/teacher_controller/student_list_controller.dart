@@ -18,7 +18,8 @@ class StudentListController extends GetxController {
   String studentId = "";
 
 
-  RxBool loadingStudentList =false.obs;
+  RxBool loadingStudentList =true.obs;
+  RxBool loadingStudentListdrop =true.obs;
   RxBool loadingStudentList1 =true.obs;
   Future<List<StudentListController>?> StudentListapi() async {
 
@@ -30,7 +31,7 @@ class StudentListController extends GetxController {
     // });
     var box = Hive.box("schoolData");
     var company_key = box.get("company_key");
-    var body = json.encode({"company_key":company_key,"class_id":"1","section_id":"1"});
+    var body = json.encode({"company_key":company_key,"class_id":"0","section_id":"0"});
     print("4rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
     print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.getStudentListByClassSectionUrl);
@@ -43,9 +44,10 @@ class StudentListController extends GetxController {
 
       print(studentListModel.value?.response[0].admissionNo);
       TeacherclassTimeTableControllerList.add(sdata) ;
-      loadingStudentList.value=true;
+      loadingStudentListdrop.value=true;
 
       if (sdata["status"] == true ) {
+        studentList = <String>[].obs;
         studentListModel.value?.response.forEach((element) {
           studentList.add(element.studentName.toString());
         });
@@ -64,7 +66,7 @@ class StudentListController extends GetxController {
   List <dynamic> GetexamsResultControllerList = [].obs;
 
   void GetexamsResultapi(selectdata,exam_id) async {
-       loadingStudentList1.value =false;
+       
     studentListModel.value?.response.forEach((element) {
       if (element.studentName.toString() == selectdata) {
         studentId = element.studentId;
@@ -79,32 +81,55 @@ class StudentListController extends GetxController {
       "exam_id":exam_id
     });
     print("4ffffffffffffffffffffoooooooooooooooooo444444444444444444ffffffffffffff");
-    print(body);
+ try {
+      print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.getexamsResultUrl);
+    print("A");
+    print(urlapi);
     var response = await http.post(urlapi, body: body);
+    print("b");
+print(response.body);
     if (response.statusCode == 200) {
+    print("c");
+
       var  sdata = jsonDecode(response.body);
+    print("D");
 
       GetexamsResultControllerList=[];
-      GetexamsResultControllerList.add(sdata) ;
-      examResultModel.value=ExamResultModel.fromJson(sdata);
-      print(examResultModel.value?.response.examResult[0].subjectId);
-      print("exammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmddddddddddddd");
-      print(GetexamsResultControllerList);
-      print(GetexamsResultControllerList[0]["response"]["examResult"][0]["subject_name"]);
-      // print(GetschoolsettingControllerLexam_idist[0]["response"]["total_discount_amount"]);
-      if (sdata["status"] == true ) {
+    print("D");
 
-        loadingStudentList.value=true;
+      GetexamsResultControllerList.add(sdata) ;
+    print("D");
+
+      examResultModel.value=ExamResultModel.fromJson(sdata);
+    print("D");
+
+      if (sdata["status"] == true ) {
+    print("D");
+
+       
         loadingStudentList1.value =true;
+         loadingStudentList.value=true;
+         if(examResultModel.value!.response.examResult.isEmpty){
+           loadingStudentList.value=false;
+           loadingStudentList1.value =true;
+         }
         print("massage");
       }
       else  {
+         loadingStudentList.value=false;
+         loadingStudentList1.value =true;
         print("invalid cccid");
       } }
     else {
-
+         loadingStudentList.value=false;
+         loadingStudentList1.value =true;
       print("School ID Invailid");
     }
+ } catch (e) {
+     loadingStudentList.value=false;
+         loadingStudentList1.value =true;
+   print(e);
+ }
   }
 }
