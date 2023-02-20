@@ -237,7 +237,7 @@ class _GridViewallState extends State<GridViewall>
                     child:  Text(
                       schoolname??"",
                       // _schoolsetting.GetSchoolSettingControllerList[0]["response"]["name"],
-                      style: MyGoogeFont.mydmSans,
+                      style: MyGoogeFont.mydmSans1,
                       overflow: TextOverflow.ellipsis,
                     )
 

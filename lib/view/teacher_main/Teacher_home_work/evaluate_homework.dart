@@ -588,7 +588,7 @@ print(isChecked[i]);
                                               ),
                                             )
                                           ],
-                                        )):Center(child: Text("Record Is Not Found")),
+                                        )):Center(child: Text("No Record Found")),
                               )
                                   : Center(child: Center(child: CircularProgressIndicator())
                                 // Container(width:0.06.sw,height:0.026.sh,child: CircularProgressIndicator(color: Colors.blue,))

@@ -401,7 +401,12 @@ class _StudentAddUserDialogDialogState extends State<StudentAddUserDialog>
 Row(
   children: [
         Text("file :- "),
-    Text(fileData??""),
+    SizedBox(
+      width:180,
+      child: Text(fileData??"",
+      overflow: TextOverflow.ellipsis,
+      ),
+    ),
   ],
 ),
                   // Container(

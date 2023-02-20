@@ -435,7 +435,7 @@ bool islike=false;
                                      ],
                                      ),
                                      const SizedBox(height: 9,),
-                                                     studentLeaveController.StudentLeaveRecordControllerList[0]["response"][index]["leave_status"].toString().toLowerCase()!="Pending".toLowerCase()?  
+                                                     studentLeaveController.StudentLeaveRecordControllerList[0]["response"][index]["leave_status"].toString().toLowerCase()=="Pending".toLowerCase()?  
                                                      
                                    Row(
                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,

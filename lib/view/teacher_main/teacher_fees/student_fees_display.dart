@@ -41,7 +41,7 @@ class _StudentFeesState extends State<StudentFees> {
   var studentpro;
   var username;
   var password;
-  var selectdata;
+  String selectdata="Select Student";
   bool dataMap1=false;
   final UserNameController _allsetController = Get.put(UserNameController());
   final FeeController all = Get.put(FeeController());
@@ -85,7 +85,7 @@ class _StudentFeesState extends State<StudentFees> {
     print("CKECKCKCKCKCKKKCKCK");
     print(studentduefees);
     super.initState();
-
+ studentListController.loadingStudentListdrop.value=false;
     studentListController.StudentListapi();
     studentpro=box.get("studentprofileimage");
     username = box.get("username");
@@ -178,18 +178,13 @@ class _StudentFeesState extends State<StudentFees> {
                       width: 1.0,
                     ),
                   ),
-                  child: Obx(()=>studentListController.loadingStudentList.value?
+                  child: Obx(()=>studentListController.loadingStudentListdrop.value?
                   DropdownButton(
                     isExpanded: true,
                     isDense: true,
                     iconSize: 35,
-                    // alignment: Alignment.center,
-                    value: selectdata,
-                    items: studentListController
-                        // ignore: unnecessary_null_comparison
-                        .studentList !=
-                        null
-                        ?studentListController.studentList.map((country){
+                    // alignment: Alignment.center
+                    items:studentListController.studentList.isNotEmpty? studentListController.studentList.map((country){
                       return DropdownMenuItem(
                         value: country,
                         child:Padding(
@@ -198,11 +193,11 @@ class _StudentFeesState extends State<StudentFees> {
                         ),
                       );
                     }).toList():[],
-                    hint: const Padding(
+                    hint:  Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Text("selectdata"),
+                      child: Text(selectdata),
                     ),
-                    onChanged: (country){
+                    onChanged: (dynamic country){
                       // print("You selected: $country");
                       selectdata=country!;
                       studentFeesController.StudentFeesapi(selectdata, company_key);
@@ -215,7 +210,7 @@ class _StudentFeesState extends State<StudentFees> {
                  studentFeesController.loadingfees123.value=false;
                       });
                     },
-                  ):Center(child: SizedBox(width:0.05.sw,height:0.026.sh,child: const CircularProgressIndicator(color: Colors.green,))),
+                  ):Center(child: SizedBox(width:0.05.sw,height:0.026.sh,child: const CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,))),
                   ),
                 ),
               ),
@@ -279,7 +274,7 @@ class _StudentFeesState extends State<StudentFees> {
                  Stack(
                       children: [
 
-                        Container(
+                        SizedBox(
                           height: 0.60.sw,
                           child: Card(
                             elevation: 5,
@@ -302,16 +297,14 @@ class _StudentFeesState extends State<StudentFees> {
                                   ) ,
                                   Padding(
                                     padding: const EdgeInsets.only(top: 10,left: 100).r,
-                                    child: Container(
-                                      child:  Text(
-                                        '${studentFeesController.studentProfileModel.value?.response.name}',
-                                        // _allsetController.SchoolIdControllerList[0]["response"][0]["name"] ??"",
-                                        style: GoogleFonts.dmSans(
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 18.sp,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.lightBlue),
-                                      ),
+                                    child: Text(
+                                      '${studentFeesController.studentProfileModel.value?.response.name}',
+                                      // _allsetController.SchoolIdControllerList[0]["response"][0]["name"] ??"",
+                                      style: GoogleFonts.dmSans(
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 18.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.lightBlue),
                                     ),
 
                                   ),
@@ -319,30 +312,26 @@ class _StudentFeesState extends State<StudentFees> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(left: 30).r,
-                                        child: Container(
+                                        child: Transform.scale(
+                                          scale: s == _index ?  2 : 2,
+                                          // transform: Matrix4.identity(),
 
-                                          child:Transform.scale(
-                                            scale: s == _index ?  2 : 2,
-                                            // transform: Matrix4.identity(),
+                                          child:  '${ApiUrl.imagesUrl.toString()}${studentFeesController.studentProfileModel.value?.response.profileimage}'!=null?ClipRRect(
+                                            // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
+                                            child:   CircleAvatar(
+                                              radius: 20.0,
+                                              backgroundImage:
+                                              NetworkImage('${ApiUrl.imagesUrl.toString()}${studentFeesController.studentProfileModel.value?.response.profileimage}'),
+                                            ),
+                                          ):const ClipRRect(
+                                            // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
+                                            child:   CircleAvatar(
+                                              radius: 20.0,
+                                              backgroundImage:
 
-                                            child:  '${ApiUrl.imagesUrl.toString()}${studentFeesController.studentProfileModel.value?.response.profileimage}'!=null?ClipRRect(
-                                              // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
-                                              child:   CircleAvatar(
-                                                radius: 20.0,
-                                                backgroundImage:
-                                                NetworkImage('${ApiUrl.imagesUrl.toString()}${studentFeesController.studentProfileModel.value?.response.profileimage}'),
-                                              ),
-                                            ):const ClipRRect(
-                                              // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
-                                              child:   CircleAvatar(
-                                                radius: 20.0,
-                                                backgroundImage:
-
-                                                AssetImage("assets/images/user1.png"),
-                                              ),
+                                              AssetImage("assets/images/user1.png"),
                                             ),
                                           ),
-
                                         ),
                                       ),
                                       Padding(
@@ -351,26 +340,22 @@ class _StudentFeesState extends State<StudentFees> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Container(
-                                              child: Text(
-                                                'Class',
-                                                style: GoogleFonts.dmSans(
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize:15.sp,
-                                                  fontWeight: FontWeight.bold,
+                                            Text(
+                                              'Class',
+                                              style: GoogleFonts.dmSans(
+                                                fontStyle: FontStyle.normal,
+                                                fontSize:15.sp,
+                                                fontWeight: FontWeight.bold,
 
-                                                ),
                                               ),
                                             ),
-                                            Container(
-                                              child: Text(
-                                                'Section',
-                                                style: GoogleFonts.dmSans(
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize:15.sp,
-                                                  fontWeight: FontWeight.bold,
+                                            Text(
+                                              'Section',
+                                              style: GoogleFonts.dmSans(
+                                                fontStyle: FontStyle.normal,
+                                                fontSize:15.sp,
+                                                fontWeight: FontWeight.bold,
 
-                                                ),
                                               ),
                                             ),
                                           ],
@@ -382,30 +367,26 @@ class _StudentFeesState extends State<StudentFees> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Container(
-                                              child:  Text(
-                                                '${studentFeesController.studentProfileModel.value?.response.responseClass}',
-                                                // _allsetController.SchoolIdControllerList[0]["response"][0]["class"] ?? "",
+                                            Text(
+                                              '${studentFeesController.studentProfileModel.value?.response.responseClass}',
+                                              // _allsetController.SchoolIdControllerList[0]["response"][0]["class"] ?? "",
 
-                                                style: GoogleFonts.dmSans(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 13.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.lightBlue),
-                                              ),
+                                              style: GoogleFonts.dmSans(
+                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: 13.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.lightBlue),
                                             ),
 
-                                            Container(
-                                              child:  Text(
-                                                '${studentFeesController.studentProfileModel.value?.response.section}',
-                                                // _allsetController.SchoolIdControllerList[0]["response"][0]["section"] ?? "",
+                                            Text(
+                                              '${studentFeesController.studentProfileModel.value?.response.section}',
+                                              // _allsetController.SchoolIdControllerList[0]["response"][0]["section"] ?? "",
 
-                                                style: GoogleFonts.dmSans(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 13.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.lightBlue),
-                                              ),
+                                              style: GoogleFonts.dmSans(
+                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: 13.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.lightBlue),
                                             ),
 
                                           ],

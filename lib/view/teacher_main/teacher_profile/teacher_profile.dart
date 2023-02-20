@@ -72,7 +72,7 @@ class _TeacherProfileState extends State<TeacherProfile> {
                                       );
                                       },
                                       value: 0, child: const Text('Logout')),
-                  const PopupMenuItem(child: Text('Aboute'), value: 1),
+                  const PopupMenuItem(child: Text('About'), value: 1),
                 ];
               },
             ),

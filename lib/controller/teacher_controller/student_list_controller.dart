@@ -19,7 +19,7 @@ class StudentListController extends GetxController {
 
 
   RxBool loadingStudentList =true.obs;
-  RxBool loadingStudentListdrop =true.obs;
+  RxBool loadingStudentListdrop =false.obs;
   RxBool loadingStudentList1 =true.obs;
   Future<List<StudentListController>?> StudentListapi() async {
 
@@ -36,6 +36,8 @@ class StudentListController extends GetxController {
     print(body);
     final urlapi = Uri.parse(ApiUrl.baseUrl+ApiUrl.getStudentListByClassSectionUrl);
     var response = await http.post(urlapi, body: body);
+    print(response.body);
+    print("D<:D<:::::::::::::::::::::::::::::");
     if (response.statusCode == 200) {
       var  sdata = jsonDecode(response.body);
 
@@ -44,13 +46,14 @@ class StudentListController extends GetxController {
 
       print(studentListModel.value?.response[0].admissionNo);
       TeacherclassTimeTableControllerList.add(sdata) ;
-      loadingStudentListdrop.value=true;
+     
 
       if (sdata["status"] == true ) {
         studentList = <String>[].obs;
         studentListModel.value?.response.forEach((element) {
           studentList.add(element.studentName.toString());
         });
+         loadingStudentListdrop.value=true;
         print("massage");
       }
       else  {
