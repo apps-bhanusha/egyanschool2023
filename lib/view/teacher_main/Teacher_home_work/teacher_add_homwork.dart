@@ -52,7 +52,7 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.of(context).pop(),
           ),
           backgroundColor: Theme.of(context).primaryColor,
@@ -97,7 +97,7 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
                                   ),
-                                  children: <TextSpan>[
+                                  children: const <TextSpan>[
                                     TextSpan(
                                         text: '*',
                                         style: TextStyle(
@@ -135,17 +135,17 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                               ? classListController.classList
                                                   .map((country) {
                                                   return DropdownMenuItem(
+                                                    value: country,
                                                     child: Padding(
                                                       padding:
                                                           EdgeInsets.all(8.0),
                                                       child: Text(country),
                                                     ),
-                                                    value: country,
                                                   );
                                                 }).toList()
                                               : [],
-                                          hint: Padding(
-                                            padding: const EdgeInsets.all(8.0),
+                                          hint: const Padding(
+                                            padding: EdgeInsets.all(8.0),
                                             child: Text("Select Class"),
                                           ),
                                           onChanged: (country) {
@@ -156,8 +156,8 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                             setState(() {});
                                           },
                                         )      : Center(
-                                        child: Container(width: 0.05.sw,
-                                            height: 0.025.sh,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2))),)
+                                        child: SizedBox(width: 0.05.sw,
+                                            height: 0.025.sh,child: const CircularProgressIndicator(color: Colors.blue,strokeWidth: 2))),)
                               
                               ),
                             ),
@@ -173,7 +173,7 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
                                   ),
-                                  children: <TextSpan>[
+                                  children: const <TextSpan>[
                                     TextSpan(
                                         text: '*',
                                         style: TextStyle(
@@ -298,18 +298,18 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                                       .classSubject
                                                       .map((country) {
                                                       return DropdownMenuItem(
+                                                        value: country,
                                                         child: Padding(
                                                           padding:
                                                               const EdgeInsets
                                                                   .all(8.0),
                                                           child: Text(country),
                                                         ),
-                                                        value: country,
                                                       );
                                                     }).toList()
                                                   : [],
-                                              hint: Padding(
-                                                padding: const EdgeInsets.all(8.0),
+                                              hint: const Padding(
+                                                padding: EdgeInsets.all(8.0),
                                                 child: Text("Select Subject"),
                                               ),
                                               onChanged: (country) {
@@ -426,7 +426,7 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                         fontWeight: FontWeight.normal,
                                         color: Colors.black,
                                       ),
-                                      children: <TextSpan>[
+                                      children: const <TextSpan>[
                                         TextSpan(
                                             text: '*',
                                             style: TextStyle(
@@ -511,7 +511,7 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                         fontWeight: FontWeight.normal,
                                         color: Colors.black,
                                       ),
-                                      children: <TextSpan>[
+                                      children: const <TextSpan>[
                                         TextSpan(
                                             text: '*',
                                             style: TextStyle(
@@ -596,7 +596,7 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                         fontWeight: FontWeight.normal,
                                         color: Colors.black,
                                       ),
-                                      children: <TextSpan>[
+                                      children: const <TextSpan>[
                                         TextSpan(
                                             text: '*',
                                             style: TextStyle(

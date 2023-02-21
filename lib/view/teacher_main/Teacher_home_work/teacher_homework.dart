@@ -114,7 +114,7 @@ class _TeacherHomeWorkDiplayState extends State<TeacherHomeWorkDiplay> {
                         const Text("",style:TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20)),
                         InkWell(
                           onTap: (){
-                              Get.to(TeacherAddHomeWork());
+                              Get.to(const TeacherAddHomeWork());
       } ,
                           child: Container(
                             color: Colors.blue,
@@ -242,8 +242,8 @@ class _TeacherHomeWorkDiplayState extends State<TeacherHomeWorkDiplay> {
                                        .isdownloadinevaluation.value=false;
                                    Get.to(const EvaluatehomeWork(),arguments: ['${teacherHomeWorkController.teacherHomeWorkModel.value?.response[index].id}']);
                                  },
-                                     child: Icon(Icons.menu)),
-                                 SizedBox(
+                                     child: const Icon(Icons.menu)),
+                                 const SizedBox(
                                    width: 5,
                                  ),
                                  // Icon(Icons.close)
@@ -256,8 +256,8 @@ class _TeacherHomeWorkDiplayState extends State<TeacherHomeWorkDiplay> {
                      );
                  },
                    itemCount: teacherHomeWorkController.teacherHomeWorkModel.value?.response.length??0,
-                 ):const Center(child:Text("Record Is Not Found")),
-               ):Center(child: CircularProgressIndicator()),
+                 ):const Center(child:Text("No Record Found")),
+               ):const Center(child: CircularProgressIndicator()),
             ),
           ],
         )
