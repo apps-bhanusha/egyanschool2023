@@ -572,7 +572,7 @@ void filepicker(){
                                             print('No file selected');
                                           }
                                         }),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 20,
                                     ),
                                     Text(fileData ?? ""),
@@ -598,8 +598,8 @@ void filepicker(){
                                 padding: const EdgeInsets.all(15),
                                 child: Center(
                                     child: fileselected?  ButtonWidget(
-                                    bh: 40,
-                                    bw: 50,
+                                   bh: 50,
+                                    bw: 150,
                                     borderredius: 10,
                                     buttonColor: AgentColor.buttonColors,
                                     child:const Text(

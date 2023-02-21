@@ -41,8 +41,8 @@ var  alldata =jsonDecode(sdata);
       late  var student_id = box.get("student_id");
       _homeWorkController.homeworkapi(student_id);
       Get.snackbar(
-        alldata["status"].toString(),
         alldata["message"].toString(),
+        "",
         duration: 5.seconds, // it could be any reasonable time, but I set it lo-o-ong
         snackPosition: SnackPosition.BOTTOM,
         showProgressIndicator: true,
