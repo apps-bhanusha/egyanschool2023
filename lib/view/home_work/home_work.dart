@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:ecom_desgin/Widgets/TextFieldWidget.dart';
+import 'package:ecom_desgin/Widgets/button_widget.dart';
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/date_format.dart';
@@ -171,19 +173,20 @@ class _HomeWorkState extends State<HomeWork> {
           //output:  /storage/emulated/0/Download/banner.png
 
           try {
-            await Dio().download(ApiUrl.imagesUrl+pdfurl.toString(), savePath,
+            await Dio().download(pdfurl.toString(), savePath,
                 onReceiveProgress: (received, total) {
               if (total != -1) {
                 print((received / total * 100).toStringAsFixed(0) + "%");
+                progressString ="${(received / total * 100).toStringAsFixed(0)}%";
                 setState(() {
-                  progressString =
-                      (received / total * 100).toStringAsFixed(0) + "%";
+                 
                 });
                 //you can build progressbar feature too
               }
             });
+             isdownloadin = true;
             Get.snackbar(
-                "download Succesfull", "File is saved to download folder");
+                "Download Successfull", "File is saved to download folder");
           } on DioError catch (e) {
             print(e.message);
           }
@@ -295,95 +298,98 @@ void filepicker(){
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              RichText(
-                                text: const TextSpan(
-                                  text: 'Content Title',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                        text: '*',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.red)),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                    color: Colors.blue,
-                                    width: 1.0,
-                                  ),
-                                ),
-                                child: TextFormField(
-                                  controller: contenttileController,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                  ),
-                                  onFieldSubmitted: (value) {
-                                    //Validator
-                                  },
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please Enter The Text!';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
+                 CustomTextField(hint: 'Content Title',controller: contenttileController,inputType: TextInputType.text,obscureText: false,onChange: (value){ },),
+                 CustomTextField(hint: 'Description',controller: noteController,inputType: TextInputType.text,obscureText: false,onChange: (value){ },),
+                              
+                              // RichText(
+                              //   text: const TextSpan(
+                              //     text: 'Content Title',
+                              //     style: TextStyle(
+                              //       color: Colors.black,
+                              //     ),
+                              //     children: <TextSpan>[
+                              //       TextSpan(
+                              //           text: '*',
+                              //           style: TextStyle(
+                              //               fontWeight: FontWeight.bold,
+                              //               color: Colors.red)),
+                              //     ],
+                              //   ),
+                              // ),
+                              // Container(
+                              //   decoration: BoxDecoration(
+                              //     shape: BoxShape.rectangle,
+                              //     border: Border.all(
+                              //       color: Colors.blue,
+                              //       width: 1.0,
+                              //     ),
+                              //   ),
+                              //   child: TextFormField(
+                              //     controller: contenttileController,
+                              //     decoration: InputDecoration(
+                              //       border: InputBorder.none,
+                              //     ),
+                              //     onFieldSubmitted: (value) {
+                              //       //Validator
+                              //     },
+                              //     validator: (value) {
+                              //       if (value!.isEmpty) {
+                              //         return 'Please Enter The Text!';
+                              //       }
+                              //       return null;
+                              //     },
+                              //   ),
+                              // ),
                             ],
                           )),
-                      Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              RichText(
-                                text: const TextSpan(
-                                  text: 'Description',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                        text: '*',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.red)),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                    color: Colors.blue,
-                                    width: 1.0,
-                                  ),
-                                ),
-                                child: TextFormField(
-                                  controller: noteController,
-                                  // maxLength: 4,
-                                  onFieldSubmitted: (value) {
-                                    //Validator
-                                  },
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please Enter The Text!';
-                                    }
-                                    return null;
-                                  },
-                                  decoration: const InputDecoration(
-                                    border: InputBorder.none,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
+                      // Padding(
+                      //     padding: const EdgeInsets.all(10.0),
+                      //     child: Column(
+                      //       mainAxisAlignment: MainAxisAlignment.start,
+                      //       crossAxisAlignment: CrossAxisAlignment.start,
+                      //       children: [
+                      //         RichText(
+                      //           text: const TextSpan(
+                      //             text: 'Description',
+                      //             style: TextStyle(
+                      //               color: Colors.black,
+                      //             ),
+                      //             children: <TextSpan>[
+                      //               TextSpan(
+                      //                   text: '*',
+                      //                   style: TextStyle(
+                      //                       fontWeight: FontWeight.bold,
+                      //                       color: Colors.red)),
+                      //             ],
+                      //           ),
+                      //         ),
+                      //         Container(
+                      //           decoration: BoxDecoration(
+                      //             shape: BoxShape.rectangle,
+                      //             border: Border.all(
+                      //               color: Colors.blue,
+                      //               width: 1.0,
+                      //             ),
+                      //           ),
+                      //           child: TextFormField(
+                      //             controller: noteController,
+                      //             // maxLength: 4,
+                      //             onFieldSubmitted: (value) {
+                      //               //Validator
+                      //             },
+                      //             validator: (value) {
+                      //               if (value!.isEmpty) {
+                      //                 return 'Please Enter The Text!';
+                      //               }
+                      //               return null;
+                      //             },
+                      //             decoration: const InputDecoration(
+                      //               border: InputBorder.none,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     )),
                       Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Column(
@@ -589,67 +595,72 @@ void filepicker(){
                               //       ),
 
                               Padding(
-                                padding: EdgeInsets.all(15),
+                                padding: const EdgeInsets.all(15),
                                 child: Center(
-                                    child: InkWell(
-                                        onTap: () {
-                                          print("uploading  data");
-                                          print(content_title);
-                                          print(note);
-                                          print(fileData);
-                                          print(homework_id);
-                                          note = noteController.text;
-                                          content_title = contenttileController.text;
-
-                                          if(fileselected==true){
-                                            homeworkcreate.HomeWorkCreateapi(
-                                                company_key,
-                                                student_id,
-                                                content_title,
-                                                note,
-                                                userfile,
-                                                homework_id);
-
-                                            noteController.clear();
-                                            contenttileController.clear();
-                                             fileData="";
-
-                                          }
-                                          Navigator.pop(context);
-                                        },
-                                        child:fileselected? Container(
-                                                alignment: Alignment.center,
-                                                width: 0.3.sw,
-                                                height: 0.07.sh,
-                                                // color: Colors.green,
-                                                decoration: const BoxDecoration(
-                                                  color: Colors.green,
-                                                  borderRadius: BorderRadius.all(
-                                                    Radius.circular(30),
-                                                  ),
-                                                ),
-                                                child: const Text(
-                                                  "Upload",
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                              ):Container(
-                                          alignment: Alignment.center,
-                                          width: 0.3.sw,
-                                          height: 0.07.sh,
-                                          // color: Colors.green,
-                                          decoration: const BoxDecoration(
-                                            color: Colors.grey,
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(30),
+                                    child: fileselected?  ButtonWidget(
+                                    bh: 40,
+                                    bw: 50,
+                                    borderredius: 10,
+                                    buttonColor: AgentColor.buttonColors,
+                                    child:const Text(
+                                              "Upload",
+                                              style: TextStyle(
+                                                  color: Colors.white, fontSize: 18),
                                             ),
-                                          ),
-                                          child: const Text(
-                                            "Upload",
-                                            style: TextStyle(
-                                                color: Colors.white),
-                                          ),
-                                        )
+                                      onTap: () {
+                                      print("uploading  data");
+                                      print(content_title);
+                                      print(note);
+                                      print(fileData);
+                                      print(homework_id);
+                                      note = noteController.text;
+                                      content_title = contenttileController.text;
+
+                                      if(fileselected==true){
+                                        homeworkcreate.HomeWorkCreateapi(
+                                            company_key,
+                                            student_id,
+                                            content_title,
+                                            note,
+                                            userfile,
+                                            homework_id);
+
+                                        noteController.clear();
+                                        contenttileController.clear();
+                                         fileData="";
+
+                                      }
+                                      Navigator.pop(context);
+                                    },
+                                          ) 
+                                    
+                                    //  Container(
+                                    //         alignment: Alignment.center,
+                                    //         width: 0.3.sw,
+                                    //         height: 0.07.sh,
+                                    //         // color: Colors.green,
+                                    //         decoration: const BoxDecoration(
+                                    //           color: Colors.green,
+                                    //           borderRadius: BorderRadius.all(
+                                    //             Radius.circular(30),
+                                    //           ),
+                                    //         ),
+                                    //         child: const Text(
+                                    //           "Upload",
+                                    //           style: TextStyle(
+                                    //               color: Colors.white),
+                                    //         ),
+                                    //       )
+                                    :const ButtonWidget(
+                                    bh: 50,
+                                    bw: 150,
+                                    borderredius: 20,
+                                    buttonColor: Colors.grey,
+                                    child:Text(
+                                              "Upload",
+                                              style: TextStyle(
+                                                  color: Colors.white, fontSize: 18),
+                                            ),
                                           )
                                 ),
                               ),

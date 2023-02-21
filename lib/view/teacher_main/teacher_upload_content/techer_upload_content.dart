@@ -1,4 +1,4 @@
-import 'package:ecom_desgin/constant/date_format.dart';
+import 'package:ecom_desgin/Widgets/TextFieldWidget.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/class_list_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/upload_content_Controller.dart';
@@ -20,6 +20,8 @@ class _UploadContent1State extends State<UploadContent1> {
    final ClassListController classListController = Get.put(ClassListController());
 
      TextEditingController contentTitler = TextEditingController();
+     TextEditingController test = TextEditingController();
+     TextEditingController test2 = TextEditingController();
      TextEditingController description = TextEditingController();
 
   DateTime today = DateTime.now();
@@ -51,7 +53,7 @@ class _UploadContent1State extends State<UploadContent1> {
     "afiganistan"
   ];
 
-  String _selectdrop = "Select";
+   String _selectdrop = "Select";
   List<String> dropdata = [
     "india",
     "pakistan",
@@ -66,7 +68,7 @@ class _UploadContent1State extends State<UploadContent1> {
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.of(context).pop(),
           ),
          backgroundColor: Theme.of(context).primaryColor,
@@ -89,65 +91,69 @@ class _UploadContent1State extends State<UploadContent1> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-
                           Container(
-height: 0.010.sh,
+                              height: 0.010.sh,
                               width: 0.99.sw,
                               color:Colors.blue
                           ),
-Padding(
-  padding: const EdgeInsets.only(top: 4.0 ,left: 18).r,
-  child:   RichText(
-                              text:TextSpan(
-                                text: 'Content Title',
-                                style: GoogleFonts.dmSans(
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                ),
-
-                                children: <TextSpan>[
-                                  TextSpan(
-                                      text: '*',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.red)),
-                                ],
-                              ),
-                            ),
-),
                           Padding(
-                            padding: const EdgeInsets.only(left: 18.0,right: 18.0).r,
-                            child: Container(
-                              height: 0.060.sh,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                border: Border.all(
-                                  color: Colors.grey,
-                                  width: 1.0,
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(5.0).r,
-                                child: TextFormField(
-controller: contentTitler,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                  ),
-                                  onFieldSubmitted: (value) {
-                                    //Validator
-                                  },
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please Enter The Text!';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                            ),
+                            padding: const EdgeInsets.only( right: 18, top: 4.0 ,left: 18),
+                            child: 
+                           CustomTextField(hint: 'Content Title',controller: contentTitler,inputType: TextInputType.name,obscureText: false,onChange: (value){ },),
                           ),
+//                        Padding(
+//   padding: const EdgeInsets.only(top: 4.0 ,left: 18).r,
+//   child:   RichText(
+//                               text:TextSpan(
+//                                 text: 'Content Title',
+//                                 style: GoogleFonts.dmSans(
+//                                   fontStyle: FontStyle.normal,
+//                                   fontSize: 12.sp,
+//                                   fontWeight: FontWeight.normal,
+//                                   color: Colors.black,
+//                                 ),
+
+//                                 children: const <TextSpan>[
+//                                   TextSpan(
+//                                       text: '*',
+//                                       style: TextStyle(
+//                                           fontWeight: FontWeight.bold,
+//                                           color: Colors.red)),
+//                                 ],
+//                               ),
+//                             ),
+// ),
+//                           Padding(
+//                             padding: const EdgeInsets.only(left: 18.0,right: 18.0).r,
+//                             child: Container(
+//                               height: 0.060.sh,
+//                               decoration: BoxDecoration(
+//                                 shape: BoxShape.rectangle,
+//                                 border: Border.all(
+//                                   color: Colors.grey,
+//                                   width: 1.0,
+//                                 ),
+//                               ),
+//                               child: Padding(
+//                                 padding: const EdgeInsets.all(5.0).r,
+//                                 child: TextFormField(
+//                                controller: contentTitler,
+//                                   decoration: InputDecoration(
+//                                     border: InputBorder.none,
+//                                   ),
+//                                   onFieldSubmitted: (value) {
+//                                     //Validator
+//                                   },
+//                                   validator: (value) {
+//                                     if (value!.isEmpty) {
+//                                       return 'Please Enter The Text!';
+//                                     }
+//                                     return null;
+//                                   },
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
                         Form(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -165,7 +171,7 @@ controller: contentTitler,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
                                   ),
-                                  children: <TextSpan>[
+                                  children: const <TextSpan>[
                                     TextSpan(
                                         text: '*',
                                         style: TextStyle(
@@ -221,14 +227,10 @@ controller: contentTitler,
                                   Checkbox(
                                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                     visualDensity: VisualDensity.compact,
-
-                                    value: this.value2,
+                                    value: value2,
                                     onChanged: (value) {
-                                      setState(() {
-                                        print(value2);
-                                        this.value2 = value!;
-
-                                    
+                                      setState(() {                             
+                                        value2 = value!;                                 
                                       });
                                     },
                                   ),
@@ -270,7 +272,7 @@ controller: contentTitler,
                                     width: 1.0,
                                   ),
                                 ),
-                                child: this.value2==false? DropdownButton(
+                                child: value2==false? DropdownButton(
 
                                   isExpanded: true,
                                   isDense: true,
@@ -280,7 +282,7 @@ controller: contentTitler,
                                     return DropdownMenuItem(
                                       value: country,
                                       child:Padding(
-                                        padding:  EdgeInsets.all(8.0),
+                                        padding:  const EdgeInsets.all(8.0),
                                         child: Text(country),
                                       ),
                                     );
@@ -302,7 +304,7 @@ controller: contentTitler,
                                     return DropdownMenuItem(
                                       value: country,
                                       child:Padding(
-                                        padding:  EdgeInsets.all(8.0),
+                                        padding:  const EdgeInsets.all(8.0),
                                         child: Text(country),
                                       ),
                                     );
@@ -345,19 +347,19 @@ controller: contentTitler,
                                     width: 1.0,
                                   ),
                                 ),
-                                child:this.value2==false?Obx(() =>  DropdownButton(
+                                child:value2==false?Obx(() =>  DropdownButton(
 
                                   isExpanded: true,
                                   isDense: true,
                                   iconSize: 35,
-                                  hint:  classListController.isloding2.value ?SizedBox(width: 110,height:20,child: Text(selectsection)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+                                  hint:  classListController.isloding2.value ?SizedBox(width: 110,height:20,child: Text(selectsection)):const SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
                                   items: classListController.classSection.map((country){
                                     return DropdownMenuItem(
+                                      value: country,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(country),
                                       ),
-                                      value: country,
                                     );
                                   }).toList(),
                                   onChanged: (country){
@@ -376,11 +378,11 @@ controller: contentTitler,
                                   hint: Text(selectsection),
                                   items: countries1.map((country){
                                     return DropdownMenuItem(
+                                      value: country,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(country),
                                       ),
-                                      value: country,
                                     );
                                   }).toList(),
                                   onChanged: null
@@ -457,7 +459,7 @@ controller: contentTitler,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
                                   ),
-                                  children: <TextSpan>[
+                                  children: const <TextSpan>[
                                     TextSpan(
                                         text: '*',
                                         style: TextStyle(
@@ -483,7 +485,7 @@ controller: contentTitler,
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0).r,
                                   child: TextFormField(
-controller: description,
+                                  controller: description,
                                     decoration: const InputDecoration(
 
                                       border: InputBorder.none,
@@ -512,8 +514,8 @@ controller: description,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
                                   ),
-                                  children: <TextSpan>[
-                                    const TextSpan(
+                                  children: const <TextSpan>[
+                                    TextSpan(
                                         text: '*',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
@@ -534,12 +536,6 @@ controller: description,
 
                                   if (result != null) {
                                     PlatformFile file = result.files.first;
-
-                                    print(file.name);
-                                    print(file.bytes);
-                                    print(file.size);
-                                    print(file.extension);
-                                    print(file.path);
                                     filePath=file.path!;
                                     setState(() {
                                     fileName=file.name;
@@ -566,8 +562,6 @@ controller: description,
                                 ),
                               ),
                             ),
-
-
                             Center(
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 4.0 ,left: 18).r,
@@ -576,36 +570,27 @@ controller: description,
                                   height: 0.055.sh,
                                   color: Colors.blue,
                                   child: TextButton(
-
                                     onPressed: () {
 uploadContentController.saveisloading.value=true;
-
                                   if(value2==true){
                                     visibility='Yes';
                                   }else{
                                    visibility='No'; 
                                   }
-                                    print(contentTitler.text);
-                                    print(selecttype);
-                                    print(visibility);
-                                    print(selectclass);
-                                    print(selectsection);
-                                    print(description.text);
-                                    print(filePath);
                                 var save= uploadContentController.saveUploadContentpi(selectsection, visibility, contentTitler.text, selecttype, description.text, filePath);
                                print("%^%^%^%^%^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
                                 print(save.then((value) {
                                      if(value=="true"){
-              setState(() {
-                 contentTitler.text="";
+                                 setState(() {
+                                   contentTitler.text="";
                                    selecttype="Select Content Type";
                                     visibility="";
                                     selectclass="Select Class";
                                     selectsection="Select Section";
                                    description.text="";
                                     fileName="";
-              });          
-              Navigator.pop(context);
+                                       });          
+                             Navigator.pop(context);
                                   }
                                 }));
                                
@@ -614,8 +599,8 @@ uploadContentController.saveisloading.value=true;
                                     },
 
                                     child: Obx(
-                                      () => uploadContentController.saveisloading.value? SizedBox( width: 20,height: 20, child: CircularProgressIndicator(color: Colors.white,strokeWidth: 2))
-                                      :Text("SAVE".toUpperCase(),
+                                      () => uploadContentController.saveisloading.value? const SizedBox( width: 20,height: 20, child: CircularProgressIndicator(color: Colors.white,strokeWidth: 2))
+                                      :Text("Save".toUpperCase(),
                                            style: GoogleFonts.dmSans(
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12.sp,
@@ -634,6 +619,8 @@ uploadContentController.saveisloading.value=true;
                       ]),
                     )),
               ),
+
+             
             ],
           ),
         ));

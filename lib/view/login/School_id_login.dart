@@ -1,3 +1,5 @@
+import 'package:ecom_desgin/Widgets/button_widget.dart';
+import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/controller/school_id_controller.dart';
 import 'package:ecom_desgin/main.dart';
 import 'package:ecom_desgin/routes/routes.dart';
@@ -243,13 +245,9 @@ keyboardType: TextInputType.number,
                 activeColor: Colors.pink,
                 onChanged: (value) {
                   setState(() {
-
                     _radioVal="Student";
                     _radioSelected=value!;
-
-                    print(value);
                     rediobutton=value;
-print(rediobutton);
                   });
 
                 },
@@ -260,32 +258,14 @@ print(rediobutton);
             height: 0.045.sh,
           ),
           Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32).r,
+              padding: const EdgeInsets.symmetric(horizontal: 32).r,
 
-              child: Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(100)),
-                  // color:  Colors.blue
-                ),
-                child: ElevatedButton(
-                  // ignore: sort_child_properties_last
-                  child:  Obx(
-                    () => all.isloading.value ? Text(
-                      "Next",
-                      style: GoogleFonts.dmSans(
-                        fontStyle: FontStyle.normal,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                  
-                    ):const Center(child:  CircularProgressIndicator(color: Colors.white,)),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                  ),
-                  onPressed: () async {
-                   all.isloading.value=false;
+              child:ButtonWidget(
+                bh: 45,bw: 50,
+              borderredius: 10,
+              buttonColor: AgentColor.buttonColors,
+              onTap: (){
+            all.isloading.value=false;
                   all.apicall(id.text,rediobutton,context);
                    // id.text= await (sessionManager.set("id", id.text));
                     //    if (all.SchoolIdControllerList[0]["status"]==true) {
@@ -302,9 +282,63 @@ print(rediobutton);
                     //   print("teacher");
                     //   // all.apicall(id.text);
                     // }
-                  },
-                ),
-              )),
+              },
+                child:  Obx(
+                    () => all.isloading.value ? Text(
+                      "Next",
+                      style: GoogleFonts.dmSans(
+                        fontStyle: FontStyle.normal,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                  
+                    ):const Center(child:  CircularProgressIndicator(color: Colors.white,)),
+                  ),)
+              //  Container(
+              //   decoration: const BoxDecoration(
+              //     borderRadius: BorderRadius.all(Radius.circular(100)),
+              //     // color:  Colors.blue
+              //   ),
+              //   child: ElevatedButton(
+              //     // ignore: sort_child_properties_last
+              //     child:  Obx(
+              //       () => all.isloading.value ? Text(
+              //         "Next",
+              //         style: GoogleFonts.dmSans(
+              //           fontStyle: FontStyle.normal,
+              //           fontSize: 18.sp,
+              //           fontWeight: FontWeight.bold,
+              //           color: Colors.white,
+              //         ),
+                  
+              //       ):const Center(child:  CircularProgressIndicator(color: Colors.white,)),
+              //     ),
+              //     style: ElevatedButton.styleFrom(
+              //       backgroundColor: Colors.blue,
+              //     ),
+              //     onPressed: () async {
+              //      all.isloading.value=false;
+              //     all.apicall(id.text,rediobutton,context);
+              //      // id.text= await (sessionManager.set("id", id.text));
+              //       //    if (all.SchoolIdControllerList[0]["status"]==true) {
+              //       //       if(_radioVal=="Student" ){
+              //       //         all.apicall( id.text,_radioVal);
+              //       //       }else {
+              //       //         print("invalid id");
+              //       //       }
+              //       //    } else {
+              //       //      print("School ID Invailid");
+              //       //    }
+              //       // if(_radioVal=="Teacher"){
+              //       //   all.apicall(id.text,_radioVal);
+              //       //   print("teacher");
+              //       //   // all.apicall(id.text);
+              //       // }
+              //     },
+              //   ),
+              // )
+              ),
           SizedBox(height:0.05.sh),
 
 

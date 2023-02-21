@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/Widgets/TextFieldWidget.dart';
 import 'package:ecom_desgin/constant/date_format.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/studentLeaveRecord_controller.dart';
@@ -230,7 +231,7 @@ class _StudentAddUserDialogDialogState extends State<StudentAddUserDialog>
                         // optional flex property if flex is 1 because the default flex is 1
                         flex: 1,
                         child: Padding(
-                          padding: EdgeInsets.only(left: 10).r,
+                          padding: EdgeInsets.only(left: 5).r,
                           child: TextField(
                               controller: fromdateController,
                               decoration: InputDecoration(
@@ -265,8 +266,28 @@ class _StudentAddUserDialogDialogState extends State<StudentAddUserDialog>
                                         errorInvalidText: 'Out of range.',
                                         errorInvalidRangeText: 'Invalid range.',
                                         fieldStartHintText: 'Start Date',
-                                        fieldEndLabelText: 'End Date'
+                                        fieldEndLabelText: 'End Date',
+builder: (context, Widget? child) {
+                                    return Theme(
+                                      data: ThemeData.light().copyWith(
+                                        primaryColor: Colors.blue,
+                                        scaffoldBackgroundColor: Colors.grey[50],
+                                        dividerColor: Colors.grey,
+                                        textTheme: const TextTheme(
+                                          bodyMedium:
+                                          TextStyle(color: Colors.black),
+                                        ),
+                                        colorScheme: ColorScheme.fromSwatch().copyWith(
 
+                                          primary: Colors.blue,
+
+                                          onSurface: Colors.black,
+
+                                        ),
+                                      ),
+                                      child: child!,
+                                    );
+                                  }
                                         );
 
                                 if (pickedRange != null) {
@@ -312,7 +333,7 @@ class _StudentAddUserDialogDialogState extends State<StudentAddUserDialog>
                         // optional flex property if flex is 1 because the default flex is 1
                         flex: 1,
                         child: Padding(
-                          padding: const EdgeInsets.only(right: 10).r,
+                          padding: const EdgeInsets.only(right: 5).r,
                           child: TextField(
                             controller: todateController,
                             decoration: InputDecoration(
@@ -330,26 +351,29 @@ class _StudentAddUserDialogDialogState extends State<StudentAddUserDialog>
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10).r,
-                    child: TextField(
-                      controller: reasonController,
-                      onChanged: (content){
-                        studentLeave();
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Reason',
-                        hintText: show,
-                        contentPadding: EdgeInsets.all(5).r,
-                        labelStyle: TextStyle(color: Colors.grey[400]),
-                      ),
-                      style: GoogleFonts.dmSans(
-                        fontStyle: FontStyle.normal,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+
+       CustomTextField(hint: 'Reason',controller: reasonController,inputType: TextInputType.text,obscureText: false,onChange: (value){   studentLeave();},),
+
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 10, right: 10).r,
+                  //   child: TextField(
+                  //     controller: reasonController,
+                  //     onChanged: (content){
+                  //       studentLeave();
+                  //     },
+                  //     decoration: InputDecoration(
+                  //       labelText: 'Reason',
+                  //       hintText: show,
+                  //       contentPadding: EdgeInsets.all(5).r,
+                  //       labelStyle: TextStyle(color: Colors.grey[400]),
+                  //     ),
+                  //     style: GoogleFonts.dmSans(
+                  //       fontStyle: FontStyle.normal,
+                  //       fontSize: 15.sp,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  // ),
 
                   Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -400,7 +424,7 @@ class _StudentAddUserDialogDialogState extends State<StudentAddUserDialog>
                   ),
 Row(
   children: [
-        Text("file :- "),
+        const Text("file :- "),
     SizedBox(
       width:180,
       child: Text(fileData??"",

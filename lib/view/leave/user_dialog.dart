@@ -1,3 +1,6 @@
+import 'package:ecom_desgin/Widgets/TextFieldWidget.dart';
+import 'package:ecom_desgin/Widgets/button_widget.dart';
+import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/date_format.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/addstudentLeaveRecord_controller.dart';
@@ -232,7 +235,7 @@ class _AddUserDialogState extends State<AddUserDialog>
                         // optional flex property if flex is 1 because the default flex is 1
                         flex: 1,
                         child: Padding(
-                          padding: EdgeInsets.only(left: 10).r,
+                          padding: const EdgeInsets.only(left: 5).r,
                           child: TextField(
                               controller: fromdateController,
                               decoration: InputDecoration(
@@ -265,7 +268,29 @@ class _AddUserDialogState extends State<AddUserDialog>
                                         errorInvalidText: 'Out of range.',
                                         errorInvalidRangeText: 'Invalid range.',
                                         fieldStartHintText: 'Start Date',
-                                        fieldEndLabelText: 'End Date');
+                                        fieldEndLabelText: 'End Date',
+                                        builder: (context, Widget? child) {
+                                    return Theme(
+                                      data: ThemeData.light().copyWith(
+                                        primaryColor: Colors.blue,
+                                        scaffoldBackgroundColor: Colors.grey[50],
+                                        dividerColor: Colors.grey,
+                                        textTheme: const TextTheme(
+                                          bodyMedium:
+                                          TextStyle(color: Colors.black),
+                                        ),
+                                        colorScheme: ColorScheme.fromSwatch().copyWith(
+
+                                          primary: Colors.blue,
+
+                                          onSurface: Colors.black,
+
+                                        ),
+                                      ),
+                                      child: child!,
+                                    );
+                                  }
+                                        );
 
                                 if (pickedRange != null) {
                                   print(
@@ -310,7 +335,7 @@ class _AddUserDialogState extends State<AddUserDialog>
                         // optional flex property if flex is 1 because the default flex is 1
                         flex: 1,
                         child: Padding(
-                          padding: const EdgeInsets.only(right: 10).r,
+                          padding: const EdgeInsets.only(right: 5).r,
                           child: TextField(
                             controller: todateController,
                             decoration: InputDecoration(
@@ -328,26 +353,28 @@ class _AddUserDialogState extends State<AddUserDialog>
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10).r,
-                    child: TextField(
-                      controller: reasonController,
-                      onChanged: (content){
-                        studentLeave();
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Reason',
-                        hintText: show,
-                        contentPadding: EdgeInsets.all(5).r,
-                        labelStyle: TextStyle(color: Colors.grey[400]),
-                      ),
-                      style: GoogleFonts.dmSans(
-                        fontStyle: FontStyle.normal,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+       CustomTextField(hint: 'Reason',controller: reasonController,inputType: TextInputType.text,obscureText: false,onChange: (value){   studentLeave();},),
+
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 10, right: 10).r,
+                  //   child: TextField(
+                  //     controller: reasonController,
+                  //     onChanged: (content){
+                  //       studentLeave();
+                  //     },
+                  //     decoration: InputDecoration(
+                  //       labelText: 'Reason',
+                  //       hintText: show,
+                  //       contentPadding: EdgeInsets.all(5).r,
+                  //       labelStyle: TextStyle(color: Colors.grey[400]),
+                  //     ),
+                  //     style: GoogleFonts.dmSans(
+                  //       fontStyle: FontStyle.normal,
+                  //       fontSize: 15.sp,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  // ),
 
                   Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -398,7 +425,7 @@ class _AddUserDialogState extends State<AddUserDialog>
                   ),
 Row(
   children: [
-        Text("file :- "),
+        const Text("file :- "),
     SizedBox(
       width:180,
       child: Text(fileData??"",
@@ -432,9 +459,18 @@ Row(
                         // ),
                       fileSelected?  Padding(
                         padding: const EdgeInsets.only(top: 20),
-                        child: ElevatedButton(
-                              onPressed: () async {
-                                // final user = User(
+                        child:  ButtonWidget(
+                                  bh: 50,
+                                  bw: 150,
+                                  borderredius: 20,
+                                  buttonColor:  AgentColor.buttonColors,
+                                  child:const Text(
+                                            "Submit",
+                                            style: TextStyle(
+                                                color: Colors.white),
+                                          ),
+        onTap:() {
+     // final user = User(
                                 //    "",
                                 //     fromdateController.text,
                                 //     todateController.text,
@@ -458,41 +494,65 @@ Row(
                               } else {
                                 show = "Please Enter message";
                               }
-                            },
-                                // Navigator.pop(context, MyRoutes.homeRoute);
+          },
 
-                              child: Text(
-                                'Submit',
-                                style: GoogleFonts.dmSans(
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.blue),
-                              )),
-                      ):Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: ElevatedButton(
-              onPressed: () async {
+                                        ),
+                        
+                        // ElevatedButton(
+                        //       onPressed: () async {
+                        //         // final user = User(
+                        //         //    "",
+                        //         //     fromdateController.text,
+                        //         //     todateController.text,
+                        //         //     reasonController.text,
+                        //         //     userfile);
+                        //         message = reasonController.text;
 
-        },
-            child: Text(
-              'Submit',
-              style: GoogleFonts.dmSans(
-                fontStyle: FontStyle.normal,
-                fontSize: 15.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-            style: ButtonStyle(
-              backgroundColor:
-              MaterialStateProperty.all(Colors.grey),
-            )),
+
+                        //         // widget.addUser(user);
+                        //     if(fileSelected==true){
+
+                        //         AddStudentLeaveRecord.AddStudentLeaveRecordapi(
+                        //             company_key,
+                        //             student_id,
+                        //             from_date,
+                        //             to_date,
+                        //             message,
+                        //             userfile);
+
+                        //   Navigator.of(context).pop();
+                        //       } else {
+                        //         show = "Please Enter message";
+                        //       }
+                        //     },
+                        //         // Navigator.pop(context, MyRoutes.homeRoute);
+
+                        //       child: Text(
+                        //         'Submit',
+                        //         style: GoogleFonts.dmSans(
+                        //           fontStyle: FontStyle.normal,
+                        //           fontSize: 15.sp,
+                        //           fontWeight: FontWeight.bold,
+                        //           color: Colors.white,
+                        //         ),
+                        //       ),
+                        //       style: ButtonStyle(
+                        //         backgroundColor:
+                        //             MaterialStateProperty.all(Colors.blue),
+                        //       )),
+                      ):const Padding(
+                        padding: EdgeInsets.only(top: 20),
+                        child: ButtonWidget(
+                                    bh: 50,
+                                    bw: 150,
+                                    borderredius: 20,
+                                    buttonColor: Colors.grey,
+                                    child:Text(
+                                              "Submit",
+                                              style: TextStyle(
+                                                  color: Colors.white, fontSize: 18),
+                                            ),
+                                          )
                       ),
                       ]),
 

@@ -24,7 +24,7 @@ class _DownloadAllState extends State<DownloadAll> {
 
   bool didDownloadPDF = false;
   bool isdownloadin = true;
-  int index=0;
+  int ind=0;
  String progressString = 'Now.';
 @override
   void initState() {
@@ -38,7 +38,7 @@ class _DownloadAllState extends State<DownloadAll> {
     print(pdfurl);
     setState(() {
       isdownloadin=false;
-      index=value;
+      ind=value;
 
     });
     Map<Permission, PermissionStatus> statuses = await [
@@ -71,7 +71,7 @@ class _DownloadAllState extends State<DownloadAll> {
           });
           isdownloadin=true;
           Get.snackbar(
-              "download Succesfull", "File is saved to download folder");
+              "Download Successfull", "File is saved to download folder");
         } on DioError catch (e) {
           print(e.message);
           Get.snackbar(
@@ -163,7 +163,7 @@ class _DownloadAllState extends State<DownloadAll> {
 
                               trailing: isdownloadin?InkWell(onTap:(){
                                 pdfDownload("${_downloadAllController.assignmentDownloadModel.value?.response?.list?[index]?.file}",index);
-                              } ,child: const Icon(Icons.download)):index==index ? Text(
+                              } ,child: const Icon(Icons.download)):index==ind ? Text(
                                   progressString,
                                   overflow:
                                       TextOverflow

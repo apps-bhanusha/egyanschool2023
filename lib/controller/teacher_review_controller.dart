@@ -10,6 +10,7 @@ class TeacherRatingController extends GetxController {
   List <dynamic> TeacherRatingControllerList = [].obs;
   RxBool loadingTeacherRating =false.obs;
   RxBool isloading =false.obs;
+  RxBool issumit =true.obs;
 
   get title => TeacherRatingControllerList;
   Future<List<TeacherRatingController>?> TeacherRatingapi(company_key,staff_id,comment,rate,student_id) async {
@@ -26,9 +27,15 @@ class TeacherRatingController extends GetxController {
       var  sdata = jsonDecode(response.body);
       TeacherRatingControllerList=[];
       TeacherRatingControllerList.add(sdata) ;
-      Get.snackbar(
-        sdata["status"],
+     
+
+      // print(GetschoolsettingControllerLexam_idist[0]["response"]["total_discount_amount"]);
+      if (sdata["status"] == "success" ) {
+        loadingTeacherRating.value=true;
+        issumit.value=true;
+ Get.snackbar(
         sdata["message"],
+        "",
         duration: 2.seconds, // it could be any reasonable time, but I set it lo-o-ong
         snackPosition: SnackPosition.BOTTOM,
         showProgressIndicator: true,
@@ -44,19 +51,14 @@ class TeacherRatingController extends GetxController {
             )),
       );
 
-      // print(GetschoolsettingControllerLexam_idist[0]["response"]["total_discount_amount"]);
-      if (sdata["status"] == true ) {
-        loadingTeacherRating.value=true;
-
-
 
       }
-
       else  {
+          issumit.value=true;
         print("invalid cccid");
       } }
     else {
-
+  issumit.value=true;
 
     }
   }

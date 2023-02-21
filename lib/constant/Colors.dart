@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class AgentColor{
@@ -21,5 +22,7 @@ class AgentColor{
     static const appbarbackgroundColor= Color(0xfff6f3f3);
     static const CustomerCardFirstrColor= Color(0xfff8dd0e5);
     static const AttenanceColor= Color(0xFF26C6DA);
+    static const buttonTextColors= Colors.white;
+    static const buttonColors= Colors.blue;
     
 }

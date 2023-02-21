@@ -441,7 +441,7 @@ class _AddLeaveTeacherState extends State<AddLeaveTeacher> {
                                             fontWeight: FontWeight.normal,
                                             color: Colors.black,
                                           ),
-                                          children: <TextSpan>[
+                                          children: const <TextSpan>[
                                             TextSpan(
                                                 text: '*',
                                                 style: TextStyle(

@@ -2,19 +2,11 @@ import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/teacher_login_controller.dart';
-import 'package:ecom_desgin/main.dart';
 import 'package:ecom_desgin/routes/routes.dart';
-import 'package:ecom_desgin/view/dashboard/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 class StudentLogin extends StatefulWidget {
 
 

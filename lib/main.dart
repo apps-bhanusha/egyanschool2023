@@ -30,7 +30,7 @@ Future<void> main(List<String> args) async {
         foregroundColor: Colors.white,
      
       ),
-      // useMaterial3: true,
+      useMaterial3: true,
     ),
     home: const SplashScreen(),
     initialRoute: RoutesName.splashScreen,

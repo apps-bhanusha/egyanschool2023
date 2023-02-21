@@ -1,3 +1,5 @@
+import 'package:ecom_desgin/Widgets/TextFieldWidget.dart';
+import 'package:ecom_desgin/Widgets/button_widget.dart';
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/student_profile-Controller.dart';
@@ -87,7 +89,7 @@ body: SingleChildScrollView(
               
               ),
                 dropdownColor: Colors.white,
-                iconEnabledColor: Colors.white,
+                iconEnabledColor: Colors.black,
                 hint: Text(_selectdrop,
                     style: const TextStyle(color: Colors.black)),
                 items: teacherbystudentController.dropdata.map((String value) {
@@ -123,42 +125,44 @@ body: SingleChildScrollView(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    RichText(
+       CustomTextField(hint: 'Description',controller: commentController,inputType: TextInputType.text,obscureText: false,onChange: (value){  },),
+
+                    // RichText(
     
-                      text: const TextSpan(
+                    //   text: const TextSpan(
     
-                        text: 'Description',
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: '*',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.red)),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        border: Border.all(
-                          color: Colors.blue,
-                          width: 1.0,
+                    //     text: 'Description',
+                    //     style: TextStyle(
+                    //       color: Colors.black,
+                    //     ),
+                    //     children: <TextSpan>[
+                    //       TextSpan(
+                    //           text: '*',
+                    //           style: TextStyle(
+                    //               fontWeight: FontWeight.bold,
+                    //               color: Colors.red)),
+                    //     ],
+                    //   ),
+                    // ),
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //     shape: BoxShape.rectangle,
+                    //     border: Border.all(
+                    //       color: Colors.blue,
+                    //       width: 1.0,
     
-                        ),
-                      ),
-                      child:  TextField(
-                        controller:commentController,
-                        // maxLength: 4,
+                    //     ),
+                    //   ),
+                    //   child:  TextField(
+                    //     controller:commentController,
+                    //     // maxLength: 4,
   
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: show,
-                        ),
-                      ),
-                    ),
+                    //     decoration: InputDecoration(
+                    //       border: InputBorder.none,
+                    //       hintText: show,
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 )),
     
@@ -180,9 +184,6 @@ body: SingleChildScrollView(
                       rating = value;
                       rate=rating;
                     });
-    
-    
-    
                   },
                 ),
               Text('${rating.toDouble()}'),
@@ -193,15 +194,25 @@ body: SingleChildScrollView(
         Padding(
           padding:  const EdgeInsets.all(15),
           child: Center(
-            child: InkWell(
-              onTap:() {
+            child: teacherRatings.issumit.value? ButtonWidget(
+                                  bh: 50,
+                                  bw: 150,
+                                  borderredius: 20,
+                                  buttonColor: selectteacher? AgentColor.buttonColors:Colors.grey,
+                                  child:const Text(
+                                            "Submit",
+                                            style: TextStyle(
+                                                color: Colors.white, fontSize: 18),
+                                          ),
+        onTap:() {
             comment = commentController.text;
            if(selectteacher==true){
+            teacherRatings.issumit.value=false;
              if(comment.toString().isNotEmpty){
-              teacherRatings.TeacherRatingapi(company_key,staff_id,comment,rate,studentProfileController.studentProfileModel.value?.response.studentId);
+            teacherRatings.TeacherRatingapi(company_key,staff_id,comment,rate,studentProfileController.studentProfileModel.value?.response.studentId);
             }
             else{
-              show="Please Enter comment";
+            show="Please Enter comment";
   
             }
            }else{
@@ -218,31 +229,25 @@ body: SingleChildScrollView(
         mainButton: TextButton(
             onPressed: Get.back,
             child: const Text(
-                "Close"
+              "Close"
 
             )),
       );
            }
           },
-    
 
-              child:  Container(
-                alignment: Alignment.center,
-                width: 0.3.sw,
-                height: 0.06.sh,
-                // color: Colors.green,
-                decoration:  BoxDecoration(
-                  color:selectteacher? Colors.green:Colors.grey,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(30),
-                  ),
-                ),
-                child: const Text(
-                  "Submit",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
+                                        ):Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Padding(
+            padding: EdgeInsets.only(top: 300),
+            child: CircularProgressIndicator(color: Colors.blue),
+          )
+        ],
+      ),
+    ),
           ),
         ),
     

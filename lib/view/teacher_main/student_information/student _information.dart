@@ -35,7 +35,6 @@ final ScrollController _horizontal = ScrollController(),
   ];
 String selectClass="select Class";
 String selectSection="select Section";
-
 List<String> countries = ["1st", "Russia", "USA", "China", "United Kingdom", "USA", "India"];
 List<String> countries1 = ["A", "Russia", "USA", "China", "United Kingdom", "USA", "India"];
 final List<String> _suggestions = ['Afeganistan', 'Albania', 'Algeria', 'Australia', 'Brazil', 'German', 'Madagascar', 'Mozambique', 'Portugal', 'Zambia'];
@@ -153,7 +152,7 @@ onChanged:(value) {
     
   });
 },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: InputBorder.none,
               hintText:  "Search Student",
             ),

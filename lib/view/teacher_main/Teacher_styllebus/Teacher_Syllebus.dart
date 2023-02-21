@@ -1,13 +1,7 @@
-import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
-import 'package:ecom_desgin/controller/getSylabusStatus_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/Teacher_syllebus_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/class_list_controller.dart';
-import 'package:ecom_desgin/model/student/Teacher_syllebus_model.dart';
-import 'package:ecom_desgin/view/syllabus/Syllebus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,15 +33,12 @@ String selectSection="select Section";
   Widget build(BuildContext context) {
     return RefreshIndicator(
       child: Scaffold(
-
         appBar: AppBar(
          backgroundColor: Theme.of(context).primaryColor,
           title: Text('Syllabus Status',style: MyGoogeFont.mydmSans),
-
         ),
         body: Column(
           children: [
-
              Container(
                  decoration: const BoxDecoration(
                                    boxShadow: [
@@ -63,14 +54,12 @@ String selectSection="select Section";
                                   //  borderRadius: BorderRadius.circular(20),
                                    gradient: LinearGradient(colors: [
                                      Color.fromARGB(255, 246, 243, 243),
-                                     Color.fromARGB(255, 217, 248, 233),
-                                        
+                                     Color.fromARGB(255, 217, 248, 233),      
                                    ])),
               height: 0.11.sh,
                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    
                   Container(
                      height: 0.050.sh,
                   decoration: BoxDecoration(
@@ -93,12 +82,9 @@ String selectSection="select Section";
                        }).toList(),
                        onChanged: (dynamic country){
                          selectClass=country;
-                       
                         classListController.classSectionapi(country);
-                        setState(() {
-                          
-                        });
-                               
+                        setState(() {                    
+                        });           
                        },
                      ),),
                   ),
@@ -118,14 +104,13 @@ String selectSection="select Section";
                                        hint:  classListController.isloding2.value ?SizedBox(width: 110,height:20,child: Text(selectSection)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
                                            items: classListController.classSection.map((country){
                                            return DropdownMenuItem( 
-                           value: country, 
-                           child: Text(country),
+                                           value: country, 
+                                           child: Text(country),
                                            );
                                            }).toList(),
                                            onChanged: (dynamic country){
                                          selectSection=country;
-                                         setState(() {
-                                        
+                                         setState(() {           
                                            teacherSyllebusController.loadingTeacherSylabusStatus.value=false;
                                            teacherSyllebusController.classSectiontSyllebusapi(country);
                                          });

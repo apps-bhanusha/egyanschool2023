@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/Widgets/TextFieldWidget.dart';
 import 'package:ecom_desgin/constant/date_format.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/addstudentLeaveRecord_controller.dart';
@@ -213,7 +214,7 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
                               fontWeight: FontWeight.normal,
                               color: Colors.black,
                             ),
-                            children: <TextSpan>[
+                            children: const <TextSpan>[
                               TextSpan(
                                   text: '*',
                                   style: TextStyle(
@@ -242,16 +243,16 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
 
                           items: countries1.map((country){
                             return DropdownMenuItem(
+                              value: country,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(country),
                               ),
-                              value: country,
                             );
                           }).toList(),
-                          hint: Center(
+                          hint: const Center(
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.0),
                               child: Text("Select LeaveType",style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 14,
@@ -300,7 +301,7 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
                         // optional flex property if flex is 1 because the default flex is 1
                         flex: 1,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 10).r,
+                          padding: const EdgeInsets.only(left: 5).r,
                           child: TextField(
                               controller: fromdateController,
                               decoration: InputDecoration(
@@ -335,7 +336,29 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
                                         errorInvalidText: 'Out of range.',
                                         errorInvalidRangeText: 'Invalid range.',
                                         fieldStartHintText: 'Start Date',
-                                        fieldEndLabelText: 'End Date');
+                                        fieldEndLabelText: 'End Date',
+                                        builder: (context, Widget? child) {
+                                    return Theme(
+                                      data: ThemeData.light().copyWith(
+                                        primaryColor: Colors.blue,
+                                        scaffoldBackgroundColor: Colors.grey[50],
+                                        dividerColor: Colors.grey,
+                                        textTheme: const TextTheme(
+                                          bodyMedium:
+                                          TextStyle(color: Colors.black),
+                                        ),
+                                        colorScheme: ColorScheme.fromSwatch().copyWith(
+
+                                          primary: Colors.blue,
+
+                                          onSurface: Colors.black,
+
+                                        ),
+                                      ),
+                                      child: child!,
+                                    );
+                                  }
+                                        );
 
                                 if (pickedRange != null) {
                                   print(
@@ -380,7 +403,7 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
                         // optional flex property if flex is 1 because the default flex is 1
                         flex: 1,
                         child: Padding(
-                          padding: const EdgeInsets.only(right: 10).r,
+                          padding: const EdgeInsets.only(right: 5).r,
                           child: TextField(
                             controller: todateController,
                             decoration: InputDecoration(
@@ -398,26 +421,28 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10).r,
-                    child: TextField(
-                      controller: reasonController,
-                      onChanged: (content) {
-                        studentLeave();
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Reason',
-                        hintText: show,
-                        contentPadding: EdgeInsets.all(5).r,
-                        labelStyle: TextStyle(color: Colors.grey[400]),
-                      ),
-                      style: GoogleFonts.dmSans(
-                        fontStyle: FontStyle.normal,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+       CustomTextField(hint: 'Reason',controller: reasonController,inputType: TextInputType.text,obscureText: false,onChange: (value){   studentLeave();},),
+
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 10, right: 10).r,
+                  //   child: TextField(
+                  //     controller: reasonController,
+                  //     onChanged: (content) {
+                  //       studentLeave();
+                  //     },
+                  //     decoration: InputDecoration(
+                  //       labelText: 'Reason',
+                  //       hintText: show,
+                  //       contentPadding: EdgeInsets.all(5).r,
+                  //       labelStyle: TextStyle(color: Colors.grey[400]),
+                  //     ),
+                  //     style: GoogleFonts.dmSans(
+                  //       fontStyle: FontStyle.normal,
+                  //       fontSize: 15.sp,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  // ),
 
                   Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -463,12 +488,17 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
                       ],
                     ),
                   ),
-                  Row(
-                    children: [
-                      Text("file :- "),
-                      Text(fileData ?? ""),
-                    ],
-                  ),
+              Row(
+  children: [
+        const Text("file :- "),
+    SizedBox(
+      width:180,
+      child: Text(fileData??"",
+      overflow: TextOverflow.ellipsis,
+      ),
+    ),
+  ],
+),
                   // Container(
                   //   child: Text(
                   //     'Attach Document',
