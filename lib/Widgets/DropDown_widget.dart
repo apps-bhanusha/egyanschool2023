@@ -33,14 +33,16 @@ class _DropDownWidgetState extends State<DropDownWidget> {
                   // width: double.infinity,
                   
            child: 
-             DropdownButton(
-
+                       DropdownButton(
                                   isExpanded: widget.xpand,
                                   isDense: true,
                        underline: const SizedBox(),
                iconSize: 35,
                 //  alignment: Alignment.center,
-             hint:  widget.isloading?SizedBox(width: 110,height:20,child: Text(widget.selectText)):const SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+             hint:  widget.isloading?SizedBox(width: 110,height:20,child: Padding(
+               padding: const EdgeInsets.only(left: 5),
+               child: Text(widget.selectText),
+             )):const SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
                  items: widget.empaty.isEmpty? widget.item.map((country){
                  return DropdownMenuItem( 
               value: country, 

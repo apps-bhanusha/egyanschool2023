@@ -55,6 +55,7 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
   var fileData;
   var staff_id;
   var leave_type_id;
+  bool isloading=true;
   bool fileSelected = false;
   bool selectstaff =false;
   List<types.Message> _messages = [];
@@ -187,6 +188,7 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
   Widget build(BuildContext context) => SizedBox(
         height: 0.58.sh,
         child: Scaffold(
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
             title:  Text("Add Staff Leave",style: MyGoogeFont.mydmSans),
@@ -230,7 +232,7 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
                           setState(() {
                             dataset(country);
                           });
-                    }, xpand:false,)
+                    }, xpand:true,)
                     // Container(
                     //   height: 0.060.sh,
                     //   decoration: BoxDecoration(
@@ -534,6 +536,9 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
                               padding: const EdgeInsets.only(top: 20),
                               child: ElevatedButton(
                                   onPressed: () async {
+                                    setState(() {
+                                      isloading=false;
+                                    });
                                     // final user = User(
                                     //    "",
                                     //     fromdateController.text,
@@ -541,12 +546,12 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
                                     //     reasonController.text,
                                     //     userfile);
                                     message = reasonController.text;
-
+                           
                                     staff_id = box.get("staff_id");
 
                                     // widget.addUser(user);
                                     if (fileSelected == true) {
-
+                                  
                                       addStaffLeaveRecord
                                           .AddStaffLeaveRecordapi(
                                               staff_id,
@@ -560,6 +565,9 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
                                       ).then((value){
                                    if(value=="true"){
                                      Navigator.of(context).pop();
+                                    isloading=true;
+                                   }else{
+                                    isloading=true;
                                    }
                                       });
 
@@ -575,7 +583,7 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
                                   ),
                                   // Navigator.pop(context, MyRoutes.homeRoute);
 
-                                  child: Text(
+                                  child: isloading? Text(
                                     'Submit',
                                     style: GoogleFonts.dmSans(
                                       fontStyle: FontStyle.normal,
@@ -583,12 +591,17 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
-                                  )),
+                                  ):const CircularProgressIndicator(color: Colors.white,)),
                             )
                           : Padding(
                               padding: const EdgeInsets.only(top: 20),
                               child: ElevatedButton(
                                   onPressed: () async {},
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all(
+                                            Colors.grey),
+                                  ),
                                   child: Text(
                                     'Submit',
                                     style: GoogleFonts.dmSans(
@@ -597,11 +610,6 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
-                                  ),
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all(
-                                            Colors.grey),
                                   )),
                             ),
                     ]),

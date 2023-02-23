@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:ecom_desgin/Widgets/DropDown_widget.dart';
+import 'package:ecom_desgin/Widgets/fees_widget.dart';
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/font.dart';
@@ -226,487 +227,498 @@ class _StudentFeesState extends State<StudentFees> {
                 ),
               ),
               Obx(()=> studentFeesController.loadingfees.value?
-                Column(
-                  children: [
+               FeesWidget(total_balance_amount: studentFeesController.FeeControllerList[0]["response"]["total_balance_amount"].toString(), 
+    total_amount: studentFeesController.FeeControllerList[0]["response"]["total_amount"].toString(),
+     name: studentFeesController.studentProfileModel.value?.response.name, 
+     profileimage: studentFeesController.studentProfileModel.value?.response.profileimage,
+      responseClass: studentFeesController.studentProfileModel.value?.response.responseClass, 
+      section: studentFeesController.studentProfileModel.value?.response.section,
+       total_discount_amount: studentFeesController.FeeControllerList[0]["response"]["total_discount_amount"].toString(), 
+       total_deposite_amount:  studentFeesController.FeeControllerList[0]["response"]["total_deposite_amount"].toString(),
+        total_fine_amount: studentFeesController.FeeControllerList[0]["response"]["total_fine_amount"].toString()
+        )
+  //               Column(
+  //                 children: [
 
-                    SizedBox(height: 0.010.sh,),
-  PieChart(dataMap: {
-                      "Due Fees":double.parse('${studentFeesController.FeeControllerList[0]["response"]["total_balance_amount"]}'),
-                      "Paid  Fees":double.parse('${(studentFeesController.FeeControllerList[0]["response"]["total_amount"]-studentFeesController.FeeControllerList[0]["response"]["total_balance_amount"])}'),
-                    },
-                      animationDuration: Duration(milliseconds: 800),
-                      chartLegendSpacing: _chartLegendSpacing!,
-                      chartRadius: MediaQuery.of(context).size.width / 2.5,
-                      initialAngleInDegree: 0,
-                      chartType: ChartType.disc,
+  //                   SizedBox(height: 0.010.sh,),
+  // PieChart(dataMap: {
+  //                     "Due Fees":double.parse('${studentFeesController.FeeControllerList[0]["response"]["total_balance_amount"]}'),
+  //                     "Paid  Fees":double.parse('${(studentFeesController.FeeControllerList[0]["response"]["total_amount"]-studentFeesController.FeeControllerList[0]["response"]["total_balance_amount"])}'),
+  //                   },
+  //                     animationDuration: Duration(milliseconds: 800),
+  //                     chartLegendSpacing: _chartLegendSpacing!,
+  //                     chartRadius: MediaQuery.of(context).size.width / 2.5,
+  //                     initialAngleInDegree: 0,
+  //                     chartType: ChartType.disc,
 
-                      centerTextStyle: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white
-                      ),
+  //                     centerTextStyle: const TextStyle(
+  //                         fontWeight: FontWeight.bold,
+  //                         color: Colors.white
+  //                     ),
 
-                      legendOptions: LegendOptions(
-                        showLegendsInRow: _showLegendsInRow,
-                        legendPosition: _legendPosition!,
-                        showLegends: _showLegends,
+  //                     legendOptions: LegendOptions(
+  //                       showLegendsInRow: _showLegendsInRow,
+  //                       legendPosition: _legendPosition!,
+  //                       showLegends: _showLegends,
 
-                        legendShape:BoxShape.rectangle,
-                        legendTextStyle: TextStyle(
-                          fontWeight: FontWeight.bold,
+  //                       legendShape:BoxShape.rectangle,
+  //                       legendTextStyle: TextStyle(
+  //                         fontWeight: FontWeight.bold,
 
-                        ),
+  //                       ),
 
-                      ),
-                      chartValuesOptions:  const ChartValuesOptions(
-                          decimalPlaces: 0,
-                          showChartValueBackground: false,
-                          showChartValues: true,
-                          showChartValuesInPercentage: true,
-                          showChartValuesOutside: false,
-                          chartValueStyle:TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white
-                          ) ,
-                          chartValueBackgroundColor: Colors.white
+  //                     ),
+  //                     chartValuesOptions:  const ChartValuesOptions(
+  //                         decimalPlaces: 0,
+  //                         showChartValueBackground: false,
+  //                         showChartValues: true,
+  //                         showChartValuesInPercentage: true,
+  //                         showChartValuesOutside: false,
+  //                         chartValueStyle:TextStyle(
+  //                             fontWeight: FontWeight.bold,
+  //                             color: Colors.white
+  //                         ) ,
+  //                         chartValueBackgroundColor: Colors.white
 
-                      ),
-                      colorList: colorList,
-                      // baseChartColor: Colors.white,
-                      // gradientList: gradientList,
-                      emptyColorGradient: [
-                        Color(0xff6c5ce7),
-                        Colors.blue,
+  //                     ),
+  //                     colorList: colorList,
+  //                     // baseChartColor: Colors.white,
+  //                     // gradientList: gradientList,
+  //                     emptyColorGradient: [
+  //                       Color(0xff6c5ce7),
+  //                       Colors.blue,
 
-                      ],
+  //                     ],
 
-              ),
-
-
-                 Stack(
-                      children: [
-
-                        SizedBox(
-                          height: 0.60.sw,
-                          child: Card(
-                            elevation: 5,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(10),
-                                    topLeft: Radius.circular(10),
-                                    bottomRight: Radius.circular(10),
-                                    topRight: Radius.circular(10)),
-                                side: BorderSide(width: 0.001.sw, color: Colors.white60)),
-                            child: Column(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.lightBlueAccent,
-                                      borderRadius: BorderRadius.only(topLeft: Radius.circular(10),  topRight: Radius.circular(10)),),
-
-                                    height: 0.02.sh,
-
-                                  ) ,
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10,left: 100).r,
-                                    child: Text(
-                                      '${studentFeesController.studentProfileModel.value?.response.name}',
-                                      // _allsetController.SchoolIdControllerList[0]["response"][0]["name"] ??"",
-                                      style: GoogleFonts.dmSans(
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 18.sp,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.lightBlue),
-                                    ),
-
-                                  ),
-                                  Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 30).r,
-                                        child: Transform.scale(
-                                          scale: s == _index ?  2 : 2,
-                                          // transform: Matrix4.identity(),
-
-                                          child:  '${ApiUrl.imagesUrl.toString()}${studentFeesController.studentProfileModel.value?.response.profileimage}'!=null?ClipRRect(
-                                            // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
-                                            child:   CircleAvatar(
-                                              radius: 20.0,
-                                              backgroundImage:
-                                              NetworkImage('${ApiUrl.imagesUrl.toString()}${studentFeesController.studentProfileModel.value?.response.profileimage}'),
-                                            ),
-                                          ):const ClipRRect(
-                                            // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
-                                            child:   CircleAvatar(
-                                              radius: 20.0,
-                                              backgroundImage:
-
-                                              AssetImage("assets/images/user1.png"),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 40).r,
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Class',
-                                              style: GoogleFonts.dmSans(
-                                                fontStyle: FontStyle.normal,
-                                                fontSize:15.sp,
-                                                fontWeight: FontWeight.bold,
-
-                                              ),
-                                            ),
-                                            Text(
-                                              'Section',
-                                              style: GoogleFonts.dmSans(
-                                                fontStyle: FontStyle.normal,
-                                                fontSize:15.sp,
-                                                fontWeight: FontWeight.bold,
-
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 150).r,
-                                        child:studentFeesController.studentProfileModel.value!=null? Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              '${studentFeesController.studentProfileModel.value?.response.responseClass}',
-                                              // _allsetController.SchoolIdControllerList[0]["response"][0]["class"] ?? "",
-
-                                              style: GoogleFonts.dmSans(
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 13.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.lightBlue),
-                                            ),
-
-                                            Text(
-                                              '${studentFeesController.studentProfileModel.value?.response.section}',
-                                              // _allsetController.SchoolIdControllerList[0]["response"][0]["section"] ?? "",
-
-                                              style: GoogleFonts.dmSans(
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 13.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.lightBlue),
-                                            ),
-
-                                          ],
-                                        ):Center(child: Text("")),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left:10,top: 30.0).r,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Expanded(
-                                          flex: 1,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Total Fees",
-
-                                                style: GoogleFonts.dmSans(
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 15.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.grey[600],
-
-                                                ),
-
-                                              ),
-                                              Obx(()=>   studentFeesController.loadingfees.value?
-                                              Text(
-                                                studentFeesController.FeeControllerList[0]["response"]["total_amount"].toString(),
-                                                // _allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"].toString(),
-
-                                                style: GoogleFonts.dmSans(
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 15.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.grey[600],
-
-                                                ),
-
-                                              ):Text(""),
-                                              ),
-                                              // SizedBox(height: 0.010.sh),
-                                              // Container(color:Colors.black,height:0.001.sh,width: 0.40.sw,),
-                                            ],
-                                          ),
-                                        ),
-
-                                        SizedBox(width: 0.090.sw),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Fees Due",
-
-                                                style: GoogleFonts.dmSans(
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 15.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.grey[600],
-
-                                                ),
-
-                                              ),
-                                              Obx(()=>studentFeesController.loadingfees.value?
-                                              Text(
-                                                studentFeesController.FeeControllerList[0]["response"]["total_balance_amount"].toString(),
-                                                // _allsetController.SchoolIdControllerList[0]["response"][0]["fee"]["total_balance_amount"].toString(),
-
-                                                style: GoogleFonts.dmSans(
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 15.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.grey[600],
-
-                                                ),
-
-                                              ):Text(""),
-                                              ),
-                                              // SizedBox(height: 0.010.sh),
-                                              // Container(color:Colors.black,height:0.001.sh,width: 0.40.sw,),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(right: 10).r,
-                                          child: Container(
-                                            height: 0.06.sh,
-                                            width: 0.15.sw,
-
-                                            child: FloatingActionButton(
-
-                                                child: Text("Pay",style: GoogleFonts.dmSans(
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize:15.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white,
-                                                ),
-                                                ),
-
-                                                backgroundColor: Colors.blue,
-                                                onPressed: () async {
-
-                                                } ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+  //             ),
 
 
-                                ],
-                              )
-                            ),
-                          ),
-                        ]),
+  //                Stack(
+  //                     children: [
+
+  //                       SizedBox(
+  //                         height: 0.60.sw,
+  //                         child: Card(
+  //                           elevation: 5,
+  //                           shape: RoundedRectangleBorder(
+  //                               borderRadius: BorderRadius.only(
+  //                                   bottomLeft: Radius.circular(10),
+  //                                   topLeft: Radius.circular(10),
+  //                                   bottomRight: Radius.circular(10),
+  //                                   topRight: Radius.circular(10)),
+  //                               side: BorderSide(width: 0.001.sw, color: Colors.white60)),
+  //                           child: Column(
+  //                               children: [
+  //                                 Container(
+  //                                   decoration: BoxDecoration(
+  //                                     color: Colors.lightBlueAccent,
+  //                                     borderRadius: BorderRadius.only(topLeft: Radius.circular(10),  topRight: Radius.circular(10)),),
+
+  //                                   height: 0.02.sh,
+
+  //                                 ) ,
+  //                                 Padding(
+  //                                   padding: const EdgeInsets.only(top: 10,left: 100).r,
+  //                                   child: Text(
+  //                                     '${studentFeesController.studentProfileModel.value?.response.name}',
+  //                                     // _allsetController.SchoolIdControllerList[0]["response"][0]["name"] ??"",
+  //                                     style: GoogleFonts.dmSans(
+  //                                         fontStyle: FontStyle.normal,
+  //                                         fontSize: 18.sp,
+  //                                         fontWeight: FontWeight.bold,
+  //                                         color: Colors.lightBlue),
+  //                                   ),
+
+  //                                 ),
+  //                                 Row(
+  //                                   children: [
+  //                                     Padding(
+  //                                       padding: const EdgeInsets.only(left: 30).r,
+  //                                       child: Transform.scale(
+  //                                         scale: s == _index ?  2 : 2,
+  //                                         // transform: Matrix4.identity(),
+
+  //                                         child:  '${ApiUrl.imagesUrl.toString()}${studentFeesController.studentProfileModel.value?.response.profileimage}'!=null?ClipRRect(
+  //                                           // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
+  //                                           child:   CircleAvatar(
+  //                                             radius: 20.0,
+  //                                             backgroundImage:
+  //                                             NetworkImage('${ApiUrl.imagesUrl.toString()}${studentFeesController.studentProfileModel.value?.response.profileimage}'),
+  //                                           ),
+  //                                         ):const ClipRRect(
+  //                                           // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
+  //                                           child:   CircleAvatar(
+  //                                             radius: 20.0,
+  //                                             backgroundImage:
+
+  //                                             AssetImage("assets/images/user1.png"),
+  //                                           ),
+  //                                         ),
+  //                                       ),
+  //                                     ),
+  //                                     Padding(
+  //                                       padding: const EdgeInsets.only(left: 40).r,
+  //                                       child: Column(
+  //                                         mainAxisAlignment: MainAxisAlignment.start,
+  //                                         crossAxisAlignment: CrossAxisAlignment.start,
+  //                                         children: [
+  //                                           Text(
+  //                                             'Class',
+  //                                             style: GoogleFonts.dmSans(
+  //                                               fontStyle: FontStyle.normal,
+  //                                               fontSize:15.sp,
+  //                                               fontWeight: FontWeight.bold,
+
+  //                                             ),
+  //                                           ),
+  //                                           Text(
+  //                                             'Section',
+  //                                             style: GoogleFonts.dmSans(
+  //                                               fontStyle: FontStyle.normal,
+  //                                               fontSize:15.sp,
+  //                                               fontWeight: FontWeight.bold,
+
+  //                                             ),
+  //                                           ),
+  //                                         ],
+  //                                       ),
+  //                                     ),
+  //                                     Padding(
+  //                                       padding: const EdgeInsets.only(left: 150).r,
+  //                                       child:studentFeesController.studentProfileModel.value!=null? Column(
+  //                                         mainAxisAlignment: MainAxisAlignment.start,
+  //                                         crossAxisAlignment: CrossAxisAlignment.start,
+  //                                         children: [
+  //                                           Text(
+  //                                             '${studentFeesController.studentProfileModel.value?.response.responseClass}',
+  //                                             // _allsetController.SchoolIdControllerList[0]["response"][0]["class"] ?? "",
+
+  //                                             style: GoogleFonts.dmSans(
+  //                                                 fontStyle: FontStyle.normal,
+  //                                                 fontSize: 13.sp,
+  //                                                 fontWeight: FontWeight.bold,
+  //                                                 color: Colors.lightBlue),
+  //                                           ),
+
+  //                                           Text(
+  //                                             '${studentFeesController.studentProfileModel.value?.response.section}',
+  //                                             // _allsetController.SchoolIdControllerList[0]["response"][0]["section"] ?? "",
+
+  //                                             style: GoogleFonts.dmSans(
+  //                                                 fontStyle: FontStyle.normal,
+  //                                                 fontSize: 13.sp,
+  //                                                 fontWeight: FontWeight.bold,
+  //                                                 color: Colors.lightBlue),
+  //                                           ),
+
+  //                                         ],
+  //                                       ):Center(child: Text("")),
+  //                                     ),
+  //                                   ],
+  //                                 ),
+  //                                 Padding(
+  //                                   padding: const EdgeInsets.only(left:10,top: 30.0).r,
+  //                                   child: Row(
+  //                                     mainAxisAlignment:
+  //                                     MainAxisAlignment.start,
+  //                                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                                     children: <Widget>[
+  //                                       Expanded(
+  //                                         flex: 1,
+  //                                         child: Column(
+  //                                           mainAxisAlignment:
+  //                                           MainAxisAlignment.spaceBetween,
+  //                                           crossAxisAlignment: CrossAxisAlignment.start,
+  //                                           children: [
+  //                                             Text(
+  //                                               "Total Fees",
+
+  //                                               style: GoogleFonts.dmSans(
+  //                                                 fontStyle: FontStyle.normal,
+  //                                                 fontSize: 15.sp,
+  //                                                 fontWeight: FontWeight.bold,
+  //                                                 color: Colors.grey[600],
+
+  //                                               ),
+
+  //                                             ),
+  //                                             Obx(()=>   studentFeesController.loadingfees.value?
+  //                                             Text(
+  //                                               studentFeesController.FeeControllerList[0]["response"]["total_amount"].toString(),
+  //                                               // _allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"].toString(),
+
+  //                                               style: GoogleFonts.dmSans(
+  //                                                 fontStyle: FontStyle.normal,
+  //                                                 fontSize: 15.sp,
+  //                                                 fontWeight: FontWeight.bold,
+  //                                                 color: Colors.grey[600],
+
+  //                                               ),
+
+  //                                             ):Text(""),
+  //                                             ),
+  //                                             // SizedBox(height: 0.010.sh),
+  //                                             // Container(color:Colors.black,height:0.001.sh,width: 0.40.sw,),
+  //                                           ],
+  //                                         ),
+  //                                       ),
+
+  //                                       SizedBox(width: 0.090.sw),
+  //                                       Expanded(
+  //                                         flex: 1,
+  //                                         child: Column(
+  //                                           mainAxisAlignment:
+  //                                           MainAxisAlignment.spaceBetween,
+  //                                           crossAxisAlignment: CrossAxisAlignment.start,
+  //                                           children: [
+  //                                             Text(
+  //                                               "Fees Due",
+
+  //                                               style: GoogleFonts.dmSans(
+  //                                                 fontStyle: FontStyle.normal,
+  //                                                 fontSize: 15.sp,
+  //                                                 fontWeight: FontWeight.bold,
+  //                                                 color: Colors.grey[600],
+
+  //                                               ),
+
+  //                                             ),
+  //                                             Obx(()=>studentFeesController.loadingfees.value?
+  //                                             Text(
+  //                                               studentFeesController.FeeControllerList[0]["response"]["total_balance_amount"].toString(),
+  //                                               // _allsetController.SchoolIdControllerList[0]["response"][0]["fee"]["total_balance_amount"].toString(),
+
+  //                                               style: GoogleFonts.dmSans(
+  //                                                 fontStyle: FontStyle.normal,
+  //                                                 fontSize: 15.sp,
+  //                                                 fontWeight: FontWeight.bold,
+  //                                                 color: Colors.grey[600],
+
+  //                                               ),
+
+  //                                             ):Text(""),
+  //                                             ),
+  //                                             // SizedBox(height: 0.010.sh),
+  //                                             // Container(color:Colors.black,height:0.001.sh,width: 0.40.sw,),
+  //                                           ],
+  //                                         ),
+  //                                       ),
+  //                                       Padding(
+  //                                         padding: const EdgeInsets.only(right: 10).r,
+  //                                         child: Container(
+  //                                           height: 0.06.sh,
+  //                                           width: 0.15.sw,
+
+  //                                           child: FloatingActionButton(
+
+  //                                               child: Text("Pay",style: GoogleFonts.dmSans(
+  //                                                 fontStyle: FontStyle.normal,
+  //                                                 fontSize:15.sp,
+  //                                                 fontWeight: FontWeight.bold,
+  //                                                 color: Colors.white,
+  //                                               ),
+  //                                               ),
+
+  //                                               backgroundColor: Colors.blue,
+  //                                               onPressed: () async {
+
+  //                                               } ),
+  //                                         ),
+  //                                       ),
+  //                                     ],
+  //                                   ),
+  //                                 ),
 
 
-                    SizedBox(height: 0.020.sw),
-                    SizedBox(
-                      height: 0.60.sw,
-                      child: Card(
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(10),
-                                topLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                            side: BorderSide(width: 0.001.sw, color: Colors.white60)),
-                        child: Column(
-                          children: [
-                            Container(
-                              decoration: const BoxDecoration(
-                                color: Colors.lightBlueAccent,
-                                borderRadius: BorderRadius.only(topLeft: Radius.circular(10),  topRight: Radius.circular(10)),),
-
-                              height: 0.02.sh,
-
-                            ) ,
-                            Padding(
-                              padding: const EdgeInsets.all(8.0).r,
-                              child:   Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Grand Total',
-                                    style: GoogleFonts.dmSans(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize:15.sp,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  Obx(
-                                          () =>
-                                          studentFeesController.loadingfees.value? Text(
-                                            studentFeesController.FeeControllerList[0]["response"]["total_amount"].toString(),
-
-                                        style: GoogleFonts.dmSans(
-                                          fontStyle: FontStyle.normal,
-                                          fontSize:15.sp,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.lightBlue,
-                                        ),
-                                      ):Text("")
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child:   Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Discount',
-                                    style: GoogleFonts.dmSans(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize:15.sp,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  Obx(
-                                          () =>
-                                          studentFeesController.loadingfees.value? Text(
-                                            studentFeesController.FeeControllerList[0]["response"]["total_discount_amount"].toString(),
-
-                                        style: GoogleFonts.dmSans(
-                                          fontStyle: FontStyle.normal,
-                                          fontSize:15.sp,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.lightBlue,
-                                        ),
-                                      ):Text("")
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child:   Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Paid',
-                                    style: GoogleFonts.dmSans(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize:15.sp,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  Obx(
-                                          () =>
-                                          studentFeesController.loadingfees.value? Text(
-                                            studentFeesController.FeeControllerList[0]["response"]["total_deposite_amount"].toString(),
-
-                                        style: GoogleFonts.dmSans(
-                                          fontStyle: FontStyle.normal,
-                                          fontSize:15.sp,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.lightBlue,
-                                        ),
-                                      ):const Text("")
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child:   Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Fine',
-                                    style: GoogleFonts.dmSans(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize:15.sp,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  Obx(
-                                          () =>
-                                          studentFeesController.loadingfees.value? Text(
-                                            studentFeesController.FeeControllerList[0]["response"]["total_fine_amount"].toString(),
-
-                                        style: GoogleFonts.dmSans(
-                                          fontStyle: FontStyle.normal,
-                                          fontSize:15.sp,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.lightBlue,
-                                        ),
-                                      ):const Text("")
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child:   Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Balance',
-                                    style: GoogleFonts.dmSans(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize:15.sp,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  Obx(
-                                          () =>
-                                          studentFeesController.loadingfees.value? Text(
-                                            studentFeesController.FeeControllerList[0]["response"]["total_balance_amount"].toString(),
-
-                                        style: GoogleFonts.dmSans(
-                                          fontStyle: FontStyle.normal,
-                                          fontSize:15.sp,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.lightBlue,
-                                        ),
-                                      ):const Text("")
-                                  ),
-                                ],
-                              ),
-                            ),
+  //                               ],
+  //                             )
+  //                           ),
+  //                         ),
+  //                       ]),
 
 
+  //                   SizedBox(height: 0.020.sw),
+  //                   SizedBox(
+  //                     height: 0.60.sw,
+  //                     child: Card(
+  //                       elevation: 5,
+  //                       shape: RoundedRectangleBorder(
+  //                           borderRadius: BorderRadius.only(
+  //                               bottomLeft: Radius.circular(10),
+  //                               topLeft: Radius.circular(10),
+  //                               bottomRight: Radius.circular(10),
+  //                               topRight: Radius.circular(10)),
+  //                           side: BorderSide(width: 0.001.sw, color: Colors.white60)),
+  //                       child: Column(
+  //                         children: [
+  //                           Container(
+  //                             decoration: const BoxDecoration(
+  //                               color: Colors.lightBlueAccent,
+  //                               borderRadius: BorderRadius.only(topLeft: Radius.circular(10),  topRight: Radius.circular(10)),),
 
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ):studentFeesController.loadingfees123.value?const Text(""): Center(
+  //                             height: 0.02.sh,
+
+  //                           ) ,
+  //                           Padding(
+  //                             padding: const EdgeInsets.all(8.0).r,
+  //                             child:   Row(
+  //                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                               children: [
+  //                                 Text(
+  //                                   'Grand Total',
+  //                                   style: GoogleFonts.dmSans(
+  //                                     fontStyle: FontStyle.normal,
+  //                                     fontSize:15.sp,
+  //                                     fontWeight: FontWeight.normal,
+  //                                     color: Colors.grey,
+  //                                   ),
+  //                                 ),
+  //                                 Obx(
+  //                                         () =>
+  //                                         studentFeesController.loadingfees.value? Text(
+  //                                           studentFeesController.FeeControllerList[0]["response"]["total_amount"].toString(),
+
+  //                                       style: GoogleFonts.dmSans(
+  //                                         fontStyle: FontStyle.normal,
+  //                                         fontSize:15.sp,
+  //                                         fontWeight: FontWeight.normal,
+  //                                         color: Colors.lightBlue,
+  //                                       ),
+  //                                     ):Text("")
+  //                                 )
+  //                               ],
+  //                             ),
+  //                           ),
+  //                           Padding(
+  //                             padding: const EdgeInsets.all(8.0),
+  //                             child:   Row(
+  //                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                               children: [
+  //                                 Text(
+  //                                   'Discount',
+  //                                   style: GoogleFonts.dmSans(
+  //                                     fontStyle: FontStyle.normal,
+  //                                     fontSize:15.sp,
+  //                                     fontWeight: FontWeight.normal,
+  //                                     color: Colors.grey,
+  //                                   ),
+  //                                 ),
+  //                                 Obx(
+  //                                         () =>
+  //                                         studentFeesController.loadingfees.value? Text(
+  //                                           studentFeesController.FeeControllerList[0]["response"]["total_discount_amount"].toString(),
+
+  //                                       style: GoogleFonts.dmSans(
+  //                                         fontStyle: FontStyle.normal,
+  //                                         fontSize:15.sp,
+  //                                         fontWeight: FontWeight.normal,
+  //                                         color: Colors.lightBlue,
+  //                                       ),
+  //                                     ):Text("")
+  //                                 ),
+  //                               ],
+  //                             ),
+  //                           ),
+  //                           Padding(
+  //                             padding: const EdgeInsets.all(8.0),
+  //                             child:   Row(
+  //                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                               children: [
+  //                                 Text(
+  //                                   'Paid',
+  //                                   style: GoogleFonts.dmSans(
+  //                                     fontStyle: FontStyle.normal,
+  //                                     fontSize:15.sp,
+  //                                     fontWeight: FontWeight.normal,
+  //                                     color: Colors.grey,
+  //                                   ),
+  //                                 ),
+  //                                 Obx(
+  //                                         () =>
+  //                                         studentFeesController.loadingfees.value? Text(
+  //                                           studentFeesController.FeeControllerList[0]["response"]["total_deposite_amount"].toString(),
+
+  //                                       style: GoogleFonts.dmSans(
+  //                                         fontStyle: FontStyle.normal,
+  //                                         fontSize:15.sp,
+  //                                         fontWeight: FontWeight.normal,
+  //                                         color: Colors.lightBlue,
+  //                                       ),
+  //                                     ):const Text("")
+  //                                 ),
+  //                               ],
+  //                             ),
+  //                           ),
+  //                           Padding(
+  //                             padding: const EdgeInsets.all(8.0),
+  //                             child:   Row(
+  //                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                               children: [
+  //                                 Text(
+  //                                   'Fine',
+  //                                   style: GoogleFonts.dmSans(
+  //                                     fontStyle: FontStyle.normal,
+  //                                     fontSize:15.sp,
+  //                                     fontWeight: FontWeight.normal,
+  //                                     color: Colors.grey,
+  //                                   ),
+  //                                 ),
+  //                                 Obx(
+  //                                         () =>
+  //                                         studentFeesController.loadingfees.value? Text(
+  //                                           studentFeesController.FeeControllerList[0]["response"]["total_fine_amount"].toString(),
+
+  //                                       style: GoogleFonts.dmSans(
+  //                                         fontStyle: FontStyle.normal,
+  //                                         fontSize:15.sp,
+  //                                         fontWeight: FontWeight.normal,
+  //                                         color: Colors.lightBlue,
+  //                                       ),
+  //                                     ):const Text("")
+  //                                 ),
+  //                               ],
+  //                             ),
+  //                           ),
+  //                           Padding(
+  //                             padding: const EdgeInsets.all(8.0),
+  //                             child:   Row(
+  //                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                               children: [
+  //                                 Text(
+  //                                   'Balance',
+  //                                   style: GoogleFonts.dmSans(
+  //                                     fontStyle: FontStyle.normal,
+  //                                     fontSize:15.sp,
+  //                                     fontWeight: FontWeight.normal,
+  //                                     color: Colors.grey,
+  //                                   ),
+  //                                 ),
+  //                                 Obx(
+  //                                         () =>
+  //                                         studentFeesController.loadingfees.value? Text(
+  //                                           studentFeesController.FeeControllerList[0]["response"]["total_balance_amount"].toString(),
+
+  //                                       style: GoogleFonts.dmSans(
+  //                                         fontStyle: FontStyle.normal,
+  //                                         fontSize:15.sp,
+  //                                         fontWeight: FontWeight.normal,
+  //                                         color: Colors.lightBlue,
+  //                                       ),
+  //                                     ):const Text("")
+  //                                 ),
+  //                               ],
+  //                             ),
+  //                           ),
+
+
+
+  //                         ],
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ],
+  //               )
+                :studentFeesController.loadingfees123.value?const Text(""): Center(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 300).r,
                     child: const Center(child: CircularProgressIndicator()),

@@ -43,10 +43,13 @@ bool islike=false;
         context: context,
         builder: (_) =>
          AlertDialog(
+          backgroundColor: Colors.white,
+          
            content: StudentAddUserDialog(
              selectStudent
            ),
            shape: RoundedRectangleBorder(
+          
              borderRadius: BorderRadius.circular(10),
            ),
          ),

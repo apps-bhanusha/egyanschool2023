@@ -131,7 +131,7 @@ class _TimeTableState extends State<TimeTable> {
         });
     }
     else if(currentindex==7) {
-        datalist = [];
+         datalist=GetclassTimeTable.GetclassTimeTableControllerList[0]["response"]["result"][7]["timetable"];
         setState(() {
 
         });

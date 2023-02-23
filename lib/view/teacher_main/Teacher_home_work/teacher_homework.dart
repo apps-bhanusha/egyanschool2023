@@ -207,7 +207,7 @@ class _TeacherHomeWorkDiplayState extends State<TeacherHomeWorkDiplay> {
                                    fontWeight: FontWeight.bold,
                                    color: Colors.black,
                                  ),)),
-                             SizedBox(width: 85,
+                             SizedBox(width: 88,
                                  child: Text('${MyDateFormat.dateformatmethod1(teacherHomeWorkController.teacherHomeWorkModel.value?.response[index].homeworkDate.toString())}', style: GoogleFonts.dmSans(
                                    fontStyle: FontStyle.normal,
                                    fontSize: 14.sp,
@@ -227,9 +227,12 @@ class _TeacherHomeWorkDiplayState extends State<TeacherHomeWorkDiplay> {
                              Padding(
                                padding: const EdgeInsets.only(left: 8.0),
                                child: SizedBox(
-                                   width:80, child: Text('${teacherHomeWorkController.teacherHomeWorkModel.value?.response[index].subjectName}', style: GoogleFonts.dmSans(
+                                   width:80, child: Text('${teacherHomeWorkController.teacherHomeWorkModel.value?.response[index].subjectName}', 
+                                   overflow: TextOverflow.ellipsis,
+                                   style: GoogleFonts.dmSans(
                                  fontStyle: FontStyle.normal,
                                  fontSize: 14.sp,
+                                 
                                  fontWeight: FontWeight.bold,
                                  color: Colors.black,
                                ),)),

@@ -610,12 +610,17 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                         padding:
                                             const EdgeInsets.only(left: 18.0),
                                         child: Row(
-                                          children: [
-                                            Text("file :- "),
-                                            Text(fileData ??
-                                                ""),
-                                          ],
-                                        ),
+  children: [
+        const Text("file :- "),
+    SizedBox(
+      width:180,
+      child: Text(fileData??"",
+      overflow: TextOverflow.ellipsis,
+      ),
+    ),
+  ],
+),
+  
                                       ),
                                     ],
                                   ),
@@ -690,8 +695,7 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
 
                                       child: TextButton(
                                         onPressed: () {
-                                         classListController.buttonclick.value = true;
-                                        
+                                         classListController.buttonclick.value = true;                                  
                                             if(fileSelected==true) {
                                               classListController
                                                   .HomeworkAddListapi(

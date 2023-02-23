@@ -54,6 +54,7 @@ class _AddUserDialogState extends State<AddUserDialog>
   var show;
   var fileData;
   bool fileSelected = false;
+  bool isloading = true;
   List<types.Message> _messages = [];
   final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
 
@@ -200,6 +201,7 @@ class _AddUserDialogState extends State<AddUserDialog>
   Widget build(BuildContext context) => Container(
         height: 0.55.sh,
         child: Scaffold(
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
             title: Text("Add Leave",style: MyGoogeFont.mydmSans),
@@ -470,6 +472,9 @@ Row(
                                                 color: Colors.white),
                                           ),
         onTap:() {
+                                       setState(() {
+                                          isloading=false;
+                                       });
 
                                 message = reasonController.text;
                       // widget.addUser(user);
@@ -482,7 +487,11 @@ Row(
                                     message,
                                     userfile).then((value){
                                       if(value=="ok"){
+                                        isloading=true;
+                                        
                             Navigator.of(context).pop();
+                                      }else{
+                                        isloading=true;
                                       }
                                     });
 

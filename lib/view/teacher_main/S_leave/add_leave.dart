@@ -50,6 +50,7 @@ class _StudentAddUserDialogDialogState extends State<StudentAddUserDialog>
   var show;
   var fileData;
   bool fileSelected = false;
+  bool isloading=true;
   List<types.Message> _messages = [];
   final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
 
@@ -193,235 +194,236 @@ class _StudentAddUserDialogDialogState extends State<StudentAddUserDialog>
   var reasonController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) => Container(
-        height: 0.55.sh,
+  Widget build(BuildContext context) => SizedBox(
+        height: 0.5.sh,
+        
         child: Scaffold(
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
             title:  Text("Add Leave",style: MyGoogeFont.mydmSans),
           ),
-          body: Container(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Divider(
-                    color: Colors.grey,
-                    thickness: 1,
-                  ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                const Divider(
+                  color: Colors.grey,
+                  thickness: 1,
+                ),
 
-                  //     TextField(
-                  // controller: usernameController,
-                  //       decoration: InputDecoration(
-                  //           labelText: 'UserName',
-                  //           contentPadding: EdgeInsets.all(5),
-                  //           labelStyle: TextStyle(
-                  //             color: Colors.grey[400],
-                  //           )),
-                  //       style: GoogleFonts.dmSans(
-                  //         fontStyle: FontStyle.normal,
-                  //         fontSize: 15.sp,
-                  //         fontWeight: FontWeight.bold,
-                  //       ),
-                  //     ),
+                //     TextField(
+                // controller: usernameController,
+                //       decoration: InputDecoration(
+                //           labelText: 'UserName',
+                //           contentPadding: EdgeInsets.all(5),
+                //           labelStyle: TextStyle(
+                //             color: Colors.grey[400],
+                //           )),
+                //       style: GoogleFonts.dmSans(
+                //         fontStyle: FontStyle.normal,
+                //         fontSize: 15.sp,
+                //         fontWeight: FontWeight.bold,
+                //       ),
+                //     ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Expanded(
-                        // optional flex property if flex is 1 because the default flex is 1
-                        flex: 1,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 5).r,
-                          child: TextField(
-                              controller: fromdateController,
-                              decoration: InputDecoration(
-                                  labelText: 'From Date',
-                                  contentPadding: EdgeInsets.all(5).r,
-                                  labelStyle:
-                                       TextStyle(color: Colors.grey[400]),),
-                              style: GoogleFonts.dmSans(
-                                fontStyle: FontStyle.normal,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              readOnly: true,
-                              onTap: () async {
-                                DateTimeRange? pickedRange =
-                                    await showDateRangePicker(
-                                        context: context,
-
-                                        initialDateRange: DateTimeRange(
-         
-                                          start: DateTime.now(),
-                                          end: DateTime.now(),
-                                        ),
-                                        firstDate: DateTime.now(),
-                                        lastDate:
-                                            DateTime(DateTime.now().year + 2),
-                                        helpText: 'Select Date Range',
-                                        cancelText: 'CANCEL',
-                                        confirmText: 'OK',
-                                        saveText: 'SAVE',
-                                        errorFormatText: 'Invalid format.',
-                                        errorInvalidText: 'Out of range.',
-                                        errorInvalidRangeText: 'Invalid range.',
-                                        fieldStartHintText: 'Start Date',
-                                        fieldEndLabelText: 'End Date',
-builder: (context, Widget? child) {
-                                    return Theme(
-                                      data: ThemeData.light().copyWith(
-                                        primaryColor: Colors.blue,
-                                        scaffoldBackgroundColor: Colors.grey[50],
-                                        dividerColor: Colors.grey,
-                                        textTheme: const TextTheme(
-                                          bodyMedium:
-                                          TextStyle(color: Colors.black),
-                                        ),
-                                        colorScheme: ColorScheme.fromSwatch().copyWith(
-
-                                          primary: Colors.blue,
-
-                                          onSurface: Colors.black,
-
-                                        ),
-                                      ),
-                                      child: child!,
-                                    );
-                                  }
-                                        );
-
-                                if (pickedRange != null) {
-                                  print(
-                                      pickedRange); //pickedDate output format => 2021-03-10 00:00:00.000
-                                  DateTimeRange formattedDate = pickedRange;
-                                  print(formattedDate);
-                                  setState(() {
-                                    fromdateController.text =
-                                        MyDateFormat.dateformatmethod1(
-                                            '${pickedRange?.start}');
-                                    todateController.text =
-                                        MyDateFormat.dateformatmethod1(
-                                            '${pickedRange?.end}');
-                                    from_date = MyDateFormat.dateformatmethod(
-                                        '${pickedRange?.start}');
-                                    to_date = MyDateFormat.dateformatmethod(
-                                        '${pickedRange?.end}');
-                                    // fromdateController.text =formatDate(DateTime.parse('${pickedRange?.start}'), [dd, '-', mm, '-', yyyy]);
-                                    // todateController.text =formatDate(DateTime.parse('${pickedRange?.end}'), [dd, '-', mm, '-', yyyy]);
-                                    print(
-                                        "tttttttttttttttttttttttttttgggggggggggggggg");
-
-                                    // from_date=fromdateController.text;
-                                    // to_date=todateController.text;
-
-                                    //set output date to TextField value.
-                                  });
-                                }
-                                print("444444444444443444333");
-                                print(
-                                    'picked range ${pickedRange?.start} ${pickedRange?.end} ${pickedRange?.duration.inDays}');
-
-                                // pickedRange1='${pickedRange?.start}';
-                                // pickedRange2='${pickedRange?.end}';
-                                // print(pickedRange1);
-                                // print(pickedRange2);
-                              }),
-                        ),
-                      ),
-                      SizedBox(width: 0.030.sw),
-                      Expanded(
-                        // optional flex property if flex is 1 because the default flex is 1
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 5).r,
-                          child: TextField(
-                            controller: todateController,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Expanded(
+                      // optional flex property if flex is 1 because the default flex is 1
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 5).r,
+                        child: TextField(
+                            controller: fromdateController,
                             decoration: InputDecoration(
-                              labelText: 'To Date',
-                              contentPadding: EdgeInsets.all(5).r,
-                              labelStyle: TextStyle(color: Colors.grey[400]),
-                            ),
+                                labelText: 'From Date',
+                                contentPadding: const EdgeInsets.all(5).r,
+                                labelStyle:
+                                     TextStyle(color: Colors.grey[400]),),
                             style: GoogleFonts.dmSans(
                               fontStyle: FontStyle.normal,
                               fontSize: 15.sp,
                               fontWeight: FontWeight.bold,
                             ),
-                          ),
-                        ),
+                            readOnly: true,
+                            onTap: () async {
+                              DateTimeRange? pickedRange =
+                                  await showDateRangePicker(
+                                      context: context,
+
+                                      initialDateRange: DateTimeRange(
+         
+                                        start: DateTime.now(),
+                                        end: DateTime.now(),
+                                      ),
+                                      firstDate: DateTime.now(),
+                                      lastDate:
+                                          DateTime(DateTime.now().year + 2),
+                                      helpText: 'Select Date Range',
+                                      cancelText: 'CANCEL',
+                                      confirmText: 'OK',
+                                      saveText: 'SAVE',
+                                      errorFormatText: 'Invalid format.',
+                                      errorInvalidText: 'Out of range.',
+                                      errorInvalidRangeText: 'Invalid range.',
+                                      fieldStartHintText: 'Start Date',
+                                      fieldEndLabelText: 'End Date',
+                                      builder: (context, Widget? child) {
+                                  return Theme(
+                                    data: ThemeData.light().copyWith(
+                                      primaryColor: Colors.blue,
+                                      scaffoldBackgroundColor: Colors.grey[50],
+                                      dividerColor: Colors.grey,
+                                      textTheme: const TextTheme(
+                                        bodyMedium:
+                                        TextStyle(color: Colors.black),
+                                      ),
+                                      colorScheme: ColorScheme.fromSwatch().copyWith(
+
+                                        primary: Colors.blue,
+
+                                        onSurface: Colors.black,
+
+                                      ),
+                                    ),
+                                    child: child!,
+                                  );
+                                }
+                                      );
+
+                              if (pickedRange != null) {
+                                print(
+                                    pickedRange); //pickedDate output format => 2021-03-10 00:00:00.000
+                                DateTimeRange formattedDate = pickedRange;
+                                print(formattedDate);
+                                setState(() {
+                                  fromdateController.text =
+                                      MyDateFormat.dateformatmethod1(
+                                          '${pickedRange?.start}');
+                                  todateController.text =
+                                      MyDateFormat.dateformatmethod1(
+                                          '${pickedRange?.end}');
+                                  from_date = MyDateFormat.dateformatmethod(
+                                      '${pickedRange?.start}');
+                                  to_date = MyDateFormat.dateformatmethod(
+                                      '${pickedRange?.end}');
+                                  // fromdateController.text =formatDate(DateTime.parse('${pickedRange?.start}'), [dd, '-', mm, '-', yyyy]);
+                                  // todateController.text =formatDate(DateTime.parse('${pickedRange?.end}'), [dd, '-', mm, '-', yyyy]);
+                                  print(
+                                      "tttttttttttttttttttttttttttgggggggggggggggg");
+
+                                  // from_date=fromdateController.text;
+                                  // to_date=todateController.text;
+
+                                  //set output date to TextField value.
+                                });
+                              }
+                              print("444444444444443444333");
+                              print(
+                                  'picked range ${pickedRange?.start} ${pickedRange?.end} ${pickedRange?.duration.inDays}');
+
+                              // pickedRange1='${pickedRange?.start}';
+                              // pickedRange2='${pickedRange?.end}';
+                              // print(pickedRange1);
+                              // print(pickedRange2);
+                            }),
                       ),
-                    ],
-                  ),
-
-       CustomTextField(hint: 'Reason',controller: reasonController,inputType: TextInputType.text,obscureText: false,onChange: (value){   studentLeave();},),
-
-                  // Padding(
-                  //   padding: const EdgeInsets.only(left: 10, right: 10).r,
-                  //   child: TextField(
-                  //     controller: reasonController,
-                  //     onChanged: (content){
-                  //       studentLeave();
-                  //     },
-                  //     decoration: InputDecoration(
-                  //       labelText: 'Reason',
-                  //       hintText: show,
-                  //       contentPadding: EdgeInsets.all(5).r,
-                  //       labelStyle: TextStyle(color: Colors.grey[400]),
-                  //     ),
-                  //     style: GoogleFonts.dmSans(
-                  //       fontStyle: FontStyle.normal,
-                  //       fontSize: 15.sp,
-                  //       fontWeight: FontWeight.bold,
-                  //     ),
-                  //   ),
-                  // ),
-
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Attach Document",
+                    ),
+                    SizedBox(width: 0.030.sw),
+                    Expanded(
+                      // optional flex property if flex is 1 because the default flex is 1
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 5).r,
+                        child: TextField(
+                          controller: todateController,
+                          decoration: InputDecoration(
+                            labelText: 'To Date',
+                            contentPadding: EdgeInsets.all(5).r,
+                            labelStyle: TextStyle(color: Colors.grey[400]),
+                          ),
                           style: GoogleFonts.dmSans(
                             fontStyle: FontStyle.normal,
                             fontSize: 15.sp,
                             fontWeight: FontWeight.bold,
-                            color: Colors.grey[600],
                           ),
                         ),
-                        Container(
-                          height: 0.06.sh,
-                          width: 0.10.sw,
-                          color: Colors.white,
-                          child: FloatingActionButton(
-                              child: Icon(Icons.upload_sharp),
-                              backgroundColor: Colors.white,
-                              onPressed: () async {
-                                FilePickerResult? result =
-                                    await FilePicker.platform.pickFiles();
-
-                                if (result != null) {
-                                  PlatformFile file = result.files.first;
-
-                                  print(file.name);
-                                  print(file.bytes);
-                                  print(file.size);
-                                  print(file.extension);
-                                  print(file.path);
-                                  userfile =file.path;
-                                  fileData=file.name.toString();
-                                  setState(() {
-
-                                  });
-                                } else {
-                                  print('No file selected');
-                                }
-                              }),
-                        ),
-
-                      ],
+                      ),
                     ),
+                  ],
+                ),
+
+       CustomTextField(hint: 'Reason',controller: reasonController,inputType: TextInputType.text,obscureText: false,onChange: (value){   studentLeave();},),
+
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 10, right: 10).r,
+                //   child: TextField(
+                //     controller: reasonController,
+                //     onChanged: (content){
+                //       studentLeave();
+                //     },
+                //     decoration: InputDecoration(
+                //       labelText: 'Reason',
+                //       hintText: show,
+                //       contentPadding: EdgeInsets.all(5).r,
+                //       labelStyle: TextStyle(color: Colors.grey[400]),
+                //     ),
+                //     style: GoogleFonts.dmSans(
+                //       fontStyle: FontStyle.normal,
+                //       fontSize: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //   ),
+                // ),
+
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Attach Document",
+                        style: GoogleFonts.dmSans(
+                          fontStyle: FontStyle.normal,
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                      Container(
+                        height: 0.06.sh,
+                        width: 0.10.sw,
+                        color: Colors.white,
+                        child: FloatingActionButton(
+                            child: Icon(Icons.upload_sharp),
+                            backgroundColor: Colors.white,
+                            onPressed: () async {
+                              FilePickerResult? result =
+                                  await FilePicker.platform.pickFiles();
+
+                              if (result != null) {
+                                PlatformFile file = result.files.first;
+
+                                print(file.name);
+                                print(file.bytes);
+                                print(file.size);
+                                print(file.extension);
+                                print(file.path);
+                                userfile =file.path;
+                                fileData=file.name.toString();
+                                setState(() {
+
+                                });
+                              } else {
+                                print('No file selected');
+                              }
+                            }),
+                      ),
+
+                    ],
                   ),
+                ),
 Row(
   children: [
         const Text("file :- "),
@@ -433,105 +435,109 @@ Row(
     ),
   ],
 ),
-                  // Container(
-                  //   child: Text(
-                  //     'Attach Document',
-                  //
-                  //     style: GoogleFonts.dmSans(
-                  //       fontStyle: FontStyle.normal,
-                  //       fontSize: 15.sp,
-                  //       fontWeight: FontWeight.bold,
-                  //       color: Colors.black,
-                  //     ),
-                  //   ),
-                  // ),
+                // Container(
+                //   child: Text(
+                //     'Attach Document',
+                //
+                //     style: GoogleFonts.dmSans(
+                //       fontStyle: FontStyle.normal,
+                //       fontSize: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //       color: Colors.black,
+                //     ),
+                //   ),
+                // ),
 
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // ElevatedButton(
-                        //   onPressed: () {
-                        //     selectDateRange(context);
-                        //   },
-                        //   child: Text('select range'),
-                        // ),
-                      fileSelected?  Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: ElevatedButton(
-                              onPressed: () async {
-                                 var box = Hive.box("schoolData");
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // ElevatedButton(
+                      //   onPressed: () {
+                      //     selectDateRange(context);
+                      //   },
+                      //   child: Text('select range'),
+                      // ),
+                    fileSelected?  Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: ElevatedButton(
+                            onPressed: () async {
+                               var box = Hive.box("schoolData");
       var company_key = box.get("company_key");
       var staff_id = box.get("staff_id");
-                                // final user = User(
-                                //    "",
-                                //     fromdateController.text,
-                                //     todateController.text,
-                                //     reasonController.text,
-                                //     userfile);
-                                message = reasonController.text;
+                              // final user = User(
+                              //    "",
+                              //     fromdateController.text,
+                              //     todateController.text,
+                              //     reasonController.text,
+                              //     userfile);
+                              message = reasonController.text;
 
+setState(() {
+  isloading=false;
+});
+                              // widget.addUser(user);
+                          if(fileSelected==true){
 
-                                // widget.addUser(user);
-                            if(fileSelected==true){
+                              AddStudentLeaveRecord.StudentAddStudentLeaveapi(
+                                  company_key,
+                                  from_date,
+                                  to_date,
+                                  message,
+                                  userfile,staff_id,widget.student).then((value){
+                                    if(value=="success"){
+                                        isloading=true;
+                            Navigator.of(context).pop();
+                                    }else{
+                                    isloading=true;
+                                   }
+                                  });
+                                 
 
-                                AddStudentLeaveRecord.StudentAddStudentLeaveapi(
-                                    company_key,
-                                    from_date,
-                                    to_date,
-                                    message,
-                                    userfile,staff_id,widget.student).then((value){
-                                      if(value=="success"){
-                              Navigator.of(context).pop();
-                                      }
-                                    });
-                                   
+                       
+                            } else {
+                              show = "Please Enter message";
+                            }
+                          },
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.blue),
+                            ),
+                              // Navigator.pop(context, MyRoutes.homeRoute);
 
-                         
-                              } else {
-                                show = "Please Enter message";
-                              }
-                            },
-                                // Navigator.pop(context, MyRoutes.homeRoute);
-
-                              child: Text(
-                                'Submit',
-                                style: GoogleFonts.dmSans(
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
+                            child: isloading?Text(
+                              'Submit',
+                              style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
                               ),
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.blue),
-                              )),
-                      ):Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: ElevatedButton(
-              onPressed: () async {
+                            ):const CircularProgressIndicator(color: Colors.white,)),
+                    ):Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: ElevatedButton(
+            onPressed: () async {
 
         },
-            child: Text(
-              'Submit',
-              style: GoogleFonts.dmSans(
-                fontStyle: FontStyle.normal,
-                fontSize: 15.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+          style: ButtonStyle(
+            backgroundColor:
+            MaterialStateProperty.all(Colors.grey),
+          ),
+          child: Text(
+            'Submit',
+            style: GoogleFonts.dmSans(
+              fontStyle: FontStyle.normal,
+              fontSize: 15.sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
-            style: ButtonStyle(
-              backgroundColor:
-              MaterialStateProperty.all(Colors.grey),
-            )),
-                      ),
-                      ]),
+          )),
+                    ),
+                    ]),
 
-                  // Container(color:Colors.black,height:0.001.sh,width: 0.96.sw,),
-                ],
-              ),
+                // Container(color:Colors.black,height:0.001.sh,width: 0.96.sw,),
+              ],
             ),
           ),
         ),

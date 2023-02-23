@@ -272,13 +272,15 @@ class _UploadContent1State extends State<UploadContent1> {
                             ),
                              Padding(
                                 padding: const EdgeInsets.only(left: 18.0,right: 18.0 ).r,
-                                child: DropDownWidget(droph: 0.060.sh, selectText: selectclass, item: classListController.classList, isloading: true, empaty: "", onChange: (value) {
-                                // print("You selected: $country");
-                                    selectclass=value!;
-                                    setState(() {
-                              classListController.classSectionapi(value);
-                                    });
-                                  }, xpand: true,),
+                                child: Obx(
+                                  () =>  DropDownWidget(droph: 0.060.sh, selectText: selectclass, item: value2?classListController.classList:[], isloading: true, empaty: "", onChange: (value) {
+                                  // print("You selected: $country");
+                                      selectclass=value!;
+                                      setState(() {
+                                                              classListController.classSectionapi(value);
+                                      });
+                                    }, xpand: true,),
+                                ),
                               ),
                              
                             // Padding(
@@ -359,13 +361,15 @@ class _UploadContent1State extends State<UploadContent1> {
                             ),
                                 Padding(
                                 padding: const EdgeInsets.only(left: 18.0,right: 18.0 ).r,
-                                child: DropDownWidget(droph: 0.060.sh, selectText: selectsection, item: classListController.classSection, isloading: classListController.isloding2.value, empaty: "", onChange: (value) {
-                                   // print("You selected: $country");
-                                    selectsection=value!;
-                                    setState(() {
-
-                                    });
-                                                        }, xpand: true,),
+                                child: Obx(
+                                () =>  DropDownWidget(droph: 0.060.sh, selectText: selectsection, item: value2?classListController.classSection:[], isloading: classListController.isloding2.value, empaty: "", onChange: (value) {
+                                     // print("You selected: $country");
+                                      selectsection=value!;
+                                      setState(() {
+                                
+                                      });
+                                                          }, xpand: true,),
+                                ),
                               ),
                              
                             // Padding(
@@ -605,8 +609,12 @@ class _UploadContent1State extends State<UploadContent1> {
                                     onPressed: () {
 uploadContentController.saveisloading.value=true;
                                   if(value2==true){
+                                    selectclass="";
+                                    selectsection="";
                                     visibility='Yes';
                                   }else{
+                                    selectclass="Select Class";
+                                    selectsection="Select Section";
                                    visibility='No'; 
                                   }
                                 var save= uploadContentController.saveUploadContentpi(selectsection, visibility, contentTitler.text, selecttype, description.text, filePath);

@@ -177,7 +177,8 @@ Future.delayed(Duration(seconds: 2),(){
       });
     }
     else if(currentindex==7) {
-      datalist = [];
+      datalist =  datalist=teacherclassTimeTableController
+            .TeacherclassTimeTableControllerList[0]["response"]["result"][7]["timetable"];
       setState(() {
   if(datalist.isEmpty){
               teacherclassTimeTableController.empty.value=false;

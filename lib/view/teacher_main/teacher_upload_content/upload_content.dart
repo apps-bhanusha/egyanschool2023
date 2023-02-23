@@ -179,13 +179,13 @@ uploadContentController.uploadContentpi();
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               
                       children: [
-                        SizedBox(height: 35, width: 90, child: Obx(() =>  Text("${uploadContentController.allContentModal.value?.response[index].title}",style: TextStyle(fontSize: 14),))),
-                        SizedBox(height: 35, width: 115,child:  Obx(() =>  Text("${uploadContentController.allContentModal.value?.response[index].type}",style: TextStyle(fontSize: 14),))),
+                        SizedBox(height: 35, width: 90, child: Obx(() =>  Text("${uploadContentController.allContentModal.value?.response[index].title.capitalize}.",style: TextStyle(fontSize: 14),))),
+                        SizedBox(height: 35, width: 115,child:  Obx(() =>  Text("${uploadContentController.allContentModal.value?.response[index].type.capitalize}",style: TextStyle(fontSize: 14),))),
                         SizedBox(height: 35,width: 90,child:  Obx(() =>  Text(MyDateFormat.dateformatmethod("${uploadContentController.allContentModal.value?.response[index].date}"),style: TextStyle(fontSize: 14),))),
                         SizedBox(height: 35,width: 40,child:  Obx(() =>  Row(
                           children: [
                             Text(uploadContentController.allContentModal.value?.response[index].responseClass??"All",style: const TextStyle(fontSize: 14),),
-                            Text("/",style: const TextStyle(fontSize: 14),),
+                            const Text("/",style: TextStyle(fontSize: 14),),
                             Text(uploadContentController.allContentModal.value?.response[index].section??"",style: const TextStyle(fontSize: 14),),
                           ],
                         ))),

@@ -133,7 +133,7 @@ class _TeacherTimeTableState extends State<TeacherTimeTable> {
       });
     }
     else if(currentindex==7) {
-      datalist = [];
+      datalist =  datalist=teacherTimeTableController.TeacherTimeTableControllerList[0]["response"]["result"][7]["timetable"];
       setState(() {
 
       });

@@ -16,7 +16,7 @@ import 'package:ecom_desgin/view/About_app/about_e-gayn.dart';
 import 'package:ecom_desgin/view/About_app/about_egyan.dart';
 import 'package:ecom_desgin/view/teacher_main/S_leave/student_leave.dart';
 import 'package:ecom_desgin/view/teacher_main/Teacher_home_work/teacher_homework.dart';
-import 'package:ecom_desgin/view/teacher_main/Teacher_styllebus/Teacher_Syllebus.dart';
+import 'package:ecom_desgin/view/teacher_main/Teacher_syllabus/Teacher_Syllebus.dart';
 import 'package:ecom_desgin/view/teacher_main/exam_shadule/exam_time_table.dart';
 import 'package:ecom_desgin/view/teacher_main/exam_shadule/teacher_exam_result.dart';
 import 'package:ecom_desgin/view/teacher_main/staffAttendance/staff_attendance_scan.dart';

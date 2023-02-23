@@ -383,7 +383,7 @@ setState(() {
      isCalendarActivet?    Container(
         color: const Color.fromARGB(255, 255, 241, 117),
         width: double.infinity,
-        height: 0.11.sh,
+        height: 0.12.sh,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -400,7 +400,7 @@ setState(() {
                             const Text("Holiday",style: TextStyle(fontSize: 18),)
               ],
             ),
-           const SizedBox(height:3 ,),
+           const SizedBox(height:7 ,),
       
             Padding(
               padding: const EdgeInsets.all(5.0),
@@ -575,13 +575,13 @@ setState(() {
                         ],
                       ),
             ],
-          ):Center(child: CircularProgressIndicator(),),
+          ):const Center(child: CircularProgressIndicator(),),
         ),
      isCalendarActivet?   Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(5.0),
           child: Row(
             children: [
-              Text("Press Save After Checking attandane  "),
+              const Text("Press Save After Checking attandane  "),
                 InkWell(
                     onTap: (){
                       
@@ -597,7 +597,7 @@ setState(() {
                   )
             ],
           ),
-        ):SizedBox()
+        ):const SizedBox()
         ],
       )
     );
