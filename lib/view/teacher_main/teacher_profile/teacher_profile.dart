@@ -107,18 +107,18 @@ class _TeacherProfileState extends State<TeacherProfile> {
                           //     size: 30.0.sp,
                           //   ),
                           // ),
-                          CircleAvatar(
-                              backgroundColor: Colors.white70,
-                              minRadius: 60.0,
-                              child:    CircleAvatar(
-                                  foregroundImage: "${staffdetailsController.staffDetailModel.value?.response.image}"!="null"?
-                                  NetworkImage("${ApiUrl.imagesUrl.toString()}${staffdetailsController.staffDetailModel.value?.response.image}")
-                                      :  NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU"),
-                                  radius: 54.0,
-                                  backgroundImage:
-                                  NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
-                              )
-                          ),
+                          // CircleAvatar(
+                          //     backgroundColor: Colors.white70,
+                          //     minRadius: 60.0,
+                          //     child:    CircleAvatar(
+                          //         foregroundImage: "${staffdetailsController.staffDetailModel.value?.response.image}"!="null"?
+                          //         NetworkImage("${ApiUrl.imagesUrl.toString()}${staffdetailsController.staffDetailModel.value?.response.image}")
+                          //             :  NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU"),
+                          //         radius: 54.0,
+                          //         backgroundImage:
+                          //         NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
+                          //     )
+                          // ),
                           // CircleAvatar(
                           //   backgroundColor: Colors.blue.shade300,
                           //   minRadius: 35.0,
@@ -155,69 +155,67 @@ class _TeacherProfileState extends State<TeacherProfile> {
                     ],
                   ),
                 ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          color: Colors.lightBlue.shade300,
-                          child: ListTile(
-                            title: Text(
-                              "Mobile No",
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        color: Colors.lightBlue.shade300,
+                        child: ListTile(
+                          title: Text(
+                            "Mobile No",
 
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.dmSans(
-                                fontStyle: FontStyle.normal,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
-                            subtitle: Text(
-                              '${staffdetailsController.staffDetailModel.value?.response.contactNo}',
+                          ),
+                          subtitle: Text(
+                            '${staffdetailsController.staffDetailModel.value?.response.contactNo}',
 
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.dmSans(
-                                fontStyle: FontStyle.normal,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white70,
-                              ),
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white70,
                             ),
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: Container(
-                          color: Colors.blue,
-                          child: ListTile(
-                            title: Text(
-                              'Employee Id',
+                    ),
+                    Expanded(
+                      child: Container(
+                        color: Colors.blue,
+                        child: ListTile(
+                          title: Text(
+                            'Employee Id',
 
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.dmSans(
-                                fontStyle: FontStyle.normal,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
-                            subtitle: Text(
-                              '${staffdetailsController.staffDetailModel.value?.response.employeeId}',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.dmSans(
-                                fontStyle: FontStyle.normal,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white70,
-                              ),
+                          ),
+                          subtitle: Text(
+                            '${staffdetailsController.staffDetailModel.value?.response.employeeId}',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white70,
                             ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 5,left: 10,right: 10).r,
@@ -243,17 +241,16 @@ class _TeacherProfileState extends State<TeacherProfile> {
                             ),
                           ),
                         ),
-                        Divider(),
+                        const Divider(),
                         Padding(
                           padding: const EdgeInsets.only(left: 15.0,right: 8.0),
-                          child: Row(
-                            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-
-                           SizedBox(
-                             width:0.2.sw,
-                             height: 0.070.sh,
-                             child: Text(
+                          child: SizedBox(
+                            height: 60,
+                            child: Row(
+                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                          
+                             Text(
                                     'Email Id',
                                     style: GoogleFonts.dmSans(
                                       fontStyle: FontStyle.normal,
@@ -262,34 +259,33 @@ class _TeacherProfileState extends State<TeacherProfile> {
                                       color: Colors.blue,
                                     ),
                                   ),
-                           ),
-Spacer(),
-                                 Padding(
-                                   padding: const EdgeInsets.only(right: 15),
-                                   child: Text(
-                                    '${staffdetailsController.staffDetailModel.value?.response.email}',
-                                    style: GoogleFonts.dmSans(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blue,
-                                    ),
-                                                                 ),
-                                 ),
-
-                            ],
+                          Spacer(),
+                                   Padding(
+                                     padding: const EdgeInsets.only(right: 15),
+                                     child: Text(
+                                      '${staffdetailsController.staffDetailModel.value?.response.email}',
+                                      style: GoogleFonts.dmSans(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.blue,
+                                      ),
+                                                                   ),
+                                   ),
+                          
+                              ],
+                            ),
                           ),
                         ),
                         Divider(),
                         Padding(
                           padding: const EdgeInsets.only(left: 15.0,right: 8.0),
-                          child: Row(
-                            children: [
-
-                              SizedBox(
-                                width:0.3.sw,
-                                height: 0.070.sh,
-                                child: Text(
+                          child: SizedBox(
+                            height: 60,
+                            child: Row(
+                              children: [
+                          
+                                Text(
                                     "Local Address",
                                     style: GoogleFonts.dmSans(
                                       fontStyle: FontStyle.normal,
@@ -298,22 +294,22 @@ Spacer(),
                                       color: Colors.blue,
                                     ),
                                   ),
-                              ),
-                              Spacer(),
-                             Padding(
-                               padding: const EdgeInsets.only(right:17),
-                               child: Text(
-                                    '${staffdetailsController.staffDetailModel.value?.response.localAddress}',
-                                    style: GoogleFonts.dmSans(
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blue,
+                                Spacer(),
+                               Padding(
+                                 padding: const EdgeInsets.only(right:17),
+                                 child: Text(
+                                      '${staffdetailsController.staffDetailModel.value?.response.localAddress}',
+                                      style: GoogleFonts.dmSans(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.blue,
+                                      ),
                                     ),
-                                  ),
-                             ),
-
-                            ],
+                               ),
+                          
+                              ],
+                            ),
                           ),
                         ),
                       ],

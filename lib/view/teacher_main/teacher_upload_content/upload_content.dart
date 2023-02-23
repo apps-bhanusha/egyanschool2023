@@ -156,7 +156,7 @@ uploadContentController.uploadContentpi();
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children:const [
                   Text("Content Title",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
-                  Text("Tyle",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                  Text("Type",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
                   Text("Date",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
                   Text("Available for",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
                  

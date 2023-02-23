@@ -263,7 +263,9 @@ Obx(() => Container(
                         selectdata = value!;
                         classListController
                             .classSectionapi(selectdata);
-                        setState(() {});
+                        setState(() {
+                          datalist=[];
+                        });
   }, xpand: false,),
 ))
 

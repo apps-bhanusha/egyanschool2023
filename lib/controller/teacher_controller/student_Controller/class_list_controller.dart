@@ -28,6 +28,7 @@ class ClassListController extends GetxController{
   RxBool isloding3 =true.obs;
   RxBool isloding4 =true.obs;
   RxBool islodingSave =true.obs;
+  RxBool dropforcetrue =true.obs;
   RxBool islodingstudentlist =true.obs;
   RxBool isSearch =true.obs;
   RxBool  listisempty=false.obs;

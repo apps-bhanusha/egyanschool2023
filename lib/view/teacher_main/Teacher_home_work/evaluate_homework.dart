@@ -526,7 +526,7 @@ print(isChecked[i]);
                                                             .black,
                                                       ),
                                                     ),
-                                                    Icon(Icons
+                                                    const Icon(Icons
                                                         .download)
                                                   ],
                                                 )
@@ -581,16 +581,16 @@ print(isChecked[i]);
                                                         Colors.black,
                                                       ),
                                                     ),
-                                                    Icon(Icons
+                                                    const Icon(Icons
                                                         .download)
                                                   ],
                                                 ),
                                               ),
                                             )
                                           ],
-                                        )):Center(child: Text("No Record Found")),
+                                        )):const Center(child: Text("No Record Found")),
                               )
-                                  : Center(child: Center(child: CircularProgressIndicator())
+                                  : const Center(child: Center(child: CircularProgressIndicator())
                                 // Container(width:0.06.sw,height:0.026.sh,child: CircularProgressIndicator(color: Colors.blue,))
                               )
                             ),
@@ -604,14 +604,8 @@ print(isChecked[i]);
                                   color: Colors.blue,
                                   child: TextButton(
                                     onPressed: (){
-                                    setState(() {
-                                      buttonclick=true;
-                                    });
-                                    Future.delayed(Duration(seconds: 3),() {
-                                      setState(() {
-                                        buttonclick = false;
-                                      });
-                                    });      // Map<String, int> mapMonths  = data4;
+                                  teacherHomeWorkController.buttonloading.value=true;
+                                        // Map<String, int> mapMonths  = data4;
                                       // Map<String, int> moreMonths = data4;
                                       //
                                       // mapMonths.addEntries(moreMonths.entries);
@@ -627,14 +621,31 @@ print(isChecked[i]);
                                       // print("mapMonths");
                                       // Map<String, int> data4 = Map<String ,int>.fromIterables(checkBoxList, indexListAll);
                                       // print(data4);
-
+if(checkBoxList.isNotEmpty){
                                       teacherHomeWorkController
                                           .addEvaluationApi(
                                           evaluationDate,checkBoxList.asMap(),context);
+}else{
+      Future.delayed(const Duration(seconds: 1),() {
+                                     
+                                     teacherHomeWorkController.buttonloading.value=false;
+                                     
+                                    }); 
+  ScaffoldMessenger.of (context).showSnackBar(SnackBar(content: Text("Please Select CkeckBox", style: GoogleFonts.dmSans(
+            fontStyle: FontStyle.normal,
+            fontSize: 15.sp,
+            fontWeight: FontWeight.bold,
+            color: Colors.red,
+        ),
+        ),
+          backgroundColor: Colors.white,
+        ),
+        );                                   
+}
                                     },
-                                    child: buttonclick?Center(
-                                        child: Container(width: 0.05.sw,
-                                            height: 0.025.sh,child: CircularProgressIndicator(color: Colors.white,))):Text(
+                                    child:Obx(() =>  teacherHomeWorkController.buttonloading.value?Center(
+                                        child: SizedBox(width: 0.05.sw,
+                                            height: 0.025.sh,child: const CircularProgressIndicator(color: Colors.white,))):Text(
                                       "SAVE".toUpperCase(),
                                       style: GoogleFonts.dmSans(
                                         fontStyle: FontStyle.normal,
@@ -642,7 +653,7 @@ print(isChecked[i]);
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
                                       ),
-                                    ),
+                                    ),),
                                   ),
                                 ),
                               ),

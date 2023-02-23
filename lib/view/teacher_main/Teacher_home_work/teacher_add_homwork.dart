@@ -588,40 +588,42 @@ class _TeacherAddHomeWorkState extends State<TeacherAddHomeWork> {
                                             print('No file selected');
                                           }
                                         },
-                                        child: Container(
-                                          height: 0.060.sh,
-                                          width: 0.87.sw,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.rectangle,
-                                            border: Border.all(
-                                              color: Colors.grey,
-                                              width: 1.0,
+                                        child: Padding(
+                                         padding:
+                                                const EdgeInsets.only(top: 4.0, left: 18),
+                                          child: Container(
+                                            height: 0.060.sh,
+                                            width: 0.88.sw,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.rectangle,
+                                              border: Border.all(
+                                                color: Colors.grey,
+                                                width: 1.0,
+                                              ),
                                             ),
-                                          ),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsets.all(8.0).r,
-                                            child:
-                                                Text("Click Here To Pic File"),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: SizedBox(width:180,child: Text(fileData??"Click Here To Pic File",overflow: TextOverflow.ellipsis,)),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 18.0),
-                                        child: Row(
-  children: [
-        const Text("file :- "),
-    SizedBox(
-      width:180,
-      child: Text(fileData??"",
-      overflow: TextOverflow.ellipsis,
-      ),
-    ),
-  ],
-),
+//                                       Padding(
+//                                         padding:
+//                                             const EdgeInsets.only(left: 18.0),
+//                                         child: Row(
+//   children: [
+//         const Text("file :- "),
+//     SizedBox(
+//       width:180,
+//       child: Text(fileData??"",
+//       overflow: TextOverflow.ellipsis,
+//       ),
+//     ),
+//   ],
+// ),
   
-                                      ),
+//                                       ),
                                     ],
                                   ),
                                 ),

@@ -239,8 +239,7 @@ class ClassCLSController extends GetxController {
             TextButton(onPressed: Get.back, child: const Text("Close")),
 
           );
-            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-          const TeacherHomeWorkDiplay()), (Route<dynamic> route) => false);
+            Get.back();
           }
         
         

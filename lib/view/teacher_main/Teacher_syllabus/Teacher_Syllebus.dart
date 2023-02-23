@@ -67,6 +67,7 @@ String selectSection="select Section";
                                       selectClass=value!;
                                       setState(() {
                                 classListController.classSectionapi(value);
+                                teacherSyllebusController.teacherSyllebusModal.value!.response.subjectsData=[];
                                       });
                                     }, xpand: false,),
                      ),

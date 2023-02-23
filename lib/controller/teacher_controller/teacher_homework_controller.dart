@@ -19,6 +19,7 @@ class TeacherHomeWorkController extends GetxController {
 
   RxBool isdownloadinevaluation = true.obs;
   RxList homeWorkControllerList = [].obs;
+  RxBool buttonloading = false.obs;
   Rxn<TeacherHomeWorkModel> teacherHomeWorkModel = Rxn<TeacherHomeWorkModel>();
   Rxn<
       TeacherHomeWorkForEvaluationModel> teacherHomeWorkForEvaluationModel = Rxn<
@@ -121,6 +122,7 @@ class TeacherHomeWorkController extends GetxController {
       print(homeWorkData["status"]);
 
       if (homeWorkData["status"] == true) {
+        buttonloading.value=false;
         ishomeworkuploaddate.value = true;
         var box = Hive.box("schoolData");
         var id=box.get("staff_id");
@@ -142,12 +144,16 @@ class TeacherHomeWorkController extends GetxController {
 
         );
            if (homeWorkData["message"]==homeWorkData["message"]){
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-        const TeacherHomeWorkDiplay()), (Route<dynamic> route) => false);}
+      Get.off(const TeacherHomeWorkDiplay());
+    
+           }
+           
       } else {
+        buttonloading.value=false;
         print("invalid id");
       }
     } else {
+      buttonloading.value=false;
       print("errror");
     }
   }

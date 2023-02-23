@@ -195,7 +195,7 @@ class _StudentAddUserDialogDialogState extends State<StudentAddUserDialog>
 
   @override
   Widget build(BuildContext context) => SizedBox(
-        height: 0.5.sh,
+        height: 0.55.sh,
         
         child: Scaffold(
           backgroundColor: Colors.transparent,

@@ -175,6 +175,9 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
         var type = '${element.type}';
         countries1.add(type);
       });
+      setState(() {
+        
+      });
     }
   }
 

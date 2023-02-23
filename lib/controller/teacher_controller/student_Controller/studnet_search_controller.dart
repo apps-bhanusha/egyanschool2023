@@ -5,7 +5,6 @@ import 'dart:convert';
 
 
 import 'package:ecom_desgin/constant/api_url.dart';
-import 'package:ecom_desgin/model/student/Class_attendaceModel.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:date_format/date_format.dart';
@@ -50,19 +49,22 @@ RxBool  listisempty=false.obs;
       print("SSSSSSSSSSSSSSSSSSSMMMMMMMMMMMMMMMMMMMMMMM");
       print(studentInformationListModal.value?.response[0].studentName);
         if (data["status"] == true) {
-          
+          listisempty.value=false;
        isSearchbutton.value=true;
          
         } else {
          isSearchbutton.value=true;
-
+          listisempty.value=true;
         } }else {
           isSearchbutton.value=true;
+          listisempty.value=true;
       }
 
      }
     } catch (e) {
        print(e);
+       listisempty.value=true;
+        isSearchbutton.value=true;
           isSearch.value=true;
       print("Something Error");
     }

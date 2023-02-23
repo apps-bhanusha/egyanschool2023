@@ -270,10 +270,10 @@ class _UploadContent1State extends State<UploadContent1> {
                                 ),
                               ),
                             ),
-                             Padding(
+                          Obx(
+                                  () =>   Padding(
                                 padding: const EdgeInsets.only(left: 18.0,right: 18.0 ).r,
-                                child: Obx(
-                                  () =>  DropDownWidget(droph: 0.060.sh, selectText: selectclass, item: value2?classListController.classList:[], isloading: true, empaty: "", onChange: (value) {
+                                child:   DropDownWidget(droph: 0.060.sh, selectText: selectclass, item: value2?[]:classListController.classList, isloading: classListController.dropforcetrue.value, empaty: "", onChange: (value) {
                                   // print("You selected: $country");
                                       selectclass=value!;
                                       setState(() {
@@ -359,10 +359,10 @@ class _UploadContent1State extends State<UploadContent1> {
                                 ),
                               ),
                             ),
-                                Padding(
+                              Obx(
+                                () =>  Padding(
                                 padding: const EdgeInsets.only(left: 18.0,right: 18.0 ).r,
-                                child: Obx(
-                                () =>  DropDownWidget(droph: 0.060.sh, selectText: selectsection, item: value2?classListController.classSection:[], isloading: classListController.isloding2.value, empaty: "", onChange: (value) {
+                                child:   DropDownWidget(droph: 0.060.sh, selectText: selectsection, item: value2?[]:classListController.classSection, isloading: classListController.isloding2.value, empaty: "", onChange: (value) {
                                      // print("You selected: $country");
                                       selectsection=value!;
                                       setState(() {
@@ -471,15 +471,7 @@ class _UploadContent1State extends State<UploadContent1> {
                                       hintText:dateStr,
                                       border: InputBorder.none,
                                     ),
-                                    onFieldSubmitted: (value) {
-                                      //Validator
-                                    },
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Please Enter The Text!';
-                                      }
-                                      return null;
-                                    },
+                                    readOnly: true,
                                   ),
                                 ),
                               ),
@@ -609,7 +601,7 @@ class _UploadContent1State extends State<UploadContent1> {
                                     onPressed: () {
 uploadContentController.saveisloading.value=true;
                                   if(value2==true){
-                                    selectclass="";
+                                     selectclass="";
                                     selectsection="";
                                     visibility='Yes';
                                   }else{

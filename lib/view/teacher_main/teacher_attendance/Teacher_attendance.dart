@@ -288,11 +288,11 @@ class _TeacherAttendanceState extends State<TeacherAttendance> {
                  _staffMonthlyPresentSummaryController.loadingMonthlyPresentSummary.value?SfCartesianChart(
                       plotAreaBorderWidth: 0,
                       primaryXAxis: CategoryAxis(
-                        majorGridLines: MajorGridLines(width: 0),
-                        axisLine: AxisLine(width: 0),
+                        majorGridLines: const MajorGridLines(width: 0),
+                        axisLine: const AxisLine(width: 0),
                       ),
                       primaryYAxis: NumericAxis(minimum: 0, maximum: 31, interval: 5,  numberFormat: NumberFormat.compact(),  majorGridLines: MajorGridLines(width: 0),
-                        axisLine: AxisLine(width: 0), ),
+                        axisLine: const AxisLine(width: 0), ),
                       tooltipBehavior: _tooltip,
                       series: <ChartSeries<_ChartData, String>>[
                         // for(var i=5; i<data.length; i++)
@@ -305,17 +305,17 @@ class _TeacherAttendanceState extends State<TeacherAttendance> {
                           // dataLabelSettings: DataLabelSettings(isVisible: true)
                         )
                       ]
-                  ):const Expanded(child: Center(child: Padding(
+                  ):const Center(child: Padding(
                     padding: EdgeInsets.only(top: 150),
                     child: CircularProgressIndicator(color: Colors.blue,),
-                  ))),
+                  )),
                 ),
               ),
 
               SizedBox(
                 height: 0.60.sh,
                 child: Obx(()=>
-                  loadingmonthlyattendence.value?Card(margin: EdgeInsets.only(left: 16.0, right: 16.0,).r,child: Column(
+                  loadingmonthlyattendence.value?Card(margin: const EdgeInsets.only(left: 16.0, right: 16.0,).r,child: Column(
                     children: [
                       Container(
                         decoration: const BoxDecoration(
@@ -409,7 +409,7 @@ class _TeacherAttendanceState extends State<TeacherAttendance> {
                     ],
                   ),
 
-                  ):Text(""),
+                  ):const Text(""),
                 ),
               ),
               // markerRepresent(Colors.red, "Absent"),

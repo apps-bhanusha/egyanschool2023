@@ -208,11 +208,11 @@ class _StudentInformationState extends State<StudentInformation> {
                               alignment: Alignment.center,
                               child: Obx(() =>
                                   studentSearchController.isSearchbutton.value
-                                      ? Text(
+                                      ? const Text(
                                           "Search",
                                           style: TextStyle(color: Colors.white),
                                         )
-                                      : Center(
+                                      : const Center(
                                           child: SizedBox(
                                               width: 20,
                                               height: 20,
@@ -249,7 +249,7 @@ class _StudentInformationState extends State<StudentInformation> {
                                         width: 110,
                                         height: 20,
                                         child: Text(selectClass))
-                                    : SizedBox(
+                                    : const SizedBox(
                                         width: 110,
                                         height: 20,
                                         child: Center(
@@ -297,7 +297,7 @@ class _StudentInformationState extends State<StudentInformation> {
                                           width: 110,
                                           height: 20,
                                           child: Text(selectSection))
-                                      : SizedBox(
+                                      : const SizedBox(
                                           width: 110,
                                           height: 20,
                                           child: Center(
@@ -411,7 +411,7 @@ class _StudentInformationState extends State<StudentInformation> {
                             child: SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child: Obx(()=> studentSearchController.isSearch.value?studentSearchController.listisempty.value? const Center(child: Padding(
-                                  padding: EdgeInsets.only(left: 105.0),
+                                  padding: EdgeInsets.only(left: 130.0),
                                   child: Text("No Record Found"),
                                 ),):
                                 studentSearchController.studentInformationListModal.value!=null? Column(
