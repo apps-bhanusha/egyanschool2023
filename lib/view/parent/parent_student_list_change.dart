@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecom_desgin/Widgets/footer_widget.dart';
 import 'package:ecom_desgin/controller/force_logout.dart';
 import 'package:ecom_desgin/controller/parent_Student_List_Controller.dart';
 import 'package:ecom_desgin/controller/parent_login.dart';
@@ -613,33 +614,7 @@ parentLoginController.parentLogin.value=true;
                   ),
                 ),
               ),
-              bottomNavigationBar: Container(
-                color: const Color.fromARGB(255, 196, 236, 255),
-                child: Row(
-                 
-                  children: [
-                    Padding(
-padding:  EdgeInsets.only(left: 0.09.sw),
-child: const ClipRRect(
-child: CircleAvatar(
-radius: 20.0,
-backgroundImage:
-AssetImage("assets/images/appstore.png"),
-),
-),
-),
-                     Padding(
-                       padding:  EdgeInsets.only(left: 0.05.sw,top: 10),
-                       child: const Text("Powered By :-"),
-                     ),
-                    Image.asset(
-                      "assets/images/b.png",
-                      width: 0.4.sw,
-                      height: 0.070.sh,
-                    ),
-                  ],
-                ),
-              ),
+              bottomNavigationBar:const FooterWidget() 
             ),
           ),
         ),

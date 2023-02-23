@@ -11,7 +11,8 @@ class ClassSectionController extends GetxController{
   Rxn<ClassSectionModel>classSectionModel = Rxn<ClassSectionModel>();
 
   RxBool isloding =false.obs;
-  static RxList  countries1 = [].obs;
+  // static List<String>  countries1 = <String>[];
+  RxList<String> sectionList = <String>[].obs;
   void classsectionapi(class_id) async {
     try {
       var box = Hive.box("schoolData");
@@ -33,7 +34,7 @@ class ClassSectionController extends GetxController{
           isloding.value=true;
           print("Staff Name");
           addclasssection();
-          print(classSectionModel.value?.response?[0].sectionName);
+          print(classSectionModel.value?.response[0].sectionName);
 
 // print('${ApiUrl.imagesUrl.toString()}${staffDetailModel.value?.response["image"]}');
         } else {
@@ -47,7 +48,7 @@ class ClassSectionController extends GetxController{
   }
 
   void addclasssection() {
-    countries1.value = [];
+    sectionList.value = [];
 
     classSectionModel.value?.response.forEach((
         element) {
@@ -55,7 +56,7 @@ class ClassSectionController extends GetxController{
       print("sectionname------------------------dd");
       print(sectionName);
 
-      countries1.add(sectionName);
+      sectionList.add(sectionName);
 
     });
   }

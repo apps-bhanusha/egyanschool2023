@@ -1,5 +1,6 @@
 
 
+import 'package:ecom_desgin/Widgets/DropDown_widget.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule1_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_list_controller.dart';
@@ -72,7 +73,7 @@ class _ExamResultStudentState extends State<ExamResultStudent> {
                             color: Colors.orange,
                             shape: BoxShape.circle,
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Icon(
                               // expandFlag
                               //     ? Icons.keyboard_arrow_up
@@ -139,34 +140,11 @@ class _ExamResultStudentState extends State<ExamResultStudent> {
                     width: 1.0,
                   ),
                 ),
-                child: Obx(()=>studentListController.loadingStudentListdrop.value?
-                   DropdownButton(
-
-                    isExpanded: true,
-                    isDense: true,
-                    iconSize: 35,
-                    // alignment: Alignment.center,
-                   
-
-                    items: studentListController
-                        .studentList !=
-                        null
-                        ?studentListController.studentList.map((country){
-                      return DropdownMenuItem(
-                        child:Padding(
-                          padding:  EdgeInsets.all(8.0),
-                          child: Text(country),
-                        ),
-                        value: country,
-                      );
-                    }).toList():[],
-                    hint: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(selectdata),
-                    ),
-                    onChanged: (dynamic country){
-                      // print("You selected: $country");
-                      selectdata=country!;
+                child: Obx(()=>
+                // studentListController.loadingStudentListdrop.value?
+                  DropDownWidget(droph: 0.060.sh, selectText: selectdata, item: studentListController.studentList, isloading: studentListController.loadingStudentListdrop.value, xpand: true, empaty: "", onChange: (value) {
+                                // print("You selected: $country");
+                      selectdata=value!;
                       studentListController.GetexamsResultapi(selectdata,widget.exam_id);
                       studentListController.loadingStudentList1.value=false;
                       
@@ -174,10 +152,47 @@ class _ExamResultStudentState extends State<ExamResultStudent> {
                       setState(() {
 
                       });
-                    },
+                  },)
+                  //  DropdownButton(
+
+                  //   isExpanded: true,
+                  //   isDense: true,
+                  //   iconSize: 35,
+                  //   // alignment: Alignment.center,
+                   
+
+                  //   items: studentListController
+                  //       .studentList !=
+                  //       null
+                  //       ?studentListController.studentList.map((country){
+                  //     return DropdownMenuItem(
+                  //       child:Padding(
+                  //         padding:  EdgeInsets.all(8.0),
+                  //         child: Text(country),
+                  //       ),
+                  //       value: country,
+                  //     );
+                  //   }).toList():[],
+                  //   hint: Padding(
+                  //     padding: const EdgeInsets.all(8.0),
+                  //     child: Text(selectdata),
+                  //   ),
+                  //   onChanged: (dynamic country){
+                  //     // print("You selected: $country");
+                  //     selectdata=country!;
+                  //     studentListController.GetexamsResultapi(selectdata,widget.exam_id);
+                  //     studentListController.loadingStudentList1.value=false;
+                      
+
+                  //     setState(() {
+
+                  //     });
+                  //   },
 
 
-                  ):Center(child: Container(width:0.05.sw,height:0.026.sh,child: CircularProgressIndicator(color: Colors.green,))),
+                  // )
+                  // :Center(child: Container(width:0.05.sw,height:0.026.sh,child: CircularProgressIndicator(color: Colors.green,))),
+              
                 ),
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/Widgets/DropDown_widget.dart';
 import 'package:ecom_desgin/Widgets/TextFieldWidget.dart';
 import 'package:ecom_desgin/Widgets/button_widget.dart';
 import 'package:ecom_desgin/constant/Colors.dart';
@@ -10,7 +11,6 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 class TeacherReview extends StatefulWidget {
   const TeacherReview({Key? key}) : super(key: key);
 
@@ -63,58 +63,68 @@ body: SingleChildScrollView(
     
       children: [
   SizedBox(height: 0.050.sh,),
-        Padding(
-          padding: const EdgeInsets.only(left: 15,right: 15).r,
-          child: Container(
-             height: 0.050.sh,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 1.0,
-                  ),
-                ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 30,right: 30),
-              child: DropdownButton<String>(
-                iconSize: 35,
-                isExpanded: true,
-                isDense: false,
-                underline: Container(), //empty line
-                style:   GoogleFonts.dmSans(
-                fontStyle: FontStyle.normal,
-                fontSize: 15.sp,
-                fontWeight: FontWeight.normal,
-                color: Colors.white,
+  Padding(
+     padding: const EdgeInsets.only(left: 15,right: 15).r,
+    child: DropDownWidget(droph: 0.050.sh, selectText: _selectdrop, item: teacherbystudentController.dropdata, isloading: true, xpand: true, empaty: "", onChange: (value) {
+  
+                    setState(() {
+                      _selectdrop = value;
+                      dataset(value);
+                    });
+    },),
+  ),
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 15,right: 15).r,
+        //   child: Container(
+        //      height: 0.050.sh,
+        //         decoration: BoxDecoration(
+        //           shape: BoxShape.rectangle,
+        //           border: Border.all(
+        //             color: Colors.grey,
+        //             width: 1.0,
+        //           ),
+        //         ),
+        //     child: Padding(
+        //       padding: const EdgeInsets.only(left: 30,right: 30),
+        //       child: DropdownButton<String>(
+        //         iconSize: 35,
+        //         isExpanded: true,
+        //         isDense: false,
+        //         underline: Container(), //empty line
+        //         style:   GoogleFonts.dmSans(
+        //         fontStyle: FontStyle.normal,
+        //         fontSize: 15.sp,
+        //         fontWeight: FontWeight.normal,
+        //         color: Colors.white,
               
-              ),
-                dropdownColor: Colors.white,
-                iconEnabledColor: Colors.black,
-                hint: Text(_selectdrop,
-                    style: const TextStyle(color: Colors.black)),
-                items: teacherbystudentController.dropdata.map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      value.capitalize.toString(),
-                      style:const TextStyle(color: Colors.blueAccent),
-                    ),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {
-                  print(newValue);
-                  setState(() {
-                    _selectdrop = newValue!;
-                    dataset(newValue);
-                  });
+        //       ),
+        //         dropdownColor: Colors.white,
+        //         iconEnabledColor: Colors.black,
+        //         hint: Text(_selectdrop,
+        //             style: const TextStyle(color: Colors.black)),
+        //         items: teacherbystudentController.dropdata.map((String value) {
+        //           return DropdownMenuItem<String>(
+        //             value: value,
+        //             child: Text(
+        //               value.capitalize.toString(),
+        //               style:const TextStyle(color: Colors.blueAccent),
+        //             ),
+        //           );
+        //         }).toList(),
+        //         onChanged: (String? newValue) {
+        //           print(newValue);
+        //           setState(() {
+        //             _selectdrop = newValue!;
+        //             dataset(newValue);
+        //           });
             
-                },
+        //         },
             
-              ),
+        //       ),
             
-            ),
-          ),
-        ),
+        //     ),
+        //   ),
+        // ),
   
         Column(
           children: [
@@ -170,7 +180,6 @@ body: SingleChildScrollView(
             child: Column(
               children: [
                 SmoothStarRating(
-                
                   rating: selectteacher?rating:0.0,
                   size: 40,
                   filledIconData: Icons.star,
@@ -186,7 +195,7 @@ body: SingleChildScrollView(
                     });
                   },
                 ),
-              Text('${rating.toDouble()}'),
+              // Text('${rating.toDouble()}'),
               ],
             ),
     
@@ -209,7 +218,11 @@ body: SingleChildScrollView(
            if(selectteacher==true){
             teacherRatings.issumit.value=false;
              if(comment.toString().isNotEmpty){
-            teacherRatings.TeacherRatingapi(company_key,staff_id,comment,rate,studentProfileController.studentProfileModel.value?.response.studentId);
+            teacherRatings.TeacherRatingapi(company_key,staff_id,comment,rate,studentProfileController.studentProfileModel.value?.response.studentId).then((value) {
+               if(value=="true"){
+                  commentController.text="";
+               }
+            });
             }
             else{
             show="Please Enter comment";

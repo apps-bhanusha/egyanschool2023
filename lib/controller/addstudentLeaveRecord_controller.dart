@@ -13,16 +13,16 @@ class AddStudentLeaveRecordController extends GetxController {
   final StudentProfileController studentProfileController = Get.put(StudentProfileController());
 
   RxBool loadingAddStudentLeaveRecord1 =false.obs;
-  Future<List<AddStudentLeaveRecordController>?> AddStudentLeaveRecordapi(company_key,student_id,from_date,to_date,message,userfile) async {
+Future<String> AddStudentLeaveRecordapi(companyKey,studentId,fromDate,toDate,message,userfile) async {
     var headers = {
       'Cookie': 'ci_session=8e6de003d84c4a149a3c80a6be1fff63b6c73cfa'
     };
     var request = http.MultipartRequest('POST', Uri.parse('https://e-gyan.co.in/api/leavewebservices/addstudentLeaveRecord'));
     request.fields.addAll({
-      'company_key': company_key,
+      'company_key': companyKey,
       'student_id': '${studentProfileController.studentProfileModel.value?.response.studentId}',
-      'from_date': from_date,
-      'to_date': to_date,
+      'from_date': fromDate,
+      'to_date': toDate,
       'message': message,
 
     });
@@ -35,14 +35,15 @@ class AddStudentLeaveRecordController extends GetxController {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      studentcall(company_key);
+      studentcall(companyKey);
 
    var sdata= await response.stream.bytesToString();
    var alldata =jsonDecode(sdata);
       // print(await response.stream.bytesToString());
-      Get.snackbar(
-          alldata["status"].toString(),
+        if(alldata["status"]==true){
+       Get.snackbar(
           alldata["message"].toString(),
+          "",
         duration: 5.seconds, // it could be any reasonable time, but I set it lo-o-ong
         snackPosition: SnackPosition.BOTTOM,
         showProgressIndicator: true,
@@ -57,16 +58,21 @@ class AddStudentLeaveRecordController extends GetxController {
 
             )),
       );
+      return "ok";
+        }
+  
+      return "";
     }
     else {
+      return "";
     }
 
   }
-  void studentcall(company_key){
+  void studentcall(companyKey){
     var box = Hive.box("schoolData");
     var  id = box.get("student_id");
-    company_key = box.get("company_key");
-    StudentLeaveRecord.StudentLeaveRecordapi(company_key,'${studentProfileController.studentProfileModel.value?.response.studentId}');
+    companyKey = box.get("company_key");
+    StudentLeaveRecord.StudentLeaveRecordapi(companyKey,'${studentProfileController.studentProfileModel.value?.response.studentId}');
 
       loadingAddStudentLeaveRecord1.value=true;
 

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ecom_desgin/Widgets/DropDown_widget.dart';
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/font.dart';
@@ -156,7 +157,7 @@ class _StudentFeesState extends State<StudentFees> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 4.0 ,left:15).r,
+                padding: const EdgeInsets.only(top: 4.0 ,left:108).r,
                 child: RichText(
                   text: const TextSpan(
                     text: 'Student Id',
@@ -167,51 +168,61 @@ class _StudentFeesState extends State<StudentFees> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 18.0,right: 18.0 ).r,
-                child: Container(
-                  height: 0.060.sh,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                  ),
-                  child: Obx(()=>studentListController.loadingStudentListdrop.value?
-                  DropdownButton(
-                    isExpanded: true,
-                    isDense: true,
-                    iconSize: 35,
-                    // alignment: Alignment.center
-                    items:studentListController.studentList.isNotEmpty? studentListController.studentList.map((country){
-                      return DropdownMenuItem(
-                        value: country,
-                        child:Padding(
-                          padding:  const EdgeInsets.all(8.0),
-                          child: Text(country),
-                        ),
-                      );
-                    }).toList():[],
-                    hint:  Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(selectdata),
-                    ),
-                    onChanged: (dynamic country){
+              Center(
+                child: Obx(()=>
+                DropDownWidget(
+                  droph: 0.060.sh,
+                  isloading: studentListController.loadingStudentListdrop.value,
+                empaty: "",
+                selectText: selectdata,
+                item: studentListController.studentList,
+                onChange: (country) {
                       // print("You selected: $country");
-                      selectdata=country!;
-                      studentFeesController.StudentFeesapi(selectdata, company_key);
-                      studentFeesController.studentProfileupdatedApi(selectdata);
-                      studentFeesController.loadingfees.value=false;
-                      studentFeesController.isloading.value=false;
-                      studentFeesController.FeeControllerList=[];
-
-                      setState(() {
+                    selectdata=country!;
+                    studentFeesController.StudentFeesapi(selectdata, company_key);
+                    studentFeesController.studentProfileupdatedApi(selectdata);
+                    studentFeesController.loadingfees.value=false;
+                    studentFeesController.isloading.value=false;
+                    studentFeesController.FeeControllerList=[];
+              
+                    setState(() {
                  studentFeesController.loadingfees123.value=false;
-                      });
-                    },
-                  ):Center(child: SizedBox(width:0.05.sw,height:0.026.sh,child: const CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,))),
-                  ),
+                    });
+                }, xpand: false,
+                )
+                //   DropdownButton(
+                //     isExpanded: true,
+                //     isDense: true,
+                //     iconSize: 35,
+                //     // alignment: Alignment.center
+                //     items:studentListController.studentList.isNotEmpty? studentListController.studentList.map((country){
+                //       return DropdownMenuItem(
+                //         value: country,
+                //         child:Padding(
+                //           padding:  const EdgeInsets.all(8.0),
+                //           child: Text(country),
+                //         ),
+                //       );
+                //     }).toList():[],
+                //     hint:  Padding(
+                //       padding: EdgeInsets.all(8.0),
+                //       child: Text(selectdata),
+                //     ),
+                //     onChanged: (dynamic country){
+                //       // print("You selected: $country");
+                //       selectdata=country!;
+                //       studentFeesController.StudentFeesapi(selectdata, company_key);
+                //       studentFeesController.studentProfileupdatedApi(selectdata);
+                //       studentFeesController.loadingfees.value=false;
+                //       studentFeesController.isloading.value=false;
+                //       studentFeesController.FeeControllerList=[];
+              
+                //       setState(() {
+                //  studentFeesController.loadingfees123.value=false;
+                //       });
+                //     },
+                //   ):Center(child: SizedBox(width:0.05.sw,height:0.026.sh,child: const CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,))),
+                 
                 ),
               ),
               Obx(()=> studentFeesController.loadingfees.value?

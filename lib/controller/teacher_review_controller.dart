@@ -13,7 +13,7 @@ class TeacherRatingController extends GetxController {
   RxBool issumit =true.obs;
 
   get title => TeacherRatingControllerList;
-  Future<List<TeacherRatingController>?> TeacherRatingapi(company_key,staff_id,comment,rate,student_id) async {
+  Future<String> TeacherRatingapi(company_key,staff_id,comment,rate,student_id) async {
 
     var body = json.encode({
       "company_key":company_key.toString(),
@@ -33,7 +33,7 @@ class TeacherRatingController extends GetxController {
       if (sdata["status"] == "success" ) {
         loadingTeacherRating.value=true;
         issumit.value=true;
- Get.snackbar(
+     Get.snackbar(
         sdata["message"],
         "",
         duration: 2.seconds, // it could be any reasonable time, but I set it lo-o-ong
@@ -50,15 +50,19 @@ class TeacherRatingController extends GetxController {
 
             )),
       );
-
+     return "true";
 
       }
       else  {
-          issumit.value=true;
+         issumit.value=true;
+        return "false";
+         
         print("invalid cccid");
       } }
     else {
-  issumit.value=true;
+       issumit.value=true;
+       return "false";
+ 
 
     }
   }

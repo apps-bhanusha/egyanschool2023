@@ -470,27 +470,23 @@ Row(
                                                 color: Colors.white),
                                           ),
         onTap:() {
-     // final user = User(
-                                //    "",
-                                //     fromdateController.text,
-                                //     todateController.text,
-                                //     reasonController.text,
-                                //     userfile);
+
                                 message = reasonController.text;
-
-
-                                // widget.addUser(user);
+                      // widget.addUser(user);
                             if(fileSelected==true){
-
                                 AddStudentLeaveRecord.AddStudentLeaveRecordapi(
                                     company_key,
                                     student_id,
                                     from_date,
                                     to_date,
                                     message,
-                                    userfile);
+                                    userfile).then((value){
+                                      if(value=="ok"){
+                            Navigator.of(context).pop();
+                                      }
+                                    });
 
-                          Navigator.of(context).pop();
+                         
                               } else {
                                 show = "Please Enter message";
                               }

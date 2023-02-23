@@ -480,11 +480,14 @@ Row(
                                     from_date,
                                     to_date,
                                     message,
-                                    userfile,staff_id,widget.student);
-                                    print(from_date);
-                                    print(to_date);
+                                    userfile,staff_id,widget.student).then((value){
+                                      if(value=="success"){
+                              Navigator.of(context).pop();
+                                      }
+                                    });
+                                   
 
-                          Navigator.of(context).pop();
+                         
                               } else {
                                 show = "Please Enter message";
                               }

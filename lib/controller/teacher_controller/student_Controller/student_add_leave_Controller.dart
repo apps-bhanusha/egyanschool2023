@@ -17,14 +17,11 @@ class StudentAddLeaveController extends GetxController {
    final StudentLeaveController studentLeaveController = Get.put(StudentLeaveController());
 String studentId="";
   RxBool loadingAddStudentLeaveRecord1 =false.obs;
-  Future<List<StudentAddLeaveController>?> StudentAddStudentLeaveapi(company_key,from_date,to_date,message,userfile,staff_id,selectdrop) async {
+  Future<String> StudentAddStudentLeaveapi(company_key,from_date,to_date,message,userfile,staff_id,selectdrop) async {
    
     classListController.studentListModel.value?.response.forEach((element) {
                      if(element.studentName.toString().toLowerCase()==selectdrop.toString().toLowerCase()){
-                    
                       studentId=element.studentId;
-                  
-
                      }
                    });
     print("save leave........");
@@ -87,6 +84,7 @@ String studentId="";
 
             )),
       );
+      return "success";
       }else{
          Get.snackbar(
           "Save Error",
@@ -105,13 +103,19 @@ String studentId="";
 
             )),
       );
+      return "";
+
       }
      
     }
     else {
+      return "";
+      
     }
    } catch (e) {
      print(e);
+      return "";
+
    }
 
   }

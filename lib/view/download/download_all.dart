@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/Widgets/DropDown_widget.dart';
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/date_format.dart';
@@ -107,44 +108,52 @@ class _DownloadAllState extends State<DownloadAll> {
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
                   children: [
-                    Container(
-                       height: 0.060.sh,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                  ),
-                      child: DropdownButton<String>(
-                        underline: const SizedBox(),
-                        autofocus: true,
-                        isExpanded: true,
-                        hint: Obx(
-                          () => Text(
-                              _downloadAllController.selectDrop.value,
-                              style: const TextStyle(
-                                fontSize: 20,color: Colors.black)),
-                        ),
-                        items: _downloadAllController.dropdata
-                            .map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style:
-                                  const TextStyle(color: Colors.blueAccent),
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          print(newValue);
+                    DropDownWidget(droph: 0.060.sh, selectText: _downloadAllController.selectDrop.value, item: _downloadAllController.dropdata, isloading: true, xpand: true, empaty: "", onChange: (value) {
+                     
+                         setState(() {
                            
-                          _downloadAllController.selectDropdown(newValue);
+                         });  
+                          _downloadAllController.selectDropdown(value);
                           _downloadAllController.isloading.value=false;
-                        },
-                      ),
-                    ),
+                    },)
+                  //   Container(
+                  //      height: 0.060.sh,
+                  // decoration: BoxDecoration(
+                  //   shape: BoxShape.rectangle,
+                  //   border: Border.all(
+                  //     color: Colors.grey,
+                  //     width: 1.0,
+                  //   ),
+                  // ),
+                  //     child: DropdownButton<String>(
+                  //       underline: const SizedBox(),
+                  //       autofocus: true,
+                  //       isExpanded: true,
+                  //       hint: Obx(
+                  //         () => Text(
+                  //             _downloadAllController.selectDrop.value,
+                  //             style: const TextStyle(
+                  //               fontSize: 20,color: Colors.black)),
+                  //       ),
+                  //       items: _downloadAllController.dropdata
+                  //           .map((String value) {
+                  //         return DropdownMenuItem<String>(
+                  //           value: value,
+                  //           child: Text(
+                  //             value,
+                  //             style:
+                  //                 const TextStyle(color: Colors.blueAccent),
+                  //           ),
+                  //         );
+                  //       }).toList(),
+                  //       onChanged: (String? newValue) {
+                  //         print(newValue);
+                           
+                  //         _downloadAllController.selectDropdown(newValue);
+                  //         _downloadAllController.isloading.value=false;
+                  //       },
+                  //     ),
+                  //   ),
                   ],
                 ),
               ),
@@ -152,7 +161,7 @@ class _DownloadAllState extends State<DownloadAll> {
             Expanded(
               child: Center(
                 child: Obx(
-                  () => _downloadAllController.isloading.value?_downloadAllController.assignmentDownloadModel.value?.response?.list!=null? ListView.builder(
+                  () => _downloadAllController.isloading.value?_downloadAllController.norecord.value? ListView.builder(
                     itemBuilder: (context, index) {
                       return Card(
                         color: const Color.fromARGB(255, 164, 229, 255),
@@ -177,9 +186,9 @@ class _DownloadAllState extends State<DownloadAll> {
                         ),
                       );
                     },
-                    itemCount:_downloadAllController.assignmentDownloadModel.value?.response?.list?.length,
+                    itemCount:_downloadAllController.assignmentDownloadModel.value?.response?.list?.length??0,
 
-                  ):const Text("No Record"):const CircularProgressIndicator(color: Colors.blue,),
+                  ):const Center(child: Text("No Record Found"),):const CircularProgressIndicator(color: Colors.blue,),
                 ),
               ),
             ),

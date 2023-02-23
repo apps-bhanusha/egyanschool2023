@@ -39,7 +39,7 @@ RxBool loadingExam=false.obs;
 
       // print(GetschoolsettingControllerList[0]["response"]["total_discount_amount"]);
       if (sdata["status"] == true) {
-        loadingGetexamsSchedule.value = true;
+        
         loadingExam.value = false;
         loadingtime.value=true;
         groupid();
@@ -56,6 +56,7 @@ RxBool loadingExam=false.obs;
   }
 
   void groupid() {
+    endtimeList = <String>[].obs;
     for (var i = 0; i <
         GetexamsScheduleControllerList[0]["response"]["examSchedule"]
             .length; i++) {
@@ -81,7 +82,7 @@ RxBool loadingExam=false.obs;
       print(endtimeList);
 
     }
-
+loadingGetexamsSchedule.value = true;
   }
 
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:ecom_desgin/Widgets/DropDown_widget.dart';
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/getclasstimetable_controller.dart';
@@ -238,7 +239,7 @@ Future.delayed(Duration(seconds: 2),(){
                           fontWeight: FontWeight.normal,
                           color: Colors.white,
                         ),
-                        children: <TextSpan>[
+                        children: const <TextSpan>[
                           TextSpan(
                               text: '*',
                               style: TextStyle(
@@ -247,68 +248,86 @@ Future.delayed(Duration(seconds: 2),(){
                         ],
                       ),
                     ),
-
-
-            Obx(
-                  () =>  Container(
-                  height: 0.050.sh,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
+Obx(() => Container(
+  decoration: BoxDecoration(
                     color: Colors.white,
+                    shape: BoxShape.rectangle,
                     border: Border.all(
                       color: Colors.grey,
-
                       width: 1.0,
                     ),
                   ),
-                  child: DropdownButton(
-                    // isExpanded: true,
-                    isDense: true,
-                    iconSize: 35,
-                    // alignment: Alignment.center,
+  child:   DropDownWidget(droph: 0.050.sh, selectText:selectdata , item: classListController.classList, isloading: classListController.isloding.value, empaty: "", onChange: (value) {
+        // print("You selected: $country");
+                        selectdata = value!;
+                        classListController
+                            .classSectionapi(selectdata);
+                        setState(() {});
+  }, xpand: false,),
+))
 
-                    items: classListController
-                        .classList !=
-                        null
-                        ? classListController.classList
-                        .map((country) {
-                      return DropdownMenuItem(
-                        value: country,
-                        child: SizedBox(width: 110,height:20,
-                          child: Text(country,   style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.black,
-                          ),),
-                        ),
-                      );
-                    }).toList()
-                        : [],
-                    hint: SizedBox(width: 110,height:20,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child:classListController.isloding.value? SizedBox(
-                                width: 110,height: 20,
-                                child: Text(selectdata,   style: GoogleFonts.dmSans(
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                ),),
-                              ):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
-                            ),
-                          ),
-                    onChanged: (dynamic country) {
-                      // print("You selected: $country");
-                      selectdata = country!;
-                      classListController
-                          .classSectionapi(selectdata);
-                      setState(() {});
-                    },
-                  ))
+            // Obx(
+            //       () => 
+
+            //        Container(
+            //       height: 0.050.sh,
+            //       decoration: BoxDecoration(
+            //         shape: BoxShape.rectangle,
+            //         color: Colors.white,
+            //         border: Border.all(
+            //           color: Colors.grey,
+
+            //           width: 1.0,
+            //         ),
+            //       ),
+            //       child: DropdownButton(
+            //         // isExpanded: true,
+            //         isDense: true,
+            //         iconSize: 35,
+            //         // alignment: Alignment.center,
+
+            //         items: classListController
+            //             .classList !=
+            //             null
+            //             ? classListController.classList
+            //             .map((country) {
+            //           return DropdownMenuItem(
+            //             value: country,
+            //             child: SizedBox(width: 110,height:20,
+            //               child: Text(country,   style: GoogleFonts.dmSans(
+            //                 fontStyle: FontStyle.normal,
+            //                 fontSize: 14.sp,
+            //                 fontWeight: FontWeight.normal,
+            //                 color: Colors.black,
+            //               ),),
+            //             ),
+            //           );
+            //         }).toList()
+            //             : [],
+            //         hint: SizedBox(width: 110,height:20,
+            //                 child: Padding(
+            //                   padding: const EdgeInsets.only(left: 10),
+            //                   child:classListController.isloding.value? SizedBox(
+            //                     width: 110,height: 20,
+            //                     child: Text(selectdata,   style: GoogleFonts.dmSans(
+            //                       fontStyle: FontStyle.normal,
+            //                       fontSize: 14.sp,
+            //                       fontWeight: FontWeight.normal,
+            //                       color: Colors.black,
+            //                     ),),
+            //                   ):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+            //                 ),
+            //               ),
+            //         onChanged: (dynamic country) {
+            //           // print("You selected: $country");
+            //           selectdata = country!;
+            //           classListController
+            //               .classSectionapi(selectdata);
+            //           setState(() {});
+            //         },
+            //       ))
                   
-            ),
+            // ),
                   ],
                 ),
             Column(
@@ -324,7 +343,7 @@ Future.delayed(Duration(seconds: 2),(){
                       fontWeight: FontWeight.normal,
                       color: Colors.white,
                     ),
-                    children: <TextSpan>[
+                    children: const <TextSpan>[
                       TextSpan(
                           text: '*',
                           style: TextStyle(
@@ -333,10 +352,8 @@ Future.delayed(Duration(seconds: 2),(){
                     ],
                   ),
                 ),
-
-            Container(
-                  height: 0.050.sh,
-                  decoration: BoxDecoration(
+Obx(() => Container(
+   decoration: BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.rectangle,
                     border: Border.all(
@@ -344,66 +361,86 @@ Future.delayed(Duration(seconds: 2),(){
                       width: 1.0,
                     ),
                   ),
-                  child:  Obx(
-                    () =>
-    
-                    DropdownButton(
-                      // isExpanded: true,
-                      isDense: true,
-                      iconSize: 35,
-                      // alignment: Alignment.center,
+  child:   DropDownWidget(droph: 0.050.sh, selectText:selectdata1 , item: classListController.classSection, isloading: classListController.isloding2.value, empaty: "", onChange: (value) {
+        selectdata1 = value!;
+                          teacherclassTimeTableController.TeacherclassTimeTableapi(selectdata,selectdata1);
+                          setState(() {
+                            currentdays();
+                          teacherclassTimeTableController.loadingclassTimeTable.value=false;
+                          });
+  }, xpand: false,),
+))
+            // Container(
+            //       height: 0.050.sh,
+            //       decoration: BoxDecoration(
+            //         color: Colors.white,
+            //         shape: BoxShape.rectangle,
+            //         border: Border.all(
+            //           color: Colors.grey,
+            //           width: 1.0,
+            //         ),
+            //       ),
+            //       child:  Obx(
+            //         () =>
+                    
+            //         DropdownButton(
+            //           // isExpanded: true,
+            //           isDense: true,
+            //           iconSize: 35,
+            //           // alignment: Alignment.center,
                      
 
-                      items: classListController
-                          .classSection !=
-                          null
-                          ? classListController.classSection
-                          .map((country) {
-                        return DropdownMenuItem(
-                          value: country,
-                          child: Padding(
-                            padding:
-                            const EdgeInsets.all(
-                                8.0),
-                            child: SizedBox(
-                              width:110,
-                              height: 20,
-                              child: Text(country,   style: GoogleFonts.dmSans(
-                                fontStyle: FontStyle.normal,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),),
-                            ),
-                          ),
-                        );
-                      }).toList()
-                          : [],
-                      hint: SizedBox(width: 110,height:20,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: classListController.isloding2.value? SizedBox(
-                              width: 110,height: 20,
-                              child: Text(selectdata1,   style: GoogleFonts.dmSans(
-                                fontStyle: FontStyle.normal,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),),
-                            ):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
-                          ),
-                        ),
-                      onChanged: (dynamic country) {
-                        // print("You selected: $country");
-                        selectdata1 = country!;
-                        teacherclassTimeTableController.TeacherclassTimeTableapi(selectdata,selectdata1);
-                        setState(() {
-                          currentdays();
-                        teacherclassTimeTableController.loadingclassTimeTable.value=false;
-                        });
-                      },
-                    )),
-            ),],
+            //           items: classListController
+            //               .classSection !=
+            //               null
+            //               ? classListController.classSection
+            //               .map((country) {
+            //             return DropdownMenuItem(
+            //               value: country,
+            //               child: Padding(
+            //                 padding:
+            //                 const EdgeInsets.all(
+            //                     8.0),
+            //                 child: SizedBox(
+            //                   width:110,
+            //                   height: 20,
+            //                   child: Text(country,   style: GoogleFonts.dmSans(
+            //                     fontStyle: FontStyle.normal,
+            //                     fontSize: 14.sp,
+            //                     fontWeight: FontWeight.normal,
+            //                     color: Colors.black,
+            //                   ),),
+            //                 ),
+            //               ),
+            //             );
+            //           }).toList()
+            //               : [],
+            //           hint: SizedBox(width: 110,height:20,
+            //               child: Padding(
+            //                 padding: const EdgeInsets.only(left: 10),
+            //                 child: classListController.isloding2.value? SizedBox(
+            //                   width: 110,height: 20,
+            //                   child: Text(selectdata1,   style: GoogleFonts.dmSans(
+            //                     fontStyle: FontStyle.normal,
+            //                     fontSize: 14.sp,
+            //                     fontWeight: FontWeight.normal,
+            //                     color: Colors.black,
+            //                   ),),
+            //                 ):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+            //               ),
+            //             ),
+            //           onChanged: (dynamic country) {
+            //             // print("You selected: $country");
+            //             selectdata1 = country!;
+            //             teacherclassTimeTableController.TeacherclassTimeTableapi(selectdata,selectdata1);
+            //             setState(() {
+            //               currentdays();
+            //             teacherclassTimeTableController.loadingclassTimeTable.value=false;
+            //             });
+            //           },
+            //         )),
+            // )
+            ,],
             ),
               ],
             ),

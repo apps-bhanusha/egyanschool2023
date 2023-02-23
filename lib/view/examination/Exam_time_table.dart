@@ -1,16 +1,13 @@
-import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule1_controller.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule_controller.dart';
 import 'package:ecom_desgin/controller/student_profile-Controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
-import 'package:ecom_desgin/view/examination/ExamTimeDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:http/http.dart';
 
 class ExamTimeTable extends StatefulWidget {
   const ExamTimeTable({super.key});
@@ -26,18 +23,27 @@ class _ExamTimeTableState extends State<ExamTimeTable> {
   GetexamsScheduleController getexamview=Get.put(GetexamsScheduleController());
   var company_key;
   var exam_id;
-
   var box = Hive.box("schoolData");
 @override
 void initState() {
         super.initState();
         company_key = box.get("company_key");
-        getexamview1.GetexamsSchedule1api(company_key, 0,studentProfileController.studentProfileModel.value?.response.studentId);
-        print("dddddsvvv");
-
-
+          var  student_login = box.get("student_login");
+          print(student_login);
+          if(student_login=="student_login"){
+            getexamview1.GetexamsSchedule1api(company_key, 0,
+                studentProfileController.studentProfileModel.value?.response
+                    .studentId);
+            print("ffalll");
+            print(studentProfileController.studentProfileModel.value?.response
+                .studentId);
+          }else{
+            company_key = box.get("company_key");
+            getexamview1.loadingGetexamsSchedule1.value=false;
+            getexamview1.GetexamsSchedule1api(company_key, 0,0);
+            print("bugss is not fixx");
+          }
         exam_id = box.get("exam_id");
-
   }
  @override
   Widget build(BuildContext context) {
@@ -118,7 +124,7 @@ void initState() {
                   ),
                 )
             ],
-          ):Center(child: CircularProgressIndicator()),
+          ):const Center(child: CircularProgressIndicator()),
         ));
   }
 }

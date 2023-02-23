@@ -14,7 +14,7 @@ class AddStaffLeaveRecordController extends GetxController {
   final StudentProfileController studentProfileController = Get.put(StudentProfileController());
 
   RxBool loadingAddStaffLeaveRecord1 =false.obs;
-  Future<List<AddStaffLeaveRecordController>?> AddStaffLeaveRecordapi(staff_id,date,from_date,to_date,reason,leave_type_id,company_key,userfile) async {
+  Future<String> AddStaffLeaveRecordapi(staffId,date,fromDate,toDate,reason,leaveTypeId,companyKey,userfile) async {
 
     print(userfile);
 
@@ -23,13 +23,13 @@ class AddStaffLeaveRecordController extends GetxController {
     };
     var request = http.MultipartRequest('POST', Uri.parse(ApiUrl.baseUrl+ApiUrl.addstaffLeaveRecordUrl));
     request.fields.addAll({
-      'staff_id': staff_id,
+      'staff_id': staffId,
       'date':date,
-      'from_date': from_date,
-      'to_date': to_date,
+      'from_date': fromDate,
+      'to_date': toDate,
       'reason': reason,
-      "leave_type_id":leave_type_id,
-      'company_key': company_key});
+      "leave_type_id":leaveTypeId,
+      'company_key': companyKey});
 
     if(userfile!=null){
       request.files.add(await http.MultipartFile.fromPath('userfile', userfile));
@@ -41,12 +41,12 @@ class AddStaffLeaveRecordController extends GetxController {
     http.StreamedResponse response = await request.send();
     // print(response.stream.bytesToString());
     if (response.statusCode == 200) {
-      staffcall(company_key);
-
+      staffcall(companyKey);
       var sdata= await response.stream.bytesToString();
       var alldata =jsonDecode(sdata);
       // print(await response.stream.bytesToString());
-      Get.snackbar(
+    if(alldata["status"]==true){
+        Get.snackbar(
         alldata["message"].toString(),
         "",
         duration: 5.seconds, // it could be any reasonable time, but I set it lo-o-ong
@@ -63,17 +63,21 @@ class AddStaffLeaveRecordController extends GetxController {
 
             )),
       );
+      return "true";
+    }
     }
     else {
+      return "";
     }
+      return "";
 
   }
-  void staffcall(company_key){
+  void staffcall(companyKey){
     var box = Hive.box("schoolData");
     var  id = box.get("student_id");
-    company_key = box.get("company_key");
-    var staff_id=box.get("staff_id");
-    staffLeaveRecord.StaffLeaveRecordapi(company_key,staff_id);
+    companyKey = box.get("company_key");
+    var staffId=box.get("staff_id");
+    staffLeaveRecord.StaffLeaveRecordapi(companyKey,staffId);
 
     loadingAddStaffLeaveRecord1.value=true;
 

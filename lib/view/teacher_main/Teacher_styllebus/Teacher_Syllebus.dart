@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/Widgets/DropDown_widget.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/Teacher_syllebus_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/class_list_controller.dart';
@@ -60,63 +61,82 @@ String selectSection="select Section";
                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                  Container(
-                     height: 0.050.sh,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                  ),
-                    child: Obx(() =>   DropdownButton(
-                      underline: const SizedBox(),
-                     iconSize: 35,
-                       alignment: Alignment.center,
-                                   hint:  classListController.isloding.value? SizedBox( width: 110,height:20,child: Text(selectClass)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
-                       items:  classListController.classList.map((country){
-                       return DropdownMenuItem( 
-                           value: country, 
-                           child: Text(country),
-                       );
-                       }).toList(),
-                       onChanged: (dynamic country){
-                         selectClass=country;
-                        classListController.classSectionapi(country);
-                        setState(() {                    
-                        });           
-                       },
-                     ),),
-                  ),
-                      Container(
-                         height: 0.050.sh,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                  ),
-                        child: Obx(() =>   DropdownButton(
-                          underline: const SizedBox(),
-                                         iconSize: 35,
-                                           alignment: Alignment.center,
-                                       hint:  classListController.isloding2.value ?SizedBox(width: 110,height:20,child: Text(selectSection)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
-                                           items: classListController.classSection.map((country){
-                                           return DropdownMenuItem( 
-                                           value: country, 
-                                           child: Text(country),
-                                           );
-                                           }).toList(),
-                                           onChanged: (dynamic country){
-                                         selectSection=country;
-                                         setState(() {           
-                                           teacherSyllebusController.loadingTeacherSylabusStatus.value=false;
-                                           teacherSyllebusController.classSectiontSyllebusapi(country);
-                                         });
-                                           },
-                                         )),
-                      ),
+                     Obx(
+                      () =>  DropDownWidget(droph: 0.060.sh, selectText: selectClass, item: classListController.classList, isloading: classListController.isloding.value, empaty: "", onChange: (value) {
+                               
+                                      selectClass=value!;
+                                      setState(() {
+                                classListController.classSectionapi(value);
+                                      });
+                                    }, xpand: false,),
+                     ),
+                                 
+                   Obx(
+                     () =>  DropDownWidget(droph: 0.060.sh, selectText: selectSection, item: classListController.classSection, isloading: classListController.isloding2.value, empaty: "", onChange: (value) {
+                                        selectSection=value;
+                                           setState(() {           
+                                             teacherSyllebusController.loadingTeacherSylabusStatus.value=false;
+                                             teacherSyllebusController.classSectiontSyllebusapi(value);
+                                           });
+                                                          }, xpand: false,),
+                   ),
+                  // Container(
+                  //    height: 0.050.sh,
+                  // decoration: BoxDecoration(
+                  //   shape: BoxShape.rectangle,
+                  //   border: Border.all(
+                  //     color: Colors.grey,
+                  //     width: 1.0,
+                  //   ),
+                  // ),
+                  //   child: Obx(() =>   DropdownButton(
+                  //     underline: const SizedBox(),
+                  //    iconSize: 35,
+                  //      alignment: Alignment.center,
+                  //                  hint:  classListController.isloding.value? SizedBox( width: 110,height:20,child: Text(selectClass)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+                  //      items:  classListController.classList.map((country){
+                  //      return DropdownMenuItem( 
+                  //          value: country, 
+                  //          child: Text(country),
+                  //      );
+                  //      }).toList(),
+                  //      onChanged: (dynamic country){
+                  //        selectClass=country;
+                  //       classListController.classSectionapi(country);
+                  //       setState(() {                    
+                  //       });           
+                  //      },
+                  //    ),),
+                  // ),
+                  //     Container(
+                  //        height: 0.050.sh,
+                  // decoration: BoxDecoration(
+                  //   shape: BoxShape.rectangle,
+                  //   border: Border.all(
+                  //     color: Colors.grey,
+                  //     width: 1.0,
+                  //   ),
+                  // ),
+                  //       child: Obx(() =>   DropdownButton(
+                  //         underline: const SizedBox(),
+                  //                        iconSize: 35,
+                  //                          alignment: Alignment.center,
+                  //                      hint:  classListController.isloding2.value ?SizedBox(width: 110,height:20,child: Text(selectSection)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+                  //                          items: classListController.classSection.map((country){
+                  //                          return DropdownMenuItem( 
+                  //                          value: country, 
+                  //                          child: Text(country),
+                  //                          );
+                  //                          }).toList(),
+                  //                          onChanged: (dynamic country){
+                  //                        selectSection=country;
+                  //                        setState(() {           
+                  //                          teacherSyllebusController.loadingTeacherSylabusStatus.value=false;
+                  //                          teacherSyllebusController.classSectiontSyllebusapi(country);
+                  //                        });
+                  //                          },
+                  //                        )),
+                  //     ),
                   ],
                 ),
              ),

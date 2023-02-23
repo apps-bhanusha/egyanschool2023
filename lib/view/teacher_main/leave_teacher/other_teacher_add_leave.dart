@@ -1,12 +1,10 @@
+import 'package:ecom_desgin/Widgets/DropDown_widget.dart';
 import 'package:ecom_desgin/Widgets/TextFieldWidget.dart';
 import 'package:ecom_desgin/constant/date_format.dart';
 import 'package:ecom_desgin/constant/font.dart';
-import 'package:ecom_desgin/controller/addstudentLeaveRecord_controller.dart';
-import 'package:ecom_desgin/controller/studentLeaveRecord_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/other_teacher_add_leave_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/other_teacher_leave_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/staff_leave_type_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -15,16 +13,14 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart' show rootBundle;
+// ignore: depend_on_referenced_packages
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-import 'package:date_format/date_format.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
-import 'package:custom_floating_action_button/custom_floating_action_button.dart';
 import 'package:intl/intl.dart';
 
 class TeacherAddUserDialog extends StatefulWidget {
@@ -62,8 +58,8 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
   bool fileSelected = false;
   bool selectstaff =false;
   List<types.Message> _messages = [];
-  var  selectdata1;
-   var countries1=[];
+  var  selectdata1="Select LeaveType";
+   List<String> countries1=[];
   final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
 
   late Animation<double> _animation;
@@ -188,307 +184,318 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
   var reasonController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context) => SizedBox(
         height: 0.58.sh,
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
             title:  Text("Add Staff Leave",style: MyGoogeFont.mydmSans),
           ),
-          body: Container(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4.0,).r,
-                        child: RichText(
-                          text: TextSpan(
-                            text: 'Staff Leave Type',
-                            style: GoogleFonts.dmSans(
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.black,
-                            ),
-                            children: const <TextSpan>[
-                              TextSpan(
-                                  text: '*',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.red)),
-                            ],
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Column(
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0,).r,
+                      child: RichText(
+                        text: TextSpan(
+                          text: 'Staff Leave Type',
+                          style: GoogleFonts.dmSans(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
                           ),
+                          children: const <TextSpan>[
+                            TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red)),
+                          ],
                         ),
                       ),
-                      Container(
-                        height: 0.060.sh,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 1.0,
-                          ),
-                        ),
-                        child: DropdownButton(
+                    ),
+                    DropDownWidget(
+                    droph: 0.060.sh, 
+                    selectText: selectdata1, 
+                    item: countries1,
+                     isloading: true,
+                     empaty: "",
+                     onChange: (country) {
+                          selectdata1=country!;
+                          setState(() {
+                            dataset(country);
+                          });
+                    }, xpand:false,)
+                    // Container(
+                    //   height: 0.060.sh,
+                    //   decoration: BoxDecoration(
+                    //     shape: BoxShape.rectangle,
+                    //     border: Border.all(
+                    //       color: Colors.grey,
+                    //       width: 1.0,
+                    //     ),
+                    //   ),
+                    //   child: DropdownButton(
 
-                          isExpanded: true,
-                          isDense: true,
-                          iconSize: 35,
-                          // alignment: Alignment.center,
-                          value: selectdata1,
+                    //     isExpanded: true,
+                    //     isDense: true,
+                    //     iconSize: 35,
+                    //     // alignment: Alignment.center,
+                    //     value: selectdata1,
 
-                          items: countries1.map((country){
-                            return DropdownMenuItem(
-                              value: country,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(country),
-                              ),
-                            );
-                          }).toList(),
-                          hint: const Center(
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text("Select LeaveType",style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500)),
-                            ),
-                          ),
-                          onChanged: (country){
-                            // print("You selected: $country");
-                            selectdata1=country!;
+                    //     items: countries1.map((country){
+                    //       return DropdownMenuItem(
+                    //         value: country,
+                    //         child: Padding(
+                    //           padding: const EdgeInsets.all(8.0),
+                    //           child: Text(country),
+                    //         ),
+                    //       );
+                    //     }).toList(),
+                    //     hint: const Center(
+                    //       child: Padding(
+                    //         padding: EdgeInsets.all(8.0),
+                    //         child: Text("Select LeaveType",style: TextStyle(
+                    //             color: Colors.black,
+                    //             fontSize: 14,
+                    //             fontWeight: FontWeight.w500)),
+                    //       ),
+                    //     ),
+                    //     onChanged: (country){
+                    //       // print("You selected: $country");
+                    //       selectdata1=country!;
 
 
-                            setState(() {
-                              dataset(country);
-                              // paySlipController.isloding.value=false;
-                              // isselected=true;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  // Divider(
-                  //   color: Colors.grey,
-                  //   thickness: 1,
-                  // ),
+                    //       setState(() {
+                    //         dataset(country);
+                    //         // paySlipController.isloding.value=false;
+                    //         // isselected=true;
+                    //       });
+                    //     },
+                    //   ),
+                    // ),
+                  ],
+                ),
+                // Divider(
+                //   color: Colors.grey,
+                //   thickness: 1,
+                // ),
 
-                  //     TextField(
-                  // controller: usernameController,
-                  //       decoration: InputDecoration(
-                  //           labelText: 'UserName',
-                  //           contentPadding: EdgeInsets.all(5),
-                  //           labelStyle: TextStyle(
-                  //             color: Colors.grey[400],
-                  //           )),
-                  //       style: GoogleFonts.dmSans(
-                  //         fontStyle: FontStyle.normal,
-                  //         fontSize: 15.sp,
-                  //         fontWeight: FontWeight.bold,
-                  //       ),
-                  //     ),
+                //     TextField(
+                // controller: usernameController,
+                //       decoration: InputDecoration(
+                //           labelText: 'UserName',
+                //           contentPadding: EdgeInsets.all(5),
+                //           labelStyle: TextStyle(
+                //             color: Colors.grey[400],
+                //           )),
+                //       style: GoogleFonts.dmSans(
+                //         fontStyle: FontStyle.normal,
+                //         fontSize: 15.sp,
+                //         fontWeight: FontWeight.bold,
+                //       ),
+                //     ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Expanded(
-                        // optional flex property if flex is 1 because the default flex is 1
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 5).r,
-                          child: TextField(
-                              controller: fromdateController,
-                              decoration: InputDecoration(
-                                  labelText: 'From Date',
-                                  contentPadding: const EdgeInsets.all(5).r,
-                                  labelStyle:
-                                      TextStyle(color: Colors.grey[400])),
-                              style: GoogleFonts.dmSans(
-                                fontStyle: FontStyle.normal,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              readOnly: true,
-                              onTap: () async {
-                                DateTimeRange? pickedRange =
-                                    await showDateRangePicker(
-                                        context: context,
-                                        
-                                        initialDateRange: DateTimeRange(
-                                        
-                                          start: DateTime.now(),
-                                          end: DateTime.now(),
-                                        ),
-                                        firstDate: DateTime.now(),
-                                        lastDate:
-                                            DateTime(DateTime.now().year + 2),
-                                        helpText: 'Select Date Range',
-                                        cancelText: 'CANCEL',
-                                        confirmText: 'OK',
-                                        saveText: 'SAVE',
-                                        errorFormatText: 'Invalid format.',
-                                        errorInvalidText: 'Out of range.',
-                                        errorInvalidRangeText: 'Invalid range.',
-                                        fieldStartHintText: 'Start Date',
-                                        fieldEndLabelText: 'End Date',
-                                        builder: (context, Widget? child) {
-                                    return Theme(
-                                      data: ThemeData.light().copyWith(
-                                        primaryColor: Colors.blue,
-                                        scaffoldBackgroundColor: Colors.grey[50],
-                                        dividerColor: Colors.grey,
-                                        textTheme: const TextTheme(
-                                          bodyMedium:
-                                          TextStyle(color: Colors.black),
-                                        ),
-                                        colorScheme: ColorScheme.fromSwatch().copyWith(
-
-                                          primary: Colors.blue,
-
-                                          onSurface: Colors.black,
-
-                                        ),
-                                      ),
-                                      child: child!,
-                                    );
-                                  }
-                                        );
-
-                                if (pickedRange != null) {
-                                  print(
-                                      pickedRange); //pickedDate output format => 2021-03-10 00:00:00.000
-                                  DateTimeRange formattedDate = pickedRange;
-                                  print(formattedDate);
-                                  setState(() {
-                                    fromdateController.text =
-                                        MyDateFormat.dateformatmethod1(
-                                            '${pickedRange?.start}');
-                                    todateController.text =
-                                        MyDateFormat.dateformatmethod1(
-                                            '${pickedRange?.end}');
-                                    from_date = MyDateFormat.dateformatmethod(
-                                        '${pickedRange?.start}');
-                                    to_date = MyDateFormat.dateformatmethod(
-                                        '${pickedRange?.end}');
-                                    // fromdateController.text =formatDate(DateTime.parse('${pickedRange?.start}'), [dd, '-', mm, '-', yyyy]);
-                                    // todateController.text =formatDate(DateTime.parse('${pickedRange?.end}'), [dd, '-', mm, '-', yyyy]);
-                                    print(
-                                        "tttttttttttttttttttttttttttgggggggggggggggg");
-
-                                    // from_date=fromdateController.text;
-                                    // to_date=todateController.text;
-
-                                    //set output date to TextField value.
-                                  });
-                                }
-                                print("444444444444443444333");
-                                print(
-                                    'picked range ${pickedRange?.start} ${pickedRange?.end} ${pickedRange?.duration.inDays}');
-
-                                // pickedRange1='${pickedRange?.start}';
-                                // pickedRange2='${pickedRange?.end}';
-                                // print(pickedRange1);
-                                // print(pickedRange2);
-                              }),
-                        ),
-                      ),
-                      SizedBox(width: 0.030.sw),
-                      Expanded(
-                        // optional flex property if flex is 1 because the default flex is 1
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 5).r,
-                          child: TextField(
-                            controller: todateController,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Expanded(
+                      // optional flex property if flex is 1 because the default flex is 1
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 5).r,
+                        child: TextField(
+                            controller: fromdateController,
                             decoration: InputDecoration(
-                              labelText: 'To Date',
-                              contentPadding: EdgeInsets.all(5).r,
-                              labelStyle: TextStyle(color: Colors.grey[400]),
-                            ),
+                                labelText: 'From Date',
+                                contentPadding: const EdgeInsets.all(5).r,
+                                labelStyle:
+                                    TextStyle(color: Colors.grey[400])),
                             style: GoogleFonts.dmSans(
                               fontStyle: FontStyle.normal,
                               fontSize: 15.sp,
                               fontWeight: FontWeight.bold,
                             ),
-                          ),
-                        ),
+                            readOnly: true,
+                            onTap: () async {
+                              DateTimeRange? pickedRange =
+                                  await showDateRangePicker(
+                                      context: context,
+                                      
+                                      initialDateRange: DateTimeRange(
+                                      
+                                        start: DateTime.now(),
+                                        end: DateTime.now(),
+                                      ),
+                                      firstDate: DateTime.now(),
+                                      lastDate:
+                                          DateTime(DateTime.now().year + 2),
+                                      helpText: 'Select Date Range',
+                                      cancelText: 'CANCEL',
+                                      confirmText: 'OK',
+                                      saveText: 'SAVE',
+                                      errorFormatText: 'Invalid format.',
+                                      errorInvalidText: 'Out of range.',
+                                      errorInvalidRangeText: 'Invalid range.',
+                                      fieldStartHintText: 'Start Date',
+                                      fieldEndLabelText: 'End Date',
+                                      builder: (context, Widget? child) {
+                                  return Theme(
+                                    data: ThemeData.light().copyWith(
+                                      primaryColor: Colors.blue,
+                                      scaffoldBackgroundColor: Colors.grey[50],
+                                      dividerColor: Colors.grey,
+                                      textTheme: const TextTheme(
+                                        bodyMedium:
+                                        TextStyle(color: Colors.black),
+                                      ),
+                                      colorScheme: ColorScheme.fromSwatch().copyWith(
+
+                                        primary: Colors.blue,
+
+                                        onSurface: Colors.black,
+
+                                      ),
+                                    ),
+                                    child: child!,
+                                  );
+                                }
+                                      );
+
+                              if (pickedRange != null) {
+                                print(
+                                    pickedRange); //pickedDate output format => 2021-03-10 00:00:00.000
+                                DateTimeRange formattedDate = pickedRange;
+                                print(formattedDate);
+                                setState(() {
+                                  fromdateController.text =
+                                      MyDateFormat.dateformatmethod1(
+                                          '${pickedRange?.start}');
+                                  todateController.text =
+                                      MyDateFormat.dateformatmethod1(
+                                          '${pickedRange?.end}');
+                                  from_date = MyDateFormat.dateformatmethod(
+                                      '${pickedRange?.start}');
+                                  to_date = MyDateFormat.dateformatmethod(
+                                      '${pickedRange?.end}');
+                                  // fromdateController.text =formatDate(DateTime.parse('${pickedRange?.start}'), [dd, '-', mm, '-', yyyy]);
+                                  // todateController.text =formatDate(DateTime.parse('${pickedRange?.end}'), [dd, '-', mm, '-', yyyy]);
+                                  print(
+                                      "tttttttttttttttttttttttttttgggggggggggggggg");
+
+                                  // from_date=fromdateController.text;
+                                  // to_date=todateController.text;
+
+                                  //set output date to TextField value.
+                                });
+                              }
+                              print("444444444444443444333");
+                              print(
+                                  'picked range ${pickedRange?.start} ${pickedRange?.end} ${pickedRange?.duration.inDays}');
+
+                              // pickedRange1='${pickedRange?.start}';
+                              // pickedRange2='${pickedRange?.end}';
+                              // print(pickedRange1);
+                              // print(pickedRange2);
+                            }),
                       ),
-                    ],
-                  ),
-       CustomTextField(hint: 'Reason',controller: reasonController,inputType: TextInputType.text,obscureText: false,onChange: (value){   studentLeave();},),
-
-                  // Padding(
-                  //   padding: const EdgeInsets.only(left: 10, right: 10).r,
-                  //   child: TextField(
-                  //     controller: reasonController,
-                  //     onChanged: (content) {
-                  //       studentLeave();
-                  //     },
-                  //     decoration: InputDecoration(
-                  //       labelText: 'Reason',
-                  //       hintText: show,
-                  //       contentPadding: EdgeInsets.all(5).r,
-                  //       labelStyle: TextStyle(color: Colors.grey[400]),
-                  //     ),
-                  //     style: GoogleFonts.dmSans(
-                  //       fontStyle: FontStyle.normal,
-                  //       fontSize: 15.sp,
-                  //       fontWeight: FontWeight.bold,
-                  //     ),
-                  //   ),
-                  // ),
-
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Attach Document",
+                    ),
+                    SizedBox(width: 0.030.sw),
+                    Expanded(
+                      // optional flex property if flex is 1 because the default flex is 1
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 5).r,
+                        child: TextField(
+                          controller: todateController,
+                          decoration: InputDecoration(
+                            labelText: 'To Date',
+                            contentPadding: EdgeInsets.all(5).r,
+                            labelStyle: TextStyle(color: Colors.grey[400]),
+                          ),
                           style: GoogleFonts.dmSans(
                             fontStyle: FontStyle.normal,
                             fontSize: 15.sp,
                             fontWeight: FontWeight.bold,
-                            color: Colors.grey[600],
                           ),
                         ),
-                        Container(
-                          height: 0.06.sh,
-                          width: 0.10.sw,
-                          color: Colors.white,
-                          child: FloatingActionButton(
-                              child: Icon(Icons.upload_sharp),
-                              backgroundColor: Colors.white,
-                              onPressed: () async {
-                                FilePickerResult? result =
-                                    await FilePicker.platform.pickFiles();
-
-                                if (result != null) {
-                                  PlatformFile file = result.files.first;
-
-                                  print(file.name);
-                                  print(file.bytes);
-                                  print(file.size);
-                                  print(file.extension);
-                                  print(file.path);
-                                  userfile = file.path;
-                                  fileData = file.name.toString();
-                                  setState(() {});
-                                } else {
-                                  print('No file selected');
-                                }
-                              }),
-                        ),
-                      ],
+                      ),
                     ),
+                  ],
+                ),
+       CustomTextField(hint: 'Reason',controller: reasonController,inputType: TextInputType.text,obscureText: false,onChange: (value){   studentLeave();},),
+
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 10, right: 10).r,
+                //   child: TextField(
+                //     controller: reasonController,
+                //     onChanged: (content) {
+                //       studentLeave();
+                //     },
+                //     decoration: InputDecoration(
+                //       labelText: 'Reason',
+                //       hintText: show,
+                //       contentPadding: EdgeInsets.all(5).r,
+                //       labelStyle: TextStyle(color: Colors.grey[400]),
+                //     ),
+                //     style: GoogleFonts.dmSans(
+                //       fontStyle: FontStyle.normal,
+                //       fontSize: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //   ),
+                // ),
+
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Attach Document",
+                        style: GoogleFonts.dmSans(
+                          fontStyle: FontStyle.normal,
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                      Container(
+                        height: 0.06.sh,
+                        width: 0.10.sw,
+                        color: Colors.white,
+                        child: FloatingActionButton(
+                            child: Icon(Icons.upload_sharp),
+                            backgroundColor: Colors.white,
+                            onPressed: () async {
+                              FilePickerResult? result =
+                                  await FilePicker.platform.pickFiles();
+
+                              if (result != null) {
+                                PlatformFile file = result.files.first;
+
+                                print(file.name);
+                                print(file.bytes);
+                                print(file.size);
+                                print(file.extension);
+                                print(file.path);
+                                userfile = file.path;
+                                fileData = file.name.toString();
+                                setState(() {});
+                              } else {
+                                print('No file selected');
+                              }
+                            }),
+                      ),
+                    ],
                   ),
-              Row(
+                ),
+            Row(
   children: [
         const Text("file :- "),
     SizedBox(
@@ -499,105 +506,108 @@ class _TeacherAddUserDialogState extends State<TeacherAddUserDialog>
     ),
   ],
 ),
-                  // Container(
-                  //   child: Text(
-                  //     'Attach Document',
-                  //
-                  //     style: GoogleFonts.dmSans(
-                  //       fontStyle: FontStyle.normal,
-                  //       fontSize: 15.sp,
-                  //       fontWeight: FontWeight.bold,
-                  //       color: Colors.black,
-                  //     ),
-                  //   ),
-                  // ),
+                // Container(
+                //   child: Text(
+                //     'Attach Document',
+                //
+                //     style: GoogleFonts.dmSans(
+                //       fontStyle: FontStyle.normal,
+                //       fontSize: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //       color: Colors.black,
+                //     ),
+                //   ),
+                // ),
 
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // ElevatedButton(
-                        //   onPressed: () {
-                        //     selectDateRange(context);
-                        //   },
-                        //   child: Text('select range'),
-                        // ),
-                        fileSelected
-                            ? Padding(
-                                padding: const EdgeInsets.only(top: 20),
-                                child: ElevatedButton(
-                                    onPressed: () async {
-                                      // final user = User(
-                                      //    "",
-                                      //     fromdateController.text,
-                                      //     todateController.text,
-                                      //     reasonController.text,
-                                      //     userfile);
-                                      message = reasonController.text;
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // ElevatedButton(
+                      //   onPressed: () {
+                      //     selectDateRange(context);
+                      //   },
+                      //   child: Text('select range'),
+                      // ),
+                      fileSelected
+                          ? Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: ElevatedButton(
+                                  onPressed: () async {
+                                    // final user = User(
+                                    //    "",
+                                    //     fromdateController.text,
+                                    //     todateController.text,
+                                    //     reasonController.text,
+                                    //     userfile);
+                                    message = reasonController.text;
 
-                                      staff_id = box.get("staff_id");
+                                    staff_id = box.get("staff_id");
 
-                                      // widget.addUser(user);
-                                      if (fileSelected == true) {
+                                    // widget.addUser(user);
+                                    if (fileSelected == true) {
 
-                                        addStaffLeaveRecord
-                                            .AddStaffLeaveRecordapi(
-                                                staff_id,
-                                                dateStr,
-                                                from_date,
-                                                to_date,
-                                                message,
-                                          id1,
-                                                company_key,
-                                                userfile,
-                                        );
+                                      addStaffLeaveRecord
+                                          .AddStaffLeaveRecordapi(
+                                              staff_id,
+                                              dateStr,
+                                              from_date,
+                                              to_date,
+                                              message,
+                                        id1,
+                                              company_key,
+                                              userfile,
+                                      ).then((value){
+                                   if(value=="true"){
+                                     Navigator.of(context).pop();
+                                   }
+                                      });
 
-                                        Navigator.of(context).pop();
-                                      } else {
-                                        show = "Please Enter message";
-                                      }
-                                    },
-                                    // Navigator.pop(context, MyRoutes.homeRoute);
+                                      
+                                    } else {
+                                      show = "Please Enter message";
+                                    }
+                                  },
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all(
+                                            Colors.blue),
+                                  ),
+                                  // Navigator.pop(context, MyRoutes.homeRoute);
 
-                                    child: Text(
-                                      'Submit',
-                                      style: GoogleFonts.dmSans(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
+                                  child: Text(
+                                    'Submit',
+                                    style: GoogleFonts.dmSans(
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
                                     ),
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              Colors.blue),
-                                    )),
-                              )
-                            : Padding(
-                                padding: const EdgeInsets.only(top: 20),
-                                child: ElevatedButton(
-                                    onPressed: () async {},
-                                    child: Text(
-                                      'Submit',
-                                      style: GoogleFonts.dmSans(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
+                                  )),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: ElevatedButton(
+                                  onPressed: () async {},
+                                  child: Text(
+                                    'Submit',
+                                    style: GoogleFonts.dmSans(
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
                                     ),
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              Colors.grey),
-                                    )),
-                              ),
-                      ]),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all(
+                                            Colors.grey),
+                                  )),
+                            ),
+                    ]),
 
-                  // Container(color:Colors.black,height:0.001.sh,width: 0.96.sw,),
-                ],
-              ),
+                // Container(color:Colors.black,height:0.001.sh,width: 0.96.sw,),
+              ],
             ),
           ),
         ),

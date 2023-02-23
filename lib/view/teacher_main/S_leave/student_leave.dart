@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+import 'package:ecom_desgin/Widgets/DropDown_widget.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/class_list_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/set_student_Leave_Status.dart';
@@ -157,37 +158,47 @@ bool islike=false;
                 color:Colors.blue
               ),
               const SizedBox( height: 10,),
-      
-     Container(
-       height: 0.050.sh,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                  ),
-       child: Obx(() =>   DropdownButton(
-        iconSize: 35,
-        underline: const SizedBox(),
-          alignment: Alignment.center,
-         hint:  classListController.islodingstudentlist.value ?SizedBox(width: 110,height:20, child: Text(selectStudent)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
-          items: classListController.studentListDrop.map((country){
-          return DropdownMenuItem( 
-              value: country, 
-              child: Text(country),
-          );
-          }).toList(),
-          onChanged: (dynamic country){
-        selectStudent=country;
+      Obx(
+                                  () =>   DropDownWidget(droph: 0.050.sh, selectText: selectStudent, item: classListController.studentListDrop, isloading: classListController.islodingstudentlist.value, empaty: "", onChange: (value) {
+                                selectStudent=value;
         setState(() {
-           studentLeaveController.studentLeaveRecord(country);
+           studentLeaveController.studentLeaveRecord(value);
            studentLeaveController.isloading2.value=false;
            studentLeaveController.isloading.value=false;
         });
-          },
-        )),
-     ),
+                                                          }, xpand: false,),
+                                ),
+                              
+    //  Container(
+    //    height: 0.050.sh,
+    //               decoration: BoxDecoration(
+    //                 shape: BoxShape.rectangle,
+    //                 border: Border.all(
+    //                   color: Colors.grey,
+    //                   width: 1.0,
+    //                 ),
+    //               ),
+    //    child: Obx(() =>   DropdownButton(
+    //     iconSize: 35,
+    //     underline: const SizedBox(),
+    //       alignment: Alignment.center,
+    //      hint:  classListController.islodingstudentlist.value ?SizedBox(width: 110,height:20, child: Text(selectStudent)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+    //       items: classListController.studentListDrop.map((country){
+    //       return DropdownMenuItem( 
+    //           value: country, 
+    //           child: Text(country),
+    //       );
+    //       }).toList(),
+    //       onChanged: (dynamic country){
+    //     selectStudent=country;
+    //     setState(() {
+    //        studentLeaveController.studentLeaveRecord(country);
+    //        studentLeaveController.isloading2.value=false;
+    //        studentLeaveController.isloading.value=false;
+    //     });
+    //       },
+    //     )),
+    //  ),
      
       
             ],

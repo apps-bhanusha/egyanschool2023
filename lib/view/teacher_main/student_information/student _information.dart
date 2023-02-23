@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/Widgets/DropDown_widget.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/class_list_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/studnet_search_controller.dart';
@@ -186,68 +187,80 @@ onChanged:(value) {
       Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-     Container(
-             height: 0.050.sh,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                  ),
-       child: Obx(() =>   DropdownButton(
-        underline: const SizedBox(),
-        iconSize: 35,
-          alignment: Alignment.center,
-         hint:  classListController.isloding.value? SizedBox( width: 110,height:20,child: Text(selectClass)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
-          items: controller.text.isEmpty? classListController.classList.map((country){
-          return DropdownMenuItem( 
-              child: Text(country),
-              value: country,
-          );
-          }).toList():[],
-          onChanged: (dynamic country){
-            selectClass=country;
-          
-           classListController.classSectionapi(country);
-           setState(() {
-             
-           });
+     Obx(() => DropDownWidget(droph: 0.050.sh, selectText: selectClass, item: classListController.classList, isloading: classListController.isloding.value , empaty: controller.text, onChange: (value) {
+           selectClass=value;
+         classListController.classSectionapi(value);
+         setState(() {    
+         });
+     }, xpand: false,)
      
-          },
-        ),),
-     ),
-         Container(
-            height: 0.050.sh,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                  ),
-           child: Obx(() =>   DropdownButton(
-            underline: const SizedBox(),
-               iconSize: 35,
-                 alignment: Alignment.center,
-             hint:  classListController.isloding2.value ?SizedBox(width: 110,height:20,child: Text(selectSection)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
-                 items: controller.text.isEmpty? classListController.classSection.map((country){
-                 return DropdownMenuItem( 
-              child: Text(country),
-              value: country,
-                 );
-                 }).toList():[],
-                 onChanged: (dynamic country){
-               selectSection=country;
+      ),
+         Obx(() => DropDownWidget(droph: 0.050.sh,
+          selectText: selectClass,
+           item: classListController.classSection, 
+           isloading: classListController.isloding2.value,
+            empaty: controller.text,
+             onChange: (value) {
+        selectSection=value;
                setState(() {
-                
-                 studentSearchController.isSearch.value=false;
-                 
-                 studentSearchController.classSectiontInfoapi(country);
+                 studentSearchController.isSearch.value=false;   
+                 studentSearchController.classSectiontInfoapi(value);
                });
-                 },
-               )),
-         ),
+     }, xpand: false,)),
+     //  DropdownButton(
+      // underline: const SizedBox(),
+      // iconSize: 35,
+      //   alignment: Alignment.center,
+      //  hint:  classListController.isloding.value? SizedBox( width: 110,height:20,child: Text(selectClass)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+      //   items: controller.text.isEmpty? classListController.classList.map((country){
+      //   return DropdownMenuItem( 
+      //       child: Text(country),
+      //       value: country,
+      //   );
+      //   }).toList():[],
+      //   onChanged: (dynamic country){
+      //     selectClass=country;
+        
+      //    classListController.classSectionapi(country);
+      //    setState(() {
+           
+      //    });
+     
+      //   },
+      // ),
+///////////////////////
+
+        //  Container(
+        //     height: 0.050.sh,
+        //           decoration: BoxDecoration(
+        //             shape: BoxShape.rectangle,
+        //             border: Border.all(
+        //               color: Colors.grey,
+        //               width: 1.0,
+        //             ),
+        //           ),
+        //    child: Obx(() =>   DropdownButton(
+        //     underline: const SizedBox(),
+        //        iconSize: 35,
+        //          alignment: Alignment.center,
+        //      hint:  classListController.isloding2.value ?SizedBox(width: 110,height:20,child: Text(selectSection)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+        //          items: controller.text.isEmpty? classListController.classSection.map((country){
+        //          return DropdownMenuItem( 
+        //       child: Text(country),
+        //       value: country,
+        //          );
+        //          }).toList():[],
+        //          onChanged: (dynamic country){
+        //        selectSection=country;
+        //        setState(() {
+                
+        //          studentSearchController.isSearch.value=false;
+                 
+        //          studentSearchController.classSectiontInfoapi(country);
+        //        });
+        //          },
+        //        )),
+        //  ),
                 ],
               ),
               ],

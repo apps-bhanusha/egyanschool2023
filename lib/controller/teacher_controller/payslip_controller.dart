@@ -1,12 +1,7 @@
 import 'dart:convert';
 
-import 'package:date_format/date_format.dart';
 import 'package:ecom_desgin/model/Teacher_model/payslip_model.dart';
-import 'package:ecom_desgin/model/Teacher_model/staff_detail_model.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,6 +33,8 @@ class PaySlipController extends GetxController{
         paySlipModel = Rxn<PaySlipModel>();
         isloding.value=true;
         var tdata = jsonDecode(response.body);
+        print("PPPPPPPPPPPPPP");
+        print(tdata);
         paySlipModel.value=PaySlipModel.fromJson(tdata);
         
         if (tdata["status"] == true) {

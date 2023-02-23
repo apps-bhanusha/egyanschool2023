@@ -60,7 +60,6 @@ class TeacherLoginController extends GetxController {
         box.put("year_end_date",tdata["company"]["year_end_date"]);
         box.put("distance",tdata["company"]["distance"]);
         await sessionManager.set("teacherlogin", "teacherlogin");
-
         loadingdata.value=true;
         teachertLogin.value = false;
         print("Login Name");
@@ -68,14 +67,12 @@ class TeacherLoginController extends GetxController {
         if(teacherListModel.value?.response["user_type"].toString().toLowerCase()=="teacher"){
            activatestudentInfo.value=true; 
         box.put("activatestudentInfo","teacher");
-
+        box.put("student_login","Staff_login");
         }else{
         box.put("activatestudentInfo","");
         activatestudentInfo.value=false; 
         }
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const TeacherHome()),
-            (Route<dynamic> route) => false);
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const TeacherHome()),(Route<dynamic> route) => false);
       } else {
         teachertLogin.value = true;
            ScaffoldMessenger.of (context).showSnackBar(SnackBar(content: Text(tdata["message"], style: GoogleFonts.dmSans(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:ecom_desgin/Widgets/DropDown_widget.dart';
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/date_format.dart';
@@ -24,10 +25,10 @@ class _TeacherPayrollState extends State<TeacherPayroll> {
 
   final StaffDetailController staffdetailsController = Get.put(StaffDetailController());
   PaySlipController paySlipController=Get.put(PaySlipController());
-  var  selectdata;
+  var  selectdata="Select Month";
   late String year1;
   late String year2;
-  bool isselected=false;
+  bool isselected=true;
   var countries = [
     "January",
     "February",
@@ -101,7 +102,7 @@ print(dateall);
     // }
     super.initState();
   }
-   var  selectdata1;
+   var  selectdata1="Select Year";
   late var countries1=["${year2}","${year1}"];
   // Datebetween(DateTime doPurchase, DateTime doRenewel) {
   //   var dt1 = Jiffy(2021);
@@ -230,52 +231,63 @@ print(dateall);
                           ),
                         ),
                       ),
-                      Container(
-                        height: 0.050.sh,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 1.0,
-                          ),
-                        ),
-                        child: DropdownButton(
 
-                          // isExpanded: true,
-                          isDense: true,
-                          iconSize: 35,
-                          // alignment: Alignment.center,
-                          value: selectdata1,
-
-                          items: countries1.map((country){
-                            return DropdownMenuItem(
-                              value: country,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(country),
-                              ),
-                            );
-                          }).toList(),
-                          hint: const Center(
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text("Select Year",style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500)),
-                            ),
-                          ),
-                          onChanged: (country){
-                            // print("You selected: $country");
+             DropDownWidget(droph: 0.050.sh, selectText: selectdata1, item: countries1, isloading: true, empaty: "", onChange: (country) {
+                // print("You selected: $country");
                             selectdata1=country!;
                             setState(() {
                               paySlipController.isloding.value=false;
                               paySlipController.isSelectMonth.value=false;
                               isselected=true;
                             });
-                          },
-                        ),
-                      ),
+             }, xpand: false,)
+
+                      // Container(
+                      //   height: 0.050.sh,
+                      //   decoration: BoxDecoration(
+                      //     shape: BoxShape.rectangle,
+                      //     border: Border.all(
+                      //       color: Colors.grey,
+                      //       width: 1.0,
+                      //     ),
+                      //   ),
+                      //   child: DropdownButton(
+
+                      //     // isExpanded: true,
+                      //     isDense: true,
+                      //     iconSize: 35,
+                      //     // alignment: Alignment.center,
+                      //     value: selectdata1,
+
+                      //     items: countries1.map((country){
+                      //       return DropdownMenuItem(
+                      //         value: country,
+                      //         child: Padding(
+                      //           padding: const EdgeInsets.all(8.0),
+                      //           child: Text(country),
+                      //         ),
+                      //       );
+                      //     }).toList(),
+                      //     hint: const Center(
+                      //       child: Padding(
+                      //         padding: EdgeInsets.all(8.0),
+                      //         child: Text("Select Year",style: TextStyle(
+                      //             color: Colors.black,
+                      //             fontSize: 14,
+                      //             fontWeight: FontWeight.w500)),
+                      //       ),
+                      //     ),
+                      //     onChanged: (country){
+                      //       // print("You selected: $country");
+                      //       selectdata1=country!;
+                      //       setState(() {
+                      //         paySlipController.isloding.value=false;
+                      //         paySlipController.isSelectMonth.value=false;
+                      //         isselected=true;
+                      //       });
+                      //     },
+                      //   ),
+                      // ),
                     ],
                   ),
 
@@ -295,65 +307,80 @@ print(dateall);
                      
                         ),
                       ),
-
-                  Container(
-                    height: 0.050.sh,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      border: Border.all(
-                        color: Colors.grey,
-                        width: 1.0,
-                      ),
-                    ),
-                    child: DropdownButton(
-
-                      // isExpanded: true,
-                      isDense: true,
-                      iconSize: 35,
-                      // alignment: Alignment.center,
-                      value: selectdata,
-
-                      items: isselected==true?countries.map((country){
-                        return DropdownMenuItem(
-                          value: country,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(country),
-                          ),
-                        );
-                      }).toList():null,
-                      hint: const Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text("Select Month",style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500)),
-                        ),
-                      ),
-                      onChanged: (country){
-                        // print("You selected: $country");
+     DropDownWidget(droph: 0.050.sh, selectText: selectdata, item: countries, isloading: isselected, empaty: "", onChange: (country) {
+    // print("You selected: $country");
                         selectdata=country!;
-
                         var box = Hive.box("schoolData");
                         var year_end_date=box.get("year_end_date");
                         var date_object=DateTime.parse(year_end_date);
                         print(date_object);
                         print("fdffddddddatetime");
                         print(date_object.year);
-
-
                         var id=box.get("staff_id");
                         paySlipController.PaySlipapi(id,selectdata1,selectdata);
-                     
                         setState(() {
                            paySlipController.isloding.value=false;
                    paySlipController.isSelectMonth.value=true;
                         });
-}
+             }, xpand: false,)
+//                   Container(
+//                     height: 0.050.sh,
+//                     decoration: BoxDecoration(
+//                       shape: BoxShape.rectangle,
+//                       border: Border.all(
+//                         color: Colors.grey,
+//                         width: 1.0,
+//                       ),
+//                     ),
+//                     child: DropdownButton(
 
-                    ),
-                  ),
+//                       // isExpanded: true,
+//                       isDense: true,
+//                       iconSize: 35,
+//                       // alignment: Alignment.center,
+//                       value: selectdata,
+
+//                       items: isselected==true?countries.map((country){
+//                         return DropdownMenuItem(
+//                           value: country,
+//                           child: Padding(
+//                             padding: const EdgeInsets.all(8.0),
+//                             child: Text(country),
+//                           ),
+//                         );
+//                       }).toList():null,
+//                       hint: const Center(
+//                         child: Padding(
+//                           padding: EdgeInsets.all(8.0),
+//                           child: Text("Select Month",style: TextStyle(
+//                               color: Colors.black,
+//                               fontSize: 14,
+//                               fontWeight: FontWeight.w500)),
+//                         ),
+//                       ),
+//                       onChanged: (country){
+//                         // print("You selected: $country");
+//                         selectdata=country!;
+
+//                         var box = Hive.box("schoolData");
+//                         var year_end_date=box.get("year_end_date");
+//                         var date_object=DateTime.parse(year_end_date);
+//                         print(date_object);
+//                         print("fdffddddddatetime");
+//                         print(date_object.year);
+
+
+//                         var id=box.get("staff_id");
+//                         paySlipController.PaySlipapi(id,selectdata1,selectdata);
+                     
+//                         setState(() {
+//                            paySlipController.isloding.value=false;
+//                    paySlipController.isSelectMonth.value=true;
+//                         });
+// }
+
+//                     ),
+//                   ),
                     ],
                   ),
                     ],

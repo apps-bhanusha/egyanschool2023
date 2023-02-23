@@ -1,3 +1,5 @@
+import 'package:ecom_desgin/Widgets/footer_widget.dart';
+import 'package:ecom_desgin/Widgets/menu_card.dart';
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/About_Controller.dart';
@@ -356,77 +358,59 @@ if(activestudentinfo.toString().toLowerCase()=="teacher"){
                                           // if(index==7){Get.toNamed(RoutesName.timetable);}
 
                                          },
-                                   child: Card(
-                                     elevation: 10,
-                                     shape: RoundedRectangleBorder(
-                                         borderRadius: const BorderRadius.only(
-                                             topLeft: Radius.circular(10),
-                                             bottomLeft: Radius.circular(10),
-                                             bottomRight: Radius.circular(10),
-                                             topRight: Radius.circular(10)),
-                                         side: BorderSide(
-                                           width: 5,
-                                           color: color2[index],
-                                         )),
-                                     color: color2[index],
-                                     child: Column(
-                                       mainAxisAlignment: MainAxisAlignment.center,
-                                       children: [
-                                         Container(
-                                           decoration: BoxDecoration(
-                                               color: (color1[index]),
-                                               borderRadius: BorderRadius.circular(25)),
-                                           width: 0.13.sw,
-                                           height: 0.063.sh,
+                                   child:MenuCard(cardcolor: color2[index], containercolor: color1[index], icon: icons1[index],cardName: trailing[index],
+                                   )
+                                  //   Card(
+                                  //    elevation: 10,
+                                  //    shape: RoundedRectangleBorder(
+                                  //        borderRadius: const BorderRadius.only(
+                                  //            topLeft: Radius.circular(10),
+                                  //            bottomLeft: Radius.circular(10),
+                                  //            bottomRight: Radius.circular(10),
+                                  //            topRight: Radius.circular(10)),
+                                  //        side: BorderSide(
+                                  //          width: 5,
+                                  //          color: color2[index],
+                                  //        )),
+                                  //    color: color2[index],
+                                  //    child: Column(
+                                  //      mainAxisAlignment: MainAxisAlignment.center,
+                                  //      children: [
+                                  //        Container(
+                                  //          decoration: BoxDecoration(
+                                  //              color: (color1[index]),
+                                  //              borderRadius: BorderRadius.circular(25)),
+                                  //          width: 0.13.sw,
+                                  //          height: 0.063.sh,
                                                                  
-                                           // backgroundColor: Colors.amberAccent,
+                                  //          // backgroundColor: Colors.amberAccent,
                                                                  
-                                           child: (icons1[index]),
-                                         ),
-                                         Padding(
-                                           padding: const EdgeInsets.all(8.0).r,
-                                           child: Container(
-                                             child: Text(
-                                               trailing[index],
-                                               style: GoogleFonts.dmSans(
-                                                 fontStyle: FontStyle.normal,
-                                                 fontSize: 15.sp,
-                                                 fontWeight: FontWeight.bold,
-                                                 color: Colors.white,
-                                               ),
-                                             ),
-                                           ),
-                                         ),
-                                       ],
-                                     ),
-                                   ),
+                                  //          child: (icons1[index]),
+                                  //        ),
+                                  //        Padding(
+                                  //          padding: const EdgeInsets.all(8.0).r,
+                                  //          child: Container(
+                                  //            child: Text(
+                                  //              trailing[index],
+                                  //              style: GoogleFonts.dmSans(
+                                  //                fontStyle: FontStyle.normal,
+                                  //                fontSize: 15.sp,
+                                  //                fontWeight: FontWeight.bold,
+                                  //                color: Colors.white,
+                                  //              ),
+                                  //            ),
+                                  //          ),
+                                  //        ),
+                                  //      ],
+                                  //    ),
+                                  //  ),
                                  ),
                                ),
                              );
                            }),
                          ),
                          ),
-          bottomNavigationBar: Container(
-              color: Color.fromARGB(255, 196, 236, 255),
-            child: Row(
-                 
-                  children: [
-                    Padding(
-padding:  EdgeInsets.only(left: 0.09.sw),
-child: Image.asset("assets/images/appstore.png",width: 50,height: 50,),
-),
-                     Padding(
-                       padding:  EdgeInsets.only(left: 0.05.sw,top: 10),
-                       child: const Text("Powered By :-"),
-                     ),
-                    Image.asset(
-                      "assets/images/b.png",
-                      width: 0.4.sw,
-                      height: 0.070.sh,
-                    ),
-                  ],
-                ),
-          ),
+      bottomNavigationBar:const FooterWidget() 
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:ecom_desgin/Widgets/DropDown_widget.dart';
 import 'package:ecom_desgin/Widgets/TextFieldWidget.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/class_list_controller.dart';
@@ -183,39 +184,47 @@ class _UploadContent1State extends State<UploadContent1> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 18.0,right: 18.0 ).r,
-                              child: Container(
-                                height: 0.060.sh,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1.0,
-                                  ),
-                                ),
-                                child: DropdownButton(
-
-                                  isExpanded: true,
-                                  isDense: true,
-                                  iconSize: 35,
-                                  hint: Text(selecttype),
-                                  items: countries.map((country){
-                                    return DropdownMenuItem(
-                                      value: country,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(country),
-                                      ),
-                                    );
-                                  }).toList(),
-                                  onChanged: (country){
-                                    // print("You selected: $country");
-                                    selecttype=country!;
+                         child:     DropDownWidget(droph: 0.060.sh, selectText: selecttype, item: countries, isloading: true, empaty: "", onChange: (value) {
+                             print("You selected: $value");
+                                    selecttype=value!;
                                     setState(() {
-
+                         
                                     });
-                                  },
-                                ),
-                              ),
+                         }, xpand: true,)
+                             
+                              //  Container(
+                              //   height: 0.060.sh,
+                              //   decoration: BoxDecoration(
+                              //     shape: BoxShape.rectangle,
+                              //     border: Border.all(
+                              //       color: Colors.grey,
+                              //       width: 1.0,
+                              //     ),
+                              //   ),
+                              //   child: DropdownButton(
+
+                              //     isExpanded: true,
+                              //     isDense: true,
+                              //     iconSize: 35,
+                              //     hint: Text(selecttype),
+                              //     items: countries.map((country){
+                              //       return DropdownMenuItem(
+                              //         value: country,
+                              //         child: Padding(
+                              //           padding: const EdgeInsets.all(8.0),
+                              //           child: Text(country),
+                              //         ),
+                              //       );
+                              //     }).toList(),
+                              //     onChanged: (country){
+                              //       // print("You selected: $country");
+                              //       selecttype=country!;
+                              //       setState(() {
+
+                              //       });
+                              //     },
+                              //   ),
+                              // ),
                             ),
                      
                           
@@ -261,63 +270,75 @@ class _UploadContent1State extends State<UploadContent1> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 18.0,right: 18.0 ).r,
-                              child: Container(
-                                height: 0.060.sh,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1.0,
-                                  ),
-                                ),
-                                child: value2==false? DropdownButton(
-
-                                  isExpanded: true,
-                                  isDense: true,
-                                  iconSize: 35,
-                                  hint: Text(selectclass),
-                                  items: classListController.classList.map((country){
-                                    return DropdownMenuItem(
-                                      value: country,
-                                      child:Padding(
-                                        padding:  const EdgeInsets.all(8.0),
-                                        child: Text(country),
-                                      ),
-                                    );
-                                  }).toList(),
-                                  onChanged: (country){
-                                    // print("You selected: $country");
-                                    selectclass=country!;
+                             Padding(
+                                padding: const EdgeInsets.only(left: 18.0,right: 18.0 ).r,
+                                child: DropDownWidget(droph: 0.060.sh, selectText: selectclass, item: classListController.classList, isloading: true, empaty: "", onChange: (value) {
+                                // print("You selected: $country");
+                                    selectclass=value!;
                                     setState(() {
-                              classListController.classSectionapi(country);
+                              classListController.classSectionapi(value);
                                     });
-                                  },
-                                ):DropdownButton(
-
-                                  isExpanded: true,
-                                  isDense: true,
-                                  iconSize: 35,
-                                 hint: Text(selectclass),
-                                  items: countries.map((country){
-                                    return DropdownMenuItem(
-                                      value: country,
-                                      child:Padding(
-                                        padding:  const EdgeInsets.all(8.0),
-                                        child: Text(country),
-                                      ),
-                                    );
-                                  }).toList(),
-                                  onChanged: null
-                                      // (country){
-                                    // print("You selected: $country");
-                                    // selectdata=country!;
-
-                                  // },
-                                ),
+                                  }, xpand: true,),
                               ),
-                            ),
+                             
+                            // Padding(
+                            //   padding: const EdgeInsets.only(left: 18.0,right: 18.0 ).r,
+                            //   child: Container(
+                            //     height: 0.060.sh,
+                            //     decoration: BoxDecoration(
+                            //       shape: BoxShape.rectangle,
+                            //       border: Border.all(
+                            //         color: Colors.grey,
+                            //         width: 1.0,
+                            //       ),
+                            //     ),
+                            //     child: value2==false? DropdownButton(
+
+                            //       isExpanded: true,
+                            //       isDense: true,
+                            //       iconSize: 35,
+                            //       hint: Text(selectclass),
+                            //       items: classListController.classList.map((country){
+                            //         return DropdownMenuItem(
+                            //           value: country,
+                            //           child:Padding(
+                            //             padding:  const EdgeInsets.all(8.0),
+                            //             child: Text(country),
+                            //           ),
+                            //         );
+                            //       }).toList(),
+                            //       onChanged: (country){
+                            //         // print("You selected: $country");
+                            //         selectclass=country!;
+                            //         setState(() {
+                            //   classListController.classSectionapi(country);
+                            //         });
+                            //       },
+                            //     ):DropdownButton(
+
+                            //       isExpanded: true,
+                            //       isDense: true,
+                            //       iconSize: 35,
+                            //      hint: Text(selectclass),
+                            //       items: countries.map((country){
+                            //         return DropdownMenuItem(
+                            //           value: country,
+                            //           child:Padding(
+                            //             padding:  const EdgeInsets.all(8.0),
+                            //             child: Text(country),
+                            //           ),
+                            //         );
+                            //       }).toList(),
+                            //       onChanged: null
+                            //           // (country){
+                            //         // print("You selected: $country");
+                            //         // selectdata=country!;
+
+                            //       // },
+                            //     ),
+                            //   ),
+                            // ),
+                          
                             Padding(
                               padding: const EdgeInsets.only(top: 4.0 ,left: 18).r,
                               child: RichText(
@@ -336,66 +357,77 @@ class _UploadContent1State extends State<UploadContent1> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 18.0,right: 18.0 ).r,
-                              child: Container(
-                                height: 0.060.sh,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1.0,
-                                  ),
-                                ),
-                                child:value2==false?Obx(() =>  DropdownButton(
-
-                                  isExpanded: true,
-                                  isDense: true,
-                                  iconSize: 35,
-                                  hint:  classListController.isloding2.value ?SizedBox(width: 110,height:20,child: Text(selectsection)):const SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
-                                  items: classListController.classSection.map((country){
-                                    return DropdownMenuItem(
-                                      value: country,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(country),
-                                      ),
-                                    );
-                                  }).toList(),
-                                  onChanged: (country){
-                                    // print("You selected: $country");
-                                    selectsection=country!;
+                                Padding(
+                                padding: const EdgeInsets.only(left: 18.0,right: 18.0 ).r,
+                                child: DropDownWidget(droph: 0.060.sh, selectText: selectsection, item: classListController.classSection, isloading: classListController.isloding2.value, empaty: "", onChange: (value) {
+                                   // print("You selected: $country");
+                                    selectsection=value!;
                                     setState(() {
 
                                     });
-                                  },
-                                )):DropdownButton(
-
-                                  isExpanded: true,
-                                  isDense: true,
-                                  iconSize: 35,
-                             
-                                  hint: Text(selectsection),
-                                  items: countries1.map((country){
-                                    return DropdownMenuItem(
-                                      value: country,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(country),
-                                      ),
-                                    );
-                                  }).toList(),
-                                  onChanged: null
-                                  //     (country){
-                                  //   // print("You selected: $country");
-                                  //   selectdata1=country!;
-                                  //   setState(() {
-                                  //
-                                  //   });
-                                  // },
-                                ),
+                                                        }, xpand: true,),
                               ),
-                            ),
+                             
+                            // Padding(
+                            //   padding: const EdgeInsets.only(left: 18.0,right: 18.0 ).r,
+                            //   child: Container(
+                            //     height: 0.060.sh,
+                            //     decoration: BoxDecoration(
+                            //       shape: BoxShape.rectangle,
+                            //       border: Border.all(
+                            //         color: Colors.grey,
+                            //         width: 1.0,
+                            //       ),
+                            //     ),
+                            //     child:value2==false?Obx(() =>  DropdownButton(
+
+                            //       isExpanded: true,
+                            //       isDense: true,
+                            //       iconSize: 35,
+                            //       hint:  classListController.isloding2.value ?SizedBox(width: 110,height:20,child: Text(selectsection)):const SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+                            //       items: classListController.classSection.map((country){
+                            //         return DropdownMenuItem(
+                            //           value: country,
+                            //           child: Padding(
+                            //             padding: const EdgeInsets.all(8.0),
+                            //             child: Text(country),
+                            //           ),
+                            //         );
+                            //       }).toList(),
+                            //       onChanged: (country){
+                            //         // print("You selected: $country");
+                            //         selectsection=country!;
+                            //         setState(() {
+
+                            //         });
+                            //       },
+                            //     )):DropdownButton(
+
+                            //       isExpanded: true,
+                            //       isDense: true,
+                            //       iconSize: 35,
+                             
+                            //       hint: Text(selectsection),
+                            //       items: countries1.map((country){
+                            //         return DropdownMenuItem(
+                            //           value: country,
+                            //           child: Padding(
+                            //             padding: const EdgeInsets.all(8.0),
+                            //             child: Text(country),
+                            //           ),
+                            //         );
+                            //       }).toList(),
+                            //       onChanged: null
+                            //       //     (country){
+                            //       //   // print("You selected: $country");
+                            //       //   selectdata1=country!;
+                            //       //   setState(() {
+                            //       //
+                            //       //   });
+                            //       // },
+                            //     ),
+                            //   ),
+                            // ),
                             Padding(
                               padding: const EdgeInsets.only(top: 4.0 ,left: 18).r,
                               child:   RichText(

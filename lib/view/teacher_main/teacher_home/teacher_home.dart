@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:ecom_desgin/Widgets/footer_widget.dart';
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
 
@@ -88,8 +89,8 @@ var session;
   void initState() {
     staffdetailsController.isloding.value=false;
     var id=box.get("staff_id");
-    var company_key=box.get("company_key");
-_schoolsetting.GetSchoolSettingapi(company_key);
+    var companyKey=box.get("company_key");
+_schoolsetting.GetSchoolSettingapi(companyKey);
   forceLogout.forceLogout(id, context);
     print("staffidd");
     print(id);
@@ -100,8 +101,6 @@ _schoolsetting.GetSchoolSettingapi(company_key);
     var role_flag = box.get("role_flag");
     noticBoardController.noticBoardapi(role_flag);
     super.initState();
-print("TTTTTTTTTTTTTTTTTTTTTT");
-print(activestudentinfo);
 if(activestudentinfo.toString().toLowerCase()=="teacher"){
            teacherLoginController.activatestudentInfo.value=true; 
 
@@ -275,6 +274,7 @@ var id=box.get("staff_id");
                     aboutController.isloading.value=false;
 
                           aboutController.aboutEgyan();
+                          // ignore: use_build_context_synchronously
                           Navigator.push( context, MaterialPageRoute( builder: (context) => const AboutEgyan(),));
                             
                             }    
@@ -916,27 +916,7 @@ SizedBox(height: 0.0220.sh,),
                             ],
                           ):const Text(""),
                                 ), ]),
-                      bottomNavigationBar: Container(
-                        color: const Color.fromARGB(255, 196, 236, 255),
-                        child:Row(
-                 
-                  children: [
-                    Padding(
-                  padding:  EdgeInsets.only(left: 0.09.sw),
-                  child: Image.asset("assets/images/appstore.png",width: 50,height: 50,),
-),
-                     Padding(
-                       padding:  EdgeInsets.only(left: 0.05.sw,top: 10),
-                       child: const Text("Powered By :-"),
-                     ),
-                    Image.asset(
-                      "assets/images/b.png",
-                      width: 0.4.sw,
-                      height: 0.070.sh,
-                    ),
-                  ],
-                ),
-                      ),
+                       bottomNavigationBar:const FooterWidget() 
                             )
                           )
                         )));

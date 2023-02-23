@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:ecom_desgin/Widgets/DropDown_widget.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/teacher_controller/student_Controller/class_list_controller.dart';
@@ -216,98 +217,122 @@ setState(() {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-     Container( height: 0.050.sh,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                  ),
-       child: Obx(() =>   DropdownButton(
-      underline: const SizedBox(),
-        iconSize: 35,
-          alignment: Alignment.center,
-         hint: classListController.isloding.value? SizedBox(width: 110,height:20,child: Text(selectDrop)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
-          items: classListController.classList.map((country){
-          return DropdownMenuItem( 
-              value: country, 
-              child: Text(country),
-          );
-          }).toList(),
-          onChanged: (dynamic country){
-            selectDrop=country;
+    Obx(
+      () =>  DropDownWidget(droph: 0.050.sh, selectText: selectDrop, item: classListController.classList, isloading: classListController.isloding.value, empaty: "", onChange: (value) {
+           selectDrop=value;
+             classListController.classSectionapi(value);
+             setState(() {
+                isFdrop=true;
+             });
+      }, xpand: false,),
+    ),  
+  
+        Obx(
+      () =>  DropDownWidget(droph: 0.050.sh, selectText: selectSection, item: classListController.classSection, isloading:classListController.isloding2.value, empaty: "", onChange: (value) {
+              selectSection=value;
+                 setState(() {
+                   isSdrop=true;
+                   classListController.islodingstudentlist.value=false;
+                   classListController.studentList(value);
+                 });
+          }, xpand: false,),
+      ),   
+              
+    //  Container( height: 0.050.sh,
+    //               decoration: BoxDecoration(
+    //                 shape: BoxShape.rectangle,
+    //                 border: Border.all(
+    //                   color: Colors.grey,
+    //                   width: 1.0,
+    //                 ),
+    //               ),
+    //    child: Obx(() =>   DropdownButton(
+    //   underline: const SizedBox(),
+    //     iconSize: 35,
+    //       alignment: Alignment.center,
+    //      hint: classListController.isloding.value? SizedBox(width: 110,height:20,child: Text(selectDrop)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+    //       items: classListController.classList.map((country){
+    //       return DropdownMenuItem( 
+    //           value: country, 
+    //           child: Text(country),
+    //       );
+    //       }).toList(),
+    //       onChanged: (dynamic country){
+    //         selectDrop=country;
           
-           classListController.classSectionapi(country);
-           setState(() {
-              isFdrop=true;
-           });
+    //        classListController.classSectionapi(country);
+    //        setState(() {
+    //           isFdrop=true;
+    //        });
      
-          },
-        ),),
-     ),
-         Container(
-           height: 0.050.sh,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                  ),
-           child: Obx(() =>   DropdownButton(
-               iconSize: 35,
-               underline: const SizedBox(),
+    //       },
+    //     ),),
+    //  ),
+        //  Container(
+        //    height: 0.050.sh,
+        //           decoration: BoxDecoration(
+        //             shape: BoxShape.rectangle,
+        //             border: Border.all(
+        //               color: Colors.grey,
+        //               width: 1.0,
+        //             ),
+        //           ),
+        //    child: Obx(() =>   DropdownButton(
+        //        iconSize: 35,
+        //        underline: const SizedBox(),
          
-                 alignment: Alignment.center,
-             hint:  classListController.isloding2.value ?SizedBox(width: 110,height:20, child: Text(selectSection)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,))),),
-                 items: classListController.classSection.map((country){
-                 return DropdownMenuItem( 
-              value: country, 
-              child: Text(country),
-                 );
-                 }).toList(),
-                 onChanged: (dynamic country){
-               selectSection=country;
-               setState(() {
-                 isSdrop=true;
-                 classListController.islodingstudentlist.value=false;
-                 classListController.studentList(country);
-               });
-                 },
-               )),
-         ),
+        //          alignment: Alignment.center,
+        //      hint:  classListController.isloding2.value ?SizedBox(width: 110,height:20, child: Text(selectSection)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,))),),
+        //          items: classListController.classSection.map((country){
+        //          return DropdownMenuItem( 
+        //       value: country, 
+        //       child: Text(country),
+        //          );
+        //          }).toList(),
+        //          onChanged: (dynamic country){
+          
+        //          },
+        //        )),
+        //  ),
                 ],
               ),
               const SizedBox(height: 10,),
-     Container(
-       height: 0.050.sh,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                  ),
-       child: Obx(() =>   DropdownButton(
-        underline: const SizedBox(),
-        iconSize: 35,
-          alignment: Alignment.center,
-         hint:  classListController.islodingstudentlist.value ?SizedBox(width: 110,height:20, child: Text(selectStudent)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
-          items: classListController.studentListDrop.map((country){
-          return DropdownMenuItem( 
-              value: country, 
-              child: Text(country),
-          );
-          }).toList(),
-          onChanged: (dynamic country){
-        selectStudent=country;
-        setState(() {
-          isTdrop=true;
-        });
-          },
-        )),
-     ),
+                      Obx(
+      () => DropDownWidget(droph: 0.050.sh, selectText: selectStudent, item: classListController.studentListDrop, isloading: classListController.islodingstudentlist.value, empaty: "", onChange: (value) {
+                               selectStudent=value;
+                            setState(() {
+                              isTdrop=true;
+                            });
+                        }, xpand: false,),
+                    ), 
+    //  Container(
+    //    height: 0.050.sh,
+    //               decoration: BoxDecoration(
+    //                 shape: BoxShape.rectangle,
+    //                 border: Border.all(
+    //                   color: Colors.grey,
+    //                   width: 1.0,
+    //                 ),
+    //               ),
+    //    child: Obx(() =>   DropdownButton(
+    //     underline: const SizedBox(),
+    //     iconSize: 35,
+    //       alignment: Alignment.center,
+    //      hint:  classListController.islodingstudentlist.value ?SizedBox(width: 110,height:20, child: Text(selectStudent)):SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+    //       items: classListController.studentListDrop.map((country){
+    //       return DropdownMenuItem( 
+    //           value: country, 
+    //           child: Text(country),
+    //       );
+    //       }).toList(),
+    //       onChanged: (dynamic country){
+    //     selectStudent=country;
+    //     setState(() {
+    //       isTdrop=true;
+    //     });
+    //       },
+    //     )),
+    //  ),
               const SizedBox( height: 20,),
            Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

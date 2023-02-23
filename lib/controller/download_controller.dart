@@ -24,6 +24,7 @@ class DownloadAllController extends GetxController{
      Rxn<DownloadModel> assignmentDownloadModel=Rxn<DownloadModel>();
      
     RxBool isloading =true.obs;
+    RxBool norecord =true.obs;
        var id="";
 
 @override
@@ -53,6 +54,7 @@ void assignmentDownload(url) async {
     } else {print("errror");}
   }
   void otherDownload(url) async {
+    print("othercall");
     id = "${studentProfileController.studentProfileModel.value?.response.studentId}";
     var box = Hive.box("schoolData");
     var companyKey = box.get("company_key");
@@ -61,13 +63,22 @@ void assignmentDownload(url) async {
     final urlapi = Uri.parse(
        ApiUrl.baseUrl+url);
     var response = await http.post(urlapi, body: body);
+    print(response.body);
     if (response.statusCode == 200) {
-      isloading.value=true;
+        isloading.value=true;
       var homeWorkData = jsonDecode(response.body);
          if (homeWorkData["status"] == true ) {
+      
            assignmentDownloadModel.value = DownloadModel.fromJson(homeWorkData);
-      } else {print("invalid id");}
-    } else {print("errror");}
+           if(assignmentDownloadModel.value!.response!.list!.isEmpty){
+            norecord.value=false;
+           }
+      } else {
+        norecord.value=false;
+        print("invalid id");}
+    } else {print("errror");
+    norecord.value=false;
+    }
   }
 
 void syllebusDownload(url) async {
@@ -92,11 +103,14 @@ void syllebusDownload(url) async {
   selectDropdown(selectdropdata){
     selectDrop.value=selectdropdata;
     if(selectdropdata=="Assinment"){
+      print(selectdropdata);
         assignmentDownload(ApiUrl.assignmentDownloadurl);
     }else if(selectdropdata=="Syllebus"){
+      print(selectdropdata);
           syllebusDownload(ApiUrl.syllabusDownloadurl);
     }else if(selectdropdata=="other"){
-           assignmentDownload(ApiUrl.otherDownloadurl);
+      print(selectdropdata);
+          otherDownload(ApiUrl.otherDownloadurl);
     }
   }
 

@@ -16,7 +16,7 @@ import 'package:http/http.dart' as http;
 
 import '../../constant/api_url.dart';
 
-class ClassSubjectController extends GetxController{
+class ClassSudfvlmfdbjectController extends GetxController{
 
   Rxn<ClassSubjectModel>classSubjectModel = Rxn<ClassSubjectModel>();
 

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:ecom_desgin/Widgets/footer_widget.dart';
 import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/font.dart';
@@ -833,27 +834,7 @@ if(role_flag.toString()=="P"){
                 ):Center(child: CircularProgressIndicator( color: Colors.blue,))
                 // :Center(child: CircularProgressIndicator()),
               ),
-                bottomNavigationBar: Container(
-                  color: Color.fromARGB(255, 196, 236, 255),
-                  child:Row(
-                 
-                  children: [
-                    Padding(
-padding:  EdgeInsets.only(left: 0.09.sw),
-child: Image.asset("assets/images/appstore.png",width: 50,height: 50,),
-),
-                     Padding(
-                       padding:  EdgeInsets.only(left: 0.05.sw,top: 10),
-                       child: const Text("Powered By :-"),
-                     ),
-                    Image.asset(
-                      "assets/images/b.png",
-                      width: 0.4.sw,
-                      height: 0.070.sh,
-                    ),
-                  ],
-                ),
-                ),
+                bottomNavigationBar:const FooterWidget() 
               ),
             ),
           ),
