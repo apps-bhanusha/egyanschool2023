@@ -171,7 +171,7 @@ late  int? i= noticController.noticlist.value?.response?.length;
          studentProfileController.studentProfileApi(student_id);      
                forceLogout.forceLogout(student_id, context);
          company_key = box.get("company_key");
-         getexamview1.loadingGetexamsSchedule1.value = false;
+
          getexamview1.GetexamsSchedule1api(company_key, 0,studentProfileController.studentProfileModel.value?.response.studentId);
        }
 var  role_flag = box.get("role_flag"); 

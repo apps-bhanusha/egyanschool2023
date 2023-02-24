@@ -1,4 +1,5 @@
 import 'package:ecom_desgin/Widgets/footer_widget.dart';
+import 'package:ecom_desgin/controller/getexamsSchedule1_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
@@ -30,6 +31,7 @@ class _StudentLoginState extends State<StudentLogin> {
  final ParentLoginController parentLoginController=Get.put(ParentLoginController());
  final TeacherLoginController _teacherLoginController =Get.put(TeacherLoginController());
   final StaffDetailController staffdetailsController = Get.put(StaffDetailController());
+  GetexamsSchedule1Controller getexamview1=Get.put(GetexamsSchedule1Controller());
   List<UserNameController> _dataset = [];
   int _radioSelected = 0;
   late String _radioVal = "";
@@ -235,7 +237,7 @@ class _StudentLoginState extends State<StudentLogin> {
                      _teacherLoginController.teachertLogin.value = false;
                       _allsetController.apicallpost(
                           usersname.text, password.text, context);
-                       
+                      getexamview1.loadingGetexamsSchedule1.value = false;
                     }
                     if(rediobutton==2) {
                       print(rediobutton);
