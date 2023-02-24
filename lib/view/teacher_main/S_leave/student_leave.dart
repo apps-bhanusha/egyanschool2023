@@ -447,7 +447,7 @@ bool islike=false;
                                          Text("Reason:-"),
                                        SizedBox(width: 20,),
 
-                                         Text(studentLeaveController.StudentLeaveRecordControllerList[0]["response"][index]["reason"].toString())
+                                         Text(studentLeaveController.StudentLeaveRecordControllerList[0]["response"][index]["reason"].capitalize)
                                        ],
                                        ),
                                     ),

@@ -86,6 +86,9 @@ class TeacherHomeWorkController extends GetxController {
       if (homeWorkData["status"] == true) {
 
         teacherHomeWorkForEvaluationModel.value =  TeacherHomeWorkForEvaluationModel.fromJson(homeWorkData);
+        teacherHomeWorkForEvaluationModel.value?.response.forEach((element) {
+          print("alldata");
+          print(element.id);});
         isdownloadinevaluation.value = true;
       } else {
         print("invalid id"); isdownloadinevaluation.value = true;
@@ -145,9 +148,9 @@ class TeacherHomeWorkController extends GetxController {
         );
            if (homeWorkData["message"]==homeWorkData["message"]){
       Get.off(const TeacherHomeWorkDiplay());
-    
+
            }
-           
+
       } else {
         buttonloading.value=false;
         print("invalid id");
