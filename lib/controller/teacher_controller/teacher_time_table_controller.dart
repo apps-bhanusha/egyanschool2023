@@ -10,6 +10,7 @@ class TeacherTimeTableController extends GetxController {
   List <dynamic> TeacherTimeTableControllerList = [].obs;
 
   RxBool loadingTimeTable =false.obs;
+  RxBool empty =true.obs;
   Future<List<TeacherTimeTableController>?> TeacherTimeTableapi(company_key,teacher_id) async {
 
     var body = json.encode({"company_key":company_key,"teacher_id":teacher_id});
@@ -22,19 +23,21 @@ class TeacherTimeTableController extends GetxController {
 
       TeacherTimeTableControllerList=[];
       TeacherTimeTableControllerList.add(sdata) ;
+
       print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmvvvvvvvvvvvvvvv");
       print(TeacherTimeTableControllerList);
       loadingTimeTable.value=true;
       // print(GetschoolsettingControllerList[0]["response"]["total_discount_amount"]);
       if (sdata["status"] == true ) {
-
+        empty.value=true;
         print("massage");
       }
       else  {
+        empty.value=true;
         print("invalid cccid");
       } }
     else {
-
+      empty.value=true;
       print("School ID Invailid");
     }
   }

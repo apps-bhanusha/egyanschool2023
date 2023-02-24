@@ -98,44 +98,94 @@ class _TeacherTimeTableState extends State<TeacherTimeTable> {
 
       setState(() {
         datalist=teacherTimeTableController.TeacherTimeTableControllerList[0]["response"]["result"][1]["timetable"];
+        Future.delayed(Duration(seconds: 2),(){
+
+          setState(() {
+            if(datalist.isEmpty){
+              teacherTimeTableController.empty.value=false;
+            }
+          });
+        });
 
       });
 
     }
     else if(currentindex==2){
-      setState(() {
-        datalist=teacherTimeTableController.TeacherTimeTableControllerList[0]["response"]["result"][2]["timetable"];
 
+      Future.delayed(Duration(seconds: 2),(){
+
+        setState(() {
+          datalist=teacherTimeTableController.TeacherTimeTableControllerList[0]["response"]["result"][2]["timetable"];
+          if(datalist.isEmpty){
+            teacherTimeTableController.empty.value=false;
+
+          }
+        });
       });
     }
     else if(currentindex==3){
-      setState(() {
-        datalist=teacherTimeTableController.TeacherTimeTableControllerList[0]["response"]["result"][3]["timetable"];
 
+      Future.delayed(Duration(seconds: 2),(){
+
+        setState(() {
+          datalist=teacherTimeTableController.TeacherTimeTableControllerList[0]["response"]["result"][3]["timetable"];
+          if(datalist.isEmpty){
+            teacherTimeTableController.empty.value=false;
+
+          }
+        });
       });
+
     }
     else if(currentindex==4){
-      setState(() {
-        datalist=teacherTimeTableController.TeacherTimeTableControllerList[0]["response"]["result"][4]["timetable"];
 
+      Future.delayed(Duration(seconds: 2),(){
+
+        setState(() {
+          datalist=teacherTimeTableController.TeacherTimeTableControllerList[0]["response"]["result"][4]["timetable"];
+          if(datalist.isEmpty){
+            teacherTimeTableController.empty.value=false;
+
+          }
+        });
       });
     }
     else if(currentindex==5){
-      setState(() {
-        datalist=teacherTimeTableController.TeacherTimeTableControllerList[0]["response"]["result"][5]["timetable"];
 
+      Future.delayed(Duration(seconds: 2),(){
+
+        setState(() {
+          datalist=teacherTimeTableController.TeacherTimeTableControllerList[0]["response"]["result"][5]["timetable"];
+          if(datalist.isEmpty){
+            teacherTimeTableController.empty.value=false;
+
+          }
+        });
       });
     }
     else if(currentindex==6){
-      setState(() {
-        datalist=teacherTimeTableController.TeacherTimeTableControllerList[0]["response"]["result"][6]["timetable"];
 
+      Future.delayed(Duration(seconds: 2),(){
+
+        setState(() {
+          datalist=teacherTimeTableController.TeacherTimeTableControllerList[0]["response"]["result"][6]["timetable"];
+          if(datalist.isEmpty){
+            teacherTimeTableController.empty.value=false;
+
+          }
+        });
       });
     }
     else if(currentindex==7) {
-      datalist =  datalist=teacherTimeTableController.TeacherTimeTableControllerList[0]["response"]["result"][7]["timetable"];
-      setState(() {
+      Future.delayed(Duration(seconds: 2),(){
 
+        setState(() {
+          datalist=teacherTimeTableController.TeacherTimeTableControllerList[0]["response"]["result"][7]["timetable"];
+          if(datalist.isEmpty){
+            teacherTimeTableController.empty.value=false;
+
+          }
+        });
       });
     }
 
@@ -237,245 +287,252 @@ class _TeacherTimeTableState extends State<TeacherTimeTable> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 30).r,
-                  child: ListView.builder(itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        height: 0.15.sh,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                        ),
-                        child: SizedBox.expand(
-                          child: Column(
-                            children: [
-                              // for (int i = 0; i <GetclassTimeTable.GetclassTimeTableControllerList[0]["response"]["result"][0]["timetable"].length; i++)
+                  child: Obx(()=>teacherTimeTableController.empty.value?
+                  ListView.builder(itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Container(
+                          height: 0.15.sh,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          child: SizedBox.expand(
+                            child: Column(
+                              children: [
+                                // for (int i = 0; i <GetclassTimeTable.GetclassTimeTableControllerList[0]["response"]["result"][0]["timetable"].length; i++)
 
-                              Padding(
-                                padding: const EdgeInsets.all(0),
-                                child: Center(
-                                  child: InkWell(
-                                    child: Card(
-                                      elevation: 10,
-                                      child: Container(
-                                        width: 0.99.sw,
-                                        height: 0.13.sh,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          color: const Color(0xffE3F2FB),
-                                        ),
-                                        child: Stack(
+                                Padding(
+                                  padding: const EdgeInsets.all(0),
+                                  child: Center(
+                                    child: InkWell(
+                                      child: Card(
+                                        elevation: 10,
+                                        child: Container(
+                                          width: 0.99.sw,
+                                          height: 0.13.sh,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10),
+                                            color: const Color(0xffE3F2FB),
+                                          ),
+                                          child: Stack(
 
-                                          // ignore: prefer_const_literals_to_create_immutables
-                                          children: [
+                                            // ignore: prefer_const_literals_to_create_immutables
+                                            children: [
 
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 19,top: 0
-                                              ),
-                                              child: Row(
-                                                children: [
-
-                                                  Text(
-                                                    datalist[index]["subject_name"]??"",
-                                                    style: GoogleFonts.dmSans(
-                                                      fontStyle: FontStyle.normal,
-                                                      fontSize: 20.sp,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-
-                                                  Spacer(),
-                                                  // Padding(
-                                                  //   padding:  EdgeInsets.only(right: 14,bottom: 15),
-                                                  //   child: Text(
-                                                  //     "Room No. 12",
-                                                  //
-                                                  //   ),
-                                                  // ),
-                                                ],
-                                              ),
-                                            ),
-                                            Positioned(
-                                              top: 0.033.sh,
-
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                  left: 5,
-                                                ).r,
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 19,top: 0
+                                                ),
                                                 child: Row(
                                                   children: [
-                                                    Image.asset("assets/images/teacher.png",width: 0.050.sw,),
-                                                    SizedBox(
-                                                      width: 0.01.sw,
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(top: 10).r,
-                                                      child: Column(
-                                                        mainAxisAlignment: MainAxisAlignment.start,
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
 
-                                                          SizedBox(
-                                                            width:0.32.sw,
-                                                            child: Text(
-                                                              datalist[index]["teacher_name"]??"",
-
-                                                              style: GoogleFonts.dmSans(
-                                                                fontStyle: FontStyle.normal,
-                                                                fontSize: 12.sp,
-                                                                fontWeight: FontWeight.bold,
-                                                                color: Colors.black,
-                                                              ),
-                                                              overflow: TextOverflow.ellipsis,
-                                                            ),
-                                                          ),
-
-
-                                                          Row(
-                                                            children: [
-                                                              Text(
-                                                                "RoomNo",
-                                                                style: GoogleFonts.dmSans(
-                                                                  fontStyle: FontStyle.normal,
-                                                                  fontSize: 13.sp,
-                                                                  fontWeight: FontWeight.bold,
-                                                                  color: Colors.black,
-                                                                ),
-                                                              ),
-                                                              SizedBox(width: 0.010.sw,),
-                                                              Text( datalist[index]["room_no"]??"",
-
-                                                                style: GoogleFonts.dmSans(
-                                                                  fontStyle: FontStyle.normal,
-                                                                  fontSize: 13.sp,
-                                                                  fontWeight: FontWeight.bold,
-                                                                  color: Colors.black,
-                                                                ),
-                                                              ),
-
-                                                            ],
-                                                          ),
-
-
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    // const Icon(Icons.timelapse),
-                                                    SizedBox(
-                                                      width: 0.045.sw,
-                                                    ),
-                                                    Container(
-                                                      width: 0.52.sw,
-                                                      height: 0.08.sh,
-                                                      decoration: BoxDecoration(
-                                                          color: const Color(0xff828181),
-                                                          borderRadius:
-                                                          BorderRadius.circular(10)),
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                            CrossAxisAlignment.center,
-                                                            children: [
-                                                              Text("Start Time",
-                                                                style: GoogleFonts.dmSans(
-                                                                  fontStyle: FontStyle.normal,
-                                                                  fontSize: 15.sp,
-                                                                  fontWeight: FontWeight.bold,
-                                                                  color: Colors.white,
-                                                                ),),
-                                                              Container(
-                                                                color: Colors.black,
-                                                                width: 0.24.sw,
-                                                                height: 0.001.sh,
-                                                              ),
-                                                              Text(datalist[index]["time_from"]??"",
-
-                                                                style: GoogleFonts.dmSans(
-                                                                  fontStyle: FontStyle.normal,
-                                                                  fontSize: 15.sp,
-                                                                  fontWeight: FontWeight.bold,
-                                                                  color: Colors.white,
-                                                                ),
-                                                              ),
-
-                                                            ],
-                                                          ),
-                                                          Container(
-                                                            width:0.002.sw,
-                                                            height: 0.1.sh,
-                                                            color: Colors.white,
-                                                          ),
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                            CrossAxisAlignment.center,
-                                                            children: [
-                                                              Text("End Time",
-                                                                style: GoogleFonts.dmSans(
-                                                                  fontStyle: FontStyle.normal,
-                                                                  fontSize: 15.sp,
-                                                                  fontWeight: FontWeight.bold,
-                                                                  color: Colors.white,
-                                                                ),),
-                                                              Container(
-                                                                color: Colors.black,
-                                                                width: 0.24.sw,
-                                                                height: 0.001.sh,
-                                                              ),
-                                                              Text(datalist[index]["time_to"]??"",
-
-                                                                style: GoogleFonts.dmSans(
-                                                                  fontStyle: FontStyle.normal,
-                                                                  fontSize: 15.sp,
-                                                                  fontWeight: FontWeight.bold,
-                                                                  color: Colors.white,
-                                                                ),
-                                                              ),
-
-                                                            ],
-                                                          ),
-                                                        ],
+                                                    Text(
+                                                      datalist[index]["subject_name"]??"",
+                                                      style: GoogleFonts.dmSans(
+                                                        fontStyle: FontStyle.normal,
+                                                        fontSize: 20.sp,
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Colors.black,
                                                       ),
                                                     ),
 
+                                                    Spacer(),
+                                                    // Padding(
+                                                    //   padding:  EdgeInsets.only(right: 14,bottom: 15),
+                                                    //   child: Text(
+                                                    //     "Room No. 12",
+                                                    //
+                                                    //   ),
+                                                    // ),
                                                   ],
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                              Positioned(
+                                                top: 0.033.sh,
+
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                    left: 5,
+                                                  ).r,
+                                                  child: Row(
+                                                    children: [
+                                                      Image.asset("assets/images/teacher.png",width: 0.050.sw,),
+                                                      SizedBox(
+                                                        width: 0.01.sw,
+                                                      ),
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(top: 10).r,
+                                                        child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+
+                                                            SizedBox(
+                                                              width:0.32.sw,
+                                                              child: Text(
+                                                                datalist[index]["teacher_name"]??"",
+
+                                                                style: GoogleFonts.dmSans(
+                                                                  fontStyle: FontStyle.normal,
+                                                                  fontSize: 12.sp,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  color: Colors.black,
+                                                                ),
+                                                                overflow: TextOverflow.ellipsis,
+                                                              ),
+                                                            ),
+
+
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                  "RoomNo",
+                                                                  style: GoogleFonts.dmSans(
+                                                                    fontStyle: FontStyle.normal,
+                                                                    fontSize: 13.sp,
+                                                                    fontWeight: FontWeight.bold,
+                                                                    color: Colors.black,
+                                                                  ),
+                                                                ),
+                                                                SizedBox(width: 0.010.sw,),
+                                                                Text( datalist[index]["room_no"]??"",
+
+                                                                  style: GoogleFonts.dmSans(
+                                                                    fontStyle: FontStyle.normal,
+                                                                    fontSize: 13.sp,
+                                                                    fontWeight: FontWeight.bold,
+                                                                    color: Colors.black,
+                                                                  ),
+                                                                ),
+
+                                                              ],
+                                                            ),
+
+
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      // const Icon(Icons.timelapse),
+                                                      SizedBox(
+                                                        width: 0.045.sw,
+                                                      ),
+                                                      Container(
+                                                        width: 0.52.sw,
+                                                        height: 0.08.sh,
+                                                        decoration: BoxDecoration(
+                                                            color: const Color(0xff828181),
+                                                            borderRadius:
+                                                            BorderRadius.circular(10)),
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            Column(
+                                                              crossAxisAlignment:
+                                                              CrossAxisAlignment.center,
+                                                              children: [
+                                                                Text("Start Time",
+                                                                  style: GoogleFonts.dmSans(
+                                                                    fontStyle: FontStyle.normal,
+                                                                    fontSize: 15.sp,
+                                                                    fontWeight: FontWeight.bold,
+                                                                    color: Colors.white,
+                                                                  ),),
+                                                                Container(
+                                                                  color: Colors.black,
+                                                                  width: 0.24.sw,
+                                                                  height: 0.001.sh,
+                                                                ),
+                                                                Text(datalist[index]["time_from"]??"",
+
+                                                                  style: GoogleFonts.dmSans(
+                                                                    fontStyle: FontStyle.normal,
+                                                                    fontSize: 15.sp,
+                                                                    fontWeight: FontWeight.bold,
+                                                                    color: Colors.white,
+                                                                  ),
+                                                                ),
+
+                                                              ],
+                                                            ),
+                                                            Container(
+                                                              width:0.002.sw,
+                                                              height: 0.1.sh,
+                                                              color: Colors.white,
+                                                            ),
+                                                            Column(
+                                                              crossAxisAlignment:
+                                                              CrossAxisAlignment.center,
+                                                              children: [
+                                                                Text("End Time",
+                                                                  style: GoogleFonts.dmSans(
+                                                                    fontStyle: FontStyle.normal,
+                                                                    fontSize: 15.sp,
+                                                                    fontWeight: FontWeight.bold,
+                                                                    color: Colors.white,
+                                                                  ),),
+                                                                Container(
+                                                                  color: Colors.black,
+                                                                  width: 0.24.sw,
+                                                                  height: 0.001.sh,
+                                                                ),
+                                                                Text(datalist[index]["time_to"]??"",
+
+                                                                  style: GoogleFonts.dmSans(
+                                                                    fontStyle: FontStyle.normal,
+                                                                    fontSize: 15.sp,
+                                                                    fontWeight: FontWeight.bold,
+                                                                    color: Colors.white,
+                                                                  ),
+                                                                ),
+
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      //                 Container(
-                      //
-                      //                   decoration: BoxDecoration(
-                      //                     color:Color.fromARGB(255, 74, 150, 173),
-                      //                     borderRadius: BorderRadius.circular(30)
-                      //                   ),
-                      //                   width: 0.05.sw,
-                      //                   height: 0.05.sh,
-                      //                   child: Row(
-                      //
-                      //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      //   children:  [
-                      //   Text(datalist[index]["time"],style: TextStyle(color: Colors.white,fontSize: 18),),
-                      //   Text(datalist[index]["subject"],style: TextStyle(color: Colors.white,fontSize: 18),),
-                      //   Text(datalist[index]["RoomNo."],style: TextStyle(color: Color.fromARGB(255, 255, 255, 255),fontSize: 18),),
-                      // ],),
-                      //                 ),
-                    );
-                  },
-                    itemCount: datalist.length,
-                    // GetclassTimeTable.GetclassTimeTableControllerList[0]["response"]["result"][0]["timetable"].length,
+                        //                 Container(
+                        //
+                        //                   decoration: BoxDecoration(
+                        //                     color:Color.fromARGB(255, 74, 150, 173),
+                        //                     borderRadius: BorderRadius.circular(30)
+                        //                   ),
+                        //                   width: 0.05.sw,
+                        //                   height: 0.05.sh,
+                        //                   child: Row(
+                        //
+                        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        //   children:  [
+                        //   Text(datalist[index]["time"],style: TextStyle(color: Colors.white,fontSize: 18),),
+                        //   Text(datalist[index]["subject"],style: TextStyle(color: Colors.white,fontSize: 18),),
+                        //   Text(datalist[index]["RoomNo."],style: TextStyle(color: Color.fromARGB(255, 255, 255, 255),fontSize: 18),),
+                        // ],),
+                        //                 ),
+                      );
+                    },
+                      itemCount: datalist.length,
+                      // GetclassTimeTable.GetclassTimeTableControllerList[0]["response"]["result"][0]["timetable"].length,
+                    ):Center(child: Text("No Record", style: GoogleFonts.dmSans(
+                    fontStyle: FontStyle.normal,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),)),
                   ),
                 ),
               ),
