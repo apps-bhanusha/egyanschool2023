@@ -63,11 +63,10 @@ String selectSection="select Section";
                   children: [
                      Obx(
                       () =>  DropDownWidget(droph: 0.060.sh, selectText: selectClass, item: classListController.classList, isloading: classListController.isloding.value, empaty: "", onChange: (value) {
-                               
-                                      selectClass=value!;
+                                 selectClass=value!;
                                       setState(() {
-                                classListController.classSectionapi(value);
-                                teacherSyllebusController.teacherSyllebusModal.value!.response.subjectsData=[];
+                                        teacherSyllebusController.isSearchbutton.value=false;
+                                        classListController.classSectionapi(value);
                                       });
                                     }, xpand: false,),
                      ),
@@ -75,7 +74,8 @@ String selectSection="select Section";
                    Obx(
                      () =>  DropDownWidget(droph: 0.060.sh, selectText: selectSection, item: classListController.classSection, isloading: classListController.isloding2.value, empaty: "", onChange: (value) {
                                         selectSection=value;
-                                           setState(() {           
+                                           setState(() {
+
                                              teacherSyllebusController.loadingTeacherSylabusStatus.value=false;
                                              teacherSyllebusController.classSectiontSyllebusapi(value);
                                            });

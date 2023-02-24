@@ -27,8 +27,7 @@ class _ExamTimeDetailState extends State<ExamTimeDetail> {
   void initState() {
 
     super.initState();
-print("Time Calculate in fl");
-print(getexamview.starttime);
+
 
   }
 

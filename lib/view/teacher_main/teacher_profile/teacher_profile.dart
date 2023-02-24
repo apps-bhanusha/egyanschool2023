@@ -44,8 +44,6 @@ class _TeacherProfileState extends State<TeacherProfile> {
 
         });
 
-
-
       },
       child: Scaffold(
         appBar: AppBar(
@@ -107,18 +105,25 @@ class _TeacherProfileState extends State<TeacherProfile> {
                           //     size: 30.0.sp,
                           //   ),
                           // ),
-                          // CircleAvatar(
-                          //     backgroundColor: Colors.white70,
-                          //     minRadius: 60.0,
-                          //     child:    CircleAvatar(
-                          //         foregroundImage: "${staffdetailsController.staffDetailModel.value?.response.image}"!="null"?
-                          //         NetworkImage("${ApiUrl.imagesUrl.toString()}${staffdetailsController.staffDetailModel.value?.response.image}")
-                          //             :  NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU"),
-                          //         radius: 54.0,
-                          //         backgroundImage:
-                          //         NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
-                          //     )
-                          // ),
+                          InkWell(
+                            onTap:(){
+                              print("teest image");
+                              print(staffdetailsController.staffDetailModel.value?.response.image);
+                              print("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU");
+                          },
+                            child: CircleAvatar(
+                                backgroundColor: Colors.white70,
+                                minRadius: 60.0,
+                                child:    CircleAvatar(
+                                    foregroundImage: "${staffdetailsController.staffDetailModel.value?.response.image}"!="null"?staffdetailsController.staffDetailModel.value?.response.image!="uploads/staff_images/5/"?
+                                    NetworkImage("${ApiUrl.imagesUrl.toString()}${staffdetailsController.staffDetailModel.value?.response.image}")
+                                        :  NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU"):NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU"),
+                                    radius: 54.0,
+                                    backgroundImage:
+                                    NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
+                                )
+                            ),
+                          ),
                           // CircleAvatar(
                           //   backgroundColor: Colors.blue.shade300,
                           //   minRadius: 35.0,

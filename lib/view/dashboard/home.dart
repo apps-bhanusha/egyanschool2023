@@ -56,6 +56,7 @@ late  int? i= noticController.noticlist.value?.response?.length;
   final NoticController noticController = Get.put(NoticController());
   final GetSchoolSettingController _schoolsetting =
   Get.put(GetSchoolSettingController());
+
   // allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"]==0? (int.parse(_allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"].toString())) / 100:(int.parse(_allsetController.SchoolIdControllerList[0]["response"][0]["attandance"]["present"].toString())) / 100
   List<UserNameController> dataModel = [];
   late AnimationController _controller;
@@ -169,15 +170,17 @@ late  int? i= noticController.noticlist.value?.response?.length;
        if(student_login=="student_login"){
          studentProfileController.studentProfileApi(student_id);      
                forceLogout.forceLogout(student_id, context);
+         company_key = box.get("company_key");
+         getexamview1.loadingGetexamsSchedule1.value = false;
+         getexamview1.GetexamsSchedule1api(company_key, 0,studentProfileController.studentProfileModel.value?.response.studentId);
        }
 var  role_flag = box.get("role_flag"); 
 if(role_flag.toString()=="P"){
      var parent_id = box.get("parent_id").toString();
        forceLogout.forceLogout(parent_id, context);
-}
-       print("#*****************************");
-   
 
+
+}
     // teacherbystudentController.GetTeacherByStudentapi(company_key, studentProfileController.studentProfileModel.value?.response.studentId.toString());
 
     _controller = AnimationController(
@@ -248,8 +251,7 @@ if(role_flag.toString()=="P"){
             username = box.get("username");
             password =box.get("password");
             // studentLoginUpdateControllers.apicallpost(username,password);
-            company_key = box.get("company_key");
-            getexamview1.GetexamsSchedule1api( company_key, 0,studentProfileController.studentProfileModel.value?.response.studentId);
+
     
             // teacherbystudentController.GetTeacherByStudentapi(company_key, studentProfileController.studentProfileModel.value?.response.studentId);
     
@@ -279,6 +281,7 @@ if(role_flag.toString()=="P"){
        if(student_login=="student_login"){
          studentProfileController.studentProfileApi(student_id);      
         forceLogout.forceLogout(student_id, context);
+
        }
             },
             child: IgnorePointer(
@@ -796,28 +799,30 @@ if(role_flag.toString()=="P"){
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            Obx(()=>
+                                            Obx(()=>getexamview1.loadingGetexamsSchedule1.value?
                                                Text(
-                                                 getexamview1.loadingGetexamsSchedule1.value?getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][i]["exam_group_name"]:CircularProgressIndicator(),
+                                                 getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][i]["exam_group_name"]??"",
                                                 style: GoogleFonts.dmSans(
                                                   fontStyle: FontStyle.normal,
                                                   fontSize: 15.sp,
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.black,
                                                 ),
-                                              ),
+                                              ):CircularProgressIndicator(),
                                             ),
                                             SizedBox(
                                               height: 0.015.sh,
                                             ),
-                                            Text(
-                                              getexamview1.loadingGetexamsSchedule1.value?getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][i]["exam"]:CircularProgressIndicator(),
-                                              style: GoogleFonts.dmSans(
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.lightBlue,
-                                              ),
+                        Obx(()=>getexamview1.loadingGetexamsSchedule1.value?
+                                           Text(
+                                               getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][i]["exam"]??"",
+                                                style: GoogleFonts.dmSans(
+                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.lightBlue,
+                                                ),
+                                              ):CircularProgressIndicator(),
                                             ),
                                           ],
                                         ),
@@ -1097,7 +1102,7 @@ if(role_flag.toString()=="P"){
                             color: Colors.white,
                           ),),
                         onTap:(){
-
+                          getexamview1.loadingGetexamsSchedule1.value=false;
                             Get.toNamed(RoutesName.examination);
 
                         }

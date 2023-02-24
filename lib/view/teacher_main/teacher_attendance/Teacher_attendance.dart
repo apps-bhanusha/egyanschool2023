@@ -271,153 +271,153 @@ class _TeacherAttendanceState extends State<TeacherAttendance> {
        backgroundColor: Theme.of(context).primaryColor,
         title: Text('Staff Atendance',style: MyGoogeFont.mydmSans),
       ),
-      body: SmartRefresher(
-        controller: _refreshController,
+      body: Obx(()=> _staffMonthlyPresentSummaryController.loadingMonthlyPresentSummary.value?
+        SmartRefresher(
+          controller: _refreshController,
 
-        onRefresh: _onRefresh,
-        child: SingleChildScrollView(
+          onRefresh: _onRefresh,
+          child: SingleChildScrollView(
 
 
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
 
-              SizedBox(
-                height: 0.25.sh,
-                child:Obx(()=>
-                 _staffMonthlyPresentSummaryController.loadingMonthlyPresentSummary.value?SfCartesianChart(
-                      plotAreaBorderWidth: 0,
-                      primaryXAxis: CategoryAxis(
-                        majorGridLines: const MajorGridLines(width: 0),
-                        axisLine: const AxisLine(width: 0),
-                      ),
-                      primaryYAxis: NumericAxis(minimum: 0, maximum: 31, interval: 5,  numberFormat: NumberFormat.compact(),  majorGridLines: MajorGridLines(width: 0),
-                        axisLine: const AxisLine(width: 0), ),
-                      tooltipBehavior: _tooltip,
-                      series: <ChartSeries<_ChartData, String>>[
-                        // for(var i=5; i<data.length; i++)
-                        ColumnSeries<_ChartData, String>(
-                          dataSource:data,
-                          xValueMapper: (_ChartData data, _) => data.x,
-                          yValueMapper: (_ChartData data, _) => data.y,
-                          name:"",
-                          pointColorMapper: (_ChartData data, _) => data.color,
-                          // dataLabelSettings: DataLabelSettings(isVisible: true)
-                        )
-                      ]
-                  ):const Center(child: Padding(
-                    padding: EdgeInsets.only(top: 150),
-                    child: CircularProgressIndicator(color: Colors.blue,),
-                  )),
-                ),
-              ),
-
-              SizedBox(
-                height: 0.60.sh,
-                child: Obx(()=>
-                  loadingmonthlyattendence.value?Card(margin: const EdgeInsets.only(left: 16.0, right: 16.0,).r,child: Column(
-                    children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.lightBlueAccent,
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(10),  topRight: Radius.circular(10)),),
-
-                        height: 0.0035.sh,
-
-                      ) ,
-
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 16.0).r,
-                        child: CalendarCarousel<Event>(
-                          height: 0.56.sh,
-                          // height: cHeight * 0.54,
-                          weekendTextStyle: const TextStyle(
-                            color: Colors.red,
-                          ),
-                          todayButtonColor: Colors.blue,
-                          markedDatesMap: _markedDateMap,
-                          daysHaveCircularBorder: false,
-                          markedDateShowIcon: true,
-                          showOnlyCurrentMonthDate: true,
-                          markedDateIconMaxShown: 1,
-                          // markedDateMoreShowTotal: true,
-                          minSelectedDate:DateFormat("yyyy-MM-dd").parse(year_start_date),
-                          maxSelectedDate:DateFormat("yyyy-MM-dd").parse(year_end_date),
-                          thisMonthDayBorderColor: const Color.fromARGB(255, 206, 204, 204),// null for not showing hidden events indicator
-                          markedDateIconBuilder: (event) {
-                            return event.icon;
-                          },
+                SizedBox(
+                  height: 0.25.sh,
+                  child:Obx(()=>
+                   _staffMonthlyPresentSummaryController.loadingMonthlyPresentSummary.value?SfCartesianChart(
+                        plotAreaBorderWidth: 0,
+                        primaryXAxis: CategoryAxis(
+                          majorGridLines: const MajorGridLines(width: 0),
+                          axisLine: const AxisLine(width: 0),
                         ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                              height: 15,
-                              width: 15,
-                              color: Colors.red),
-                          Text("Absent",style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize:12.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.lightBlueAccent,
-                          ),),
-                          Container(
-                              height: 15,
-                              width: 15,
-                              color: Colors.green),
+                        primaryYAxis: NumericAxis(minimum: 0, maximum: 31, interval: 5,  numberFormat: NumberFormat.compact(),  majorGridLines: MajorGridLines(width: 0),
+                          axisLine: const AxisLine(width: 0), ),
+                        tooltipBehavior: _tooltip,
+                        series: <ChartSeries<_ChartData, String>>[
+                          // for(var i=5; i<data.length; i++)
+                          ColumnSeries<_ChartData, String>(
+                            dataSource:data,
+                            xValueMapper: (_ChartData data, _) => data.x,
+                            yValueMapper: (_ChartData data, _) => data.y,
+                            name:"",
+                            pointColorMapper: (_ChartData data, _) => data.color,
+                            // dataLabelSettings: DataLabelSettings(isVisible: true)
+                          )
+                        ]
+                    ):Text(""),
 
-                          Text("Present",style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize:12.sp,
-                            fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                SizedBox(
+                  height: 0.60.sh,
+                  child: Obx(()=>
+                    loadingmonthlyattendence.value?Card(margin: const EdgeInsets.only(left: 16.0, right: 16.0,).r,child: Column(
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(
                             color: Colors.lightBlueAccent,
-                          ),),
-                          Container(
-                              height: 15,
-                              width: 15,
-                              color: Colors.yellow),
-                          Text("Late",style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize:12.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.lightBlueAccent,
-                          ),),
-                          Container(
-                              height: 15,
-                              width: 15,
-                              color: Colors.orange),
-                          Text("HalfDay",style: GoogleFonts.dmSans(
-                            fontStyle: FontStyle.normal,
-                            fontSize:12.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.lightBlueAccent,
-                          ),),
-                          Container(
-                              height: 15,
-                              width: 15,
-                              color: Colors.grey),
-                          Text("Holiday",
-                            style: GoogleFonts.dmSans(
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(10),  topRight: Radius.circular(10)),),
+
+                          height: 0.0035.sh,
+
+                        ) ,
+
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 16.0).r,
+                          child: CalendarCarousel<Event>(
+                            height: 0.56.sh,
+                            // height: cHeight * 0.54,
+                            weekendTextStyle: const TextStyle(
+                              color: Colors.red,
+                            ),
+                            todayButtonColor: Colors.blue,
+                            markedDatesMap: _markedDateMap,
+                            daysHaveCircularBorder: false,
+                            markedDateShowIcon: true,
+                            showOnlyCurrentMonthDate: true,
+                            markedDateIconMaxShown: 1,
+                            // markedDateMoreShowTotal: true,
+                            minSelectedDate:DateFormat("yyyy-MM-dd").parse(year_start_date),
+                            maxSelectedDate:DateFormat("yyyy-MM-dd").parse(year_end_date),
+                            thisMonthDayBorderColor: const Color.fromARGB(255, 206, 204, 204),// null for not showing hidden events indicator
+                            markedDateIconBuilder: (event) {
+                              return event.icon;
+                            },
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                                height: 15,
+                                width: 15,
+                                color: Colors.red),
+                            Text("Absent",style: GoogleFonts.dmSans(
                               fontStyle: FontStyle.normal,
                               fontSize:12.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.lightBlueAccent,
                             ),),
-                        ],
-                      ),
-                    ],
+                            Container(
+                                height: 15,
+                                width: 15,
+                                color: Colors.green),
+
+                            Text("Present",style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize:12.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.lightBlueAccent,
+                            ),),
+                            Container(
+                                height: 15,
+                                width: 15,
+                                color: Colors.yellow),
+                            Text("Late",style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize:12.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.lightBlueAccent,
+                            ),),
+                            Container(
+                                height: 15,
+                                width: 15,
+                                color: Colors.orange),
+                            Text("HalfDay",style: GoogleFonts.dmSans(
+                              fontStyle: FontStyle.normal,
+                              fontSize:12.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.lightBlueAccent,
+                            ),),
+                            Container(
+                                height: 15,
+                                width: 15,
+                                color: Colors.grey),
+                            Text("Holiday",
+                              style: GoogleFonts.dmSans(
+                                fontStyle: FontStyle.normal,
+                                fontSize:12.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.lightBlueAccent,
+                              ),),
+                          ],
+                        ),
+                      ],
+                    ),
+
+                    ):const Text(""),
                   ),
-
-                  ):const Text(""),
                 ),
-              ),
-              // markerRepresent(Colors.red, "Absent"),
-              // markerRepresent(Colors.green, "Present"),
-            ],
-          ),
+                // markerRepresent(Colors.red, "Absent"),
+                // markerRepresent(Colors.green, "Present"),
+              ],
+            ),
 
-        ),
+          ),
+        ):Center(child: CircularProgressIndicator(color: Colors.blue,)),
       ),
     );
   }

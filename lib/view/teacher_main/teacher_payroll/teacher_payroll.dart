@@ -165,9 +165,9 @@ print(dateall);
                                 backgroundColor: Colors.white70,
                                 minRadius: 45.0,
                                 child:    CircleAvatar(
-                                    foregroundImage: "${staffdetailsController.staffDetailModel.value?.response.image}"!="null"?
+                                    foregroundImage: "${staffdetailsController.staffDetailModel.value?.response.image}"!="null"?staffdetailsController.staffDetailModel.value?.response.image!="uploads/staff_images/5/"?
                                     NetworkImage("${ApiUrl.imagesUrl.toString()}${staffdetailsController.staffDetailModel.value?.response.image}")
-                                        :  NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU"),
+                                        :  NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU"):NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU"),
                                     radius: 40.0,
                                     backgroundImage:
                                     NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")

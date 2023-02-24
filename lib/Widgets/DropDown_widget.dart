@@ -42,7 +42,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
              hint:  widget.isloading?SizedBox(width: 110,height:20,child: Padding(
                padding: const EdgeInsets.only(left: 5),
                child: Text(widget.selectText),
-             )):const SizedBox(width: 110,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
+             )):const SizedBox(width: 120,height: 20, child: Center(child: SizedBox( width: 20,height:20,child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,)))),
                  items: widget.empaty.isEmpty? widget.item.map((country){
                  return DropdownMenuItem( 
               value: country, 

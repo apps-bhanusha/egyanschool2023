@@ -379,11 +379,11 @@ setState(() {
           ),
           ),
         ),
-           const SizedBox(height: 15,),
+            SizedBox(height: 0.020.sh,),
      isCalendarActivet?    Container(
         color: const Color.fromARGB(255, 255, 241, 117),
         width: double.infinity,
-        height: 0.12.sh,
+        height: 0.15.sh,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -403,7 +403,7 @@ setState(() {
            const SizedBox(height:7 ,),
       
             Padding(
-              padding: const EdgeInsets.all(5.0),
+              padding: const EdgeInsets.only(left: 5.0).r,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
@@ -497,7 +497,7 @@ setState(() {
               Container(
                          margin: const EdgeInsets.symmetric(horizontal: 16.0).r,
                         child: CalendarCarousel<Event>(
-                          height: 0.56.sh,
+                          height: 0.53.sh,
                           // height: cHeight * 0.54,
                           weekendTextStyle: const TextStyle(
                             color: Colors.red,
@@ -589,8 +589,8 @@ setState(() {
                     },
                     child: Container(
                       color: Colors.blue,
-                      width: 100,
-                      height: 30,
+                      width: 0.2.sw,
+                      height: 0.050.sh,
                       alignment: Alignment.center,
                     child: Obx(() => classListController.islodingSave.value? Text("Save",style: TextStyle(color: Colors.white),):Center(child: SizedBox(width: 20,height: 20, child: CircularProgressIndicator(strokeWidth: 2,color: Colors.white,)),))
                     ),

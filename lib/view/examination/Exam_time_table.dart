@@ -21,6 +21,7 @@ class _ExamTimeTableState extends State<ExamTimeTable> {
   final StudentProfileController studentProfileController = Get.put(StudentProfileController());
   GetexamsSchedule1Controller getexamview1=Get.put(GetexamsSchedule1Controller());
   GetexamsScheduleController getexamview=Get.put(GetexamsScheduleController());
+
   var company_key;
   var exam_id;
   var box = Hive.box("schoolData");
@@ -30,18 +31,16 @@ void initState() {
         company_key = box.get("company_key");
           var  student_login = box.get("student_login");
           print(student_login);
-          if(student_login=="student_login"){
+          if(student_login=="student_login" || student_login=="Parent_login"){
             getexamview1.GetexamsSchedule1api(company_key, 0,
-                studentProfileController.studentProfileModel.value?.response
-                    .studentId);
-            print("ffalll");
-            print(studentProfileController.studentProfileModel.value?.response
-                .studentId);
-          }else{
-            company_key = box.get("company_key");
-            getexamview1.loadingGetexamsSchedule1.value=false;
+                studentProfileController.studentProfileModel.value?.response.studentId);
+          }
+          else{
             getexamview1.GetexamsSchedule1api(company_key, 0,0);
-            print("bugss is not fixx");
+            setState(() {
+
+            });
+
           }
         exam_id = box.get("exam_id");
   }
@@ -53,8 +52,7 @@ void initState() {
           title: Text('Examination',style: MyGoogeFont.mydmSans),
 
         ),
-        body: Obx(()=>
-            getexamview1.loadingGetexamsSchedule1.value?Column(
+        body: Obx(()=> getexamview1.loadingGetexamsSchedule1.value?Column(
             children: [
               for (int i = 0; i <getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"].length; i++)
                 Center(
@@ -90,21 +88,20 @@ void initState() {
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children:  [
-   Obx(
-   () =>Text(getexamview1.loadingGetexamsSchedule1.value?getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][i]["exam_group_name"]:CircularProgressIndicator(),style: GoogleFonts.dmSans(
+   Text(getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][i]["exam_group_name"],style: GoogleFonts.dmSans(
      fontStyle: FontStyle.normal,
      fontSize: 15.sp,
      fontWeight: FontWeight.bold,
      color: Colors.white,
-   )),),
-                                        Obx(
-                                              () =>Text(getexamview1.loadingGetexamsSchedule1.value?getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][i]["exam"]:CircularProgressIndicator(),style: GoogleFonts.dmSans(
+   ),
+   ),
+                                       Text(getexamview1.GetexamsSchedule1ControllerList[0]["response"]["examSchedule"][i]["exam"],style: GoogleFonts.dmSans(
                                                 fontStyle: FontStyle.normal,
                                                 fontSize: 15.sp,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white,
                                               ), ),
-                                        )
+
                                       ],
                                     ),
                                     const Spacer(),

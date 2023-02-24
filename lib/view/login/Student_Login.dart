@@ -2,6 +2,7 @@ import 'package:ecom_desgin/Widgets/footer_widget.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/parent_login.dart';
 import 'package:ecom_desgin/controller/student_login_controller.dart';
+import 'package:ecom_desgin/controller/teacher_controller/staff_detial_contriller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/teacher_login_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class _StudentLoginState extends State<StudentLogin> {
   final GetSchoolSettingController _schoolsetting =Get.put(GetSchoolSettingController());
  final ParentLoginController parentLoginController=Get.put(ParentLoginController());
  final TeacherLoginController _teacherLoginController =Get.put(TeacherLoginController());
+  final StaffDetailController staffdetailsController = Get.put(StaffDetailController());
   List<UserNameController> _dataset = [];
   int _radioSelected = 0;
   late String _radioVal = "";
@@ -244,7 +246,7 @@ class _StudentLoginState extends State<StudentLogin> {
                       parentLoginController.parentapi(usersname.text, password.text, context);
                     }
                     if(rediobutton==1) {
-                    
+
                     _allsetController.isloading.value=false;
                       parentLoginController.loadingdata.value=false;
                      _teacherLoginController.teachertLogin.value = false;
@@ -254,6 +256,7 @@ class _StudentLoginState extends State<StudentLogin> {
                       print("teacherll");
                       _teacherLoginController.teachertLogin.value = false;
                       _teacherLoginController.teacherLoginApi(usersname.text,password.text,context);
+                    staffdetailsController.isloding.value=false;
                     }
                     },
 

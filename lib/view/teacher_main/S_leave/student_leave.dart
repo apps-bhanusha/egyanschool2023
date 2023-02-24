@@ -208,7 +208,7 @@ bool islike=false;
           ),
           ),
         ),
-              const SizedBox( height: 3,),
+               SizedBox( height: 0.010.sh,),
 
              Container(
               height: 0.7.sh,
@@ -239,7 +239,7 @@ bool islike=false;
                                  margin:  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
                                child: Container(
                                  width: 0.99.sw,
-                                 height: 0.19.sh,
+                                 height: 0.21.sh,
                                  decoration: BoxDecoration(
                                    borderRadius: BorderRadius.circular(10),
                                    color: const Color(0xffE3F2FB),
@@ -250,7 +250,7 @@ bool islike=false;
                                    children: [
                                      Padding(
                                        padding: const EdgeInsets.only(
-                                           left: 10,top: 5
+                                           left: 10,top: 3
                                        ).r,
                                        child: Row(
                                          children: [
@@ -322,7 +322,7 @@ bool islike=false;
                                                      ),
                                                    ),
                                        
-                                             SizedBox(height: 0.010.sh,),
+                                             SizedBox(height: 0.006.sh,),
                                                    SizedBox(
                                        
                                                      width: 0.25.sw,
@@ -437,18 +437,21 @@ bool islike=false;
                                          ],
                                        ),
                                      ),
-                                     const SizedBox(height: 3,),
+                                      SizedBox(height: 0.003.sh,),
                                          
                                    
-                                    Row(
-                                     children:  [
-                                       Text("Reason:-"),
-                                     SizedBox(width: 20,),
-                                         
-                                       Text(studentLeaveController.StudentLeaveRecordControllerList[0]["response"][index]["reason"].toString())
-                                     ],
-                                     ),
-                                     const SizedBox(height: 9,),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5.0).r,
+                                      child: Row(
+                                       children:  [
+                                         Text("Reason:-"),
+                                       SizedBox(width: 20,),
+
+                                         Text(studentLeaveController.StudentLeaveRecordControllerList[0]["response"][index]["reason"].toString())
+                                       ],
+                                       ),
+                                    ),
+                                      SizedBox(height:0.005.sh,),
                                                      studentLeaveController.StudentLeaveRecordControllerList[0]["response"][index]["leave_status"].toString().toLowerCase()=="Pending".toLowerCase()?  
                                                      
                                    Row(

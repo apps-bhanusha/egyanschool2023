@@ -4,6 +4,7 @@ import 'package:ecom_desgin/constant/Colors.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/About_Controller.dart';
 import 'package:ecom_desgin/controller/force_logout.dart';
+import 'package:ecom_desgin/controller/getexamsSchedule1_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/teacher_login_controller.dart';
 import 'package:ecom_desgin/routes/routes.dart';
@@ -47,6 +48,7 @@ class _TdashboardState extends State<Tdashboard>
       final ForceLogout forceLogout = Get.put(ForceLogout());
        TeacherLoginController teacherLoginController=Get.put(TeacherLoginController());
 final AboutController aboutController = Get.put(AboutController());
+  GetexamsSchedule1Controller getexamview1=Get.put(GetexamsSchedule1Controller());
   late AnimationController _controller;
   // late AnimationController controller;
   // late Animation colorAnimation;
@@ -811,10 +813,9 @@ Widget buildMenu() {
                                   child: ListTile(
                                     onTap: () {
                                       Get.to(const TeacherExamTimeTable());
+                                      getexamview1.loadingGetexamsSchedule1.value = false;
 
-
-
-                                    },
+                                      },
                                     title: Text(
                                       "Exam Shedule",
                                       style: GoogleFonts.dmSans(

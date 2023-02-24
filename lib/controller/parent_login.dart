@@ -51,7 +51,6 @@ class ParentLoginController extends GetxController{
       "password":password,
       "company_key":company_key,
       "username":username,
-      
     });
 
     print(body);
@@ -65,6 +64,7 @@ class ParentLoginController extends GetxController{
         box.put("username",username);
         box.put("password",password);
         box.put("student_login","Parent_login");
+
           await sessionManager.set("name", username);
           await sessionManager.set("parentlogin", "parentlogin");
           await sessionManager.set("passward", password);

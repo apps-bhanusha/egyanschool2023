@@ -174,8 +174,8 @@ class _TeacherTimeTableState extends State<TeacherTimeTable> {
         backgroundColor: Theme.of(context).primaryColor,
           title: Text('Teacher Time Table',style: MyGoogeFont.mydmSans),
         ),
-        body:Obx(()=>teacherTimeTableController.TeacherTimeTableControllerList.isNotEmpty?
-      teacherTimeTableController.loadingTimeTable.value  ? Column(
+        body:Obx(()=>teacherTimeTableController.loadingTimeTable.value  ?teacherTimeTableController.TeacherTimeTableControllerList[0]["response"]["result"]!=null?
+       Column(
           children: [
             const SizedBox(height: 20,),
             SizedBox(
@@ -481,11 +481,11 @@ class _TeacherTimeTableState extends State<TeacherTimeTable> {
               ),
             ),
           ],
-        ):Center(child: Text("", style: GoogleFonts.dmSans(
+        ):Center(child: Text("No Record", style: GoogleFonts.dmSans(
           fontStyle: FontStyle.normal,
           fontSize: 15.sp,
           fontWeight: FontWeight.bold,
-          color: Colors.white,
+          color: Colors.black,
         ),)):Center(child: CircularProgressIndicator(color: Colors.white,)),
         ),
       ),

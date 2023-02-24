@@ -6,10 +6,12 @@ import 'package:ecom_desgin/constant/api_url.dart';
 import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/About_Controller.dart';
 import 'package:ecom_desgin/controller/force_logout.dart';
+import 'package:ecom_desgin/controller/getexamsSchedule1_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/noticeboard_controller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/staff_detial_contriller.dart';
 import 'package:ecom_desgin/controller/teacher_controller/teacher_login_controller.dart';
+import 'package:ecom_desgin/controller/teacher_controller/teacher_time_table_controller.dart';
 
 import 'package:ecom_desgin/routes/routes.dart';
 import 'package:ecom_desgin/view/About_app/about_e-gayn.dart';
@@ -62,6 +64,7 @@ class _TeacherHomeState extends State<TeacherHome>
       final ForceLogout forceLogout = Get.put(ForceLogout());
       final AboutController aboutController = Get.put(AboutController());
        TeacherLoginController teacherLoginController=Get.put(TeacherLoginController());
+  GetexamsSchedule1Controller getexamview1=Get.put(GetexamsSchedule1Controller());
 
 bool teachervisible=false;
   int totalSecs = 90;
@@ -87,7 +90,7 @@ var session;
 
   @override
   void initState() {
-    staffdetailsController.isloding.value=false;
+
     var id=box.get("staff_id");
     var companyKey=box.get("company_key");
 _schoolsetting.GetSchoolSettingapi(companyKey);
@@ -102,6 +105,7 @@ _schoolsetting.GetSchoolSettingapi(companyKey);
     noticBoardController.noticBoardapi(role_flag);
     super.initState();
 if(activestudentinfo.toString().toLowerCase()=="teacher"){
+
            teacherLoginController.activatestudentInfo.value=true; 
 
         }else{
@@ -317,43 +321,87 @@ var id=box.get("staff_id");
                                   Positioned(
                             left: 0.10.sw,
                                     top: 0.015.sh,
-                                    child: Row(
-                                      children: [
-                                    //  staffdetailsController.staffDetailModel.value?.response.image!=null?   FractionalTranslation(
-                                    //         translation: const Offset(0.0, -0.0),
-                                    //         child: Align(
-                                    //             alignment: const FractionalOffset(0.5, 0.5),
-                                    //             child: CircleAvatar(
-                                    //                 maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
-                                    //                     39,
-                                    //                 minRadius: 20,
-                                    //                 foregroundImage: 
-                                    //                 NetworkImage("${ApiUrl.imagesUrl.toString()}${staffdetailsController.staffDetailModel.value?.response.image}")
-                                                        
-                                    //                 ,
-                                    //             )
+                                    child: InkWell(
+                                      onTap: (){
+                                        print("allimsage");
+                                        print(staffdetailsController.staffDetailModel.value?.response.image);
+                                      },
+                                      child: Row(
+                                        children: [
+                                       Obx(()=> staffdetailsController.isloding.value?
+                                          staffdetailsController.staffDetailModel.value?.response.image!=null?staffdetailsController.staffDetailModel.value?.response.image!= "uploads/staff_images/5/" ? FractionalTranslation(
+                                                translation: const Offset(0.0, -0.0),
+                                                child: Align(
+                                                    alignment: const FractionalOffset(0.5, 0.5),
+                                                    child: CircleAvatar(
+                                                        maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
+                                                            39,
+                                                        minRadius: 20,
+                                                        foregroundImage:
+                                                        NetworkImage("${ApiUrl.imagesUrl.toString()}${staffdetailsController.staffDetailModel.value?.response.image}")
+
+                                                        ,
+                                                    )
 
 
-                                    //         ),
-                                    //       ): FractionalTranslation(
-                                    //         translation: const Offset(0.0, -0.0),
-                                    //         child: Align(
-                                    //             alignment: const FractionalOffset(0.5, 0.5),
-                                    //             child: CircleAvatar(
-                                    //                 maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
-                                    //                     39,
-                                    //                 minRadius: 20,
-                                    //                 foregroundImage: const NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
-                                 
-                                    //                 ,
-                                    //                 // radius: 54.0,
-                                    //                 backgroundImage:
-                                    //                 const NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
-                                    //             )
+                                                ),
+                                              ): FractionalTranslation(
+                                                translation: const Offset(0.0, -0.0),
+                                                child: Align(
+                                                    alignment: const FractionalOffset(0.5, 0.5),
+                                                    child: CircleAvatar(
+                                                        maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
+                                                            39,
+                                                        minRadius: 20,
+                                                        foregroundImage: const NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
+
+                                                        ,
+                                                        // radius: 54.0,
+                                                        backgroundImage:
+                                                        const NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
+                                                    )
 
 
-                                    //         ),
-                                    //       ),
+                                                ),
+                                              ):FractionalTranslation(
+                translation: const Offset(0.0, -0.0),
+          child: Align(
+              alignment: const FractionalOffset(0.5, 0.5),
+              child: CircleAvatar(
+                  maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
+                      39,
+                  minRadius: 20,
+                  foregroundImage: const NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
+
+                  ,
+                  // radius: 54.0,
+                  backgroundImage:
+                  const NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
+              )
+
+
+          ),
+        ):FractionalTranslation(
+                                         translation: const Offset(0.0, -0.0),
+                                         child: Align(
+                                             alignment: const FractionalOffset(0.5, 0.5),
+                                             child: CircleAvatar(
+                                                 maxRadius: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width +
+                                                     39,
+                                                 minRadius: 20,
+                                                 foregroundImage: const NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
+
+                                                 ,
+                                                 // radius: 54.0,
+                                                 backgroundImage:
+                                                 const NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7M4Z0v1HP2Z9tZmfQaZFCuspezuoxter_A&usqp=CAU")
+                                             )
+
+
+                                         ),
+                                       )
+    ),
+
                             //             Obx(()=>
                             //                staffdetailsController.isloding.value?ClipRRect(
                             //                 // borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),),
@@ -369,45 +417,46 @@ var id=box.get("staff_id");
                             //   backgroundImage:
                             //   AssetImage("assets/images/user1.png"),
                             // ),),
-                            //             ),
+            // ),
 
-                                        Padding(
-                                          padding:  const EdgeInsets.only(left: 8.0).r,
-                                          child:Obx(()=>
-                                            staffdetailsController.isloding.value? Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                            '${staffdetailsController.staffDetailModel.value?.response.name.toString().capitalizeFirst} ${staffdetailsController.staffDetailModel.value?.response.surname.toString().capitalizeFirst}',
-                                                  style: GoogleFonts.dmSans(
-                                                      fontStyle: FontStyle.normal,
-                                                      fontSize: 13.sp,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.black),
-                                                ),
+                                          Padding(
+                                            padding:  const EdgeInsets.only(left: 8.0).r,
+                                            child:Obx(()=>
+                                              staffdetailsController.isloding.value? Column(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                              '${staffdetailsController.staffDetailModel.value?.response.name.toString().capitalizeFirst} ${staffdetailsController.staffDetailModel.value?.response.surname.toString().capitalizeFirst}',
+                                                    style: GoogleFonts.dmSans(
+                                                        fontStyle: FontStyle.normal,
+                                                        fontSize: 13.sp,
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Colors.black),
+                                                  ),
 
-                                                Text(
-                                                  '${staffdetailsController.staffDetailModel.value?.response.email}',
-                                                  style: GoogleFonts.dmSans(
-                                                      fontStyle: FontStyle.normal,
-                                                      fontSize: 13.sp,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.black),
-                                                ),
-                                                Text(
-                                                  '${staffdetailsController.staffDetailModel.value?.response.contactNo}',
-                                                  style: GoogleFonts.dmSans(
-                                                      fontStyle: FontStyle.normal,
-                                                      fontSize: 13.sp,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.black),
-                                                ),
-                                              ],
-                                            ):const Text(""),
+                                                  Text(
+                                                    '${staffdetailsController.staffDetailModel.value?.response.email}',
+                                                    style: GoogleFonts.dmSans(
+                                                        fontStyle: FontStyle.normal,
+                                                        fontSize: 13.sp,
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Colors.black),
+                                                  ),
+                                                  Text(
+                                                    '${staffdetailsController.staffDetailModel.value?.response.contactNo}',
+                                                    style: GoogleFonts.dmSans(
+                                                        fontStyle: FontStyle.normal,
+                                                        fontSize: 13.sp,
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Colors.black),
+                                                  ),
+                                                ],
+                                              ):const Text(""),
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -1239,10 +1288,8 @@ SizedBox(height: 0.0220.sh,),
                                   child: ListTile(
                                     onTap: () {
                                       Get.to(const TeacherExamTimeTable());
-
-
-
-                                    },
+                                      getexamview1.loadingGetexamsSchedule1.value = false;
+                          },
                                     title: Text(
                                       "Exam Shedule",
                                       style: GoogleFonts.dmSans(

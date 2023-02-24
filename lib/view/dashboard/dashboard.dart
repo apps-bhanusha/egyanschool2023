@@ -5,6 +5,7 @@ import 'package:ecom_desgin/constant/font.dart';
 import 'package:ecom_desgin/controller/force_logout.dart';
 import 'package:ecom_desgin/controller/getclasstimetable_controller.dart';
 import 'package:ecom_desgin/controller/getexamsResult_controller.dart';
+import 'package:ecom_desgin/controller/getexamsSchedule1_controller.dart';
 import 'package:ecom_desgin/controller/getexamsSchedule_controller.dart';
 import 'package:ecom_desgin/controller/getschoolsetting_controller.dart';
 import 'package:ecom_desgin/controller/parent_Student_List_Controller.dart';
@@ -42,7 +43,7 @@ class _GridViewallState extends State<GridViewall>
   final GetSchoolSettingController _schoolsetting =
   Get.put(GetSchoolSettingController());
       final ForceLogout forceLogout = Get.put(ForceLogout());
-
+  GetexamsSchedule1Controller getexamview1=Get.put(GetexamsSchedule1Controller());
   late AnimationController _controller;
   // late AnimationController controller;
   // late Animation colorAnimation;
@@ -318,7 +319,9 @@ class _GridViewallState extends State<GridViewall>
                                           if(index==1){Get.toNamed(RoutesName.profile);}
                                           if(index==2){Get.toNamed(RoutesName.attendance);}
                                           if(index==3){Get.toNamed(RoutesName.fees);}
-                                          if(index==4){Get.toNamed(RoutesName.examination);}
+                                          if(index==4){Get.toNamed(RoutesName.examination);
+                                          getexamview1.loadingGetexamsSchedule1.value = false;
+                                          }
                                           if(index==5){Get.toNamed(RoutesName.homeWork);}
                                           if(index==6){Get.toNamed(RoutesName.downloadAll);}
                                           if(index==7){Get.toNamed(RoutesName.timetable);}
@@ -634,7 +637,7 @@ class _GridViewallState extends State<GridViewall>
                           ),),
                         onTap:(){
                           if (getexamview.GetexamsScheduleControllerList!=null){
-
+                            getexamview1.loadingGetexamsSchedule1.value=false;
                             Get.toNamed(RoutesName.examination);
                           }
 

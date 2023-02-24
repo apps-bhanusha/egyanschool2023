@@ -67,140 +67,142 @@ uploadContentController.uploadContentpi();
         //   ),
         // ),
 
-        body:  Column(
-          children: [
-            const SizedBox(height: 15,),
-            Center(
-              child: Container(
+        body:  SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 15,),
+              Center(
+                child: Container(
 
-                width: 0.95.sw,
-                height: 0.14.sh,
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 5,
-                          color: Colors.grey
-                      )
-                    ]
-                ),
-                child: Column(
-                  children: [
-                    Container(
-                        height: 10,
-                        width: 0.95.sw,
-                        color:Colors.blue
-                    ),
-                    // const SizedBox( height: 10,),
-                    //         Row(
-                    //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //           children: [
-                    // DropdownButton(
-                    // iconSize: 35,
-                    //   alignment: Alignment.center,
-                    //   value: countries[0],
-                    //   items: countries.map((country){
-                    //   return DropdownMenuItem(
-                    //       child: Text(country),
-                    //       value: country,
-                    //   );
-                    //   }).toList(),
-                    //   onChanged: (country){
-                    //  print("You selected: $country");
-                    //   },
-                    // ),
-                    // DropdownButton(
-                    //  iconSize: 35,
-                    //    alignment: Alignment.center,
-                    //   value: countries1[0],
-                    //   items: countries1.map((country){
-                    //   return DropdownMenuItem(
-                    //       child: Text(country),
-                    //       value: country,
-                    //   );
-                    //   }).toList(),
-                    //   onChanged: (country){
-                    //  print("You selected: $country");
-                    //   },
-                    // )
-                    //           ],
-                    //         ),
-                    const SizedBox( height: 35,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const Text("Content List ",style:TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20)),
-                        InkWell(
-                          onTap: (){
-                            Get.to(UploadContent1());
-                          },
-                          child: Container(
-                            color: Colors.blue,
-                            width: 100,
-                            height: 30,
-                            alignment: Alignment.center,
-                            child: Text("Upload",style: TextStyle(color: Colors.white),),
-                          ),
+                  width: 0.95.sw,
+                  height: 0.14.sh,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 5,
+                            color: Colors.grey
                         )
-                      ],
-                    )
+                      ]
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                          height: 10,
+                          width: 0.95.sw,
+                          color:Colors.blue
+                      ),
+                      // const SizedBox( height: 10,),
+                      //         Row(
+                      //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //           children: [
+                      // DropdownButton(
+                      // iconSize: 35,
+                      //   alignment: Alignment.center,
+                      //   value: countries[0],
+                      //   items: countries.map((country){
+                      //   return DropdownMenuItem(
+                      //       child: Text(country),
+                      //       value: country,
+                      //   );
+                      //   }).toList(),
+                      //   onChanged: (country){
+                      //  print("You selected: $country");
+                      //   },
+                      // ),
+                      // DropdownButton(
+                      //  iconSize: 35,
+                      //    alignment: Alignment.center,
+                      //   value: countries1[0],
+                      //   items: countries1.map((country){
+                      //   return DropdownMenuItem(
+                      //       child: Text(country),
+                      //       value: country,
+                      //   );
+                      //   }).toList(),
+                      //   onChanged: (country){
+                      //  print("You selected: $country");
+                      //   },
+                      // )
+                      //           ],
+                      //         ),
+                      const SizedBox( height: 35,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          const Text("Content List ",style:TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20)),
+                          InkWell(
+                            onTap: (){
+                              Get.to(UploadContent1());
+                            },
+                            child: Container(
+                              color: Colors.blue,
+                              width: 100,
+                              height: 30,
+                              alignment: Alignment.center,
+                              child: Text("Upload",style: TextStyle(color: Colors.white),),
+                            ),
+                          )
+                        ],
+                      )
 
+                    ],
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:const [
+                    Text("Content Title",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                    Text("Type",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                    Text("Date",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                    Text("Available for",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                   
                   ],
                 ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children:const [
-                  Text("Content Title",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
-                  Text("Type",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
-                  Text("Date",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
-                  Text("Available for",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
-                 
-                ],
-              ),
-            ) ,
-            const SizedBox( height: 10,),
-            SizedBox(
-              height: 0.67.sh,
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: SingleChildScrollView(
-                  child: Obx(
-                  () => uploadContentController.isloading.value? ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: uploadContentController.allContentModal.value?.response.length??0,
-                      itemBuilder: (context, index) {
-                      return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              
-                      children: [
-                        SizedBox(height: 35, width: 90, child: Obx(() =>  Text("${uploadContentController.allContentModal.value?.response[index].title.capitalize}.",style: TextStyle(fontSize: 14),))),
-                        SizedBox(height: 35, width: 115,child:  Obx(() =>  Text("${uploadContentController.allContentModal.value?.response[index].type.capitalize}",style: TextStyle(fontSize: 14),))),
-                        SizedBox(height: 35,width: 90,child:  Obx(() =>  Text(MyDateFormat.dateformatmethod("${uploadContentController.allContentModal.value?.response[index].date}"),style: TextStyle(fontSize: 14),))),
-                        SizedBox(height: 35,width: 40,child:  Obx(() =>  Row(
-                          children: [
-                            Text(uploadContentController.allContentModal.value?.response[index].responseClass??"All",style: const TextStyle(fontSize: 14),),
-                            const Text("/",style: TextStyle(fontSize: 14),),
-                            Text(uploadContentController.allContentModal.value?.response[index].section??"",style: const TextStyle(fontSize: 14),),
-                          ],
-                        ))),
-                     
-                      ],
-                    );
-                    },):const Center(child:Padding(
-                      padding: EdgeInsets.only(top: 260),
-                      child: CircularProgressIndicator(color: Colors.blue,),
-                    ),),
-                  ),
-                )
-              ),
-            ) ,
-          ],
+              ) ,
+              const SizedBox( height: 10,),
+              SizedBox(
+                height: 0.67.sh,
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: SingleChildScrollView(
+                    child: Obx(
+                    () => uploadContentController.isloading.value? ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: uploadContentController.allContentModal.value?.response.length??0,
+                        itemBuilder: (context, index) {
+                        return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                
+                        children: [
+                          SizedBox(height: 35, width: 90, child: Obx(() =>  Text("${uploadContentController.allContentModal.value?.response[index].title.capitalize}.",style: TextStyle(fontSize: 14),))),
+                          SizedBox(height: 35, width: 115,child:  Obx(() =>  Text("${uploadContentController.allContentModal.value?.response[index].type.capitalize}",style: TextStyle(fontSize: 14),))),
+                          SizedBox(height: 35,width: 90,child:  Obx(() =>  Text(MyDateFormat.dateformatmethod("${uploadContentController.allContentModal.value?.response[index].date}"),style: TextStyle(fontSize: 14),))),
+                          SizedBox(height: 35,width: 40,child:  Obx(() =>  Row(
+                            children: [
+                              Text(uploadContentController.allContentModal.value?.response[index].responseClass??"All",style: const TextStyle(fontSize: 14),),
+                              const Text("/",style: TextStyle(fontSize: 14),),
+                              Text(uploadContentController.allContentModal.value?.response[index].section??"",style: const TextStyle(fontSize: 14),),
+                            ],
+                          ))),
+                       
+                        ],
+                      );
+                      },):const Center(child:Padding(
+                        padding: EdgeInsets.only(top: 260),
+                        child: CircularProgressIndicator(color: Colors.blue,),
+                      ),),
+                    ),
+                  )
+                ),
+              ) ,
+            ],
+          ),
         )
     );
   }
